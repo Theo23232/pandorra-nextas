@@ -1,0 +1,8 @@
+{
+  "console-log-arrow": {
+    "prefix": "clog",
+    "description": "console.log",
+    "scope": "typescriptreact",
+    "body": ["console.log('$1 ==> ', $1)"]
+  }
+}

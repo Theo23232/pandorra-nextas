@@ -1,0 +1,12 @@
+{
+  "component-with-props": {
+    "prefix": "com",
+    "description": "Create base TypeScript component without props depending on the file name",
+    "scope": "typescriptreact",
+    "body": [
+      "export const ${1:${TM_FILENAME_BASE/([\\w]+)([-_])([\\w])/${1:/capitalize}${3:/capitalize}/g}} = () => {",
+      "  return $2",
+      "}"
+    ]
+  }
+}

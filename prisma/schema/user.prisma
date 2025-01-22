@@ -18,12 +18,21 @@ model User {
 
     emailNotification Boolean @default(true)
     pushNotification  Boolean @default(true)
+    stripeCustomerId  String?
+    jeton             BigInt  @default(150)
 
     plan Plan @default(Free)
 
-    Post     Post[]
-    Session  Session[]
-    Feedback Feedback[]
+    Post            Post[]
+    Session         Session[]
+    Feedback        Feedback[]
+    Generation      Generation[]
+    UserImage       UserImage[]
+    Variant         Variant[]
+    Publication     Publication[]
+    Comment         Comment[]
+    CommentReaction CommentReaction[]
+    Reaction        Reaction[]
 }
 
 model Session {

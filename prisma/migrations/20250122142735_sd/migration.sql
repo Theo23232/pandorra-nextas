@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "jeton" BIGINT NOT NULL DEFAULT 150;

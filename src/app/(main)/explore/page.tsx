@@ -1,8 +1,7 @@
-import { RotatingVideosBanner } from '@/components/(main)/explore/rotating-video-banner';
-import GradientFlow from '@/components/background/gradient-flow';
+import { RotatingVideosBanner } from "@/components/(main)/explore/rotating-video-banner"
+import GradientFlow from "@/components/background/gradient-flow"
 
-import type { PageParams } from "@/types/next"
-export default async function RoutePage(props: PageParams<{}>) {
+export default async function RoutePage() {
   return (
     <div className="">
       <RotatingVideosBanner />

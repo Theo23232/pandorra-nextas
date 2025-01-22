@@ -69,7 +69,6 @@ export function ModalAddWorkspace({
           <DropdownMenuItem
             onSelect={(event) => {
               event.preventDefault()
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
               onSelect && onSelect()
             }}
           >

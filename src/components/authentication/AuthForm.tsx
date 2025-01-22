@@ -68,7 +68,7 @@ export default function AuthForm() {
       const responseData = await response.json()
       if (responseData.token) {
         document.cookie = `auth-token=${responseData.token}; path=/`
-        router.push("/dashboard/overview")
+        router.push("/explore")
         router.refresh()
       }
     } catch (err: any) {

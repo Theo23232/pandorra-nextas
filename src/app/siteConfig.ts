@@ -4,7 +4,7 @@ export const siteConfig = {
   description: "Ship your SaaS faster",
   baseLinks: {
     home: "/",
-    overview: "/dashboard/overview",
+    overview: "/explore",
     details: "/dashboard/details",
     settings: "/dashboard/settings",
   },

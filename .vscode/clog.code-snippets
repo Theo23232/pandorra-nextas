@@ -2,7 +2,7 @@
   "console-log-arrow": {
     "prefix": "clog",
     "description": "console.log",
-    "scope": "typescriptreact",
-    "body": ["console.log('$1 ==> ', $1)"]
-  }
+    "scope": "typescriptreact,javascript,typescript",
+    "body": ["console.log('$1 ==> ', $1)"],
+  },
 }

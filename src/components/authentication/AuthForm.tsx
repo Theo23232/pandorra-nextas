@@ -1,18 +1,17 @@
 "use client"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { GoogleAuth } from "@/components/authentication/google-auth"
-import { Input } from "@/components/tremor/inputs/input"
-import { Label } from "@/components/tremor/inputs/label"
-import { Button } from "@/components/tremor/ui/button"
-import { Card } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
-import { useToast } from "@/hooks/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { GoogleAuth } from '@/components/authentication/google-auth';
+import { Input } from '@/components/tremor/inputs/input';
+import { Label } from '@/components/tremor/inputs/label';
+import { Button } from '@/components/tremor/ui/button';
+import { Divider } from '@/components/tremor/ui/divider';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required"),
@@ -85,7 +84,7 @@ export default function AuthForm() {
   }
 
   return (
-    <Card className="mx-auto mt-8 flex max-w-md flex-col items-center justify-center rounded-lg bg-white p-6 shadow-md">
+    <div className="mt-8 flex max-w-md flex-col items-center justify-center rounded-lg bg-background p-6 shadow-md">
       <div className="flex w-full items-center justify-center">
         <Image
           src="/logo/logo-base-256x256.png"
@@ -172,6 +171,6 @@ export default function AuthForm() {
         </a>
         .
       </p>
-    </Card>
+    </div>
   )
 }

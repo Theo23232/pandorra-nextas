@@ -1,7 +1,7 @@
 // Tremor Raw cx [v0.0.0]
 
-import clsx, { ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import clsx, { ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cx(...args: ClassValue[]) {
   return twMerge(clsx(...args))
@@ -85,3 +85,7 @@ export const formatters: { [key: string]: any } = {
 }
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+export function getRandomNumber(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}

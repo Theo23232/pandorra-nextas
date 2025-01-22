@@ -1,16 +1,27 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from 'next/server';
 
-import { generateToken, hashPassword } from "@/lib/auth"
-import { getDeviceInfo } from "@/lib/device"
-import { prisma } from "@/prisma"
+import { generateToken, hashPassword } from '@/lib/auth';
+import { getDeviceInfo } from '@/lib/device';
+import { prisma } from '@/prisma';
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { email, password, username } = await req.json()
+    console.log("email ==> ", email)
+    console.log("password ==> ", password)
+    console.log("username ==> ", username)
+
+    if (!email || !password || !username) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      )
+    }
 
     const existingUserEmail = await prisma.user.findUnique({
       where: { email },
     })
+    console.log("existingUserEmail", existingUserEmail)
     const existingUserUsername = await prisma.user.findUnique({
       where: { username },
     })
@@ -76,6 +87,8 @@ export async function POST(req: Request) {
       user: { id: user.id, email: user.email },
     })
   } catch (error) {
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 })
+    if (error instanceof Error) {
+      console.log("Error: ", error.stack)
+    }
   }
 }

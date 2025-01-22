@@ -1,12 +1,16 @@
-import { Sidebar } from '@/components/(main)/navigation/sidebar';
+import { ReactNode } from "react"
 
-import type { LayoutParams } from "@/types/next"
+import { Sidebar } from "@/components/(main)/navigation/sidebar"
 
-export default async function RouteLayout(props: LayoutParams<{}>) {
+export default async function RouteLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <>
       <Sidebar />
-      <main className="min-h-screen p-8 lg:pl-80">{props.children}</main>
+      <main className="min-h-screen p-8 lg:pl-80">{children}</main>
     </>
   )
 }

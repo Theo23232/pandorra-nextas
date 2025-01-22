@@ -1,0 +1,16 @@
+{
+  "safe-action": {
+    "prefix": "ntoast",
+    "description": "pandorra toast",
+    "scope": "typescriptreact",
+
+    "body": [
+      "toast({",
+      "title: ' ${1:toastTitle}',",
+      "description: 'Message',",
+      "variant: 'success',",
+      "duration: 3000",
+      "})",
+    ],
+  },
+}

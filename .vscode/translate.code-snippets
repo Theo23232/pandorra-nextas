@@ -1,0 +1,8 @@
+{
+  "import-translate-hook": {
+    "prefix": "translate",
+    "description": "Import translate hook",
+    "scope": "typescriptreact",
+    "body": ["import { useTranslation } from 'react-i18next';", "const { t } = useTranslation();"]
+  }
+}

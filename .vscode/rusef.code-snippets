@@ -1,0 +1,8 @@
+{
+  "component-with-props": {
+    "prefix": "rusef",
+    "description": "Write useEffect",
+    "scope": "typescriptreact",
+    "body": ["useEffect(()=>{", " ", "},[])"]
+  }
+}

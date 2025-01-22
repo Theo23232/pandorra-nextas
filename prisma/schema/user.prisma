@@ -1,0 +1,51 @@
+model User {
+    id              String   @id @default(cuid())
+    firstname       String?
+    lastname        String?
+    fullname        String?
+    image           String
+    username        String   @unique
+    email           String   @unique
+    language        String   @default("en")
+    description     String?
+    theme           String   @default("light")
+    password        String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    permissions     String[]
+    isEmailVerified Boolean  @default(false)
+    referreId       String?
+
+    emailNotification Boolean @default(true)
+    pushNotification  Boolean @default(true)
+
+    plan Plan @default(Free)
+
+    Post     Post[]
+    Session  Session[]
+    Feedback Feedback[]
+}
+
+model Session {
+    id             String   @id @default(cuid())
+    user           User     @relation(fields: [userId], references: [id])
+    userId         String
+    deviceType     String // 'mobile', 'tablet', 'desktop'
+    deviceOs       String // 'iOS', 'Android', 'Windows', 'macOS', 'Linux'
+    deviceModel    String? // 'iPhone 13', 'Pixel 6', etc.
+    browser        String? // 'Chrome', 'Safari', etc.
+    browserVersion String?
+    authType       String   @default("classic")
+    ip             String
+    country        String?
+    lastActive     DateTime @default(now())
+    createdAt      DateTime @default(now())
+}
+
+model PasswordReset {
+    id        String   @id @default(cuid())
+    email     String
+    token     String   @unique
+    expires   DateTime
+    createdAt DateTime @default(now())
+}

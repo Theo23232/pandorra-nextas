@@ -1,0 +1,33 @@
+.nsm7Bb-HzV7m-LgbsSe {
+  @apply relative inline-flex items-center justify-center whitespace-nowrap rounded-md border border-input !bg-background px-4 py-3 text-center font-medium text-primary shadow-md transition-all duration-100 ease-in-out hover:bg-accent hover:text-primary/90;
+  border-color: hsl(var(--input)) !important;
+  font-weight: 600 !important;
+  color: hsl(var(--primary)) !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+  height: 50px !important;
+  font-size: 16px !important;
+}
+
+.nsm7Bb-HzV7m-LgbsSe:hover {
+  background-color: hsl(var(--accent)) !important;
+  border-color: hsl(var(--input)) !important;
+  font-weight: 600 !important;
+  color: hsl(var(--primary)) !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+  height: 50px !important;
+  font-size: 16px !important;
+}
+
+.nsm7Bb-HzV7m-LgbsSe span {
+  font-family:
+    Inter,
+    Inter Fallback,
+    arial,
+    sans-serif !important;
+}
+
+.uaxL4e-RbRzK {
+  width: 100% !important;
+}

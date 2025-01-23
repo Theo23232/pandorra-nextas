@@ -1,15 +1,16 @@
 "use client"
-import { Copy, CornerLeftUp, Images, Menu, Move, Zap } from "lucide-react"
-import Image from "next/image"
+import { Copy, CornerLeftUp, Images, Menu, Move, Zap } from 'lucide-react';
+import Image from 'next/image';
 
-import { models } from "@/lib/leonardo/presets"
-import { GenerationWithImages } from "@/types/pandorra"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Button } from '@/components/ui/button';
+import { CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { models } from '@/lib/leonardo/presets';
+import { GenerationWithImages } from '@/types/pandorra';
 
-import { Button } from "../ui/button"
-import { Card, CardContent } from "../ui/card"
-import { Skeleton } from "../ui/skeleton"
-import { AIImage } from "./AIImage"
-import { GenerationOption } from "./GenerationOption"
+import { AIImage } from './AIImage';
+import { GenerationOption } from './GenerationOption';
 
 export type GenerationResultProps = {
   count?: number
@@ -20,7 +21,7 @@ export type GenerationResultProps = {
 export const GenerationResult = (props: GenerationResultProps) => {
   const model = models.find((m) => m.id == props.generated?.modelId)
   return (
-    <Card className="w-full border border-muted bg-background/70 hover:bg-background/65">
+    <MagicCard gradientSize={700} className="group relative cursor-pointer">
       <CardContent>
         <div className="flex w-full items-center justify-between pb-4 pt-8">
           <div className="flex items-center gap-2">
@@ -90,6 +91,6 @@ export const GenerationResult = (props: GenerationResultProps) => {
             ))}
         </div>
       </CardContent>
-    </Card>
+    </MagicCard>
   )
 }

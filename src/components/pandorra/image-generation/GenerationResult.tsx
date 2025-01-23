@@ -1,15 +1,15 @@
 "use client"
-import { Copy, CornerLeftUp, Images, Menu, Move, Zap } from "lucide-react"
-import Image from "next/image"
+import { Copy, CornerLeftUp, Images, Menu, Move, Zap } from 'lucide-react';
+import Image from 'next/image';
 
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Button } from "@/components/tremor/ui/button"
-import { Card, CardContent } from "@/components/tremor/ui/card"
-import { models } from "@/lib/leonardo/presets"
-import { GenerationWithImages } from "@/types/pandorra"
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardContent } from '@/components/tremor/ui/card';
+import { models } from '@/lib/leonardo/presets';
+import { GenerationWithImages } from '@/types/pandorra';
 
-import { AIImage } from "./AIImage"
-import { GenerationOption } from "./GenerationOption"
+import { AIImage } from './AIImage';
+import { GenerationOption } from './GenerationOption';
 
 export type GenerationResultProps = {
   count?: number

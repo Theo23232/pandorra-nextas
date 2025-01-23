@@ -1,10 +1,10 @@
-import Link from "next/link"
+import Link from 'next/link';
 
-import { Button } from "@/components/tremor/ui/button"
-import { RiArrowRightLine } from "@remixicon/react"
+import { Button } from '@/components/tremor/ui/button';
+import { RiArrowRightLine } from '@remixicon/react';
 
-import { DatabaseLogo } from "../../public/DatabaseLogo"
-import { siteConfig } from "./siteConfig"
+import { DatabaseLogo } from '../../public/DatabaseLogo';
+import { siteConfig } from './siteConfig';
 
 export default function NotFound() {
   return (

@@ -1,17 +1,17 @@
 "use client"
 
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ArrowRightIcon } from "lucide-react"
-import { useTheme } from "next-themes"
-import { useEffect, useRef, useState } from "react"
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRightIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useRef, useState } from 'react';
 
-import { AnimatedShinyText } from "@/components/animated/magic-ui/animated-shiny-text"
-import { HeroVideoDialog } from "@/components/animated/magic-ui/hero-video-dialog"
-import { LineShadowText } from "@/components/animated/magic-ui/line-shadow-text"
-import { Particles } from "@/components/animated/magic-ui/particles"
-import { TextAnimate } from "@/components/animated/magic-ui/text-animate"
-import { cn } from "@/lib/utils"
+import { AnimatedShinyText } from '@/components/animated/magic-ui/animated-shiny-text';
+import { HeroVideoDialog } from '@/components/animated/magic-ui/hero-video-dialog';
+import { LineShadowText } from '@/components/animated/magic-ui/line-shadow-text';
+import { Particles } from '@/components/animated/magic-ui/particles';
+import { TextAnimate } from '@/components/animated/magic-ui/text-animate';
+import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -1,7 +1,7 @@
 "use client"
-import { cubicBezier, motion, useAnimation } from "framer-motion"
-import React, { useEffect } from "react"
-import { useInView } from "react-intersection-observer"
+import { cubicBezier, motion, useAnimation } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 type SmoothRevealProps = {
   children: React.ReactNode

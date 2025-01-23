@@ -1,27 +1,27 @@
 // https://www.edilozi.pro/docs/components/zoom-parallax
-"use client";
-import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
-import { FC, useRef } from "react";
+"use client"
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { FC, useRef } from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface Props {
-  classes?: string;
+  classes?: string
 }
 
 const ZoomParallax: FC<Props> = ({ classes }) => {
-  const container = useRef(null);
+  const container = useRef(null)
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end end"],
-  });
+  })
 
-  const scale1 = useTransform(scrollYProgress, [0, 1], [1, 4]);
-  const scale2 = useTransform(scrollYProgress, [0, 1], [1, 5]);
-  const scale3 = useTransform(scrollYProgress, [0, 1], [1, 6]);
-  const scale4 = useTransform(scrollYProgress, [0, 1], [1, 8]);
-  const scale5 = useTransform(scrollYProgress, [0, 1], [1, 9]);
+  const scale1 = useTransform(scrollYProgress, [0, 1], [1, 4])
+  const scale2 = useTransform(scrollYProgress, [0, 1], [1, 5])
+  const scale3 = useTransform(scrollYProgress, [0, 1], [1, 6])
+  const scale4 = useTransform(scrollYProgress, [0, 1], [1, 8])
+  const scale5 = useTransform(scrollYProgress, [0, 1], [1, 9])
 
   const pictures = [
     {
@@ -59,7 +59,7 @@ const ZoomParallax: FC<Props> = ({ classes }) => {
       scale: scale5,
       classes: "relative top-[22.5%] left-[25%] w-[15%] h-[15%]",
     },
-  ];
+  ]
 
   return (
     <section
@@ -74,7 +74,7 @@ const ZoomParallax: FC<Props> = ({ classes }) => {
               style={{ scale }}
               className="absolute top-0 flex h-full w-full items-center justify-center"
             >
-              <div className={` bg-zinc-200 dark:bg-zinc-800 ${classes}`}>
+              <div className={`bg-zinc-200 dark:bg-zinc-800 ${classes}`}>
                 <Image
                   src={src}
                   fill
@@ -83,13 +83,13 @@ const ZoomParallax: FC<Props> = ({ classes }) => {
                 />
               </div>
             </motion.div>
-          );
+          )
         })}
       </div>
       <div className="h-[100vh] leading-[0]"></div>
       <p>Continue your content here...</p>
     </section>
-  );
-};
+  )
+}
 
-export default ZoomParallax;
+export default ZoomParallax

@@ -1,23 +1,16 @@
 // https://www.edilozi.pro/docs/components/scroll-velocity
-"use client";
+"use client"
 
 import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-  wrap,
-} from "framer-motion";
-import { ReactNode, useRef } from "react";
+    motion, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity, wrap
+} from 'framer-motion';
+import { ReactNode, useRef } from 'react';
 
 interface Props {
-  children: ReactNode[] | string;
-  velocity: number;
-  movable?: boolean;
-  clamp?: boolean;
+  children: ReactNode[] | string
+  velocity: number
+  movable?: boolean
+  clamp?: boolean
 }
 
 export default function ScrollVelocity({
@@ -26,41 +19,41 @@ export default function ScrollVelocity({
   movable = true,
   clamp = false,
 }: Props) {
-  const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
+  const baseX = useMotionValue(0)
+  const { scrollY } = useScroll()
+  const scrollVelocity = useVelocity(scrollY)
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,
     stiffness: 100,
-  });
+  })
   const velocityFactor = useTransform(smoothVelocity, [0, 10000], [0, 5], {
     clamp,
-  });
+  })
 
-  const x = useTransform(baseX, (v) => `${wrap(0, -50, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(0, -50, v)}%`)
 
-  const directionFactor = useRef<number>(1);
-  const scrollThreshold = useRef<number>(5);
+  const directionFactor = useRef<number>(1)
+  const scrollThreshold = useRef<number>(5)
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_t, delta) => {
     if (movable) {
-      move(delta);
+      move(delta)
     } else {
       if (Math.abs(scrollVelocity.get()) >= scrollThreshold.current) {
-        move(delta);
+        move(delta)
       }
     }
-  });
+  })
 
   function move(delta: number) {
-    let moveBy = directionFactor.current * velocity * (delta / 1000);
+    let moveBy = directionFactor.current * velocity * (delta / 1000)
     if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
+      directionFactor.current = -1
     } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
+      directionFactor.current = 1
     }
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
-    baseX.set(baseX.get() + moveBy);
+    moveBy += directionFactor.current * moveBy * velocityFactor.get()
+    baseX.set(baseX.get() + moveBy)
   }
 
   return (
@@ -80,5 +73,5 @@ export default function ScrollVelocity({
         )}
       </motion.div>
     </div>
-  );
+  )
 }

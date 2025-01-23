@@ -1,28 +1,14 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import * as React from "react"
+import { useTheme } from 'next-themes';
+import * as React from 'react';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSubMenu,
-  DropdownMenuSubMenuContent,
-  DropdownMenuSubMenuTrigger,
-  DropdownMenuTrigger,
-} from "@/components/tremor/ui/dropdown-menu"
-import {
-  RiArrowRightUpLine,
-  RiComputerLine,
-  RiMoonLine,
-  RiSunLine,
-} from "@remixicon/react"
+    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
+    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
+    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
+} from '@/components/tremor/ui/dropdown-menu';
+import { RiArrowRightUpLine, RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode

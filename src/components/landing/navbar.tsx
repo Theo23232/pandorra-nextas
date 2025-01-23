@@ -1,19 +1,13 @@
 "use client"
-import Image from "next/image"
-import Link from "next/link"
-import React from "react"
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
-import { ScrollProgress } from "@/components/animated/magic-ui/scroll-progress"
-import { Button } from "@/components/tremor/ui/button"
+import { ScrollProgress } from '@/components/animated/magic-ui/scroll-progress';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-} from "@heroui/react"
+    Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle
+} from '@heroui/react';
 
 export const AcmeLogo = () => {
   return (

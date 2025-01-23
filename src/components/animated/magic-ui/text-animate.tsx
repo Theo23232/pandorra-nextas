@@ -1,9 +1,9 @@
 "use client"
 
-import { AnimatePresence, motion, MotionProps, Variants } from "motion/react"
-import { ElementType } from "react"
+import { AnimatePresence, motion, MotionProps, Variants } from 'motion/react';
+import { ElementType } from 'react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 type AnimationType = "text" | "word" | "character" | "line"
 type AnimationVariant =
@@ -145,7 +145,7 @@ const defaultItemAnimationVariants: Record<
     container: defaultContainerVariants,
     item: {
       hidden: { opacity: 0, filter: "blur(10px)", y: 20 },
-      show: (delay: number) => ({
+      show: (_delay: number) => ({
         opacity: 1,
         filter: "blur(0px)",
         y: 0,
@@ -171,7 +171,7 @@ const defaultItemAnimationVariants: Record<
     container: defaultContainerVariants,
     item: {
       hidden: { opacity: 0, filter: "blur(10px)", y: -20 },
-      show: (delay: number) => ({
+      show: (_delay: number) => ({
         opacity: 1,
         filter: "blur(0px)",
         y: 0,

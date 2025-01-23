@@ -1,46 +1,19 @@
 "use client"
+import { ChevronDown, ChevronsUpDown, Images, SunMedium, Zap } from 'lucide-react';
+import Image from 'next/image';
+import * as React from 'react';
 
+import { CollectionDialog } from '@/components/image-ai/CollectionDialog';
+import { ImageNumberInput } from '@/components/image-ai/ImageNumberInput';
+import { ImageSizeInput } from '@/components/image-ai/ImageSizeInput';
+import { ModelSelectDialog } from '@/components/image-ai/ModelSelectDialog';
+import { NavUser } from '@/components/sidebar/nav-user';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardContent } from '@/components/tremor/ui/card';
 import {
-  ChevronDown,
-  ChevronsUpDown,
-  Command,
-  Images,
-  SunMedium,
-  Zap,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import * as React from "react"
-import useSWR from "swr"
-
-import { CollectionDialog } from "@/components/image-ai/CollectionDialog"
-import { ImageNumberInput } from "@/components/image-ai/ImageNumberInput"
-import { ImageSizeInput } from "@/components/image-ai/ImageSizeInput"
-import { ModelSelectDialog } from "@/components/image-ai/ModelSelectDialog"
-import { NavSupport } from "@/components/pandorra/sidebar/nav-support"
-import { NavUser } from "@/components/sidebar/nav-user"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Select,
-  SelectContent,
-  SelectCustomTrigger,
-  SelectGroup,
-  SelectItem,
-} from "@/components/ui/select"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { Model, presetStyles } from "@/lib/leonardo/presets"
-import { fetcher } from "@/lib/utils"
-import { User } from "@prisma/client"
+    Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
+} from '@/components/ui/select';
+import { Model, presetStyles } from '@/lib/leonardo/presets';
 
 export type SidebarProps = {
   onModelChange: (model: Model) => void
@@ -57,9 +30,6 @@ export type SidebarProps = {
 }
 
 export function ImageGenerationSidebar(props: SidebarProps) {
-  const { imageUrl, imageId } = useSelectImage()
-
-  const { data: user } = useSWR<User>("/api/user/current", fetcher)
   const [activeModel, setActiveModel] = React.useState<Model>(
     props.defaultmodel,
   )
@@ -95,28 +65,10 @@ export function ImageGenerationSidebar(props: SidebarProps) {
   const handleCountChange = (value: number) => {
     setCount(value)
   }
-
-  if (user) {
-    return (
-      <Sidebar variant="inset" {...props}>
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <Link href="/explore">
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <Command className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">Pandorra.ai</span>
-                    <span className="truncate text-xs">{user.plan}</span>
-                  </div>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent className="flex flex-col gap-2 p-2">
+  return (
+    <nav className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
+      <aside className="flex grow flex-col gap-y-6 overflow-y-auto border-r border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
+        <nav className="flex flex-1 flex-col gap-4">
           <ModelSelectDialog
             activeModel={activeModel}
             onChange={handleModelChange}
@@ -196,32 +148,22 @@ export function ImageGenerationSidebar(props: SidebarProps) {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Card>
-            <CardContent className="space-y-4 p-2">
+          <Card className="p-2">
+            <CardContent className="space-y-4 p-0">
               <ImageNumberInput onChange={handleCountChange} />
               <ImageSizeInput onChange={handleSizeChange} />
             </CardContent>
           </Card>
           <CollectionDialog>
-            <Button variant={"default"} className="w-full">
+            <Button className="w-full">
               <Images size={20} className="mr-2" /> Collection
             </Button>
           </CollectionDialog>
-          {imageUrl && (
-            <Image
-              src={imageUrl}
-              alt={imageUrl}
-              width={400}
-              height={700}
-              className="h-auto w-full rounded shadow"
-            />
-          )}
-          <NavSupport />
-        </SidebarContent>
-        <SidebarFooter>
+        </nav>
+        <div className="mt-auto">
           <NavUser />
-        </SidebarFooter>
-      </Sidebar>
-    )
-  }
+        </div>
+      </aside>
+    </nav>
+  )
 }

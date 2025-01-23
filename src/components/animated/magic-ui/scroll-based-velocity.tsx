@@ -1,17 +1,11 @@
 "use client"
 
 import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "motion/react"
-import React, { useEffect, useRef, useState } from "react"
+    motion, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity
+} from 'motion/react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 interface VelocityScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultVelocity?: number
@@ -69,7 +63,7 @@ function ParallaxText({
   const x = useTransform(baseX, (v) => `${wrap(-100 / repetitions, 0, v)}%`)
 
   const directionFactor = React.useRef<number>(1)
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
 
     if (velocityFactor.get() < 0) {

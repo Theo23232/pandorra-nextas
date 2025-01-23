@@ -1,13 +1,15 @@
 "use client"
-import { ImagePlus } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { ImagePlus } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
-import { getUserGeneration } from "@/actions/generation.action"
-import { GenerationResult } from "@/components/image-ai/GenerationResult"
-import { Button } from "@/components/tremor/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { fetchGenerationResult } from "@/lib/leonardo/fetch"
-import { GeneratedImage, Prisma } from "@prisma/client"
+import { getUserGeneration } from '@/actions/generation.action';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { GenerationResult } from '@/components/image-ai/GenerationResult';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Button } from '@/components/tremor/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { fetchGenerationResult } from '@/lib/leonardo/fetch';
+import { GeneratedImage, Prisma } from '@prisma/client';
 
 export type MainProps = {
   prompt: string
@@ -35,6 +37,7 @@ export const Main = (props: MainProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [generated, setGenerated] = useState<GenerationWithImages>()
   const [history, setHistory] = useState<GenerationWithImages[]>([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const handlePromptChange = (p: string) => {
     setPrompt(p)
@@ -51,18 +54,18 @@ export const Main = (props: MainProps) => {
         const result = await fetchGenerationResult(props.id!)
         if (result.generated_images.length) {
           setIsLoading(false)
-          setGenerated(result)
-          setHistory([...history, result])
+          window.location.reload()
         }
       }
       fetch().then(() => {})
     }
-  }, [props.id])
+  }, [props.id, generated])
 
   useEffect(() => {
     const req = async () => {
       const res = await getUserGeneration()
       setHistory(res)
+      setIsLoaded(true)
     }
     req().then(() => {})
   }, [])
@@ -97,13 +100,6 @@ export const Main = (props: MainProps) => {
           </Button>
         </div>
       </div>
-      {generated && isLoading && (
-        <GenerationResult
-          isLoading={isLoading}
-          count={props.count}
-          generated={generated}
-        />
-      )}
       <div className="flex w-full flex-col-reverse gap-4">
         {history
           .sort(
@@ -113,7 +109,25 @@ export const Main = (props: MainProps) => {
           .map((h) => (
             <GenerationResult generated={h} key={h.id} />
           ))}
+        {isLoading && <GenerationSkeleton />}
       </div>
+      {!isLoaded && (
+        <>
+          <div className="flex w-full flex-col-reverse gap-4">
+            <GenerationSkeleton />
+            <GenerationSkeleton />
+            <GenerationSkeleton />
+          </div>
+        </>
+      )}
     </div>
+  )
+}
+
+const GenerationSkeleton = () => {
+  return (
+    <MagicCard gradientSize={700} className="group relative cursor-pointer">
+      <Skeleton className="h-[450px] w-full" />
+    </MagicCard>
   )
 }

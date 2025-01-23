@@ -1,4 +1,4 @@
-import TwoWayParallax from "@/components/edit-ozi/two-way-parallax"
+import TwoWayParallax from '@/components/edit-ozi/two-way-parallax';
 
 export const LandingGallery = () => {
   const images = [

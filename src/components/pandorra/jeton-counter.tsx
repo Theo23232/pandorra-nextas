@@ -1,13 +1,12 @@
-import { Gem } from "lucide-react"
-import useSWR from "swr"
+"use client"
+import { Gem } from 'lucide-react';
 
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { fetcher } from "@/lib/utils"
-import { User } from "@prisma/client"
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useUser } from '@/hooks/use-user';
 
 export default function JetonCounter() {
-  const { data: user } = useSWR<User>("/api/user/current", fetcher)
+  const { user } = useUser()
 
   return (
     <Button

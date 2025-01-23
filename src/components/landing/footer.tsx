@@ -1,5 +1,5 @@
-import { BackgroundBeams } from "@/components/animated/aceternity/background-beams"
-import { Cover } from "@/components/animated/aceternity/cover"
+import { BackgroundBeams } from '@/components/animated/aceternity/background-beams';
+import { Cover } from '@/components/animated/aceternity/cover';
 
 export function Footer() {
   return (

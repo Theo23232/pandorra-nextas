@@ -1,8 +1,8 @@
 "use client"
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
-export default function ResetPasswordForm() {
+function ResetPasswordFormContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
@@ -27,9 +27,7 @@ export default function ResetPasswordForm() {
       })
 
       const data = await res.json()
-
       if (!res.ok) throw new Error(data.error)
-
       router.push("/login?message=password-updated")
     } catch (err: any) {
       setError(err.message)
@@ -73,5 +71,13 @@ export default function ResetPasswordForm() {
         </button>
       </form>
     </div>
+  )
+}
+
+export default function ResetPasswordForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordFormContent />
+    </Suspense>
   )
 }

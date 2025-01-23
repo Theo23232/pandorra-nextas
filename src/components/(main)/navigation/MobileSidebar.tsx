@@ -1,25 +1,13 @@
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Button } from "@/components/tremor/ui/button"
+import { siteConfig } from '@/app/siteConfig';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/tremor/ui/drawer"
-import { cx, focusRing } from "@/lib/utils"
-import {
-  RiHome2Line,
-  RiLinkM,
-  RiListCheck,
-  RiMenuLine,
-  RiSettings5Line,
-} from "@remixicon/react"
+    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger
+} from '@/components/tremor/ui/drawer';
+import { cx, focusRing } from '@/lib/utils';
+import { RiHome2Line, RiLinkM, RiListCheck, RiMenuLine, RiSettings5Line } from '@remixicon/react';
 
 const navigation = [
   { name: "Overview", href: siteConfig.baseLinks.overview, icon: RiHome2Line },

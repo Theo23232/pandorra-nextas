@@ -1,6 +1,6 @@
 "use client"
 
-import { VelocityScroll } from "@/components/animated/magic-ui/scroll-based-velocity"
+import { VelocityScroll } from '@/components/animated/magic-ui/scroll-based-velocity';
 
 export const ScrollName = () => {
   return (

@@ -18,8 +18,13 @@ model User {
 
     emailNotification Boolean @default(true)
     pushNotification  Boolean @default(true)
-    stripeCustomerId  String?
-    jeton             BigInt  @default(150)
+    jeton             Int     @default(150)
+
+    stripeCustomerId String?
+    connectStripeId  String?
+
+    amountAccumulated String @default("0")
+    currentAmount     String @default("0")
 
     plan Plan @default(Free)
 

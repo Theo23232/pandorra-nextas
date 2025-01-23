@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { prisma } from "@/prisma"
-import { User } from "@prisma/client"
+import { prisma } from '@/prisma';
+import { User } from '@prisma/client';
 
 type Pagination = {
   currentPage: number

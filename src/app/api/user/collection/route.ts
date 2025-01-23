@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { currentUser } from '@/lib/current-user';
 import { prisma } from '@/prisma';
-import { User, UserImage } from '@prisma/client';
+import { UserImage } from '@prisma/client';
 
 export const GET = async () => {
   const user = await currentUser();

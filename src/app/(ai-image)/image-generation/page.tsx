@@ -1,23 +1,18 @@
 "use client"
-import { useState } from "react"
+import { useState } from 'react';
 
-import { ImageGenerationSidebar } from "@/app/(ai-image)/image-generation/image-generation-sidebar"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { leofetch } from "@/lib/leonardo/fetch"
-import { Model, models } from "@/lib/leonardo/presets"
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { useSelectImage } from '@/hooks/use-select-image';
+import { leofetch } from '@/lib/leonardo/fetch';
+import { Model, models } from '@/lib/leonardo/presets';
 
-import { Main } from "./Main"
+import { Main } from './Main';
+import { ImageGenerationSidebar } from './sidebar';
 
 export default function RoutePage() {
   //en fait c'est un ID
-  const { imageUrl, imageId } = useSelectImage()
+  const { imageUrl } = useSelectImage()
 
   type State = {
     prompt: string
@@ -96,11 +91,9 @@ export default function RoutePage() {
         defaultcontrast={contrast}
         defaultcount={count}
       />
-      <SidebarInset>
+      <div className="w-full lg:pl-96">
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex w-full items-center justify-between gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
             <div className="flex gap-4">
               <JetonCounter />
             </div>
@@ -113,7 +106,7 @@ export default function RoutePage() {
           count={state.count}
           id={state.id}
         />
-      </SidebarInset>
+      </div>
     </SidebarProvider>
   )
 }

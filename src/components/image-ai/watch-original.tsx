@@ -1,17 +1,17 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
-import Image from "next/image"
-import * as React from "react"
-import useSWR from "swr"
+import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import * as React from 'react';
+import useSWR from 'swr';
 
-import { GenerationResult } from "@/components/pandorra/image-generation/GenerationResult"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { fetcher } from "@/lib/utils"
-import { GenerationWithImages } from "@/types/pandorra"
-import { Prisma } from "@prisma/client"
-import { DialogTrigger } from "@radix-ui/react-dialog"
+import { GenerationResult } from '@/components/pandorra/image-generation/GenerationResult';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { fetcher } from '@/lib/utils';
+import { GenerationWithImages } from '@/types/pandorra';
+import { Prisma } from '@prisma/client';
+import { DialogTrigger } from '@radix-ui/react-dialog';
 
 type VariantWithRelations = Prisma.VariantGetPayload<{
   include: {

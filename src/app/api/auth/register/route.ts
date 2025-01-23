@@ -1,15 +1,12 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from 'next/server';
 
-import { generateToken, hashPassword } from "@/lib/auth"
-import { getDeviceInfo } from "@/lib/device"
-import { prisma } from "@/prisma"
+import { generateToken, hashPassword } from '@/lib/auth';
+import { getDeviceInfo } from '@/lib/device';
+import { prisma } from '@/prisma';
 
 export async function POST(req: NextRequest) {
   try {
     const { email, password, username } = await req.json()
-    console.log("email ==> ", email)
-    console.log("password ==> ", password)
-    console.log("username ==> ", username)
 
     if (!email || !password || !username) {
       return NextResponse.json(

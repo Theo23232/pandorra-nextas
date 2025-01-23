@@ -1,6 +1,6 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react';
 
-import { Sidebar } from "@/components/navigation/sidebar"
+import { Sidebar } from '@/components/navigation/sidebar';
 
 export default async function RouteLayout({
   children,

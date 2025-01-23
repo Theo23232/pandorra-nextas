@@ -1,12 +1,8 @@
-import { LifeBuoy } from "lucide-react"
+import { LifeBuoy } from 'lucide-react';
 
 import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
+    SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem
+} from '@/components/ui/sidebar';
 
 export function NavSupport() {
   return (

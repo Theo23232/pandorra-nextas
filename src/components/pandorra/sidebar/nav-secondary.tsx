@@ -1,29 +1,26 @@
-'use client';
+"use client"
 
-import { Info, LucideIcon, MoreHorizontal } from 'lucide-react';
+import { Info, LucideIcon } from 'lucide-react';
 
-import {
-    Tooltip, TooltipContent, TooltipProvider, TooltipTrigger
-} from '@/components/ui/main-tooltip';
 import {
     SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton,
-    SidebarMenuItem, useSidebar
+    SidebarMenuItem
 } from '@/components/ui/sidebar';
 
 export function NavSecondary({
   projects,
   title,
 }: {
-  title: string;
+  title: string
   projects: {
-    name: string;
-    url: string;
-    icon: LucideIcon;
-    details: string;
-  }[];
+    name: string
+    url: string
+    icon: LucideIcon
+    details: string
+  }[]
 }) {
   return (
-    <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
+    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>{title}</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
@@ -35,18 +32,11 @@ export function NavSecondary({
               </a>
             </SidebarMenuButton>
             <SidebarMenuAction showOnHover>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info size={14} />
-                  </TooltipTrigger>
-                  <TooltipContent>{item.details}</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Info size={14} />
             </SidebarMenuAction>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  );
+  )
 }

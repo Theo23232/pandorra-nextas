@@ -8,14 +8,14 @@ import { Testimonials } from '@/components/landing/testimonials';
 
 export default async function RoutePage() {
   return (
-    <>
+    <div className="dark">
       <LandingNavbar />
-        <Hero />
-        <ScrollName />
-        <Features />
-        <Testimonials />
-        <LandingGallery />
-        <Footer />
-    </>
+      <Hero />
+      <ScrollName />
+      <Features />
+      <Testimonials />
+      <LandingGallery />
+      <Footer />
+    </div>
   )
 }

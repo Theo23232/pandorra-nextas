@@ -1,11 +1,11 @@
 // https://www.edilozi.pro/docs/components/two-way-parallax
 "use client"
-import { motion, useScroll, useTransform } from "framer-motion"
-import Image from "next/image"
-import { FC, useEffect, useRef, useState } from "react"
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { FC, useEffect, useRef, useState } from 'react';
 
 //optionally hook for smooth scrolling
-import useLenis from "@/hooks/useLenis"
+import useLenis from '@/hooks/useLenis';
 
 interface Props {
   images: string[]

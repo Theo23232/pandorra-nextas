@@ -1,7 +1,7 @@
-import Image from "next/image"
+import Image from 'next/image';
 
-import { Marquee } from "@/components/animated/magic-ui/marquee"
-import { cn } from "@/lib/utils"
+import { Marquee } from '@/components/animated/magic-ui/marquee';
+import { cn } from '@/lib/utils';
 
 const reviews = [
   {

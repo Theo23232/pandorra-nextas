@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Play, XIcon } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
-import { useState } from "react"
+import { Play, XIcon } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useState } from 'react';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { cn } from "@/lib/utils"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { cn } from '@/lib/utils';
 
 type AnimationStyle =
   | "from-bottom"

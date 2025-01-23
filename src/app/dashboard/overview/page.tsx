@@ -1,15 +1,15 @@
 "use client"
-import { subDays, toDate } from "date-fns"
-import React from "react"
-import { DateRange } from "react-day-picker"
+import { subDays, toDate } from 'date-fns';
+import React from 'react';
+import { DateRange } from 'react-day-picker';
 
-import { CategoryBarCard } from "@/components/overview/DashboardCategoryBarCard"
-import { ChartCard } from "@/components/overview/DashboardChartCard"
-import { Filterbar } from "@/components/overview/DashboardFilterbar"
-import { ProgressBarCard } from "@/components/overview/DashboardProgressBarCard"
-import { overviews } from "@/data/overview-data"
-import { OverviewData } from "@/data/schema"
-import { cx } from "@/lib/utils"
+import { CategoryBarCard } from '@/components/overview/DashboardCategoryBarCard';
+import { ChartCard } from '@/components/overview/DashboardChartCard';
+import { Filterbar } from '@/components/overview/DashboardFilterbar';
+import { ProgressBarCard } from '@/components/overview/DashboardProgressBarCard';
+import { overviews } from '@/data/overview-data';
+import { OverviewData } from '@/data/schema';
+import { cx } from '@/lib/utils';
 
 export type PeriodValue = "previous-period" | "last-year" | "no-comparison"
 

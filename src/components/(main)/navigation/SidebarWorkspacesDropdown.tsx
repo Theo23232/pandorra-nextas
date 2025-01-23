@@ -1,20 +1,15 @@
 "use client"
 
-import React from "react"
+import React from 'react';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/tremor/ui/dropdown-menu"
-import { cx, focusInput } from "@/lib/utils"
-import { RiArrowRightSLine, RiExpandUpDownLine } from "@remixicon/react"
+    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
+    DropdownMenuSeparator, DropdownMenuTrigger
+} from '@/components/tremor/ui/dropdown-menu';
+import { cx, focusInput } from '@/lib/utils';
+import { RiArrowRightSLine, RiExpandUpDownLine } from '@remixicon/react';
 
-import { ModalAddWorkspace } from "./ModalAddWorkspace"
+import { ModalAddWorkspace } from './ModalAddWorkspace';
 
 const workspaces = [
   {

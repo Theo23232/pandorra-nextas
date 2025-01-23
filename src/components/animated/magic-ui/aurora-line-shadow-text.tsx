@@ -1,8 +1,8 @@
 "use client"
-import { motion, MotionProps } from "motion/react"
+import { motion, MotionProps } from 'motion/react';
 
-import { AuroraText } from "@/components/animated/magic-ui/aurora-text"
-import { cn } from "@/lib/utils"
+import { AuroraText } from '@/components/animated/magic-ui/aurora-text';
+import { cn } from '@/lib/utils';
 
 interface LineShadowTextProps
   extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps>,

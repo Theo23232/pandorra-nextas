@@ -1,7 +1,7 @@
 "use client"
 
-import { AnimatedList } from "@/components/animated/magic-ui/animated-list"
-import { cn } from "@/lib/utils"
+import { AnimatedList } from '@/components/animated/magic-ui/animated-list';
+import { cn } from '@/lib/utils';
 
 interface Item {
   name: string

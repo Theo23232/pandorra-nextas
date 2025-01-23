@@ -1,29 +1,16 @@
-import { Input } from "@/components/tremor/inputs/input"
-import { Label } from "@/components/tremor/inputs/label"
+import { Input } from '@/components/tremor/inputs/input';
+import { Label } from '@/components/tremor/inputs/label';
+import { RadioCardGroup, RadioCardItem } from '@/components/tremor/inputs/radio-card-group';
 import {
-  RadioCardGroup,
-  RadioCardItem,
-} from "@/components/tremor/inputs/radio-card-group"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/tremor/inputs/select';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/tremor/inputs/select"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Button } from "@/components/tremor/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { DropdownMenuItem } from "@/components/tremor/ui/dropdown-menu"
+    Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
+    DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { DropdownMenuItem } from '@/components/tremor/ui/dropdown-menu';
 
 export const databases: {
   label: string

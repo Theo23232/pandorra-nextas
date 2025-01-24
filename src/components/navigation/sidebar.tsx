@@ -78,6 +78,7 @@ export function Sidebar() {
               {navigation.map((item) => (
                 <li key={item.name}>
                   <Link
+                    prefetch={true}
                     href={item.href}
                     className={cx(
                       isActive(item.href)
@@ -101,6 +102,7 @@ export function Sidebar() {
                 {shortcuts.map((item) => (
                   <li key={item.name}>
                     <Link
+                      prefetch={true}
                       href={item.href}
                       className={cx(
                         pathname === item.href || pathname.startsWith(item.href)

@@ -1,17 +1,19 @@
 "use client"
 
-import { Download, Edit, Send } from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { Download, Edit, Send } from "lucide-react"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
-import { createPublication } from '@/actions/publication.action';
-import { Button } from '@/components/ui/button';
-import { useSelectImage } from '@/hooks/use-select-image';
-import { GeneratedImage } from '@prisma/client';
+import { createPublication } from "@/actions/publication.action"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { useSelectImage } from "@/hooks/use-select-image"
+import { useToast } from "@/hooks/use-toast"
+import { GeneratedImage } from "@prisma/client"
 
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
-import { DirectionAwareHover } from './GeneratedHover';
+import { DirectionAwareHover } from "./GeneratedHover"
 
 interface AllImageProps {
   prompt: string
@@ -21,10 +23,18 @@ interface AllImageProps {
   generationId?: string
 }
 
-export const AIImage = ({ prompt, model, preset, image }: AllImageProps) => {
+export const AIImage = ({
+  prompt,
+  model,
+  preset,
+  image,
+  generationId,
+}: AllImageProps) => {
+  const { toast } = useToast()
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const { selectImage } = useSelectImage()
+
   const handlePublication = async (
     imageUrl: string,
     prompt: string,
@@ -33,13 +43,29 @@ export const AIImage = ({ prompt, model, preset, image }: AllImageProps) => {
     generationType: string,
   ) => {
     try {
+      const loadingToast = toast({
+        title: "Loading",
+        description: "Your image is being published",
+        variant: "loading",
+        disableDismiss: true, // Désactive la fermeture automatique
+      })
       await createPublication(
         imageUrl,
         prompt,
         model,
         preset,
         generationType,
-      ).then(() => router.push("/explore"))
+      ).then(() => {
+        loadingToast.dismiss()
+        toast({
+          title: "Success",
+          description: "Your image has been published",
+          variant: "success",
+          duration: 3000,
+        })
+      })
+
+      //et le cacher ici
     } catch (error) {
       console.error("Erreur lors de la publication de l'image :", error)
     }
@@ -73,36 +99,49 @@ export const AIImage = ({ prompt, model, preset, image }: AllImageProps) => {
         <DirectionAwareHover imageUrl={image.url}>
           <div className="flex h-full w-full items-center justify-center gap-4">
             <DialogTrigger asChild>
+              <Tooltip content="Download">
+                <Button
+                  size={"icon"}
+                  className="size-10 rounded-full p-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDownload()
+                  }}
+                >
+                  <Download />
+                </Button>
+              </Tooltip>
+            </DialogTrigger>
+            <Tooltip content="Post this image">
               <Button
                 size={"icon"}
                 className="size-10 rounded-full p-2"
-                onClick={handleDownload}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handlePublication(
+                    image.url,
+                    prompt,
+                    model,
+                    preset,
+                    "textToImage",
+                  )
+                }}
               >
-                <Download />
+                <Send />
               </Button>
-            </DialogTrigger>
-            <Button
-              size={"icon"}
-              className="size-10 rounded-full p-2"
-              onClick={() =>
-                handlePublication(
-                  image.url,
-                  prompt,
-                  model,
-                  preset,
-                  "textToImage",
-                )
-              }
-            >
-              <Send />
-            </Button>
-            <Button
-              size={"icon"}
-              className="size-10 rounded-full p-2"
-              onClick={() => handleEdit(image.url)}
-            >
-              <Edit />
-            </Button>
+            </Tooltip>
+            <Tooltip content="Edit">
+              <Button
+                size={"icon"}
+                className="size-10 rounded-full p-2"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleEdit(image.url)
+                }}
+              >
+                <Edit />
+              </Button>
+            </Tooltip>
           </div>
         </DirectionAwareHover>
       </div>

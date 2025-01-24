@@ -5,7 +5,7 @@ import { prisma } from "@/prisma"
 
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url)
-  const publicationId = searchParams.get("imageId")
+  const publicationId = searchParams.get("publicationId")
 
   const user = await currentUser()
 

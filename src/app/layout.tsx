@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
-import './globals.css';
+import "./globals.css"
+import "./outsideStyles.css"
 
-import { Inter } from 'next/font/google';
-import NextTopLoader from 'nextjs-toploader';
+import { Inter } from "next/font/google"
+import NextTopLoader from "nextjs-toploader"
 
-import { Providers } from '@/context/providers';
+import { Providers } from "@/context/providers"
 
 const inter = Inter({
   subsets: ["latin"],

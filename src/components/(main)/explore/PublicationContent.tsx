@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Masonry from "react-masonry-css"
 import useSWR from "swr"
 
+import { Skeleton } from "@/components/nyxb/skeleton"
 import { fetcher } from "@/lib/utils"
 import { PublicationWithAuthor } from "@/types/publicationType"
 
@@ -27,10 +28,26 @@ export const PublicationContent = () => {
     }
   }, [publications])
 
-  if (isLoading) {
+  if (!loadedPublications) {
     return (
-      <div className="flex h-64 w-full items-center justify-center">
-        <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-900"></div>
+      <div className="mt-8">
+        <Masonry
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+          breakpointCols={{
+            default: 5,
+            1440: 3,
+            1200: 2,
+            700: 1,
+          }}
+        >
+          {Array.from({ length: 30 }).map((_, id) => {
+            const heights = ["30vh", "40vh", "50vh", "20vh"]
+            const randomHeight =
+              heights[Math.floor(Math.random() * heights.length)]
+            return <Skeleton key={id} className={`h-[${randomHeight}]`} />
+          })}
+        </Masonry>
       </div>
     )
   }

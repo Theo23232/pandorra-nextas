@@ -1,14 +1,13 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 import { currentUser } from "@/lib/current-user"
 import { prisma } from "@/prisma"
 
-export const GET = async ({
-  params,
-}: {
-  params: Promise<{ publicationId: string }>
-}) => {
-  const publicationId = (await params).publicationId
+export const GET = async (
+  request: NextRequest,
+  { params }: { params: { publicationId: string } },
+) => {
+  const { publicationId } = params
 
   const user = await currentUser()
 

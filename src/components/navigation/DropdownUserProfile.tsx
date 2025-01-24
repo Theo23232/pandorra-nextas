@@ -1,5 +1,6 @@
 "use client"
 
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
 import { useTheme } from "next-themes"
 import * as React from "react"
 
@@ -17,12 +18,9 @@ import {
   DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
 } from "@/components/tremor/ui/dropdown-menu"
-import {
-  RiArrowRightUpLine,
-  RiComputerLine,
-  RiMoonLine,
-  RiSunLine,
-} from "@remixicon/react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useUser } from "@/hooks/use-user"
+import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode
@@ -33,21 +31,37 @@ export function DropdownUserProfile({
   children,
   align = "start",
 }: DropdownUserProfileProps) {
-  const [mounted, setMounted] = React.useState(false)
   const { theme, setTheme } = useTheme()
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
 
-  if (!mounted) {
+  const { user, isLoading } = useUser()
+
+  if (!user) {
     return null
   }
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-        <DropdownMenuContent align={align}>
-          <DropdownMenuLabel>emma.stone@pandorra.com</DropdownMenuLabel>
+        <DropdownMenuContent
+          className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+          align="end"
+          sideOffset={4}
+        >
+          <DropdownMenuLabel className="p-0 font-normal">
+            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+              <Avatar className="h-8 w-8 rounded-lg">
+                <AvatarImage src={user.image} alt={user.username} />
+                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              </Avatar>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">
+                  {user.fullname || ""}
+                </span>
+                <span className="truncate text-xs">{user.email}</span>
+              </div>
+            </div>
+          </DropdownMenuLabel>
+
           <DropdownMenuGroup>
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
@@ -92,34 +106,34 @@ export function DropdownUserProfile({
               </DropdownMenuSubMenuContent>
             </DropdownMenuSubMenu>
           </DropdownMenuGroup>
+
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              Changelog
-              <RiArrowRightUpLine
-                className="mb-1 ml-1 size-2.5 shrink-0 text-gray-500"
-                aria-hidden="true"
-              />
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Documentation
-              <RiArrowRightUpLine
-                className="mb-1 ml-1 size-2.5 shrink-0 text-gray-500"
-                aria-hidden="true"
-              />
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Join Slack community
-              <RiArrowRightUpLine
-                className="mb-1 ml-1 size-2.5 shrink-0 text-gray-500"
-                aria-hidden="true"
-              />
+              <Sparkles className="mr-2 size-4 shrink-0" />
+              Upgrade to Pro
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
+            <DropdownMenuItem>
+              <BadgeCheck className="mr-2 size-4 shrink-0" />
+              Account
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <CreditCard className="mr-2 size-4 shrink-0" />
+              Billing
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Bell className="mr-2 size-4 shrink-0" />
+              Notifications
+            </DropdownMenuItem>
           </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <LogOut className="mr-2 size-4 shrink-0" />
+            Log out
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

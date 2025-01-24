@@ -4,6 +4,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { siteConfig } from "@/app/siteConfig"
+import {
+  UserProfileDesktop,
+  UserProfileMobile,
+} from "@/components/navigation/UserProfile"
 import { cx, focusRing } from "@/lib/utils"
 import { RiHome2Line } from "@remixicon/react"
 
@@ -102,14 +106,16 @@ export function Sidebar() {
               </ul>
             </div>
           </nav>
-          <div className="mt-auto">{/* <NavUser /> */}</div>
+          <div className="mt-auto">
+            <UserProfileDesktop />
+          </div>
         </aside>
       </nav>
       {/* top navbar (xs-lg) */}
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-2 shadow-sm sm:gap-x-6 sm:px-4 lg:hidden dark:border-gray-800 dark:bg-gray-950">
         <WorkspacesDropdownMobile />
         <div className="flex items-center gap-1 sm:gap-2">
-          {/* <NavUser /> */}
+          <UserProfileMobile />
           <MobileSidebar />
         </div>
       </div>

@@ -15,11 +15,15 @@ import { toast } from "sonner"
 import useSWR from "swr"
 
 import { createComment } from "@/actions/publication.action"
+import { Input } from "@/components/tremor/inputs/input"
+import { Button } from "@/components/tremor/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { formatDate } from "@/lib/formatDate"
@@ -127,7 +131,7 @@ export default function PubComment({
                 height={800}
               />
             </div>
-            <ScrollArea className="flex h-fit max-h-[80vh] flex-col gap-6 space-y-6 p-6">
+            <div className="flex h-fit max-h-[80vh] w-full flex-col gap-6 space-y-6 p-6">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10">
@@ -151,28 +155,25 @@ export default function PubComment({
                     </p>
                     {!isLoading ? (
                       <Card>
-                        <CardHeader className="p-2 pb-0">
+                        <div className="">
                           <Button
-                            size={"sm"}
                             className="flex h-8 w-full items-center justify-center gap-2"
                             onClick={() => handleDownload(image)}
                           >
                             <Download size={20} /> Download
                           </Button>
-                        </CardHeader>
-                        <CardContent className="flex items-center justify-center gap-2 p-2">
+                        </div>
+                        <div className="mt-2 flex items-center justify-center gap-2">
                           <Button
                             variant={"secondary"}
-                            size={"sm"}
-                            className="flex h-8 w-full items-center justify-center gap-2"
+                            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
                             onClick={() => handleUnzoom(image)}
                           >
                             <Fullscreen size={20} /> Unzoom
                           </Button>
                           <Button
                             variant={"secondary"}
-                            size={"sm"}
-                            className="flex h-8 w-full items-center justify-center gap-2"
+                            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
                             onClick={() => handleUpscale(image)}
                           >
                             <Expand size={20} />
@@ -180,21 +181,17 @@ export default function PubComment({
                           </Button>
                           <Button
                             variant={"secondary"}
-                            size={"sm"}
-                            className="flex h-8 w-full items-center justify-center gap-2"
+                            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
                             onClick={() => handleRemoveBg(image)}
                           >
-                            <Eraser size={20} /> Remove background
+                            <Eraser size={20} /> Bg Remove
                           </Button>
-                        </CardContent>
+                        </div>
                       </Card>
                     ) : (
                       <Card>
                         <CardHeader className="p-2">
-                          <Button
-                            size={"sm"}
-                            className="flex h-8 w-full items-center justify-center gap-2"
-                          >
+                          <Button className="flex h-8 w-full items-center justify-center gap-2">
                             <Loader className="animate-spin" size={20} />{" "}
                             Loading
                           </Button>
@@ -236,7 +233,7 @@ export default function PubComment({
                   <CommentCard key={comment.id} comment={comment} />
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           </div>
           <RelatedPost model={model?.name!} />
         </ScrollArea>
@@ -273,7 +270,7 @@ function CommentInput({
       />
       <button
         type="submit"
-        className="primeBg flex h-12 w-16 items-center justify-center rounded-md p-0"
+        className="flex h-12 w-16 items-center justify-center rounded-md bg-primary p-0"
       >
         <SendHorizontal className="h-5 w-5" />
       </button>

@@ -1,13 +1,19 @@
 "use client"
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import Image from "next/image"
+import Link from "next/link"
+import React from "react"
 
-import { ScrollProgress } from '@/components/animated/magic-ui/scroll-progress';
-import { Button } from '@/components/tremor/ui/button';
+import { ScrollProgress } from "@/components/animated/magic-ui/scroll-progress"
+import { Button } from "@/components/tremor/ui/button"
 import {
-    Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle
-} from '@heroui/react';
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from "@heroui/react"
 
 export const AcmeLogo = () => {
   return (
@@ -69,10 +75,12 @@ export default function LandingNavbar() {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
-            <Link href="#">Login</Link>
+            <Link href="/auth" prefetch={true}>
+              Login
+            </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link href={"/auth"}>
+            <Link href={"/auth"} prefetch={true}>
               <Button color="primary" variant="light">
                 Sign Up
               </Button>

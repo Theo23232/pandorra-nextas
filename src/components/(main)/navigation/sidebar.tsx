@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { siteConfig } from "@/app/siteConfig"
+import { Logo } from "@/components/logo"
 import {
   UserProfileDesktop,
   UserProfileMobile,
@@ -12,10 +13,6 @@ import { cx, focusRing } from "@/lib/utils"
 import { RiHome2Line } from "@remixicon/react"
 
 import MobileSidebar from "./MobileSidebar"
-import {
-  WorkspacesDropdownDesktop,
-  WorkspacesDropdownMobile,
-} from "./SidebarWorkspacesDropdown"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },
@@ -54,7 +51,7 @@ export function Sidebar() {
       {/* sidebar (lg+) */}
       <nav className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         <aside className="flex grow flex-col gap-y-6 overflow-y-auto border-r border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
-          <WorkspacesDropdownDesktop />
+          <Logo />
           <nav
             aria-label="core navigation links"
             className="flex flex-1 flex-col space-y-10"
@@ -63,6 +60,7 @@ export function Sidebar() {
               {navigation.map((item) => (
                 <li key={item.name}>
                   <Link
+                    prefetch={true}
                     href={item.href}
                     className={cx(
                       isActive(item.href)
@@ -86,6 +84,7 @@ export function Sidebar() {
                 {shortcuts.map((item) => (
                   <li key={item.name}>
                     <Link
+                      prefetch={true}
                       href={item.href}
                       className={cx(
                         pathname === item.href || pathname.startsWith(item.href)
@@ -113,7 +112,7 @@ export function Sidebar() {
       </nav>
       {/* top navbar (xs-lg) */}
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-2 shadow-sm sm:gap-x-6 sm:px-4 lg:hidden dark:border-gray-800 dark:bg-gray-950">
-        <WorkspacesDropdownMobile />
+        <Logo />
         <div className="flex items-center gap-1 sm:gap-2">
           <UserProfileMobile />
           <MobileSidebar />

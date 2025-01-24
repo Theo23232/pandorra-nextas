@@ -63,7 +63,7 @@ export default function PubComment({
   date,
 }: PubCommentProps) {
   const { data: comments, mutate } = useSWR<CommentWithAuthor[]>(
-    `/api/publication/comment/${pubId}`,
+    `/api/publication/comment?publicationId=${pubId}`,
     fetcher,
   )
 

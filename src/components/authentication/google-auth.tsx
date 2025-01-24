@@ -1,14 +1,14 @@
 "use client"
-import './google-auth.css';
+import "./google-auth.css"
 
-import { useRouter } from 'next/navigation';
-import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import { useRouter } from "next/navigation"
+import Script from "next/script"
+import { useEffect, useState } from "react"
 
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Button } from '@/components/tremor/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Button } from "@/components/tremor/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 
 interface GoogleAuthProps {
   onSuccess?: () => void
@@ -28,7 +28,7 @@ declare global {
 export const GoogleAuth = ({
   onSuccess,
   onError,
-  redirectUrl = "/dashboard/overview",
+  redirectUrl = "/explore",
   className = "w-full",
 }: GoogleAuthProps) => {
   const [isLoading, setIsLoading] = useState(false)

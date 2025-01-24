@@ -120,6 +120,7 @@ export async function leofetch<T>(
     ...defaultHeaders,
     ...options.headers,
   }
+  console.log("headers ==> ", headers)
 
   const config: RequestInit = {
     method: options.method,
@@ -128,6 +129,7 @@ export async function leofetch<T>(
   }
 
   try {
+    console.log("config ==> ", config)
     const response: any = await fetch(url, config)
 
     return (await response.json()) as T
@@ -146,12 +148,15 @@ export async function fetchGenerationResult(
   return new Promise((resolve, reject) => {
     const interval = setInterval(async () => {
       try {
+        console.log("Referching...")
         const result = await leofetch<LeoFetchGenerationResult>(
           `https://cloud.leonardo.ai/api/rest/v1/generations/${id}`,
           { method: "GET" },
         )
 
         if (result && result.generations_by_pk) {
+          console.log("Generated")
+
           const response = result.generations_by_pk as GenerationWithImages
 
           if (response.generated_images.length) {

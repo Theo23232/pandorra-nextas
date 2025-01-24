@@ -1,5 +1,5 @@
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export type ImageNumberProps = {
   onChange: (count: number) => void
@@ -16,19 +16,19 @@ export const ImageNumberInput = (props: ImageNumberProps) => {
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger
             value="1"
-            className="data-[state=active]:primeBg data-[state=active]:text-white"
+            className="data-[state=active]:bg-primary data-[state=active]:text-white"
           >
             1
           </TabsTrigger>
           <TabsTrigger
             value="2"
-            className="data-[state=active]:primeBg data-[state=active]:text-white"
+            className="data-[state=active]:bg-primary data-[state=active]:text-white"
           >
             2
           </TabsTrigger>
           <TabsTrigger
             value="3"
-            className="data-[state=active]:primeBg data-[state=active]:text-white"
+            className="data-[state=active]:bg-primary data-[state=active]:text-white"
           >
             3
           </TabsTrigger>

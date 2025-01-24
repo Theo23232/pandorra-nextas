@@ -188,9 +188,7 @@ export default function Page() {
                   </div>
                 )}
                 {image.isVariant && (
-                  <Badge className="primeBg absolute right-2 top-2">
-                    Variant
-                  </Badge>
+                  <Badge className="absolute right-2 top-2">Variant</Badge>
                 )}
               </div>
             ))}

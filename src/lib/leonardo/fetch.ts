@@ -120,7 +120,6 @@ export async function leofetch<T>(
     ...defaultHeaders,
     ...options.headers,
   }
-  console.log("headers ==> ", headers)
 
   const config: RequestInit = {
     method: options.method,
@@ -129,7 +128,6 @@ export async function leofetch<T>(
   }
 
   try {
-    console.log("config ==> ", config)
     const response: any = await fetch(url, config)
 
     return (await response.json()) as T
@@ -155,8 +153,6 @@ export async function fetchGenerationResult(
         )
 
         if (result && result.generations_by_pk) {
-          console.log("Generated")
-
           const response = result.generations_by_pk as GenerationWithImages
 
           if (response.generated_images.length) {

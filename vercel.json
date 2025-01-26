@@ -1,6 +1,6 @@
 {
   "functions": {
-    "app/api/**/*": {
+    "src/lib/leonardo/fetch.ts": {
       "maxDuration": 60
     }
   }

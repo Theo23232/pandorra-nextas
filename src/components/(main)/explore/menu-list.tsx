@@ -27,7 +27,7 @@ export const MenuList = (props: MenuListProps) => {
       <li>
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#007AD4] to-[#2EA4FF] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/image-generation"
+          href="/image/generation"
           prefetch={true}
         >
           <div className="flex items-center justify-between">

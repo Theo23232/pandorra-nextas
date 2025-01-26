@@ -14,7 +14,7 @@ interface FetchOptions {
   headers?: Record<string, string>
 }
 
-type LeoFetchGenerationResult = {
+export type LeoFetchGenerationResult = {
   generations_by_pk: GenerationWithImages
 }
 
@@ -139,89 +139,87 @@ export async function leofetch<T>(
 
 export async function fetchGenerationResult(
   id: string,
-): Promise<GenerationWithImages> {
+): Promise<LeoFetchGenerationResult | undefined> {
   const user = await currentUser()
   if (!user) throw new Error("You are not authenticated")
 
-  return new Promise((resolve, reject) => {
-    const interval = setInterval(async () => {
-      try {
-        console.log("Referching...")
-        const result = await leofetch<LeoFetchGenerationResult>(
-          `https://cloud.leonardo.ai/api/rest/v1/generations/${id}`,
-          { method: "GET" },
-        )
+  const result = await leofetch<LeoFetchGenerationResult>(
+    `https://cloud.leonardo.ai/api/rest/v1/generations/${id}`,
+    { method: "GET" },
+  )
+  if (result && result.generations_by_pk) {
+    return result
+  } else {
+    return undefined
+  }
+}
 
-        if (result && result.generations_by_pk) {
-          const response = result.generations_by_pk as GenerationWithImages
+export const generationInsert = async (
+  result: LeoFetchGenerationResult,
+): Promise<GenerationWithImages> => {
+  const user = await currentUser()
+  if (!user) throw new Error("You are not authenticated")
+  if (result && result.generations_by_pk) {
+    const response = result.generations_by_pk as GenerationWithImages
 
-          if (response.generated_images.length) {
-            await prisma.generation.create({
-              data: {
-                id: response.id,
-                modelId: response.modelId,
-                motion: response.motion,
-                motionModel: response.motionModel,
-                motionStrength: response.motionStrength,
-                prompt: response.prompt,
-                negativePrompt: response.negativePrompt,
-                imageHeight: response.imageHeight,
-                imageToVideo: response.imageToVideo,
-                imageWidth: response.imageWidth,
-                inferenceSteps: response.inferenceSteps,
-                ultra: response.ultra,
-                public: response.public,
-                scheduler: response.scheduler,
-                sdVersion: response.sdVersion,
-                status: response.status,
-                presetStyle: response.presetStyle,
-                guidanceScale: response.guidanceScale,
-                promptMagic: response.promptMagic,
-                promptMagicVersion: response.promptMagicVersion,
-                promptMagicStrength: response.promptMagicStrength,
-                photoReal: response.photoReal,
-                photoRealStrength: response.photoRealStrength,
-                fantasyAvatar: response.fantasyAvatar,
-                // Associer l'utilisateur avec la relation connect
-                user: { connect: { id: user.id } },
-                generated_images: {
-                  create: response.generated_images.map((image) => ({
-                    id: image.id,
-                    url: image.url,
-                    nsfw: image.nsfw,
-                    motionMP4URL: image.motionMP4URL,
-                  })),
-                },
-              },
-            })
-
-            response.generated_images.map((image) => ({
+    if (response.generated_images.length) {
+      await prisma.generation.create({
+        data: {
+          id: response.id,
+          modelId: response.modelId,
+          motion: response.motion,
+          motionModel: response.motionModel,
+          motionStrength: response.motionStrength,
+          prompt: response.prompt,
+          negativePrompt: response.negativePrompt,
+          imageHeight: response.imageHeight,
+          imageToVideo: response.imageToVideo,
+          imageWidth: response.imageWidth,
+          inferenceSteps: response.inferenceSteps,
+          ultra: response.ultra,
+          public: response.public,
+          scheduler: response.scheduler,
+          sdVersion: response.sdVersion,
+          status: response.status,
+          presetStyle: response.presetStyle,
+          guidanceScale: response.guidanceScale,
+          promptMagic: response.promptMagic,
+          promptMagicVersion: response.promptMagicVersion,
+          promptMagicStrength: response.promptMagicStrength,
+          photoReal: response.photoReal,
+          photoRealStrength: response.photoRealStrength,
+          fantasyAvatar: response.fantasyAvatar,
+          // Associer l'utilisateur avec la relation connect
+          user: { connect: { id: user.id } },
+          generated_images: {
+            create: response.generated_images.map((image) => ({
+              id: image.id,
               url: image.url,
               nsfw: image.nsfw,
               motionMP4URL: image.motionMP4URL,
             })),
-              response.generated_images.forEach(async (image) => {
-                await prisma.userImage.create({
-                  data: {
-                    userId: user.id,
-                    imageId: image.id,
-                    imageUrl: image.url,
-                    isAIGenerated: true,
-                  },
-                })
-              })
+          },
+        },
+      })
 
-            clearInterval(interval) // Nettoyer l'intervalle ici
-            resolve(response) // Résoudre la promesse avec le résultat
-          }
-        }
-      } catch (error) {
-        clearInterval(interval)
-        console.log(error)
-        reject(error)
-      }
-    }, 2000)
-  })
+      response.generated_images.map((image) => ({
+        url: image.url,
+        nsfw: image.nsfw,
+        motionMP4URL: image.motionMP4URL,
+      })),
+        response.generated_images.forEach(async (image) => {
+          await prisma.userImage.create({
+            data: {
+              userId: user.id,
+              imageId: image.id,
+              imageUrl: image.url,
+              isAIGenerated: true,
+            },
+          })
+        })
+    }
+  }
+  return result.generations_by_pk
 }
 
 export async function saveImage(

@@ -1,14 +1,14 @@
 "use client"
-import { useState } from 'react';
+import { useState } from "react"
 
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { useSelectImage } from '@/hooks/use-select-image';
-import { leofetch } from '@/lib/leonardo/fetch';
-import { Model, models } from '@/lib/leonardo/presets';
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { useSelectImage } from "@/hooks/use-select-image"
+import { leofetch } from "@/lib/leonardo/fetch"
+import { Model, models } from "@/lib/leonardo/presets"
 
-import { Main } from './Main';
-import { ImageGenerationSidebar } from './sidebar';
+import { Main } from "./Main"
+import { ImageGenerationSidebar } from "./sidebar"
 
 export default function RoutePage() {
   //en fait c'est un ID
@@ -41,8 +41,12 @@ export default function RoutePage() {
   const generate = async () => {
     console.log(state)
     const contrast = state.contrast
+
     const data = {
-      alchemy: true,
+      alchemy:
+        state.activeModel.id == "b2614463-296c-462a-9586-aafdb8f00e36"
+          ? false
+          : true,
       height: state.height,
       width: state.width,
       modelId: state.activeModel.id,

@@ -1,24 +1,45 @@
 "use client"
 
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import {
+  BadgeCheck,
+  Bell,
+  ChevronsUpDown,
+  CreditCard,
+  LogOut,
+  Sparkles,
+} from "lucide-react"
+import { useTheme } from "next-themes"
 
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
-    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
-    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
-} from '@/components/tremor/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSubMenu,
+  DropdownMenuSubMenuContent,
+  DropdownMenuSubMenuTrigger,
+  DropdownMenuTrigger,
+} from "@/components/tremor/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
-    SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar
-} from '@/components/ui/sidebar';
-import { useUser } from '@/hooks/use-user';
-import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar"
+import { useUser } from "@/hooks/use-user"
+import { logOut } from "@/lib/utils"
+import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
 
 export function NavUser() {
   const { isMobile } = useSidebar()
   const { user, isLoading } = useUser()
   const { theme, setTheme } = useTheme()
+
   if (user) {
     return (
       <SidebarMenu>
@@ -136,7 +157,7 @@ export function NavUser() {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={logOut}>
                 <LogOut className="mr-2 size-4 shrink-0" />
                 Log out
               </DropdownMenuItem>

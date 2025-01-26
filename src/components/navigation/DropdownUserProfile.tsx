@@ -20,6 +20,7 @@ import {
 } from "@/components/tremor/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useUser } from "@/hooks/use-user"
+import { logOut } from "@/lib/utils"
 import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
 
 export type DropdownUserProfileProps = {
@@ -130,7 +131,7 @@ export function DropdownUserProfile({
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={logOut}>
             <LogOut className="mr-2 size-4 shrink-0" />
             Log out
           </DropdownMenuItem>

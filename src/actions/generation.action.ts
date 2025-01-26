@@ -12,6 +12,9 @@ export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
       include: {
         generated_images: true,
       },
+      orderBy: {
+        createdAt: "asc",
+      },
     })
   } else throw new Error("You are not authenticated")
 }

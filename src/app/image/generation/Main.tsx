@@ -1,15 +1,15 @@
 "use client"
-import { ImagePlus } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { ImagePlus } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
-import { getUserGeneration } from '@/actions/generation.action';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { GenerationResult } from '@/components/image-ai/GenerationResult';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Button } from '@/components/tremor/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { fetchGenerationResult } from '@/lib/leonardo/fetch';
-import { GeneratedImage, Prisma } from '@prisma/client';
+import { getUserGeneration } from "@/actions/generation.action"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { GenerationResult } from "@/components/image-ai/GenerationResult"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Button } from "@/components/tremor/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
+import { GeneratedImage, Prisma } from "@prisma/client"
 
 export type MainProps = {
   prompt: string
@@ -50,12 +50,27 @@ export const Main = (props: MainProps) => {
   useEffect(() => {
     if (props.id) {
       const fetch = async () => {
-        setIsLoading(true)
-        const result = await fetchGenerationResult(props.id!)
-        if (result.generated_images.length) {
-          setIsLoading(false)
-          window.location.reload()
-        }
+        new Promise((resolve, reject) => {
+          const interval = setInterval(async () => {
+            try {
+              setIsLoading(true)
+              const result = await fetchGenerationResult(props.id!)
+              if (result && result.generations_by_pk.generated_images.length) {
+                const generation = await generationInsert(result)
+                setHistory((prev) => [...prev, generation])
+                setIsLoading(false)
+
+                clearInterval(interval) // Nettoyer l'intervalle ici
+                resolve(result)
+                // window.location.reload()
+              }
+            } catch (error) {
+              clearInterval(interval)
+              console.log(error)
+              reject(error)
+            }
+          }, 2000)
+        })
       }
       fetch().then(() => {})
     }
@@ -101,14 +116,9 @@ export const Main = (props: MainProps) => {
         </div>
       </div>
       <div className="flex w-full flex-col-reverse gap-4">
-        {history
-          .sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-          )
-          .map((h) => (
-            <GenerationResult generated={h} key={h.id} />
-          ))}
+        {history.map((h) => (
+          <GenerationResult generated={h} key={h.id} />
+        ))}
         {isLoading && <GenerationSkeleton />}
       </div>
       {!isLoaded && (

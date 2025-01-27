@@ -1,19 +1,35 @@
 "use client"
-import { ChevronDown, ChevronsUpDown, Images, SunMedium, Zap } from 'lucide-react';
-import Image from 'next/image';
-import * as React from 'react';
-
-import { CollectionDialog } from '@/components/image-ai/CollectionDialog';
-import { ImageNumberInput } from '@/components/image-ai/ImageNumberInput';
-import { ImageSizeInput } from '@/components/image-ai/ImageSizeInput';
-import { ModelSelectDialog } from '@/components/image-ai/ModelSelectDialog';
-import { NavUser } from '@/components/sidebar/nav-user';
-import { Button } from '@/components/tremor/ui/button';
-import { Card, CardContent } from '@/components/tremor/ui/card';
 import {
-    Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
-} from '@/components/ui/select';
-import { Model, presetStyles } from '@/lib/leonardo/presets';
+  ChevronDown,
+  ChevronsUpDown,
+  Images,
+  SunMedium,
+  Zap,
+} from "lucide-react"
+import Image from "next/image"
+import { useSearchParams } from "next/navigation"
+import * as React from "react"
+
+import { CollectionDialog } from "@/components/image-ai/CollectionDialog"
+import { ImageNumberInput } from "@/components/image-ai/ImageNumberInput"
+import { ImageSizeInput } from "@/components/image-ai/ImageSizeInput"
+import { ModelSelectDialog } from "@/components/image-ai/ModelSelectDialog"
+import { NavUser } from "@/components/sidebar/nav-user"
+import { Button } from "@/components/tremor/ui/button"
+import { Card, CardContent } from "@/components/tremor/ui/card"
+import {
+  Select,
+  SelectContent,
+  SelectCustomTrigger,
+  SelectGroup,
+  SelectItem,
+} from "@/components/ui/select"
+import {
+  findModelById,
+  Model,
+  models,
+  presetStyles,
+} from "@/lib/leonardo/presets"
 
 export type SidebarProps = {
   onModelChange: (model: Model) => void
@@ -30,9 +46,14 @@ export type SidebarProps = {
 }
 
 export function ImageGenerationSidebar(props: SidebarProps) {
+  const searchParams = useSearchParams()
+  const queryPresetStyle = searchParams.get("presetStyle")
+  const queryModelId = searchParams.get("modelId")
+
   const [activeModel, setActiveModel] = React.useState<Model>(
     props.defaultmodel,
   )
+
   const [presetStyle, setPresetStyle] = React.useState(props.defaultpresetstyle)
   const [contrast, setContrast] = React.useState(props.defaultcontrast)
   const [size, setSize] = React.useState({
@@ -40,6 +61,16 @@ export function ImageGenerationSidebar(props: SidebarProps) {
     height: props.defaultheight,
   })
   const [count, setCount] = React.useState(props.defaultcount)
+
+  React.useEffect(() => {
+    if (queryPresetStyle) {
+      setPresetStyle(queryPresetStyle)
+    }
+    if (queryModelId) {
+      const queryModel = findModelById(queryModelId)
+      setActiveModel(queryModel ?? models[0])
+    }
+  }, [queryPresetStyle, queryModelId])
 
   React.useEffect(() => {
     props.onModelChange(activeModel)

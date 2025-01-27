@@ -1,10 +1,10 @@
 "use client"
 
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
-import { ReactNode, useRef, useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion"
+import Image from "next/image"
+import { ReactNode, useRef, useState } from "react"
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils"
 
 export const DirectionAwareHover = ({
   imageUrl,
@@ -66,7 +66,7 @@ export const DirectionAwareHover = ({
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "group/card relative h-full w-full overflow-hidden rounded-lg bg-transparent",
+        "group/card relative h-full w-full overflow-hidden rounded-lg bg-gray-50 dark:bg-black/50",
         className,
       )}
     >
@@ -80,14 +80,14 @@ export const DirectionAwareHover = ({
           <motion.div className="absolute inset-0 z-10 hidden h-full w-full bg-black/40 transition duration-500 group-hover/card:block" />
           <motion.div
             variants={variants}
-            className="relative h-full w-full bg-gray-50 dark:bg-black"
+            className="relative h-full w-full bg-gray-50 dark:bg-black/50"
             transition={{
               duration: 0.2,
               ease: "easeOut",
             }}
           >
             <Image
-              alt="image"
+              alt=""
               className={cn(
                 "h-full w-full scale-[1.15] object-cover",
                 imageClassName,

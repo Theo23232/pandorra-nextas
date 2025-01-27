@@ -550,6 +550,10 @@ export const models: Model[] = [
   },
 ]
 
+export function findModelById(id: string): Model | undefined {
+  return models.find((model) => model.id === id)
+}
+
 export const presetStyles: Value[] = [
   {
     name: "ANIME",

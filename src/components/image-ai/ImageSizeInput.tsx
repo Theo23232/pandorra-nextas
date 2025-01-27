@@ -1,156 +1,145 @@
 "use client"
-import { useState } from 'react';
 
-import { Label } from '@/components/tremor/inputs/label';
-import { Button } from '@/components/tremor/ui/button';
-import { ratioList } from '@/lib/ratioList';
-import { cn } from '@/lib/utils';
+import { useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useState } from "react"
+
+import { Label } from "@/components/tremor/inputs/label"
+import { Button } from "@/components/tremor/ui/button"
+import { ratioList } from "@/lib/ratioList"
+import { cn } from "@/lib/utils"
 
 export type ImageSizeProps = {
   onChange: (width: number, height: number) => void
 }
 
-export const ImageSizeInput = (props: ImageSizeProps) => {
-  const [activeName, setActiveName] = useState("2:3")
-  const [activeSize, setActiveSize] = useState<"small" | "medium" | "large">(
-    "medium",
+type RatioName = "2:3" | "16:9" | "1:1" | "4:5" | "9:16" | "2:1"
+type SizeOption = "small" | "medium" | "large"
+
+const ratioOptions: RatioName[] = ["2:3", "16:9", "1:1", "4:5", "9:16", "2:1"]
+const sizeOptions: SizeOption[] = ["small", "medium", "large"]
+
+export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
+  const [activeName, setActiveName] = useState<RatioName>("2:3")
+  const [activeSize, setActiveSize] = useState<SizeOption>("medium")
+  const searchParams = useSearchParams()
+
+  const findMatchingRatio = useCallback((width: number, height: number) => {
+    for (const ratio of ratioList) {
+      for (const size of sizeOptions) {
+        // Allow for a small margin of error (e.g., 1 pixel) to account for rounding
+        if (
+          Math.abs(ratio[size].w - width) <= 1 &&
+          Math.abs(ratio[size].h - height) <= 1
+        ) {
+          return { ratio: ratio.ratio as RatioName, size }
+        }
+      }
+    }
+    return null
+  }, [])
+
+  useEffect(() => {
+    const imageSizeParam = searchParams.get("imageSize")
+    if (imageSizeParam) {
+      const [width, height] = imageSizeParam.split("×").map(Number)
+      const match = findMatchingRatio(width, height)
+      if (match) {
+        setActiveName(match.ratio)
+        setActiveSize(match.size)
+      } else {
+        // If no exact match is found, find the closest ratio
+        const closestRatio = ratioList.reduce((closest, current) => {
+          const currentRatio = current.medium.w / current.medium.h
+          const targetRatio = width / height
+          return Math.abs(currentRatio - targetRatio) <
+            Math.abs(closest.medium.w / closest.medium.h - targetRatio)
+            ? current
+            : closest
+        })
+        setActiveName(closestRatio.ratio as RatioName)
+        // Set size based on which dimension is closest
+        const closestSize = ["small", "medium", "large"].reduce(
+          (closest, size) => {
+            const currentDiff =
+              Math.abs(closestRatio[size].w - width) +
+              Math.abs(closestRatio[size].h - height)
+            const closestDiff =
+              Math.abs(closestRatio[closest].w - width) +
+              Math.abs(closestRatio[closest].h - height)
+            return currentDiff < closestDiff ? size : closest
+          },
+          "medium" as SizeOption,
+        )
+        setActiveSize(closestSize as SizeOption)
+      }
+    }
+  }, [searchParams, findMatchingRatio])
+
+  const handleChange = useCallback(
+    (newRatio: RatioName | null, newSize: SizeOption | null) => {
+      const ratio = newRatio || activeName
+      const size = newSize || activeSize
+      const dimensions = ratioList.find((r) => r.ratio === ratio)?.[size]
+
+      if (dimensions) {
+        onChange(dimensions.w, dimensions.h)
+        if (newRatio) setActiveName(ratio as RatioName)
+        if (newSize) setActiveSize(size)
+      }
+    },
+    [activeName, activeSize, onChange],
   )
 
-  const handleChangeRatio = (ratioName: string) => {
-    setActiveName(ratioName)
-    props.onChange(
-      ratioList.find((ratio) => ratio.ratio === ratioName)?.[activeSize].w || 0,
-      ratioList.find((ratio) => ratio.ratio === ratioName)?.[activeSize].h || 0,
+  const RatioButton = ({ ratio }: { ratio: RatioName }) => (
+    <Button
+      variant="outline"
+      className={cn(
+        "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
+        activeName === ratio && "bg-primary text-white",
+      )}
+      onClick={() => handleChange(ratio, null)}
+    >
+      {ratio}
+    </Button>
+  )
+
+  const SizeButton = ({ size }: { size: SizeOption }) => {
+    const dimensions = ratioList.find((r) => r.ratio === activeName)?.[size]
+    return (
+      <Button
+        variant="outline"
+        className={cn(
+          "flex w-1/3 flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
+          activeSize === size && "bg-primary text-white",
+        )}
+        onClick={() => handleChange(null, size)}
+      >
+        <p className="text-sm capitalize">{size}</p>
+        <p className="text-[8px]">
+          {dimensions ? `${dimensions.h} × ${dimensions.w}` : "Unknown"}
+        </p>
+      </Button>
     )
   }
-  const handleChangeSize = (size: "small" | "medium" | "large") => {
-    setActiveSize(size)
-    props.onChange(
-      ratioList.find((ratio) => ratio.ratio === activeName)?.[size].w || 0,
-      ratioList.find((ratio) => ratio.ratio === activeName)?.[size].h || 0,
-    )
-  }
+
   return (
     <div className="space-y-2">
-      <Label className="mb-2">Image dimensions</Label>;
+      <Label className="mb-2">Image dimensions</Label>
       <div className="flex w-full flex-wrap gap-2">
-        <div className="flex w-full gap-2">
-          <Button
-            variant={"outline"}
-            className={cn(
-              "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-              activeName == "2:3" ? "bg-primary text-white" : "",
-            )}
-            onClick={() => handleChangeRatio("2:3")}
-          >
-            2:3
-          </Button>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-              activeName == "16:9" ? "bg-primary text-white" : "",
-            )}
-            onClick={() => handleChangeRatio("16:9")}
-          >
-            16:9
-          </Button>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-              activeName == "1:1" ? "bg-primary text-white" : "",
-            )}
-            onClick={() => handleChangeRatio("1:1")}
-          >
-            1:1
-          </Button>
-        </div>
-        <div className="flex w-full gap-2">
-          <Button
-            variant={"outline"}
-            className={cn(
-              "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-              activeName == "4:5" ? "bg-primary text-white" : "",
-            )}
-            onClick={() => handleChangeRatio("4:5")}
-          >
-            4:5
-          </Button>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-              activeName == "9:16" ? "bg-primary text-white" : "",
-            )}
-            onClick={() => handleChangeRatio("9:16")}
-          >
-            9:16
-          </Button>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-              activeName == "2:1" ? "bg-primary text-white" : "",
-            )}
-            onClick={() => handleChangeRatio("2:1")}
-          >
-            2:1
-          </Button>
-        </div>
+        {[ratioOptions.slice(0, 3), ratioOptions.slice(3)].map(
+          (group, index) => (
+            <div key={index} className="flex w-full gap-2">
+              {group.map((ratio) => (
+                <RatioButton key={ratio} ratio={ratio} />
+              ))}
+            </div>
+          ),
+        )}
       </div>
       <div className="flex w-full justify-between">
-        <Button
-          variant={"outline"}
-          className={cn(
-            "flex w-1/3 flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-            activeSize == "small" ? "bg-primary text-white" : "",
-          )}
-          onClick={() => handleChangeSize("small")}
-        >
-          <p className="text-sm">Small</p>
-          <p className="text-[8px]">
-            {ratioList.find((ratio) => ratio.ratio === activeName)?.small.h ||
-              "Unknown"}{" "}
-            ×{" "}
-            {ratioList.find((ratio) => ratio.ratio === activeName)?.small.w ||
-              "Unknown"}
-          </p>
-        </Button>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "flex w-1/3 flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-            activeSize == "medium" ? "bg-primary text-white" : "",
-          )}
-          onClick={() => handleChangeSize("medium")}
-        >
-          <p className="text-sm">Medium</p>
-          <p className="text-[8px]">
-            {ratioList.find((ratio) => ratio.ratio === activeName)?.medium.h ||
-              "Unknown"}{" "}
-            ×{" "}
-            {ratioList.find((ratio) => ratio.ratio === activeName)?.medium.w ||
-              "Unknown"}
-          </p>
-        </Button>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "flex w-1/3 flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-            activeSize == "large" ? "bg-primary text-white" : "",
-          )}
-          onClick={() => handleChangeSize("large")}
-        >
-          <p className="text-sm">Large</p>
-          <p className="text-[8px]">
-            {ratioList.find((ratio) => ratio.ratio === activeName)?.large.h ||
-              "Unknown"}{" "}
-            ×{" "}
-            {ratioList.find((ratio) => ratio.ratio === activeName)?.large.w ||
-              "Unknown"}
-          </p>
-        </Button>
+        {sizeOptions.map((size) => (
+          <SizeButton key={size} size={size} />
+        ))}
       </div>
     </div>
   )

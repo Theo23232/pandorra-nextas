@@ -1,15 +1,16 @@
 "use client"
-import { ImagePlus } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { ImagePlus } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
 
-import { getUserGeneration } from '@/actions/generation.action';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { GenerationResult } from '@/components/image-ai/GenerationResult';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Button } from '@/components/tremor/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { fetchGenerationResult, generationInsert } from '@/lib/leonardo/fetch';
-import { GeneratedImage, Prisma } from '@prisma/client';
+import { getUserGeneration } from "@/actions/generation.action"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { GenerationResult } from "@/components/image-ai/GenerationResult"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Button } from "@/components/tremor/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
+import { GeneratedImage, Prisma } from "@prisma/client"
 
 export type MainProps = {
   prompt: string
@@ -32,12 +33,21 @@ export type GenerationWithImages = Omit<
 
 export const Main = (props: MainProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const searchParams = useSearchParams()
+  const queryPrompt = searchParams.get("prompt")
 
   const [prompt, setPrompt] = useState(props.prompt)
   const [isLoading, setIsLoading] = useState(false)
   const [generated, setGenerated] = useState<GenerationWithImages>()
   const [history, setHistory] = useState<GenerationWithImages[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    if (queryPrompt) {
+      setPrompt(queryPrompt)
+      props.onPromptChange(queryPrompt)
+    }
+  }, [queryPrompt])
 
   const handlePromptChange = (p: string) => {
     setPrompt(p)

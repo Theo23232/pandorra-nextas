@@ -1,17 +1,16 @@
 "use client"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { GoogleAuth } from "@/components/authentication/google-auth"
-import { Input } from "@/components/tremor/inputs/input"
-import { Label } from "@/components/tremor/inputs/label"
-import { Button } from "@/components/tremor/ui/button"
-import { Divider } from "@/components/tremor/ui/divider"
-import { useToast } from "@/hooks/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { GoogleAuth } from '@/components/authentication/google-auth';
+import { Input } from '@/components/tremor/inputs/input';
+import { Label } from '@/components/tremor/inputs/label';
+import { Button } from '@/components/tremor/ui/button';
+import { Divider } from '@/components/tremor/ui/divider';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required"),
@@ -85,17 +84,10 @@ export default function AuthForm() {
   return (
     <div className="mt-8 flex max-w-md flex-col items-center justify-center rounded-lg bg-background p-6 shadow-md">
       <div className="flex w-full items-center justify-center">
-        <Image
-          src="/logo/logo-base-256x256.png"
-          width={256}
-          height={256}
-          alt="logo"
-          className="h-16 w-16"
-        />
-        <p className="manrope text-5xl font-bold text-primary">pandorra</p>
+        <p className="manrope text-5xl font-bold text-primary">Pandorra.ai</p>
       </div>
 
-      <p className="text-md mb-4 text-center">Ship fast your nextjs SaaS</p>
+      <p className="text-md mb-4 text-center">Creativity unleashed</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
         {!isLogin && (

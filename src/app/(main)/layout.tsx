@@ -10,7 +10,7 @@ export default async function RouteLayout({
   return (
     <>
       <Sidebar />
-      <main className="min-h-screen p-8 pt-4 lg:pl-80">{children}</main>
+      <main className="min-h-screen p-8 pt-4 lg:pl-64">{children}</main>
     </>
   )
 }

@@ -1,14 +1,16 @@
 "use client"
-import { useState } from "react"
+import { useState } from 'react';
 
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { leofetch } from "@/lib/leonardo/fetch"
-import { Model, models } from "@/lib/leonardo/presets"
+import { Logo } from '@/components/logo';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { useSelectImage } from '@/hooks/use-select-image';
+import { leofetch } from '@/lib/leonardo/fetch';
+import { Model, models } from '@/lib/leonardo/presets';
 
-import { Main } from "./Main"
-import { ImageGenerationSidebar } from "./sidebar"
+import { Main } from './Main';
+import { ImageGenerationSidebar } from './sidebar';
 
 export default function RoutePage() {
   //en fait c'est un ID
@@ -96,13 +98,14 @@ export default function RoutePage() {
         defaultcount={count}
       />
       <div className="w-full lg:pl-96">
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex w-full items-center justify-between gap-2 px-4">
-            <div className="flex gap-4">
-              <JetonCounter />
-            </div>
+        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white bg-opacity-70 px-2 shadow-sm backdrop-blur-md sm:gap-x-6 sm:px-4 dark:border-gray-800 dark:bg-gray-950 dark:bg-opacity-75 dark:backdrop-blur-md">
+          <Logo />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <JetonCounter />
+
+            <UserProfileMobile />
           </div>
-        </header>
+        </div>
         <Main
           onGenerate={generate}
           onPromptChange={(prompt) => handleStateChange("prompt", prompt)}

@@ -1,15 +1,15 @@
 "use client"
-import { ImagePlus } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { ImagePlus } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
-import { getUserGeneration } from "@/actions/generation.action"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { GenerationResult } from "@/components/image-ai/GenerationResult"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Button } from "@/components/tremor/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
-import { GeneratedImage, Prisma } from "@prisma/client"
+import { getUserGeneration } from '@/actions/generation.action';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { GenerationResult } from '@/components/image-ai/GenerationResult';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Button } from '@/components/tremor/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { fetchGenerationResult, generationInsert } from '@/lib/leonardo/fetch';
+import { GeneratedImage, Prisma } from '@prisma/client';
 
 export type MainProps = {
   prompt: string
@@ -92,7 +92,7 @@ export const Main = (props: MainProps) => {
     }
   }, [prompt])
   return (
-    <div className="flex flex-col justify-center px-4">
+    <div className="flex flex-col justify-center px-4 pt-4">
       <div className="relative mb-4 w-full">
         <Textarea
           ref={textareaRef}

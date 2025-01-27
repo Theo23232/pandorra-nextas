@@ -87,7 +87,9 @@ export default function AuthForm() {
         <p className="manrope text-5xl font-bold text-primary">Pandorra.ai</p>
       </div>
 
-      <p className="text-md mb-4 text-center">Creativity unleashed</p>
+      <p className="text-md mb-4 text-center text-white">
+        Creativity unleashed
+      </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
         {!isLogin && (
@@ -151,7 +153,7 @@ export default function AuthForm() {
 
       <Divider>or with</Divider>
       <GoogleAuth />
-      <p className="text-tremor-label text-tremor-content dark:text-dark-tremor-content mt-4">
+      <p className="text-tremor-label text-tremor-content dark:text-dark-tremor-content mt-4 text-white">
         By signing in, you agree to our{" "}
         <a href="#" className="underline underline-offset-4">
           terms of service

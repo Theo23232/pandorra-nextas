@@ -1,11 +1,11 @@
-import { OAuth2Client } from "google-auth-library"
-import { NextResponse } from "next/server"
+import { OAuth2Client } from 'google-auth-library';
+import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    "postmessage", // Callback URL
+    process.env.GOOGLE_CALLBACK_URL,
   )
 
   const { searchParams } = new URL(request.url)

@@ -27,7 +27,7 @@ export default function RoutePage() {
     <Tabs defaultValue="1" className="max-w-7xl">
       <TabsList>
         <TabsTrigger value="1">Buy tokens</TabsTrigger>
-        <TabsTrigger value="2">Security</TabsTrigger>
+        <TabsTrigger value="2">Subscription</TabsTrigger>
       </TabsList>
       <div className="ml-2 mt-4">
         <TabsContent

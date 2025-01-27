@@ -8,7 +8,7 @@ import { Testimonials } from '@/components/landing/testimonials';
 
 export default async function RoutePage() {
   return (
-    <div className="dark">
+    <div>
       <LandingNavbar />
       <Hero />
       <ScrollName />

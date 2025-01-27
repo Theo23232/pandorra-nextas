@@ -50,8 +50,8 @@ export function Sidebar() {
     <>
       {/* sidebar (lg+) */}
       <Navbar />
-      <nav className="hidden pt-16 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <aside className="flex grow flex-col gap-y-6 overflow-y-auto bg-white p-4 dark:bg-gray-950">
+      <nav className="hidden pt-16 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
+        <aside className="flex grow flex-col gap-y-6 overflow-y-auto bg-white p-4 pr-0 dark:bg-gray-950">
           <nav
             aria-label="core navigation links"
             className="flex flex-1 flex-col space-y-10"
@@ -87,7 +87,7 @@ export function Sidebar() {
                       prefetch={true}
                       href={item.href}
                       className={cx(
-                        pathname === item.href || pathname.startsWith(item.href)
+                        isActive(item.href)
                           ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
                           : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                         "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",

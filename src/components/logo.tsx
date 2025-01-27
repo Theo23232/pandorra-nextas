@@ -1,9 +1,9 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import Image from "next/image"
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 export type logoProps = {
   className?: string
@@ -20,7 +20,10 @@ export const Logo = (props: logoProps) => {
             alt="logo"
             width={32}
             height={32}
-            className={cn("h-full overflow-hidden rounded-md", props.className)}
+            className={cn(
+              "z-40 h-full overflow-hidden rounded-md",
+              props.className,
+            )}
           />
           <p className="self-stretch pt-2 align-baseline text-2xl font-semibold">
             andorra.ai

@@ -1,27 +1,19 @@
 "use client"
 
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
-import { useTheme } from "next-themes"
-import * as React from "react"
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import * as React from 'react';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSubMenu,
-  DropdownMenuSubMenuContent,
-  DropdownMenuSubMenuTrigger,
-  DropdownMenuTrigger,
-} from "@/components/tremor/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@/hooks/use-user"
-import { logOut } from "@/lib/utils"
-import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
+    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
+    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
+    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
+} from '@/components/tremor/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useUser } from '@/hooks/use-user';
+import { logOut } from '@/lib/utils';
+import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode
@@ -110,10 +102,12 @@ export function DropdownUserProfile({
 
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Sparkles className="mr-2 size-4 shrink-0" />
-              Upgrade to Pro
-            </DropdownMenuItem>
+            <Link href={"/billing"}>
+              <DropdownMenuItem>
+                <Sparkles className="mr-2 size-4 shrink-0" />
+                Upgrade to Pro
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -121,10 +115,13 @@ export function DropdownUserProfile({
               <BadgeCheck className="mr-2 size-4 shrink-0" />
               Account
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCard className="mr-2 size-4 shrink-0" />
-              Billing
-            </DropdownMenuItem>
+            <Link href={"/billing"}>
+              <DropdownMenuItem>
+                <CreditCard className="mr-2 size-4 shrink-0" />
+                Billing
+              </DropdownMenuItem>
+            </Link>
+
             <DropdownMenuItem>
               <Bell className="mr-2 size-4 shrink-0" />
               Notifications

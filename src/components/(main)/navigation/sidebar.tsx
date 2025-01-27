@@ -1,22 +1,22 @@
 "use client"
-import { BotMessageSquare, Image, Settings2, User2, Video } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { BotMessageSquare, Gift, Image, Settings2, User2, Video } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Logo } from "@/components/logo"
-import {
-  UserProfileDesktop,
-  UserProfileMobile,
-} from "@/components/navigation/UserProfile"
-import { cx, focusRing } from "@/lib/utils"
-import { RiHome2Line } from "@remixicon/react"
+import { siteConfig } from '@/app/siteConfig';
+import { Navbar } from '@/components/(main)/authentified-navbar';
+import { Logo } from '@/components/logo';
+import { UserProfileDesktop, UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { cx, focusRing } from '@/lib/utils';
+import { RiHome2Line } from '@remixicon/react';
 
-import MobileSidebar from "./MobileSidebar"
+import MobileSidebar from './MobileSidebar';
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },
   { name: "Profile", href: "/profile", icon: User2 },
+  { name: "Affiliate", href: "/affiliate", icon: Gift },
   { name: "Settings", href: "/settings", icon: Settings2 },
 ] as const
 
@@ -49,9 +49,9 @@ export function Sidebar() {
   return (
     <>
       {/* sidebar (lg+) */}
-      <nav className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <aside className="flex grow flex-col gap-y-6 overflow-y-auto border-r border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
-          <Logo />
+      <Navbar />
+      <nav className="hidden pt-16 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <aside className="flex grow flex-col gap-y-6 overflow-y-auto bg-white p-4 dark:bg-gray-950">
           <nav
             aria-label="core navigation links"
             className="flex flex-1 flex-col space-y-10"
@@ -114,6 +114,8 @@ export function Sidebar() {
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-2 shadow-sm sm:gap-x-6 sm:px-4 lg:hidden dark:border-gray-800 dark:bg-gray-950">
         <Logo />
         <div className="flex items-center gap-1 sm:gap-2">
+          <JetonCounter />
+
           <UserProfileMobile />
           <MobileSidebar />
         </div>

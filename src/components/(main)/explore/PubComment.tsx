@@ -1,41 +1,26 @@
 "use client"
 
-import {
-  Download,
-  Eraser,
-  Expand,
-  Fullscreen,
-  Loader,
-  SendHorizontal,
-  Zap,
-} from "lucide-react"
-import Image from "next/image"
-import React, { useState } from "react"
-import { toast } from "sonner"
-import useSWR from "swr"
+import { Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, Zap } from 'lucide-react';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
+import useSWR from 'swr';
 
-import { createComment } from "@/actions/publication.action"
-import { Input } from "@/components/tremor/inputs/input"
-import { Button } from "@/components/tremor/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/formatDate"
-import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
-import { models } from "@/lib/leonardo/presets"
-import { fetcher } from "@/lib/utils"
-import {
-  CommentWithAuthor,
-  PublicationWithAuthor,
-} from "@/types/publicationType"
+import { createComment } from '@/actions/publication.action';
+import { Input } from '@/components/tremor/inputs/input';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { formatDate } from '@/lib/formatDate';
+import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
+import { models } from '@/lib/leonardo/presets';
+import { fetcher } from '@/lib/utils';
+import { CommentWithAuthor, PublicationWithAuthor } from '@/types/publicationType';
 
-import CommentCard from "./CommentCard"
+import CommentCard from './CommentCard';
 
 interface PubCommentProps {
   children: React.ReactNode
@@ -131,7 +116,7 @@ export default function PubComment({
                 height={800}
               />
             </div>
-            <div className="flex h-fit max-h-[80vh] w-full flex-col gap-6 space-y-6 p-6">
+            <div className="flex h-fit max-h-[80vh] w-full flex-col gap-4 space-y-4 p-4">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10">
@@ -146,59 +131,50 @@ export default function PubComment({
                   </div>
                 </div>
                 <Card>
-                  <CardHeader className="pb-2 text-base font-medium">
-                    Prompt details
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-sm text-muted-foreground">
-                      {pubDescription.prompt}
-                    </p>
-                    {!isLoading ? (
-                      <Card>
-                        <div className="">
-                          <Button
-                            className="flex h-8 w-full items-center justify-center gap-2"
-                            onClick={() => handleDownload(image)}
-                          >
-                            <Download size={20} /> Download
-                          </Button>
-                        </div>
-                        <div className="mt-2 flex items-center justify-center gap-2">
-                          <Button
-                            variant={"secondary"}
-                            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
-                            onClick={() => handleUnzoom(image)}
-                          >
-                            <Fullscreen size={20} /> Unzoom
-                          </Button>
-                          <Button
-                            variant={"secondary"}
-                            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
-                            onClick={() => handleUpscale(image)}
-                          >
-                            <Expand size={20} />
-                            Upscale
-                          </Button>
-                          <Button
-                            variant={"secondary"}
-                            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
-                            onClick={() => handleRemoveBg(image)}
-                          >
-                            <Eraser size={20} /> Bg Remove
-                          </Button>
-                        </div>
-                      </Card>
-                    ) : (
-                      <Card>
-                        <CardHeader className="p-2">
-                          <Button className="flex h-8 w-full items-center justify-center gap-2">
-                            <Loader className="animate-spin" size={20} />{" "}
-                            Loading
-                          </Button>
-                        </CardHeader>
-                      </Card>
-                    )}
-                  </CardContent>
+                  <CardTitle>Prompt details</CardTitle>
+                  <CardDescription>{pubDescription.prompt}</CardDescription>
+                  {!isLoading ? (
+                    <>
+                      <div className="">
+                        <Button
+                          className="flex h-8 w-full items-center justify-center gap-2"
+                          onClick={() => handleDownload(image)}
+                        >
+                          <Download size={20} /> Download
+                        </Button>
+                      </div>
+                      <div className="mt-2 flex items-center justify-center gap-2">
+                        <Button
+                          variant={"secondary"}
+                          className="flex h-8 w-full flex-1 items-center justify-center gap-2"
+                          onClick={() => handleUnzoom(image)}
+                        >
+                          <Fullscreen size={20} /> Unzoom
+                        </Button>
+                        <Button
+                          variant={"secondary"}
+                          className="flex h-8 w-full flex-1 items-center justify-center gap-2"
+                          onClick={() => handleUpscale(image)}
+                        >
+                          <Expand size={20} />
+                          Upscale
+                        </Button>
+                        <Button
+                          variant={"secondary"}
+                          className="flex h-8 w-full flex-1 items-center justify-center gap-2"
+                          onClick={() => handleRemoveBg(image)}
+                        >
+                          <Eraser size={20} /> Bg Remove
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <Card>
+                      <Button className="flex h-8 w-full items-center justify-center gap-2">
+                        <Loader className="animate-spin" size={20} /> Loading
+                      </Button>
+                    </Card>
+                  )}
                 </Card>
                 <div className="flex items-center gap-4 text-xs">
                   <div className="flex items-center gap-2">
@@ -268,12 +244,12 @@ function CommentInput({
         placeholder="Add a comment..."
         className="flex-grow"
       />
-      <button
+      <Button
         type="submit"
-        className="flex h-12 w-16 items-center justify-center rounded-md bg-primary p-0"
+        className="flex h-12 w-16 items-center justify-center rounded-md bg-primary p-0 text-white"
       >
         <SendHorizontal className="h-5 w-5" />
-      </button>
+      </Button>
     </form>
   )
 }

@@ -1,16 +1,13 @@
 "use client"
 
-import { Heart } from "lucide-react"
-import { useEffect, useState } from "react"
+import { Heart } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-import {
-  createCommentReaction,
-  deleteCommentReaction,
-} from "@/actions/publication.action"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent } from "@/components/ui/card"
-import { formatDate } from "@/lib/formatDate"
-import { CommentWithAuthor } from "@/types/publicationType"
+import { createCommentReaction, deleteCommentReaction } from '@/actions/publication.action';
+import { Card, CardContent } from '@/components/tremor/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { formatDate } from '@/lib/formatDate';
+import { CommentWithAuthor } from '@/types/publicationType';
 
 interface CommentCardProps {
   comment: CommentWithAuthor

@@ -1,60 +1,55 @@
 model User {
-    id              String   @id @default(cuid())
-    firstname       String?
-    lastname        String?
-    fullname        String?
-    image           String
-    username        String   @unique
-    email           String   @unique
-    language        String   @default("en")
-    description     String?
-    theme           String   @default("light")
-    password        String
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
-    permissions     String[]
-    isEmailVerified Boolean  @default(false)
-    referreId       String?
-
-    emailNotification Boolean @default(true)
-    pushNotification  Boolean @default(true)
-    jeton             Int     @default(150)
-
-    stripeCustomerId String?
-    connectStripeId  String?
-
-    amountAccumulated String @default("0")
-    currentAmount     String @default("0")
-
-    plan Plan @default(Free)
-
-    Post            Post[]
-    Session         Session[]
-    Feedback        Feedback[]
-    Generation      Generation[]
-    UserImage       UserImage[]
-    Variant         Variant[]
-    Publication     Publication[]
-    Comment         Comment[]
-    CommentReaction CommentReaction[]
-    Reaction        Reaction[]
-    Ranking         Ranking[]
+    id                String            @id @default(cuid())
+    firstname         String?
+    lastname          String?
+    fullname          String?
+    image             String
+    username          String            @unique
+    email             String            @unique
+    language          String            @default("en")
+    description       String?
+    theme             String            @default("light")
+    password          String
+    createdAt         DateTime          @default(now())
+    updatedAt         DateTime          @updatedAt
+    permissions       String[]
+    isEmailVerified   Boolean           @default(false)
+    referreId         String?
+    emailNotification Boolean           @default(true)
+    pushNotification  Boolean           @default(true)
+    jeton             Int               @default(150)
+    stripeCustomerId  String?
+    connectStripeId   String?
+    amountAccumulated String            @default("0")
+    currentAmount     String            @default("0")
+    plan              Plan              @default(Free)
+    Comment           Comment[]
+    CommentReaction   CommentReaction[]
+    Feedback          Feedback[]
+    Generation        Generation[]
+    Post              Post[]
+    Publication       Publication[]
+    Rank              Rank[]
+    Reaction          Reaction[]
+    Session           Session[]
+    UserImage         UserImage[]
+    Variant           Variant[]
 }
 
 model Session {
     id             String   @id @default(cuid())
-    user           User     @relation(fields: [userId], references: [id])
     userId         String
-    deviceType     String // 'mobile', 'tablet', 'desktop'
-    deviceOs       String // 'iOS', 'Android', 'Windows', 'macOS', 'Linux'
-    deviceModel    String? // 'iPhone 13', 'Pixel 6', etc.
-    browser        String? // 'Chrome', 'Safari', etc.
+    deviceType     String
+    deviceOs       String
+    deviceModel    String?
+    browser        String?
     browserVersion String?
     authType       String   @default("classic")
     ip             String
     country        String?
     lastActive     DateTime @default(now())
     createdAt      DateTime @default(now())
+    user           User     @relation(fields: [userId], references: [id])
 }
 
 model PasswordReset {

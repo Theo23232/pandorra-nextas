@@ -28,6 +28,7 @@ export async function GET() {
     // Générer et enregistrer le classement avec le rang
     const rankings = popularUsers.map((user, index) => ({
       userId: user.id,
+      points: user.points,
       date: rankingDate,
       rank: index + 1, // Ajouter le rang de l'utilisateur
     }))

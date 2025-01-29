@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server"
 
-import { getPopularUsers } from '@/actions/ranking.actions';
-import { prisma } from '@/prisma';
+import { getPopularUsers } from "@/actions/ranking.actions"
+import { prisma } from "@/prisma"
 
 export async function GET() {
   try {
@@ -18,7 +18,10 @@ export async function GET() {
     })
 
     if (existingRanking) {
-      return
+      return NextResponse.json(
+        { error: "Ranking for this mouth already generated" },
+        { status: 500 },
+      )
     }
 
     // Obtenir les utilisateurs les plus populaires pour le mois

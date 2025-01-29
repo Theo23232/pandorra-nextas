@@ -1,32 +1,23 @@
 "use client"
-import {
-  BotMessageSquare,
-  Gift,
-  Image,
-  Settings2,
-  User2,
-  Video,
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { BotMessageSquare, Crown, Gift, Image, Settings2, User2, Video } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Navbar } from "@/components/(main)/authentified-navbar"
-import { Logo } from "@/components/logo"
-import {
-  UserProfileDesktop,
-  UserProfileMobile,
-} from "@/components/navigation/UserProfile"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { cx, focusRing } from "@/lib/utils"
-import { RiHome2Line } from "@remixicon/react"
+import { siteConfig } from '@/app/siteConfig';
+import { Navbar } from '@/components/(main)/authentified-navbar';
+import { Logo } from '@/components/logo';
+import { UserProfileDesktop, UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { cx, focusRing } from '@/lib/utils';
+import { RiHome2Line } from '@remixicon/react';
 
-import MobileSidebar from "./MobileSidebar"
+import MobileSidebar from './MobileSidebar';
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },
   { name: "Profile", href: "/profile", icon: User2 },
   { name: "Affiliate", href: "/affiliate", icon: Gift },
+  { name: "Ranking", href: "/ranking", icon: Crown },
   { name: "Settings", href: "/settings", icon: Settings2 },
 ] as const
 

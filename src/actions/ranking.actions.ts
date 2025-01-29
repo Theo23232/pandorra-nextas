@@ -1,7 +1,7 @@
 "use server"
 import { prisma } from "@/prisma"
 
-type PopularUser = {
+export type PopularUser = {
   id: string
   firstname: string | null
   lastname: string | null
@@ -87,4 +87,28 @@ export async function getPopularUsers(
   const sortedUsers = usersWithPoints.sort((a, b) => b.points - a.points)
 
   return sortedUsers
+}
+
+export async function getPastRankings(
+  month: number,
+  year: number,
+): Promise<PopularUser[]> {
+  const date = `${year}-${month.toString().padStart(2, "0")}`
+
+  const rankings = await prisma.rank.findMany({
+    where: {
+      date: date,
+    },
+    include: {
+      user: true,
+    },
+    orderBy: {
+      rank: "asc",
+    },
+  })
+
+  return rankings.map((rank) => ({
+    ...rank.user,
+    points: rank.points, // Assuming rank has a points field
+  }))
 }

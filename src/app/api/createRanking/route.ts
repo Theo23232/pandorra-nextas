@@ -11,7 +11,7 @@ export async function GET() {
     const rankingDate = `${month}-${year}`
 
     // Vérifier si le classement pour le mois a déjà été généré
-    const existingRanking = await prisma.ranking.findFirst({
+    const existingRanking = await prisma.rank.findFirst({
       where: {
         date: rankingDate,
       },
@@ -32,10 +32,10 @@ export async function GET() {
       userId: user.id,
       points: user.points,
       date: rankingDate,
-      rank: index + 1, // Ajouter le rang de l'utilisateur
+      rank: index + 1,
     }))
 
-    const ranking = await prisma.ranking.createMany({
+    const ranking = await prisma.rank.createMany({
       data: rankings,
     })
 

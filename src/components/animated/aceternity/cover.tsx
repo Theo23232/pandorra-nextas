@@ -1,9 +1,9 @@
 "use client"
-import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useId, useRef, useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion"
+import React, { useEffect, useId, useRef, useState } from "react"
 
-import { SparklesCore } from '@/components/animated/aceternity/sparkles';
-import { cn } from '@/lib/utils';
+import { SparklesCore } from "@/components/animated/aceternity/sparkles"
+import { cn } from "@/lib/utils"
 
 export const Cover = ({
   children,
@@ -217,7 +217,6 @@ export const CircleIcon = ({
   className?: string
   delay?: number
 }) => {
-  console.log("delay ==> ", delay)
   return (
     <div
       className={cn(

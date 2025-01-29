@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { getPopularUsers } from "@/actions/ranking.actions"
-import { prisma } from "@/prisma"
+import { getPopularUsers } from '@/actions/ranking.actions';
+import { prisma } from '@/prisma';
 
 export async function GET() {
   try {
@@ -18,7 +18,6 @@ export async function GET() {
     })
 
     if (existingRanking) {
-      console.log(`Le classement pour ${rankingDate} a déjà été généré.`)
       return
     }
 
@@ -37,7 +36,6 @@ export async function GET() {
       data: rankings,
     })
 
-    console.log(`Le classement pour ${rankingDate} a été généré avec succès.`)
     return NextResponse.json({ ranking })
   } catch (error) {
     return NextResponse.json(

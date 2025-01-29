@@ -20,8 +20,6 @@ export const LikePublication = (props: LikePubProps) => {
   const [likeCount, setLikeCount] = useState<number>(props.pubLikeCount)
   const { mutate } = useSWRConfig()
 
-  console.log(likeCount)
-
   const handleReaction = async () => {
     if (isLiked) {
       setIsLiked(false)

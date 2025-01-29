@@ -1,7 +1,7 @@
 "use client"
-import React from 'react';
+import React from "react"
 
-import { saveImage, uploadImage } from '@/lib/leonardo/fetch';
+import { saveImage, uploadImage } from "@/lib/leonardo/fetch"
 
 const UploadImageComponent = () => {
   const handleFileUpload = async (
@@ -25,7 +25,6 @@ const UploadImageComponent = () => {
     // Appeler la Server Action pour enregistrer l'image
     const result = await saveImage(base64Image, fileName)
     uploadImage(result)
-    console.log(result)
   }
 
   return (

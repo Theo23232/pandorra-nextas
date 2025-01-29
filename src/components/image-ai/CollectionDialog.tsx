@@ -1,19 +1,23 @@
 "use client"
 
-import { Sparkles } from 'lucide-react';
-import Image from 'next/image';
-import { ChangeEvent, ReactNode, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import { Sparkles } from "lucide-react"
+import Image from "next/image"
+import { ChangeEvent, ReactNode, useState } from "react"
+import useSWR, { mutate } from "swr"
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button"
 import {
-    Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger
-} from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useSelectImage } from '@/hooks/use-select-image';
-import { saveImage, uploadImage } from '@/lib/leonardo/fetch';
-import { fetcher } from '@/lib/utils';
-import { UserImage } from '@prisma/client';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { useSelectImage } from "@/hooks/use-select-image"
+import { saveImage, uploadImage } from "@/lib/leonardo/fetch"
+import { fetcher } from "@/lib/utils"
+import { UserImage } from "@prisma/client"
 
 export type CollectionProps = {
   children: ReactNode
@@ -49,7 +53,6 @@ export const CollectionDialog = (props: CollectionProps) => {
     // Appeler la Server Action pour enregistrer l'image
     const result = await saveImage(base64Image, fileName)
     await uploadImage(result)
-    console.log(result)
     mutate("/api/user/collection")
     setIsLoading(false)
   }

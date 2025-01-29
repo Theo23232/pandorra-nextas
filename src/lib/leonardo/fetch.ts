@@ -78,7 +78,6 @@ export async function uploadImage(imageFilePath: string): Promise<string> {
     })
 
   if (response) {
-    console.log("Response data:", response.data.image_id)
     const imageId = response.data.image_id
     const url = `https://cloud.leonardo.ai/api/rest/v1/init-image/${imageId}`
     const headers = {
@@ -90,7 +89,6 @@ export async function uploadImage(imageFilePath: string): Promise<string> {
       headers: headers,
     })
     const data = await imageData.json()
-    console.log(data.init_images_by_pk)
 
     if (!imageData.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -263,7 +261,6 @@ export async function removeBg(
 ): Promise<GeneratedImageVariation> {
   const image = await prisma.userImage.findFirst({ where: { imageUrl } })
   if (!image) throw new Error("Image not found")
-  console.log("image ===> ", image)
   const data = {
     id: image.imageId,
     isVariation: image.isVariant,
@@ -286,7 +283,6 @@ export async function upscale(
     id: image.imageId,
   }
 
-  console.log("image ===> ", image)
   const response = await leofetch<UpscaleJob>(
     `https://cloud.leonardo.ai/api/rest/v1/variations/upscale`,
     { method: "POST", data },
@@ -309,7 +305,6 @@ async function pollUntilComplete(
           `https://cloud.leonardo.ai/api/rest/v1/variations/${unzoomId}`,
           { method: "GET" },
         )
-        console.log("try")
         if (res.generated_image_variation_generic[0].status === "COMPLETE") {
           await prisma.userImage.create({
             data: {
@@ -331,7 +326,6 @@ async function pollUntilComplete(
                 res.generated_image_variation_generic[0].transformType,
             },
           })
-          console.log("variant ===> ", variant)
           clearInterval(interval)
           resolve(res)
         }

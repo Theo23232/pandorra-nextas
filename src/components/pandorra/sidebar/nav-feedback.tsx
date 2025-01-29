@@ -1,22 +1,34 @@
 "use client"
 
-import { Loader2, Send, Star } from 'lucide-react';
-import { ReactNode, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import * as z from 'zod';
+import { Loader2, Send, Star } from "lucide-react"
+import { ReactNode, useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import * as z from "zod"
 
-import { createFeedback } from '@/actions/feedback.actions';
-import { Button } from '@/components/ui/button';
+import { createFeedback } from "@/actions/feedback.actions"
+import { Button } from "@/components/ui/button"
 import {
-    Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger
-} from '@/components/ui/dialog';
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
-    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
-} from '@/components/ui/form';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Textarea } from '@/components/ui/textarea';
-import { zodResolver } from '@hookform/resolvers/zod';
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Textarea } from "@/components/ui/textarea"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const feedbackSchema = z.object({
   feedbackType: z.enum(["bug", "feature", "improvement", "other"], {
@@ -47,7 +59,6 @@ export function FeedbackDialog({ children }: { children: ReactNode }) {
     setIsSubmitting(true)
     await createFeedback(data.feedbackType, data.message, data.rating)
     setIsSubmitting(false)
-    console.log(data)
     toast("Thank you for your feedback! We appreciate your input.")
     setIsOpen(false)
     form.reset()

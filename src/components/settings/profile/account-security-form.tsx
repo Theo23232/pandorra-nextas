@@ -1,18 +1,28 @@
 "use client"
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
-import { editPassword } from '@/actions/user.ations';
-import { Input } from '@/components/tremor/inputs/input';
-import { Button } from '@/components/tremor/ui/button';
-import { Card, CardContent, CardDescription, CardTitle } from '@/components/tremor/ui/card';
+import { editPassword } from "@/actions/user.ations"
+import { Input } from "@/components/tremor/inputs/input"
+import { Button } from "@/components/tremor/ui/button"
 import {
-    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
-} from '@/components/ui/form';
-import { useToast } from '@/hooks/use-toast';
-import { zodResolver } from '@hookform/resolvers/zod';
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/tremor/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { useToast } from "@/hooks/use-toast"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const accountSecuritySchema = z
   .object({
@@ -64,7 +74,6 @@ export function AccountSecurityForm() {
       .finally(() => {
         setIsLoading(false)
       })
-    console.log(values)
   }
 
   return (

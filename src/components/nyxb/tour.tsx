@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, {
   createContext,
   useContext,
@@ -6,36 +6,36 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { createPortal } from "react-dom";
+} from "react"
+import { createPortal } from "react-dom"
 
-import { ny } from "@/lib/utils";
+import { ny } from "@/lib/utils"
 
 export interface TourContext<T extends string> {
   nodes: Map<
     string,
     {
-      ref: HTMLElement;
-      render: React.ReactNode;
-      name: T;
+      ref: HTMLElement
+      render: React.ReactNode
+      name: T
     }
-  >;
-  show: boolean;
-  current: number;
-  next: () => void;
-  previous: () => void;
-  close: () => void;
-  open: () => void;
+  >
+  show: boolean
+  current: number
+  next: () => void
+  previous: () => void
+  close: () => void
+  open: () => void
 }
 
 export interface TourProps {
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
 
 export interface TourFocusProps<T extends string> {
-  children: React.ReactNode;
-  tourRender: React.ReactNode;
-  name: T;
+  children: React.ReactNode
+  tourRender: React.ReactNode
+  name: T
 }
 
 export function TourFactory<T extends string>(order: T[]) {
@@ -44,71 +44,71 @@ export function TourFactory<T extends string>(order: T[]) {
     show: false,
     current: 0,
     next: () => {
-      console.log("empty");
+      console.info("empty")
     },
     previous: () => {
-      console.log("empty");
+      console.info("empty")
     },
     close: () => {
-      console.log("empty");
+      console.info("empty")
     },
     open: () => {
-      console.log("empty");
+      console.info("empty")
     },
-  });
+  })
 
   function TourPortal() {
-    const ctx = useContext(tourContext);
+    const ctx = useContext(tourContext)
 
-    const ref = useRef<HTMLDivElement>(null);
-    const [, forceUpdate] = React.useState({});
+    const ref = useRef<HTMLDivElement>(null)
+    const [, forceUpdate] = React.useState({})
 
     const currentElement = useMemo(
       () => ctx.nodes.get(order[ctx.current] ?? ""),
-      [ctx]
-    );
+      [ctx],
+    )
 
     useEffect(() => {
       const handleResize = () => {
-        forceUpdate({});
-      };
+        forceUpdate({})
+      }
 
-      window.addEventListener("resize", handleResize);
-      window.addEventListener("scroll", handleResize);
+      window.addEventListener("resize", handleResize)
+      window.addEventListener("scroll", handleResize)
 
       return () => {
-        window.removeEventListener("resize", handleResize);
-        window.removeEventListener("scroll", handleResize);
-      };
-    }, []);
+        window.removeEventListener("resize", handleResize)
+        window.removeEventListener("scroll", handleResize)
+      }
+    }, [])
 
     useEffect(() => {
       if (ctx.show) {
-        forceUpdate({});
+        forceUpdate({})
       }
-    }, [ctx.show]);
+    }, [ctx.show])
 
     if (!currentElement) {
-      return <></>;
+      return <></>
     }
 
-    const currentElementRect = currentElement.ref.getBoundingClientRect();
+    const currentElementRect = currentElement.ref.getBoundingClientRect()
 
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0
+    const width = ref.current?.getBoundingClientRect().width ?? 0
 
     const closest = (): React.CSSProperties => {
-      const isCloseToTop = currentElementRect.top < height;
-      const isCloseToLeft = currentElementRect.left < width;
+      const isCloseToTop = currentElementRect.top < height
+      const isCloseToLeft = currentElementRect.left < width
       const isCloseToRight =
-        currentElementRect.right > window.innerWidth - width;
+        currentElementRect.right > window.innerWidth - width
 
       if (isCloseToLeft) {
         return {
           left: currentElementRect.x + currentElementRect.width,
           top:
             currentElementRect.y - height / 2 + currentElementRect.height / 2,
-        };
+        }
       }
 
       if (isCloseToRight) {
@@ -116,34 +116,34 @@ export function TourFactory<T extends string>(order: T[]) {
           left: currentElementRect.x - width,
           top:
             currentElementRect.y - height / 2 + currentElementRect.height / 2,
-        };
+        }
       }
 
       if (isCloseToTop) {
         return {
           left: currentElementRect.x - width / 2 + currentElementRect.width / 2,
           top: currentElementRect.y + currentElementRect.height,
-        };
+        }
       }
 
       return {
         left: currentElementRect.x - width / 2 + currentElementRect.width / 2,
         top: currentElementRect.y - height,
-      };
-    };
+      }
+    }
 
     return createPortal(
       <div
         id="tour"
         className={ny(
           "pointer-events-auto fixed left-0 top-0 h-screen w-screen transition-none",
-          !ctx.show ? "invisible" : "visible"
+          !ctx.show ? "invisible" : "visible",
         )}
       >
         <div
           ref={ref}
           className={ny(
-            `absolute z-50 transition-all duration-500 ease-in-out`
+            `absolute z-50 transition-all duration-500 ease-in-out`,
           )}
           style={{
             ...closest(),
@@ -161,27 +161,27 @@ export function TourFactory<T extends string>(order: T[]) {
           }}
         />
       </div>,
-      document.body
-    );
+      document.body,
+    )
   }
 
   return {
     TourProvider: function TourProvider(props: TourProps) {
-      const nodes = useRef<TourContext<T>["nodes"]>(new Map());
+      const nodes = useRef<TourContext<T>["nodes"]>(new Map())
 
-      const [show, setShow] = useState(false);
-      const [current, setCurrent] = useState(0);
+      const [show, setShow] = useState(false)
+      const [current, setCurrent] = useState(0)
 
       const getNextIndex = (currIndex: number, nextDiff: number): number => {
-        const lookAheadIndex = currIndex + nextDiff;
+        const lookAheadIndex = currIndex + nextDiff
         if (lookAheadIndex >= order.length || lookAheadIndex < 0) {
-          return currIndex;
+          return currIndex
         }
         if (!nodes.current.has(order[lookAheadIndex])) {
-          return getNextIndex(lookAheadIndex, nextDiff);
+          return getNextIndex(lookAheadIndex, nextDiff)
         }
-        return lookAheadIndex;
-      };
+        return lookAheadIndex
+      }
 
       return (
         <tourContext.Provider
@@ -191,29 +191,29 @@ export function TourFactory<T extends string>(order: T[]) {
             show,
             next: () => {
               setCurrent((state) =>
-                Math.min(getNextIndex(state, 1), order.length - 1)
-              );
+                Math.min(getNextIndex(state, 1), order.length - 1),
+              )
             },
             previous: () => {
-              setCurrent((state) => Math.max(getNextIndex(state, -1), 0));
+              setCurrent((state) => Math.max(getNextIndex(state, -1), 0))
             },
             close: () => {
-              setShow(false);
+              setShow(false)
             },
             open: () => {
-              setShow(true);
+              setShow(true)
             },
           }}
         >
           <TourPortal />
           {props.children}
         </tourContext.Provider>
-      );
+      )
     },
     context: tourContext,
     useContext: () => useContext(tourContext),
     TourFocus: function TourFocus(props: TourFocusProps<T>) {
-      const ctx = useContext(tourContext);
+      const ctx = useContext(tourContext)
       return (
         <div
           ref={(divRef) => {
@@ -222,13 +222,13 @@ export function TourFactory<T extends string>(order: T[]) {
                 ref: divRef,
                 render: props.tourRender,
                 name: props.name,
-              });
+              })
             }
           }}
         >
           {props.children}
         </div>
-      );
+      )
     },
-  };
+  }
 }

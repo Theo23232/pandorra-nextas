@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
     const existingUserEmail = await prisma.user.findUnique({
       where: { email },
     })
-    console.log("existingUserEmail", existingUserEmail)
     const existingUserUsername = await prisma.user.findUnique({
       where: { username },
     })

@@ -9,8 +9,6 @@ interface SeeImageProps {
 }
 
 export default function SeeImage(props: SeeImageProps) {
-  console.log(props.image)
-
   return (
     <Dialog>
       <DialogTrigger asChild>{props.children}</DialogTrigger>

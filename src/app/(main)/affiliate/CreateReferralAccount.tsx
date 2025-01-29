@@ -1,13 +1,21 @@
-import Link from 'next/link';
-import { ReactNode, useEffect, useState } from 'react';
+import Link from "next/link"
+import { ReactNode, useEffect, useState } from "react"
 
-import { createLinkOnBoarding, createStripeConnect } from '@/actions/stripe.actions';
-import { SelectCountry } from '@/components/(main)/SelectCountry';
-import { Button } from '@/components/ui/button';
 import {
-    Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
+  createLinkOnBoarding,
+  createStripeConnect,
+} from "@/actions/stripe.actions"
+import { SelectCountry } from "@/components/(main)/SelectCountry"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 
 interface CreateReferralProps {
   children: ReactNode
@@ -29,9 +37,7 @@ export const CreateReferralAccount = (props: CreateReferralProps) => {
     setAccountLink(link)
   }
 
-  useEffect(() => {
-    console.log(accountLink)
-  }, [accountLink])
+  useEffect(() => {}, [accountLink])
 
   return (
     <Dialog>

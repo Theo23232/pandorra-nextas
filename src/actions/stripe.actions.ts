@@ -1,8 +1,8 @@
 "use server"
 
-import { currentUser } from '@/lib/current-user';
-import { stripe } from '@/lib/stripe';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { stripe } from "@/lib/stripe"
+import { prisma } from "@/prisma"
 
 export const createProductPayement = async (
   name: string,
@@ -23,7 +23,6 @@ export const createProductPayement = async (
 
     return createdPrice.id
   } catch (error) {
-    console.log(error)
     throw new Error("Failed to create product and price")
   }
 }

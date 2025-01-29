@@ -41,7 +41,6 @@ export default function RoutePage() {
     state
 
   const generate = async () => {
-    console.log(state)
     const contrast = state.contrast
 
     const data = {

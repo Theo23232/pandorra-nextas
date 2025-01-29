@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server"
 
-import { prisma } from '@/prisma';
-import { User } from '@prisma/client';
+import { prisma } from "@/prisma"
+import { User } from "@prisma/client"
 
 type Pagination = {
   currentPage: number
@@ -77,7 +77,6 @@ export const GET = async (request: Request) => {
       whereClause.jeton = jetonValue ? { gte: jetonValue } : { gte: 0 } // Filtrer les utilisateurs ayant un nombre de jetons spécifié
     }
 
-    console.log("whereClause ===> ", whereClause)
     // Récupérer les utilisateurs filtrés et triés
     const users = await prisma.user.findMany({
       where: whereClause,

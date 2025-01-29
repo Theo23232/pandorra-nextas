@@ -38,6 +38,7 @@ model User {
     Comment         Comment[]
     CommentReaction CommentReaction[]
     Reaction        Reaction[]
+    Ranking         Ranking[]
 }
 
 model Session {

@@ -8,6 +8,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
+import { useOnborda } from "onborda"
 import * as React from "react"
 
 import { CollectionDialog } from "@/components/image-ai/CollectionDialog"
@@ -24,6 +25,7 @@ import {
   SelectGroup,
   SelectItem,
 } from "@/components/ui/select"
+import { useUser } from "@/hooks/use-user"
 import {
   findModelById,
   Model,
@@ -49,6 +51,8 @@ export function ImageGenerationSidebar(props: SidebarProps) {
   const searchParams = useSearchParams()
   const queryPresetStyle = searchParams.get("presetStyle")
   const queryModelId = searchParams.get("modelId")
+  const { startOnborda } = useOnborda()
+  const { user } = useUser()
 
   const [activeModel, setActiveModel] = React.useState<Model>(
     props.defaultmodel,
@@ -96,42 +100,56 @@ export function ImageGenerationSidebar(props: SidebarProps) {
   const handleCountChange = (value: number) => {
     setCount(value)
   }
+  React.useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      if (
+        !tourOnboarding.includes("fifthtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("fifthtour")
+      }
+    }
+  }, [user, startOnborda])
   return (
     <nav className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
       <aside className="flex grow flex-col gap-y-6 overflow-y-auto border-r border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
         <nav className="flex flex-1 flex-col gap-4">
-          <ModelSelectDialog
-            activeModel={activeModel}
-            onChange={handleModelChange}
-          >
-            <div className="relative flex h-20 w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-2">
-              {activeModel.generated_image && (
-                <Image
-                  className="absolute top-0 z-10 w-full"
-                  src={activeModel.generated_image?.url}
-                  alt={activeModel.description}
-                  width={280}
-                  height={280}
-                />
-              )}
-              <Card className="z-20 h-full w-full rounded-sm bg-card/90 p-0">
-                <CardContent className="flex h-full items-center justify-between p-0 px-4">
-                  <div className="flex flex-col justify-center">
-                    <p className="w-fit rounded-sm bg-card p-1 text-xs text-primary">
-                      Model
-                    </p>
-                    <p>{activeModel.name}</p>
-                  </div>
-                  <ChevronsUpDown />
-                </CardContent>
-              </Card>
-            </div>
-          </ModelSelectDialog>
+          <div id="tour5-step1">
+            <ModelSelectDialog
+              activeModel={activeModel}
+              onChange={handleModelChange}
+            >
+              <div className="relative flex h-20 w-full cursor-pointer items-center justify-center overflow-hidden px-4 py-2">
+                {activeModel.generated_image && (
+                  <Image
+                    className="absolute top-0 z-10 w-full"
+                    src={activeModel.generated_image?.url}
+                    alt={activeModel.description}
+                    width={280}
+                    height={280}
+                  />
+                )}
+                <Card className="z-20 h-full w-full rounded-sm bg-card/90 p-0">
+                  <CardContent className="flex h-full items-center justify-between p-0 px-4">
+                    <div className="flex flex-col justify-center">
+                      <p className="w-fit rounded-sm bg-card p-1 text-xs text-primary">
+                        Model
+                      </p>
+                      <p>{activeModel.name}</p>
+                    </div>
+                    <ChevronsUpDown />
+                  </CardContent>
+                </Card>
+              </div>
+            </ModelSelectDialog>
+          </div>
           <Select value={presetStyle} onValueChange={handlePresetStyleChange}>
             <SelectCustomTrigger>
               <Button
                 className="flex h-[56px] w-full items-center justify-between hover:bg-accent/40"
                 variant={"outline"}
+                id="tour5-step2"
               >
                 <div className="flex items-center">
                   <Zap size={24} />
@@ -160,6 +178,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
               <Button
                 className="flex h-[56px] w-full items-center justify-between hover:bg-accent/40"
                 variant={"outline"}
+                id="tour5-step3"
               >
                 <div className="flex items-center">
                   <SunMedium size={24} />
@@ -186,7 +205,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
             </CardContent>
           </Card>
           <CollectionDialog>
-            <Button className="w-full">
+            <Button className="w-full" id="tour5-step6">
               <Images size={20} className="mr-2" /> Collection
             </Button>
           </CollectionDialog>

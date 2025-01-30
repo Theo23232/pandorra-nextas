@@ -1,6 +1,7 @@
 "use client"
 import confetti from "canvas-confetti"
 import { XIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useOnborda } from "onborda"
 import React from "react"
 
@@ -25,6 +26,8 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
   prevStep,
   arrow,
 }) => {
+  const router = useRouter()
+
   // Onborda hooks
   const { closeOnborda, startOnborda, currentTour } = useOnborda()
 
@@ -50,6 +53,10 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         break
       case "fourthtour":
         EditUserTourDone("fourthtour")
+        router.push("/image/generation")
+        break
+      case "fifthtour":
+        EditUserTourDone("fifthtour")
         break
       // Ajoutez d'autres cas si nécessaire
       default:

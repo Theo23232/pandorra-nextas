@@ -1,5 +1,5 @@
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export type ImageNumberProps = {
   onChange: (count: number) => void
@@ -10,7 +10,7 @@ export const ImageNumberInput = (props: ImageNumberProps) => {
     props.onChange(parseInt(count))
   }
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" id="tour5-step4">
       <Label className="mb-2">Number of Images</Label>
       <Tabs defaultValue="2" className="w-full" onValueChange={handleChange}>
         <TabsList className="grid w-full grid-cols-4">

@@ -123,7 +123,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" id="tour5-step5">
       <Label className="mb-2">Image dimensions</Label>
       <div className="flex w-full flex-wrap gap-2">
         {[ratioOptions.slice(0, 3), ratioOptions.slice(3)].map(

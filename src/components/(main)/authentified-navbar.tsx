@@ -16,6 +16,9 @@ export function Navbar() {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
+      if (tourOnboarding.includes("stop")) {
+        return
+      }
       if (tourOnboarding.length === 0) {
         startOnborda("firsttour")
       } else {

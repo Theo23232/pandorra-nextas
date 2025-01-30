@@ -67,10 +67,16 @@ export function Sidebar() {
     return pathname === itemHref || pathname.startsWith(itemHref)
   }
   useEffect(() => {
-    if (user && !user?.tourOnboarding.includes("firsttour")) {
-      startOnborda("firsttour")
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      if (
+        !tourOnboarding.includes("firsttour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("firsttour")
+      }
     }
-  }, [user, user?.tourOnboarding])
+  }, [user, startOnborda])
 
   return (
     <>

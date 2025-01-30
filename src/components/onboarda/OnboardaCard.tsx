@@ -69,7 +69,14 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
               {currentStep + 1} of {totalSteps}
             </CardDescription>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => closeOnborda()}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => {
+              closeOnborda()
+              EditUserTourDone("stop")
+            }}
+          >
             <XIcon size={16} />
           </Button>
         </div>

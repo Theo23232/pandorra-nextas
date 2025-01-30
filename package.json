@@ -84,6 +84,7 @@
     "next-themes": "^0.4.4",
     "nextjs-toploader": "^3.7.15",
     "nodemailer": "^6.9.16",
+    "onborda": "^1.2.5",
     "prisma": "^6.2.1",
     "react": "^19.0.0",
     "react-anime": "^4.1.1",

@@ -29,6 +29,7 @@ export default function PubCard(props: PubCardProps) {
 
   return (
     <div
+      id="tour4-step1"
       className="relative mb-4 flex h-fit flex-col overflow-hidden rounded-lg bg-primary/10 shadow-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

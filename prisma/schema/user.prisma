@@ -4,6 +4,7 @@ model User {
     lastname          String?
     fullname          String?
     image             String
+    tourOnboarding    String[]
     username          String            @unique
     email             String            @unique
     language          String            @default("en")

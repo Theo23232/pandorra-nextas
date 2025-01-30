@@ -1,19 +1,28 @@
 "use client"
 
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import * as React from 'react';
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
+import { useTheme } from "next-themes"
+import Link from "next/link"
+import * as React from "react"
 
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
-    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
-    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
-} from '@/components/tremor/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUser } from '@/hooks/use-user';
-import { logOut } from '@/lib/utils';
-import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSubMenu,
+  DropdownMenuSubMenuContent,
+  DropdownMenuSubMenuTrigger,
+  DropdownMenuTrigger,
+} from "@/components/tremor/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useUser } from "@/hooks/use-user"
+import { logOut } from "@/lib/utils"
+import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode

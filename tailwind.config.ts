@@ -10,6 +10,7 @@ const config: Config = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@heroui/theme/dist/components/navbar.js",
+    "./node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {

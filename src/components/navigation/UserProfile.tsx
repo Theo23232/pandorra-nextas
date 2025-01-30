@@ -17,6 +17,7 @@ export const UserProfileDesktop = () => {
         <Button
           aria-label="User settings"
           variant="ghost"
+          id="tour3-step3"
           className={cx(
             focusRing,
             "group flex w-full items-center justify-between rounded-md p-2 text-sm font-medium text-gray-900 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10",
@@ -49,6 +50,7 @@ export const UserProfileMobile = () => {
         <Button
           aria-label="User settings"
           variant="ghost"
+          id="tour3-step3"
           className={cx(
             "group flex items-center rounded-md p-1 text-sm font-medium text-gray-900 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10",
           )}

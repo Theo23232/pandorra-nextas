@@ -1,24 +1,38 @@
 "use client"
-import { BotMessageSquare, Crown, Gift, Image, Settings2, User2, Video } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {
+  BotMessageSquare,
+  Crown,
+  Gift,
+  Image,
+  Settings2,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Navbar } from '@/components/(main)/authentified-navbar';
-import { Logo } from '@/components/logo';
-import { UserProfileDesktop, UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { cx, focusRing } from '@/lib/utils';
-import { RiHome2Line } from '@remixicon/react';
+import { siteConfig } from "@/app/siteConfig"
+import { Navbar } from "@/components/(main)/authentified-navbar"
+import { Logo } from "@/components/logo"
+import {
+  UserProfileDesktop,
+  UserProfileMobile,
+} from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { useUser } from "@/hooks/use-user"
+import { cx, focusRing } from "@/lib/utils"
+import { RiHome2Line } from "@remixicon/react"
 
-import MobileSidebar from './MobileSidebar';
+import MobileSidebar from "./MobileSidebar"
 
 const navigation = [
-  { name: "Explore", href: "/explore", icon: RiHome2Line },
-  { name: "Profile", href: "/profile", icon: User2 },
-  { name: "Affiliate", href: "/affiliate", icon: Gift },
-  { name: "Ranking", href: "/ranking", icon: Crown },
-  { name: "Settings", href: "/settings", icon: Settings2 },
+  { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
+  { name: "Profile", href: "/profile", icon: User2, id: "tour1-step2" },
+  { name: "Affiliate", href: "/affiliate", icon: Gift, id: "tour1-step3" },
+  { name: "Ranking", href: "/ranking", icon: Crown, id: "tour1-step4" },
+  { name: "Settings", href: "/settings", icon: Settings2, id: "tour1-step5" },
 ] as const
 
 const shortcuts = [
@@ -26,20 +40,25 @@ const shortcuts = [
     name: "Image AI",
     href: "/image/generation",
     icon: Image,
+    id: "tour1-step6",
   },
   {
     name: "AI Assistant",
     href: "/assistant",
     icon: BotMessageSquare,
+    id: "tour1-step7",
   },
   {
     name: "Video generation",
     href: "/video/",
     icon: Video,
+    id: "tour1-step8",
   },
 ] as const
 
 export function Sidebar() {
+  const { startOnborda } = useOnborda()
+  const { user } = useUser()
   const pathname = usePathname()
   const isActive = (itemHref: string) => {
     if (itemHref === siteConfig.baseLinks.settings) {
@@ -47,6 +66,12 @@ export function Sidebar() {
     }
     return pathname === itemHref || pathname.startsWith(itemHref)
   }
+  useEffect(() => {
+    if (user && !user?.tourOnboarding.includes("firsttour")) {
+      startOnborda("firsttour")
+    }
+  }, [user, user?.tourOnboarding])
+
   return (
     <>
       {/* sidebar (lg+) */}
@@ -59,7 +84,7 @@ export function Sidebar() {
           >
             <ul role="list" className="space-y-0.5">
               {navigation.map((item) => (
-                <li key={item.name}>
+                <li key={item.name} id={item.id}>
                   <Link
                     prefetch={true}
                     href={item.href}
@@ -83,7 +108,7 @@ export function Sidebar() {
               </span>
               <ul aria-label="shortcuts" role="list" className="space-y-0.5">
                 {shortcuts.map((item) => (
-                  <li key={item.name}>
+                  <li key={item.name} id={item.id}>
                     <Link
                       prefetch={true}
                       href={item.href}

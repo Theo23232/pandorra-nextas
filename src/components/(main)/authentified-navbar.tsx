@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from 'react';
+import { useState } from "react"
 
-import { Logo } from '@/components/logo';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
+import { Logo } from "@/components/logo"
+import { UserProfileMobile } from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -14,7 +14,6 @@ export function Navbar() {
       <Logo />
       <div className="flex items-center gap-1 sm:gap-2">
         <JetonCounter />
-
         <UserProfileMobile />
       </div>
     </div>

@@ -170,3 +170,14 @@ export const addReferreId = SA(
     return null
   },
 )
+
+export const EditUserTourDone = SA(async (user, tourName: string) => {
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      tourOnboarding: {
+        push: tourName,
+      },
+    },
+  })
+})

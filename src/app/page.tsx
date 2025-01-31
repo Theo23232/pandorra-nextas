@@ -11,6 +11,7 @@ import { currentUser } from '@/lib/current-user';
 
 export default async function RoutePage() {
   const user = await currentUser()
+  console.log('user ==> ', user)
   if (user) return redirect("/explore")
   return (
     <div>

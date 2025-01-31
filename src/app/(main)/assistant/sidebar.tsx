@@ -1,25 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import * as Flags from "country-flag-icons/react/3x2"
-import { ChevronDown, ChevronRight, Plus } from "lucide-react"
-import { useState } from "react"
-import useSWR from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ChevronDown, Download, Plus } from 'lucide-react';
+import { useState } from 'react';
+import useSWR from 'swr';
 
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Card } from "@/components/tremor/ui/card"
-import { Button } from "@/components/ui/button"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
-import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
-import { formatTimePassed } from "@/lib/utils"
+import { getConversationAudio } from '@/actions/assistant.actions';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Card } from '@/components/tremor/ui/card';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
+import { formatTimePassed } from '@/lib/utils';
 
-import { Conversation } from "./conversation"
+import { Conversation } from './conversation';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -61,6 +58,18 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
     voiceId: string
     language: string
   } | null>(null)
+
+  const handleDownload = async (convId: string) => {
+    const blob = await getConversationAudio(convId)
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `conversation-${convId}.mp3`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
 
   if (error) return <div>Failed to load</div>
   if (!data)
@@ -194,7 +203,16 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
                       {timePassed}
                     </span>
                   </div>
-                  <ChevronRight className="h-4 w-4" />
+                  <Button
+                    size={"icon"}
+                    variant={"ghost"}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleDownload(conversation.id)
+                    }}
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
                 </div>
               )
             }),

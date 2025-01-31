@@ -1,0 +1,35 @@
+model Agent {
+    id           String         @id
+    language     String
+    voiceId      String
+    userId       String
+    user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    Conversation Conversation[]
+}
+
+model Conversation {
+    id               String   @id
+    agentId          String
+    userId           String
+    agentName        String
+    createdAt        DateTime @default(now())
+    callDurationSecs Int
+    messageCount     Int
+    status           String
+    call_successful  String
+    cost             Int
+    agent            Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+    user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    Transcript Transcript[]
+}
+
+model Transcript {
+    id             String       @id @default(cuid())
+    conversationId String
+    role           String
+    message        String
+    createdAt      DateTime     @default(now())
+    timeInCallSecs Int
+    conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}

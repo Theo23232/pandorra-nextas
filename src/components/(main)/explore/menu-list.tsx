@@ -1,6 +1,6 @@
 "use client"
 
-import Link from 'next/link';
+import Link from "next/link"
 
 export type MenuListProps = {}
 
@@ -78,7 +78,7 @@ export const MenuList = (props: MenuListProps) => {
       <li id="tour2-step5">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#018456] to-[#01c080] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/ai-animation-generator"
+          href="/assistant"
           prefetch={true}
         >
           <div className="flex items-center justify-between">

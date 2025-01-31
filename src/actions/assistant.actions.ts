@@ -1,8 +1,8 @@
 "use server"
 
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
-import { Agent } from "@prisma/client"
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { Agent } from '@prisma/client';
 
 interface AgentOption {
   language: string
@@ -220,20 +220,17 @@ export const saveConversation = SA(async (user, agentId) => {
   }
 })
 
-export const getConversationAudio = SA(
-  async (user, convId: string): Promise<any> => {
-    // Get conversation audio (GET /v1/convai/conversations/:conversation_id/audio)
-    const response = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversations/${convId}/audio`,
-      {
-        method: "GET",
-        headers: {
-          "xi-api-key": process.env.XI_API_KEY || "",
-        },
+export const getConversationAudio = SA(async (user, convId: string) => {
+  const response = await fetch(
+    `https://api.elevenlabs.io/v1/convai/conversations/${convId}/audio`,
+    {
+      method: "GET",
+      headers: {
+        "xi-api-key": process.env.XI_API_KEY || "",
       },
-    )
+    },
+  )
 
-    const body = await response.json()
-    return body
-  },
-)
+  const blob = await response.blob()
+  return blob
+})

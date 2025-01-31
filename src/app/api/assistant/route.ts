@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from 'next/server';
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 export const GET = async (req: NextRequest) => {
   const user = await currentUser()

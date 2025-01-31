@@ -11,6 +11,7 @@
     "generate": "node src/data/generateData.js"
   },
   "dependencies": {
+    "@11labs/react": "^0.0.6",
     "@gsap/react": "^2.1.1",
     "@heroui/navbar": "^2.2.8",
     "@heroui/react": "^2.6.13",
@@ -67,6 +68,7 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
     "cobe": "^0.6.3",
+    "country-flag-icons": "^1.5.14",
     "country-region-data": "^3.1.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
@@ -90,6 +92,7 @@
     "react-anime": "^4.1.1",
     "react-day-picker": "8.10.1",
     "react-dom": "^19.0.0",
+    "react-feather": "^2.0.10",
     "react-hook-form": "^7.54.2",
     "react-i18next": "^15.4.0",
     "react-icon-cloud": "^4.1.7",

@@ -8,7 +8,9 @@ export default async function RouteLayout(props: LayoutProps) {
   return (
     <>
       <Sidebar />
-      <main className="min-h-screen p-8 lg:pl-80">{props.children}</main>
+      <main className="max-h-[calc(100vh-64px)] p-8 lg:pl-80">
+        {props.children}
+      </main>
     </>
   )
 }

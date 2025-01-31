@@ -35,6 +35,8 @@ model User {
     Session           Session[]
     UserImage         UserImage[]
     Variant           Variant[]
+    Agent             Agent[]
+    Conversation      Conversation[]
 }
 
 model Session {

@@ -1,22 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import * as Flags from 'country-flag-icons/react/3x2';
-import { ChevronDown, Download, Plus } from 'lucide-react';
-import { useState } from 'react';
-import useSWR from 'swr';
+import * as Flags from "country-flag-icons/react/3x2"
+import { ChevronDown, Download, Loader, Plus } from "lucide-react"
+import { useState } from "react"
+import useSWR from "swr"
 
-import { getConversationAudio } from '@/actions/assistant.actions';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Card } from '@/components/tremor/ui/card';
-import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
-import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
-import { formatTimePassed } from '@/lib/utils';
+import { getConversationAudio } from "@/actions/assistant.actions"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Card } from "@/components/tremor/ui/card"
+import { Button } from "@/components/ui/button"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
+import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
+import { formatTimePassed } from "@/lib/utils"
 
-import { Conversation } from './conversation';
+import { Conversation } from "./conversation"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -53,6 +57,9 @@ interface SidebarProps {
 export function Sidebar({ onSelectConversation }: SidebarProps) {
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [downloadingId, setDownloadingId] = useState("")
+  const [activeConversationId, setActiveConversationId] = useState("")
+
   const [selectedAgent, setSelectedAgent] = useState<{
     id: string
     voiceId: string
@@ -60,6 +67,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   } | null>(null)
 
   const handleDownload = async (convId: string) => {
+    setDownloadingId(convId)
     const blob = await getConversationAudio(convId)
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
@@ -69,6 +77,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
+    setDownloadingId("")
   }
 
   if (error) return <div>Failed to load</div>
@@ -99,7 +108,6 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
           <CollapsibleContent>
             <Skeleton className="mb-2 h-[60px] w-full" />
             <Skeleton className="mb-2 h-[60px] w-full" />
-            <Skeleton className="mb-2 h-[60px] w-full" />
           </CollapsibleContent>
         </Collapsible>
 
@@ -109,11 +117,8 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <Skeleton className="mb-2 h-[84px] w-full" />
-            <Skeleton className="mb-2 h-[84px] w-full" />
-            <Skeleton className="mb-2 h-[84px] w-full" />
-            <Skeleton className="mb-2 h-[84px] w-full" />
-            <Skeleton className="mb-2 h-[84px] w-full" />
+            <Skeleton className="mb-2 h-[52px] w-full" />
+            <Skeleton className="mb-2 h-[52px] w-full" />
           </CollapsibleContent>
         </Collapsible>
       </Card>
@@ -131,7 +136,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   }
 
   return (
-    <Card className="h-fit max-h-[80vh] w-96 border-l bg-background p-4">
+    <Card className="sticky top-20 h-fit max-h-[70vh] w-96 overflow-y-auto border-l bg-background p-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button className="mb-4 w-full">
@@ -188,8 +193,14 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
           <ChevronDown className="h-4 w-4" />
         </CollapsibleTrigger>
         <CollapsibleContent>
-          {agents.flatMap((agent: any) =>
-            agent.Conversation.map((conversation: any) => {
+          {[...agents]
+            .flatMap((agent: any) => agent.Conversation)
+            .sort(
+              (a: any, b: any) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime(),
+            )
+            .map((conversation: any) => {
               const timePassed = formatTimePassed(conversation.createdAt)
               return (
                 <div
@@ -211,12 +222,15 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
                       handleDownload(conversation.id)
                     }}
                   >
-                    <Download className="h-4 w-4" />
+                    {downloadingId == conversation.id ? (
+                      <Loader className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Download className="h-4 w-4" />
+                    )}
                   </Button>
                 </div>
               )
-            }),
-          )}
+            })}
         </CollapsibleContent>
       </Collapsible>
     </Card>

@@ -1,17 +1,16 @@
 "use client"
 
-import { format } from "date-fns"
-import { BotIcon, User } from "lucide-react"
-import { useEffect, useState } from "react"
-import useSWR from "swr"
+import { format } from 'date-fns';
+import { BotIcon, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { ScrollArea } from "@/components/nyxb/nyx-toc"
-import { Separator } from "@/components/nyxb/separator"
-import { Badge } from "@/components/tremor/ui/badge"
-import { CardContent, CardTitle } from "@/components/tremor/ui/card"
-import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
-import { Transcript } from "@prisma/client"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Separator } from '@/components/nyxb/separator';
+import { Badge } from '@/components/tremor/ui/badge';
+import { CardContent, CardTitle } from '@/components/tremor/ui/card';
+import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
+import { Transcript } from '@prisma/client';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -82,46 +81,44 @@ export function ConversationDetails({
         <Separator />
         <div>
           <h3 className="mb-4 text-lg font-semibold">Transcript</h3>
-          <ScrollArea className="h-fit rounded-md border py-4">
-            <div className="space-y-4">
-              {conversation.Transcript.map(
-                (transcript: Transcript, index: number) => (
-                  <div
-                    key={index}
-                    className={`rounded-lg p-4 ${
-                      transcript.role === "agent"
-                        ? "bg-blue-50 dark:bg-blue-900/20"
-                        : "bg-green-50 dark:bg-green-900/20"
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3">
-                      <div className="flex-grow space-y-1">
-                        <p className="flex items-center gap-2 text-sm font-medium">
-                          {transcript.role === "agent" ? (
-                            <BotIcon className="h-5 w-5 flex-shrink-0 text-blue-500 dark:text-blue-400" />
-                          ) : (
-                            <User className="h-5 w-5 flex-shrink-0 text-green-500 dark:text-green-400" />
-                          )}
-                          <span
-                            className={`${
-                              transcript.role === "agent"
-                                ? "text-blue-500 dark:text-blue-400"
-                                : "text-green-500 dark:text-green-400"
-                            }`}
-                          >
-                            {transcript.role === "agent"
-                              ? getVoiceNameById(conversation.agent.voiceId)
-                              : "User"}
-                          </span>
-                        </p>
-                        <p className="text-sm">{transcript.message}</p>
-                      </div>
+          <div className="flex h-fit flex-col rounded-md border py-4">
+            {conversation.Transcript.map(
+              (transcript: Transcript, index: number) => (
+                <div
+                  key={index}
+                  className={`my-2 rounded-lg p-4 ${
+                    transcript.role === "agent"
+                      ? "bg-blue-50 dark:bg-blue-900/20"
+                      : "bg-green-50 dark:bg-green-900/20"
+                  }`}
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-grow space-y-1">
+                      <p className="flex items-center gap-2 text-sm font-medium">
+                        {transcript.role === "agent" ? (
+                          <BotIcon className="h-5 w-5 flex-shrink-0 text-blue-500 dark:text-blue-400" />
+                        ) : (
+                          <User className="h-5 w-5 flex-shrink-0 text-green-500 dark:text-green-400" />
+                        )}
+                        <span
+                          className={`${
+                            transcript.role === "agent"
+                              ? "text-blue-500 dark:text-blue-400"
+                              : "text-green-500 dark:text-green-400"
+                          }`}
+                        >
+                          {transcript.role === "agent"
+                            ? getVoiceNameById(conversation.agent.voiceId)
+                            : "User"}
+                        </span>
+                      </p>
+                      <p className="text-sm">{transcript.message}</p>
                     </div>
                   </div>
-                ),
-              )}
-            </div>
-          </ScrollArea>
+                </div>
+              ),
+            )}
+          </div>
         </div>
       </CardContent>
     </MagicCard>

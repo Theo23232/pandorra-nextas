@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 
+import { ScrollArea } from "@/components/ui/scroll-area"
+
 import { Conversation } from "./conversation"
 import { ConversationDetails } from "./conversation-details"
 import { Sidebar } from "./sidebar"
@@ -12,10 +14,10 @@ export default function Home() {
   >(null)
 
   return (
-    <div className="flex max-h-[calc(100vh-64px)]">
+    <div className="flex pt-4">
       <Sidebar onSelectConversation={setSelectedConversation} />
 
-      <main className="w-full overflow-auto p-6 pt-0">
+      <ScrollArea className="w-full p-6 pt-0">
         {selectedConversation ? (
           <ConversationDetails conversationId={selectedConversation} />
         ) : (
@@ -26,7 +28,7 @@ export default function Home() {
             preSelectedLanguage={undefined}
           />
         )}
-      </main>
+      </ScrollArea>
     </div>
   )
 }

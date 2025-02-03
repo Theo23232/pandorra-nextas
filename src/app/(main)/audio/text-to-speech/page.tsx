@@ -281,7 +281,7 @@ export default function Page({
               onValueChange={setVoiceId}
               disabled={!!preSelectedVoiceId}
             >
-              <SelectTrigger className="h-[50px] w-[120px]">
+              <SelectTrigger className="h-9 w-[120px]">
                 <SelectValue placeholder="Select Voice" />
               </SelectTrigger>
               <SelectContent>
@@ -297,7 +297,7 @@ export default function Page({
               onValueChange={setLang}
               disabled={!!preSelectedLanguage}
             >
-              <SelectTrigger className="h-[50px] w-[180px]">
+              <SelectTrigger className="h-9 w-[180px]">
                 <SelectValue placeholder="Select Language" />
               </SelectTrigger>
               <SelectContent>

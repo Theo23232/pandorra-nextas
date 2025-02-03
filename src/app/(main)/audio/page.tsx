@@ -22,7 +22,7 @@ import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
 import { Switch } from "@/components/tremor/inputs/switch"
 import { Button } from "@/components/tremor/ui/button"
-import { Card, CardTitle } from "@/components/tremor/ui/card"
+import { CardTitle } from "@/components/tremor/ui/card"
 import { Divider } from "@/components/tremor/ui/divider"
 import {
   Drawer,
@@ -255,11 +255,11 @@ export default function Page() {
 
       <MagicCard className="mt-4 flex flex-col gap-2 p-4">
         {data?.map((audio) => (
-          <Card className="" key={audio.id}>
+          <div className="" key={audio.id}>
             <CardTitle>{audio.prompt}</CardTitle>
-            <AudioPlayer audioUrl={audio.url} />
+            <AudioPlayer audioUrl={audio.url} className="shadow-none" />
             <Divider />
-          </Card>
+          </div>
         ))}
       </MagicCard>
     </div>

@@ -13,3 +13,23 @@ export const generateFX = SA(
     })
   },
 )
+
+export const generateTTS = SA(
+  async (
+    user,
+    prompt: string,
+    url: string,
+    lang: string,
+    voice: string,
+  ): Promise<any> => {
+    await prisma.tTS.create({
+      data: {
+        userId: user.id,
+        prompt,
+        url,
+        lang,
+        voice,
+      },
+    })
+  },
+)

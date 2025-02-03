@@ -1,6 +1,6 @@
 "use server"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
 
 export const generateFX = SA(
   async (user, prompt: string, url: string): Promise<any> => {
@@ -28,6 +28,18 @@ export const generateTTS = SA(
         prompt,
         url,
         lang,
+        voice,
+      },
+    })
+  },
+)
+
+export const generateVoiceChange = SA(
+  async (user, url: string, voice: string): Promise<any> => {
+    await prisma.voiceChange.create({
+      data: {
+        userId: user.id,
+        url,
         voice,
       },
     })

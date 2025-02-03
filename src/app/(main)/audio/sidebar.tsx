@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { TextToFX } from '@/components/icons/TextToFX';
 import { TextToSpeech } from '@/components/icons/TextToSpeech';
+import { VoiceChanger } from '@/components/icons/VoiceChanger';
 import { Card } from '@/components/tremor/ui/card';
 import { cx, focusRing } from '@/lib/utils';
 
@@ -44,6 +45,20 @@ export function Sidebar() {
       >
         <TextToSpeech aria-hidden="true" />
         Text to speech
+      </Link>
+      <Link
+        prefetch={true}
+        href={"/audio/voice-changer"}
+        className={cx(
+          isActive("/audio/voice-changer")
+            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+          focusRing,
+        )}
+      >
+        <VoiceChanger aria-hidden="true" />
+        Voice changer
       </Link>
     </Card>
   )

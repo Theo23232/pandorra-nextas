@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 
-import AuthForm from '@/components/authentication/AuthForm';
-import { BackgroundImage } from '@/components/authentication/background-image';
-import { getRandomNumber } from '@/lib/utils';
+import AuthForm from "@/components/authentication/AuthForm"
+import { BackgroundImage } from "@/components/authentication/background-image"
+import { getRandomNumber } from "@/lib/utils"
 
 export const Content = () => {
   const [imageUrl, setImageUrl] = useState("")

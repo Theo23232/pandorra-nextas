@@ -22,7 +22,8 @@ import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
 import { Switch } from "@/components/tremor/inputs/switch"
 import { Button } from "@/components/tremor/ui/button"
-import { Card, CardTitle } from "@/components/tremor/ui/card"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { Divider } from "@/components/tremor/ui/divider"
 import {
   Drawer,
   DrawerBody,
@@ -225,19 +226,16 @@ export default function Page() {
             <div className="text-sm text-muted-foreground">
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
-            <Button className="text-md h-9" onClick={handleGenerate}>
+            <Button
+              className="text-md h-9"
+              onClick={handleGenerate}
+              isLoading={isLoading}
+            >
               Generate Sound Effects
             </Button>
           </div>
         </div>
       </MagicCard>
-
-      {/* Affichage du player audio uniquement si une URL est disponible */}
-      {audioUrl && (
-        <MagicCard className="mt-4 flex items-center justify-center">
-          <AudioPlayer audioUrl={audioUrl} />
-        </MagicCard>
-      )}
 
       <MagicCard className="mt-4 p-4">
         <div className="text-center text-muted-foreground">
@@ -255,12 +253,13 @@ export default function Page() {
         </div>
       </MagicCard>
 
-      <MagicCard>
+      <MagicCard className="mt-4 flex flex-col gap-2 p-4">
         {data?.map((audio) => (
-          <Card className="">
+          <div className="">
             <CardTitle>{audio.prompt}</CardTitle>
             <AudioPlayer audioUrl={audio.url} />
-          </Card>
+            <Divider />
+          </div>
         ))}
       </MagicCard>
     </div>

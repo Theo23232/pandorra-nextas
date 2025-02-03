@@ -17,9 +17,12 @@ export async function GET() {
       where: {
         userId: user.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     })
 
-    return NextResponse.json({ audios })
+    return NextResponse.json(audios)
   } catch (error) {
     console.error("Error generating sound:", error)
     return NextResponse.json(

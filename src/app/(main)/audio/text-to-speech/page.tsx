@@ -347,15 +347,19 @@ export default function Page({
         </div>
       </MagicCard>
 
-      <MagicCard className="mt-4 flex flex-col gap-2 p-4">
-        {data?.map((audio) => (
-          <div className="pt-2" key={audio.id}>
-            <CardTitle>{audio.prompt}</CardTitle>
-            <AudioPlayer audioUrl={audio.url} />
-            <Divider />
-          </div>
-        ))}
-      </MagicCard>
+      {data ? (
+        <MagicCard className="mt-4 flex flex-col gap-2 p-4">
+          {data?.map((audio) => (
+            <div className="pt-2" key={audio.id}>
+              <CardTitle>{audio.prompt}</CardTitle>
+              <AudioPlayer audioUrl={audio.url} />
+              <Divider />
+            </div>
+          ))}
+        </MagicCard>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

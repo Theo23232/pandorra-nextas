@@ -1,18 +1,22 @@
 "use client"
-import React, { DragEvent, useRef, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import React, { DragEvent, useRef, useState } from "react"
+import useSWR, { mutate } from "swr"
 
-import { generateVoiceChange } from '@/actions/elevenlabs.actions';
-import { AudioPlayer } from '@/app/(main)/audio/audio-player';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { generateVoiceChange } from "@/actions/elevenlabs.actions"
+import { AudioPlayer } from "@/app/(main)/audio/audio-player"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/tremor/inputs/select';
-import { Button } from '@/components/tremor/ui/button';
-import { Divider } from '@/components/tremor/ui/divider';
-import { voicesList } from '@/lib/elevenlabs/voiceList';
-import { fetcher } from '@/lib/utils';
-import { VoiceChange } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/tremor/inputs/select"
+import { Button } from "@/components/tremor/ui/button"
+import { Divider } from "@/components/tremor/ui/divider"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { fetcher } from "@/lib/utils"
+import { VoiceChange } from "@prisma/client"
 
 interface SpeechToSpeechProps {
   apiKey: string
@@ -200,14 +204,18 @@ const SpeechToSpeechConverter = () => {
         </div>
       </MagicCard>
 
-      <MagicCard className="mt-4 flex flex-col gap-2 p-4">
-        {data?.map((audio) => (
-          <div className="" key={audio.id}>
-            <AudioPlayer audioUrl={audio.url} className="shadow-none" />
-            <Divider />
-          </div>
-        ))}
-      </MagicCard>
+      {data ? (
+        <MagicCard className="mt-4 flex flex-col gap-2 p-4">
+          {data?.map((audio) => (
+            <div className="" key={audio.id}>
+              <AudioPlayer audioUrl={audio.url} className="shadow-none" />
+              <Divider />
+            </div>
+          ))}
+        </MagicCard>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

@@ -39,6 +39,7 @@ model User {
     Conversation      Conversation[]
     FX                FX[]
     TTS               TTS[]
+    VoiceChange       VoiceChange[]
 }
 
 model Session {

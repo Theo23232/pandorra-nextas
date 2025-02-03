@@ -1,43 +1,27 @@
 "use client"
-import { ElevenLabsClient } from "elevenlabs"
-import {
-  Building2,
-  Car,
-  Cat,
-  Gamepad2,
-  Mic2,
-  Music,
-  Settings2,
-  Waves,
-  Wind,
-} from "lucide-react"
-import React, { useRef, useState } from "react"
-import useSWR, { mutate } from "swr"
+import { ElevenLabsClient } from 'elevenlabs';
+import { Building2, Car, Cat, Gamepad2, Mic2, Music, Settings2, Waves, Wind } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
-import { generateFX } from "@/actions/elevenlabs.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { InputNumber } from "@/components/input-number"
-import { Label } from "@/components/tremor/inputs/label"
-import { Slider } from "@/components/tremor/inputs/slider"
-import { Switch } from "@/components/tremor/inputs/switch"
-import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
+import { generateFX } from '@/actions/elevenlabs.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { InputNumber } from '@/components/input-number';
+import { Label } from '@/components/tremor/inputs/label';
+import { Slider } from '@/components/tremor/inputs/slider';
+import { Switch } from '@/components/tremor/inputs/switch';
+import { Button } from '@/components/tremor/ui/button';
+import { CardTitle } from '@/components/tremor/ui/card';
+import { Divider } from '@/components/tremor/ui/divider';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/tremor/ui/drawer"
-import { Textarea } from "@/components/ui/textarea"
-import { fetcher } from "@/lib/utils"
-import { FX } from "@prisma/client"
+    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle,
+    DrawerTrigger
+} from '@/components/tremor/ui/drawer';
+import { Textarea } from '@/components/ui/textarea';
+import { fetcher } from '@/lib/utils';
+import { FX } from '@prisma/client';
 
-import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from './audio-player'; // Assurez-vous du bon chemin d'importation
 
 export default function Page() {
   const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
@@ -255,7 +239,7 @@ export default function Page() {
         </div>
       </MagicCard>
 
-      <MagicCard>
+      {data ? <MagicCard>
         {data?.map((audio) => (
           <div className="" key={audio.id}>
             <CardTitle>{audio.prompt}</CardTitle>
@@ -263,7 +247,7 @@ export default function Page() {
             <Divider />
           </div>
         ))}
-      </MagicCard>
+      </MagicCard> : <></>}
     </div>
   )
 }

@@ -37,6 +37,7 @@ model User {
     Variant           Variant[]
     Agent             Agent[]
     Conversation      Conversation[]
+    FX                FX[]
 }
 
 model Session {

@@ -7,3 +7,25 @@ model FX {
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model TTS {
+    id        String   @id @default(cuid())
+    userId    String
+    prompt    String
+    url       String
+    createdAt DateTime @default(now())
+    lang      String
+    voice     String
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VoiceChange {
+    id        String   @id @default(cuid())
+    userId    String
+    url       String
+    createdAt DateTime @default(now())
+    voice     String
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

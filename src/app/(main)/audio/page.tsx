@@ -13,9 +13,10 @@ import {
   Wind,
 } from "lucide-react"
 import React, { useRef, useState } from "react"
+import flags from "react-phone-number-input/flags"
 import useSWR, { mutate } from "swr"
 
-import { generateFX } from "@/actions/elevenlabs.actions"
+import { generateTTS } from "@/actions/elevenlabs.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { InputNumber } from "@/components/input-number"
 import { Label } from "@/components/tremor/inputs/label"
@@ -35,18 +36,50 @@ import {
   DrawerTrigger,
 } from "@/components/tremor/ui/drawer"
 import { Textarea } from "@/components/ui/textarea"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
 import { fetcher } from "@/lib/utils"
 import { FX } from "@prisma/client"
 
 import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'importation
 
+const languageToCountry: { [key: string]: keyof typeof flags } = {
+  en: "GB",
+  fr: "FR",
+  ar: "SA",
+  bg: "BG",
+  zh: "CN",
+  hr: "HR",
+  da: "DK",
+  de: "DE",
+  el: "GR",
+  hi: "IN",
+  it: "IT",
+  ja: "JP",
+  ko: "KR",
+  pl: "PL",
+  pt: "PT",
+  ms: "MY",
+  ro: "RO",
+  ru: "RU",
+  es: "ES",
+  sk: "SK",
+  sv: "SE",
+  tr: "TR",
+  uk: "UA",
+}
+
 export default function Page() {
-  const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
+  const { data } = useSWR<FX[]>("/api/audio/generated-tts", fetcher)
   const [prompt, setPrompt] = useState("a car whizzing by")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [influence, setInfluence] = useState(30)
+  const [selectedAgent, setSelectedAgent] = useState<{
+    voiceId: string
+    language: string
+  }>({ language: "en", voiceId: voicesList[0].id })
+  const [voice, setVoice] = useState("")
   const charCount = prompt.length
   const maxChars = 9680
 
@@ -83,8 +116,13 @@ export default function Page() {
       const blob = new Blob(chunks, { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       setAudioUrl(url)
-      await generateFX(prompt, url)
-      mutate("/api/audio/generated-fx")
+      await generateTTS(
+        prompt,
+        url,
+        selectedAgent.language,
+        selectedAgent.voiceId,
+      )
+      mutate("/api/audio/generated-tts")
     } catch (error) {
       console.error("Erreur lors de la génération de l'audio :", error)
     } finally {

@@ -1,0 +1,9 @@
+model FX {
+    id        String   @id @default(cuid())
+    userId    String
+    prompt    String
+    url       String
+    createdAt DateTime @default(now())
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

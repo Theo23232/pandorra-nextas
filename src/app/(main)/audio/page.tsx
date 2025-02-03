@@ -257,7 +257,7 @@ export default function Page() {
 
       <MagicCard>
         {data?.map((audio) => (
-          <Card className="">
+          <Card className="" key={audio.id}>
             <CardTitle>{audio.prompt}</CardTitle>
             <AudioPlayer audioUrl={audio.url} />
           </Card>

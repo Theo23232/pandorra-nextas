@@ -1,13 +1,20 @@
 "use client"
 
 import {
-    Download, Pause, Play, Repeat, SkipBack, SkipForward, Volume2, VolumeX
-} from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+  Download,
+  Pause,
+  Play,
+  Repeat,
+  SkipBack,
+  SkipForward,
+  Volume2,
+  VolumeX,
+} from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { cn } from '@/lib/utils';
+import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider"
+import { cn } from "@/lib/utils"
 
 type AudioPlayerProps = {
   audioUrl: string

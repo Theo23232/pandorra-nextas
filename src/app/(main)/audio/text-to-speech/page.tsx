@@ -76,25 +76,15 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
   uk: "UA",
 }
 
-interface ConversationProps {
-  preSelectedAgentId?: string
-  preSelectedVoiceId?: string
-  preSelectedLanguage?: string
-}
-
-export default function Page({
-  preSelectedAgentId,
-  preSelectedVoiceId,
-  preSelectedLanguage,
-}: ConversationProps) {
+export default function Page() {
   const { data } = useSWR<TTS[]>("/api/audio/generated-tts", fetcher)
   const [prompt, setPrompt] = useState("a car whizzing by")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [influence, setInfluence] = useState(30)
-  const [voiceId, setVoiceId] = useState(preSelectedVoiceId || voicesList[0].id)
-  const [lang, setLang] = useState(preSelectedLanguage || "en")
+  const [voiceId, setVoiceId] = useState(voicesList[0].id)
+  const [lang, setLang] = useState("en")
   const charCount = prompt.length
   const maxChars = 9680
 
@@ -276,11 +266,7 @@ export default function Page({
                 </DrawerFooter>
               </DrawerContent>
             </Drawer>
-            <Select
-              value={voiceId}
-              onValueChange={setVoiceId}
-              disabled={!!preSelectedVoiceId}
-            >
+            <Select value={voiceId} onValueChange={setVoiceId}>
               <SelectTrigger className="h-9 w-[120px]">
                 <SelectValue placeholder="Select Voice" />
               </SelectTrigger>
@@ -292,11 +278,7 @@ export default function Page({
                 ))}
               </SelectContent>
             </Select>
-            <Select
-              value={lang}
-              onValueChange={setLang}
-              disabled={!!preSelectedLanguage}
-            >
+            <Select value={lang} onValueChange={setLang}>
               <SelectTrigger className="h-9 w-[180px]">
                 <SelectValue placeholder="Select Language" />
               </SelectTrigger>

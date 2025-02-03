@@ -1,4 +1,3 @@
-// Page.tsx
 "use client"
 import { ElevenLabsClient } from "elevenlabs"
 import {
@@ -13,10 +12,9 @@ import {
   Wind,
 } from "lucide-react"
 import React, { useRef, useState } from "react"
-import flags from "react-phone-number-input/flags"
 import useSWR, { mutate } from "swr"
 
-import { generateTTS } from "@/actions/elevenlabs.actions"
+import { generateFX } from "@/actions/elevenlabs.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { InputNumber } from "@/components/input-number"
 import { Label } from "@/components/tremor/inputs/label"
@@ -24,7 +22,6 @@ import { Slider } from "@/components/tremor/inputs/slider"
 import { Switch } from "@/components/tremor/inputs/switch"
 import { Button } from "@/components/tremor/ui/button"
 import { Card, CardTitle } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
 import {
   Drawer,
   DrawerBody,
@@ -36,50 +33,18 @@ import {
   DrawerTrigger,
 } from "@/components/tremor/ui/drawer"
 import { Textarea } from "@/components/ui/textarea"
-import { voicesList } from "@/lib/elevenlabs/voiceList"
 import { fetcher } from "@/lib/utils"
 import { FX } from "@prisma/client"
 
 import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'importation
 
-const languageToCountry: { [key: string]: keyof typeof flags } = {
-  en: "GB",
-  fr: "FR",
-  ar: "SA",
-  bg: "BG",
-  zh: "CN",
-  hr: "HR",
-  da: "DK",
-  de: "DE",
-  el: "GR",
-  hi: "IN",
-  it: "IT",
-  ja: "JP",
-  ko: "KR",
-  pl: "PL",
-  pt: "PT",
-  ms: "MY",
-  ro: "RO",
-  ru: "RU",
-  es: "ES",
-  sk: "SK",
-  sv: "SE",
-  tr: "TR",
-  uk: "UA",
-}
-
 export default function Page() {
-  const { data } = useSWR<FX[]>("/api/audio/generated-tts", fetcher)
+  const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
   const [prompt, setPrompt] = useState("a car whizzing by")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [influence, setInfluence] = useState(30)
-  const [selectedAgent, setSelectedAgent] = useState<{
-    voiceId: string
-    language: string
-  }>({ language: "en", voiceId: voicesList[0].id })
-  const [voice, setVoice] = useState("")
   const charCount = prompt.length
   const maxChars = 9680
 
@@ -116,13 +81,8 @@ export default function Page() {
       const blob = new Blob(chunks, { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       setAudioUrl(url)
-      await generateTTS(
-        prompt,
-        url,
-        selectedAgent.language,
-        selectedAgent.voiceId,
-      )
-      mutate("/api/audio/generated-tts")
+      await generateFX(prompt, url)
+      mutate("/api/audio/generated-fx")
     } catch (error) {
       console.error("Erreur lors de la génération de l'audio :", error)
     } finally {
@@ -264,16 +224,19 @@ export default function Page() {
             <div className="text-sm text-muted-foreground">
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
-            <Button
-              className="text-md h-9"
-              onClick={handleGenerate}
-              isLoading={isLoading}
-            >
+            <Button className="text-md h-9" onClick={handleGenerate}>
               Generate Sound Effects
             </Button>
           </div>
         </div>
       </MagicCard>
+
+      {/* Affichage du player audio uniquement si une URL est disponible */}
+      {audioUrl && (
+        <MagicCard className="mt-4 flex items-center justify-center">
+          <AudioPlayer audioUrl={audioUrl} />
+        </MagicCard>
+      )}
 
       <MagicCard className="mt-4 p-4">
         <div className="text-center text-muted-foreground">
@@ -291,12 +254,11 @@ export default function Page() {
         </div>
       </MagicCard>
 
-      <MagicCard className="mt-4 flex flex-col gap-2 p-4">
+      <MagicCard>
         {data?.map((audio) => (
           <Card className="" key={audio.id}>
             <CardTitle>{audio.prompt}</CardTitle>
             <AudioPlayer audioUrl={audio.url} />
-            <Divider />
           </Card>
         ))}
       </MagicCard>

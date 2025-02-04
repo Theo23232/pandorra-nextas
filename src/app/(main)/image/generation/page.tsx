@@ -1,16 +1,13 @@
 "use client"
-import { useState } from 'react';
+import { useState } from "react"
 
-import { Logo } from '@/components/logo';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { useSelectImage } from '@/hooks/use-select-image';
-import { leofetch } from '@/lib/leonardo/fetch';
-import { Model, models } from '@/lib/leonardo/presets';
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { useSelectImage } from "@/hooks/use-select-image"
+import { leofetch } from "@/lib/leonardo/fetch"
+import { Model, models } from "@/lib/leonardo/presets"
 
-import { Main } from './Main';
-import { ImageGenerationSidebar } from './sidebar';
+import { Main } from "./Main"
+import { ImageGenerationSidebar } from "./sidebar"
 
 export default function RoutePage() {
   //en fait c'est un ID
@@ -79,7 +76,7 @@ export default function RoutePage() {
   }
 
   return (
-    <SidebarProvider>
+    <div className="flex pt-4">
       <ImageGenerationSidebar
         onModelChange={(model) => handleStateChange("activeModel", model)}
         onPresetStyleChange={(value) => handleStateChange("presetStyle", value)}
@@ -96,15 +93,8 @@ export default function RoutePage() {
         defaultcontrast={contrast}
         defaultcount={count}
       />
-      <div className="w-full lg:pl-96">
-        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white bg-opacity-70 px-2 shadow-sm backdrop-blur-md sm:gap-x-6 sm:px-4 dark:border-gray-800 dark:bg-gray-950 dark:bg-opacity-75 dark:backdrop-blur-md">
-          <Logo />
-          <div className="flex items-center gap-1 sm:gap-2">
-            <JetonCounter />
 
-            <UserProfileMobile />
-          </div>
-        </div>
+      <ScrollArea className="w-full p-6 pt-0">
         <Main
           onGenerate={generate}
           onPromptChange={(prompt) => handleStateChange("prompt", prompt)}
@@ -112,7 +102,7 @@ export default function RoutePage() {
           count={state.count}
           id={state.id}
         />
-      </div>
-    </SidebarProvider>
+      </ScrollArea>
+    </div>
   )
 }

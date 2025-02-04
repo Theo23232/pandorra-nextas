@@ -608,10 +608,6 @@ export const presetStyles: Value[] = [
     value: "ILLUSTRATION",
   },
   {
-    name: "LEONARDO",
-    value: "LEONARDO",
-  },
-  {
     name: "LONG_EXPOSURE",
     value: "LONG_EXPOSURE",
   },

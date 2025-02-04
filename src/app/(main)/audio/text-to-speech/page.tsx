@@ -9,6 +9,7 @@ import useSWR, { mutate } from "swr"
 import { generateTTS } from "@/actions/elevenlabs.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { InputNumber } from "@/components/input-number"
+import { NothingYet } from "@/components/NothingYet"
 import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
 import { Switch } from "@/components/tremor/inputs/switch"
@@ -395,7 +396,10 @@ export default function Page() {
           ))}
         </MagicCard>
       ) : (
-        <></>
+        <NothingYet
+          subtitle="You voice generation will be displayed here"
+          title="There is no audio yet"
+        />
       )}
     </div>
   )

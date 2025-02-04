@@ -1,5 +1,5 @@
 "use client"
 
-export const Routepage = () => {
-  return <div>video</div>
+export default async function RoutePage() {
+  return <div className="">Video</div>
 }

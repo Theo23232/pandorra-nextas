@@ -15,6 +15,7 @@ export async function generateVideoFromImage(
       model: "gen3a_turbo",
       promptImage: base64Image,
       promptText,
+      duration: 5,
     })
 
     const taskId = imageToVideo.id

@@ -1,11 +1,11 @@
-import { redirect } from 'next/navigation';
-import { Onborda, OnbordaProvider } from 'onborda';
-import { ReactNode } from 'react';
+import { redirect } from "next/navigation"
+import { Onborda, OnbordaProvider } from "onborda"
+import { ReactNode } from "react"
 
-import { Sidebar } from '@/components/(main)/navigation/sidebar';
-import { OnboardaCard } from '@/components/onboarda/OnboardaCard';
-import { currentUser } from '@/lib/current-user';
-import { tours } from '@/lib/onboarda/steps';
+import { Sidebar } from "@/components/(main)/navigation/sidebar"
+import { OnboardaCard } from "@/components/onboarda/OnboardaCard"
+import { currentUser } from "@/lib/current-user"
+import { tours } from "@/lib/onboarda/steps"
 
 export default async function RouteLayout({
   children,

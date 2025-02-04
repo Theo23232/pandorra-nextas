@@ -109,8 +109,8 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
       <Button
         variant="outline"
         className={cn(
-          "flex w-1/3 flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-          activeSize === size && "bg-primary text-white",
+          "flex w-full flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
+          activeSize === size && "bg-primary text-white hover:bg-primary/80",
         )}
         onClick={() => handleChange(null, size)}
       >
@@ -136,7 +136,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
           ),
         )}
       </div>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full flex-wrap justify-between gap-2">
         {sizeOptions.map((size) => (
           <SizeButton key={size} size={size} />
         ))}

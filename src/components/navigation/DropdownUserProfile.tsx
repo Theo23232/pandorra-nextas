@@ -1,28 +1,19 @@
 "use client"
 
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
-import { useTheme } from "next-themes"
-import Link from "next/link"
-import * as React from "react"
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import * as React from 'react';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSubMenu,
-  DropdownMenuSubMenuContent,
-  DropdownMenuSubMenuTrigger,
-  DropdownMenuTrigger,
-} from "@/components/tremor/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@/hooks/use-user"
-import { logOut } from "@/lib/utils"
-import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
+    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
+    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
+    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
+} from '@/components/tremor/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useUser } from '@/hooks/use-user';
+import { logOut } from '@/lib/utils';
+import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode
@@ -111,10 +102,10 @@ export function DropdownUserProfile({
 
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <Link href={"/billing"}>
+            <Link href={"/billing"} prefetch={true}>
               <DropdownMenuItem>
                 <Sparkles className="mr-2 size-4 shrink-0" />
-                Upgrade to Pro
+                Upgrade plan
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
@@ -124,7 +115,7 @@ export function DropdownUserProfile({
               <BadgeCheck className="mr-2 size-4 shrink-0" />
               Account
             </DropdownMenuItem>
-            <Link href={"/billing"}>
+            <Link href={"/billing"} prefetch={true}>
               <DropdownMenuItem>
                 <CreditCard className="mr-2 size-4 shrink-0" />
                 Billing

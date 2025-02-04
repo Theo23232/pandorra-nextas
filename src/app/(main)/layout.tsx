@@ -33,7 +33,7 @@ export default async function RouteLayout({
         }}
       >
         <Sidebar />
-        <main className="p-8 pt-0 lg:pl-64">{children}</main>
+        <main className="p-8 pr-4 pt-0 lg:pl-64">{children}</main>
       </Onborda>
     </OnbordaProvider>
   )

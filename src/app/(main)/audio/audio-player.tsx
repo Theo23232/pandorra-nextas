@@ -113,7 +113,7 @@ export function AudioPlayer({ audioUrl, className }: AudioPlayerProps) {
     <div className={cn("w-full rounded-lg p-4 shadow-sm", className)}>
       <audio ref={audioRef} src={audioUrl} loop={isLooping} />
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <Slider
           value={[progress]}
           onValueChange={([value]) => handleProgressChange(value)}
@@ -122,7 +122,7 @@ export function AudioPlayer({ audioUrl, className }: AudioPlayerProps) {
           className="w-full"
         />
 
-        <div className="mt-2 flex items-center justify-center gap-4">
+        <div className="mt-4 flex items-center justify-center gap-4">
           <Button
             variant="ghost"
             size="icon"

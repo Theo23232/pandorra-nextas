@@ -8,11 +8,9 @@ import useSWR, { mutate } from "swr"
 
 import { generateTTS } from "@/actions/elevenlabs.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { InputNumber } from "@/components/input-number"
 import { NothingYet } from "@/components/NothingYet"
 import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
-import { Switch } from "@/components/tremor/inputs/switch"
 import { Button } from "@/components/tremor/ui/button"
 import { CardTitle } from "@/components/tremor/ui/card"
 import { Divider } from "@/components/tremor/ui/divider"
@@ -26,6 +24,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/tremor/ui/drawer"
+import { Badge } from "@/components/ui/badge"
 import {
   Select,
   SelectContent,
@@ -65,6 +64,16 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
   sv: "SE",
   tr: "TR",
   uk: "UA",
+}
+
+const getLanguageName = (code: string) => {
+  const language = languageOptions.find((item) => item.code === code)
+  return language ? language.label : code
+}
+
+const getVoiceName = (id: string) => {
+  const voice = voicesList.find((item) => item.id === id)
+  return voice ? voice.name : id
 }
 
 type TextToSpeechExample = {
@@ -141,6 +150,9 @@ export default function Page() {
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [influence, setInfluence] = useState(30)
+  const [stability, setStability] = useState(0)
+  const [similarity, setSimilarity] = useState(0)
+  const [style, setStyle] = useState(0)
   const [voiceId, setVoiceId] = useState(voicesList[0].id)
   const [lang, setLang] = useState("en")
   const charCount = prompt.length
@@ -173,6 +185,11 @@ export default function Page() {
         output_format: "mp3_44100_128",
         text: prompt,
         model_id: "eleven_multilingual_v2",
+        voice_settings: {
+          stability: stability / 100,
+          similarity_boost: similarity / 100,
+          style: style / 100,
+        },
       })
 
       const chunks: Uint8Array[] = []
@@ -200,13 +217,22 @@ export default function Page() {
     }
   }
 
-  const handleSliderChange = (value: number[]) => {
-    setInfluence(value[0]) // Prendre la première valeur du tableau
+  const handleSliderStabilityChange = (value: number[]) => {
+    setStability(value[0]) // Prendre la première valeur du tableau
+  }
+  const handleSliderSimilarityChange = (value: number[]) => {
+    setSimilarity(value[0]) // Prendre la première valeur du tableau
+  }
+  const handleSliderStyleChange = (value: number[]) => {
+    setStyle(value[0]) // Prendre la première valeur du tableau
   }
 
   const handleReset = () => {
     setIsAuto(true)
     setInfluence(30)
+    setStability(0)
+    setSimilarity(0)
+    setStyle(0)
   }
 
   const ExampleButton = ({ text, title }: { text: string; title: string }) => (
@@ -246,58 +272,73 @@ export default function Page() {
                     {/* Section Durée */}
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <h2 className="text-lg font-medium">Duration</h2>
-                        <p className="text-sm text-muted-foreground">
-                          Définissez la durée souhaitée pour votre génération.
-                          Choisissez entre 0.5 et 22 secondes.
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Switch
-                          id="auto-length"
-                          checked={isAuto}
-                          onCheckedChange={setIsAuto}
-                        />
-                        <Label htmlFor="auto-length" className="text-sm">
-                          Choisir automatiquement la meilleure durée
-                        </Label>
-                      </div>
-                      <InputNumber
-                        className="w-full"
-                        max={22}
-                        suffix=" seconds"
-                        min={1}
-                        value={durationSeconds}
-                        onChange={(e) =>
-                          setDurationSeconds(parseInt(e.target.value))
-                        }
-                        disabled={isAuto}
-                      />
-                    </div>
-
-                    {/* Section Influence du Prompt */}
-                    <div className="space-y-4">
-                      <div className="space-y-2">
                         <h2 className="text-lg font-medium">
-                          Prompt Influence
+                          Paramètres vocaux
                         </h2>
                         <p className="text-sm text-muted-foreground">
-                          Ajustez le curseur pour que votre génération adhère
-                          parfaitement au prompt ou laisse un peu de place à la
-                          créativité.
+                          Les paramètres vocaux remplacent les paramètres
+                          enregistrés pour la voix donnée. Ils ne sont appliqués
+                          que sur la demande donnée.
                         </p>
                       </div>
-                      <div className="space-y-3">
+                      <div className="">
+                        <div className="flex items-center gap-3">
+                          <Label htmlFor="stability" className="text-sm">
+                            Stabilité
+                          </Label>
+                          <Badge className="text-sm">{stability}</Badge>
+                        </div>
                         <Slider
                           min={0}
                           max={100}
                           step={1}
-                          value={[influence]}
-                          onValueChange={handleSliderChange}
+                          value={[stability]}
+                          onValueChange={handleSliderStabilityChange}
+                          className="mt-5"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>More Creative</span>
-                          <span>Follow Prompt</span>
+                        <div className="mt-1 flex justify-between text-sm text-muted-foreground">
+                          <span>0</span>
+                          <span>100</span>
+                        </div>
+                      </div>
+                      <div className="pt-6">
+                        <div className="flex items-center gap-3">
+                          <Label htmlFor="stability" className="text-sm">
+                            Augmentation de la similarité
+                          </Label>
+                          <Badge className="text-sm">{similarity}</Badge>
+                        </div>
+                        <Slider
+                          min={0}
+                          max={100}
+                          step={1}
+                          value={[similarity]}
+                          onValueChange={handleSliderSimilarityChange}
+                          className="mt-5"
+                        />
+                        <div className="mt-1 flex justify-between text-sm text-muted-foreground">
+                          <span>0</span>
+                          <span>100</span>
+                        </div>
+                      </div>
+                      <div className="pt-6">
+                        <div className="flex items-center gap-3">
+                          <Label htmlFor="stability" className="text-sm">
+                            Style
+                          </Label>
+                          <Badge className="text-sm">{style}</Badge>
+                        </div>
+                        <Slider
+                          min={0}
+                          max={100}
+                          step={1}
+                          value={[style]}
+                          onValueChange={handleSliderStyleChange}
+                          className="mt-5"
+                        />
+                        <div className="mt-1 flex justify-between text-sm text-muted-foreground">
+                          <span>0</span>
+                          <span>100</span>
                         </div>
                       </div>
                     </div>
@@ -383,17 +424,35 @@ export default function Page() {
       </MagicCard>
 
       {data ? (
-        <MagicCard className="mt-4 flex flex-col gap-2 p-4">
-          {data?.map((audio) => (
-            <div className="pt-2" key={audio.id}>
-              <CardTitle>{audio.prompt}</CardTitle>
-              <AudioPlayer
-                audioUrl={audio.url}
-                className="p-0 pt-4 shadow-none"
-              />
-              <Divider />
-            </div>
-          ))}
+        <MagicCard className="mt-4 flex flex-col gap-2 p-5">
+          {data?.map((audio, index) => {
+            const CountryFlag = Flags[languageToCountry[audio.lang] || "GB"]
+            return (
+              <div className="pt-2" key={audio.id}>
+                <CardTitle>{audio.prompt}</CardTitle>
+                <AudioPlayer
+                  audioUrl={audio.url}
+                  className="p-0 pt-4 shadow-none"
+                />
+                <div className="mt-6 flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    className="flex h-9 items-center gap-2 rounded-md text-sm text-foreground"
+                  >
+                    <CountryFlag className="mr-1 h-4 w-4" />
+                    {getLanguageName(audio.lang)}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-9 rounded-md text-sm text-foreground"
+                  >
+                    {getVoiceName(audio.voice)}
+                  </Button>
+                </div>
+                {index < data.length - 1 && <Divider />}
+              </div>
+            )
+          })}
         </MagicCard>
       ) : (
         <NothingYet

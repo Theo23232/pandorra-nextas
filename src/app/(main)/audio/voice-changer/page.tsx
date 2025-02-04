@@ -208,7 +208,10 @@ const SpeechToSpeechConverter = () => {
         <MagicCard className="mt-4 flex flex-col gap-2 p-4">
           {data?.map((audio) => (
             <div className="" key={audio.id}>
-              <AudioPlayer audioUrl={audio.url} className="shadow-none" />
+              <AudioPlayer
+                audioUrl={audio.url}
+                className="p-0 pt-4 shadow-none"
+              />
               <Divider />
             </div>
           ))}

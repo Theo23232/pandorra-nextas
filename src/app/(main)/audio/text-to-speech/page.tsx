@@ -2,17 +2,7 @@
 "use client"
 import * as Flags from "country-flag-icons/react/3x2"
 import { ElevenLabsClient } from "elevenlabs"
-import {
-  Building2,
-  Car,
-  Cat,
-  Gamepad2,
-  Mic2,
-  Music,
-  Settings2,
-  Waves,
-  Wind,
-} from "lucide-react"
+import { Settings2 } from "lucide-react"
 import React, { useRef, useState } from "react"
 import useSWR, { mutate } from "swr"
 
@@ -76,6 +66,73 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
   uk: "UA",
 }
 
+type TextToSpeechExample = {
+  title: string
+  text: string
+}
+
+const textToSpeechExamples: TextToSpeechExample[] = [
+  {
+    title: "Inspirational Quote",
+    text: "The only limit to our realization of tomorrow is our doubts of today.",
+  },
+  {
+    title: "Weather Update",
+    text: "Today's weather forecast predicts sunny skies with a high of 25 degrees Celsius and a gentle breeze from the east.",
+  },
+  {
+    title: "Tech News",
+    text: "Artificial Intelligence continues to revolutionize industries, from healthcare to finance, by automating complex tasks and improving decision-making processes.",
+  },
+  {
+    title: "Travel Guide",
+    text: "Welcome to Paris, the City of Light. Don’t miss the iconic Eiffel Tower, the charming Montmartre district, and the world-famous Louvre Museum.",
+  },
+  {
+    title: "Fun Fact",
+    text: "Did you know that honey never spoils? Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.",
+  },
+  {
+    title: "Daily Affirmation",
+    text: "I am capable, resilient, and ready to face any challenges that come my way.",
+  },
+  {
+    title: "Historical Fact",
+    text: "The Great Wall of China, built over several dynasties, stretches for more than 13,000 miles across the country.",
+  },
+  {
+    title: "Motivational Thought",
+    text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+  },
+  {
+    title: "Short Story Snippet",
+    text: "As the sun set over the quiet village, the last rays of light painted the sky with hues of pink and gold, promising a brighter tomorrow.",
+  },
+  {
+    title: "Health Tip",
+    text: "Staying hydrated is essential for maintaining focus, energy levels, and overall well-being throughout the day.",
+  },
+  {
+    title: "Joke",
+    text: "Why don't skeletons fight each other? They don’t have the guts.",
+  },
+  {
+    title: "Poem Excerpt",
+    text: "Two roads diverged in a wood, and I— I took the one less traveled by, and that has made all the difference.",
+  },
+  {
+    title: "Proverb",
+    text: "The early bird catches the worm, but the second mouse gets the cheese.",
+  },
+  {
+    title: "Philosophical Thought",
+    text: "The unexamined life is not worth living.",
+  },
+  {
+    title: "Nature Description",
+    text: "The gentle breeze carried the scent of pine, as the leaves rustled softly beneath the golden canopy of autumn trees.",
+  },
+]
 export default function Page() {
   const { data } = useSWR<TTS[]>("/api/audio/generated-tts", fetcher)
   const [prompt, setPrompt] = useState("a car whizzing by")
@@ -151,13 +208,13 @@ export default function Page() {
     setInfluence(30)
   }
 
-  const ExampleButton = ({ icon: Icon, text }: { icon: any; text: string }) => (
+  const ExampleButton = ({ text, title }: { text: string; title: string }) => (
     <Button
       variant="outline"
       className="h-9 rounded-md text-sm text-foreground"
       onClick={() => setPrompt(text)}
     >
-      {text}
+      {title}
     </Button>
   )
 
@@ -318,14 +375,9 @@ export default function Page() {
           Or try out an example to get started!
         </div>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          <ExampleButton icon={Car} text="Car whizzing by" />
-          <ExampleButton icon={Music} text="Percussion sounds" />
-          <ExampleButton icon={Cat} text="Animal sounds" />
-          <ExampleButton icon={Building2} text="City soundscapes" />
-          <ExampleButton icon={Mic2} text="Person whispering" />
-          <ExampleButton icon={Wind} text="Whooshes and movement" />
-          <ExampleButton icon={Gamepad2} text="Retro video games" />
-          <ExampleButton icon={Waves} text="Dramatic buildup" />
+          {textToSpeechExamples.map((e) => (
+            <ExampleButton key={e.title} text={e.text} title={e.title} />
+          ))}
         </div>
       </MagicCard>
 
@@ -334,7 +386,10 @@ export default function Page() {
           {data?.map((audio) => (
             <div className="pt-2" key={audio.id}>
               <CardTitle>{audio.prompt}</CardTitle>
-              <AudioPlayer audioUrl={audio.url} />
+              <AudioPlayer
+                audioUrl={audio.url}
+                className="p-0 pt-4 shadow-none"
+              />
               <Divider />
             </div>
           ))}

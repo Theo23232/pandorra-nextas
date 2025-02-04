@@ -135,7 +135,7 @@ const textToSpeechExamples: TextToSpeechExample[] = [
 ]
 export default function Page() {
   const { data } = useSWR<TTS[]>("/api/audio/generated-tts", fetcher)
-  const [prompt, setPrompt] = useState("a car whizzing by")
+  const [prompt, setPrompt] = useState("")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)

@@ -41,7 +41,7 @@ import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'imp
 
 export default function Page() {
   const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
-  const [prompt, setPrompt] = useState("a car whizzing by")
+  const [prompt, setPrompt] = useState("")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)

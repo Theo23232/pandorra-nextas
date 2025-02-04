@@ -43,7 +43,7 @@ export default function JetonCounter() {
       </Tooltip>
       {user && user?.plan === Plan.Free && (
         <Tooltip content={`You are in free plan. Click to upgrade`}>
-          <Link prefetch href={"/billing"}>
+          <Link prefetch={true} href={"/billing"}>
             <div
               className="dark:disabled:text-neutral-0 disabled:bg-neutral-30 flex h-8 translate-y-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary/15 bg-opacity-[0.15] px-3.5 py-1.5 text-center text-sm font-semibold text-primary shadow-none outline-none [transition:color_500ms,background-color_500ms,border-color_500ms,text-decoration-color_500ms,fill_500ms,stroke_500ms,transform] hover:bg-opacity-[0.24] active:translate-y-[0.0625rem] active:transform disabled:cursor-default disabled:text-neutral-900 disabled:opacity-50 disabled:shadow-none disabled:active:translate-y-0 dark:bg-primary/30 dark:bg-opacity-[0.30] dark:text-primary dark:hover:bg-opacity-[0.50] dark:disabled:bg-neutral-700 dark:disabled:opacity-30"
               id="tour3-step2"

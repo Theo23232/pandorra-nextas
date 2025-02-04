@@ -17,6 +17,7 @@ import useSWR, { mutate } from "swr"
 import { generateFX } from "@/actions/elevenlabs.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { InputNumber } from "@/components/input-number"
+import { NothingYet } from "@/components/NothingYet"
 import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
 import { Switch } from "@/components/tremor/inputs/switch"
@@ -256,7 +257,7 @@ export default function Page() {
       </MagicCard>
 
       {data ? (
-        <MagicCard className="p-4">
+        <MagicCard className="mt-4 p-4">
           {data?.map((audio) => (
             <div className="" key={audio.id}>
               <CardTitle>{audio.prompt}</CardTitle>
@@ -269,7 +270,10 @@ export default function Page() {
           ))}
         </MagicCard>
       ) : (
-        <></>
+        <NothingYet
+          subtitle="Your FX generation will be displayed here"
+          title="There is no FC yet"
+        />
       )}
     </div>
   )

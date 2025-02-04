@@ -80,7 +80,6 @@ const buttonVariants = tv({
         "bg-background",
         "shadow-sm",
         "hover:bg-accent",
-        "hover:text-primary/90",
         "text-primary",
       ],
 

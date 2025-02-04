@@ -1,111 +1,50 @@
 "use client"
-import React, { DragEvent, useRef, useState } from "react"
+import { AlertCircle, Mic, Upload } from "lucide-react"
+import { useState } from "react"
 import useSWR, { mutate } from "swr"
 
 import { generateVoiceChange } from "@/actions/elevenlabs.actions"
 import { AudioPlayer } from "@/app/(main)/audio/audio-player"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Divider } from "@/components/tremor/ui/divider"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/tremor/inputs/select"
-import { Button } from "@/components/tremor/ui/button"
-import { Divider } from "@/components/tremor/ui/divider"
+} from "@/components/ui/select"
+import { useAudioRecorder } from "@/hooks/use-audio-recorder"
+import { useAudioUploader } from "@/hooks/use-audio-uploader"
 import { voicesList } from "@/lib/elevenlabs/voiceList"
-import { fetcher } from "@/lib/utils"
-import { VoiceChange } from "@prisma/client"
+import { fetcher, formatTimePassed } from "@/lib/utils"
 
-interface SpeechToSpeechProps {
-  apiKey: string
-  voiceId: string
-}
-
-const SpeechToSpeechConverter = () => {
-  const { data } = useSWR<VoiceChange[]>("/api/audio/voice-change", fetcher)
-
-  const [audioUrl, setAudioUrl] = useState<string | null>(null)
-  const [isRecording, setIsRecording] = useState(false)
+import type { VoiceChange } from "@prisma/client"
+import type React from "react"
+const SpeechToSpeechConverter: React.FC = () => {
+  const { data: voiceChanges } = useSWR<VoiceChange[]>(
+    "/api/audio/voice-change",
+    fetcher,
+  )
   const [voiceId, setVoiceId] = useState(voicesList[0].id)
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const audioChunksRef = useRef<Blob[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const [dragActive, setDragActive] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const { isRecording, startRecording, stopRecording } = useAudioRecorder({
+    onRecordingComplete: handleAudioConversion,
+  })
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      mediaRecorderRef.current = new MediaRecorder(stream)
-      audioChunksRef.current = []
+  const { dragActive, handleDrag, handleDrop, triggerFileInput } =
+    useAudioUploader({
+      onFileSelected: handleAudioConversion,
+    })
 
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data)
-        }
-      }
-
-      mediaRecorderRef.current.onstop = handleConvert
-      mediaRecorderRef.current.start()
-      setIsRecording(true)
-    } catch (error) {
-      console.error("Error accessing microphone", error)
-    }
-  }
-
-  const stopRecording = () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop()
-      setIsRecording(false)
-    }
-  }
-
-  const handleDrag = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true)
-    } else if (e.type === "dragleave") {
-      setDragActive(false)
-    }
-  }
-
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDragActive(false)
-
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      convertAudio(e.dataTransfer.files[0])
-    }
-  }
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      convertAudio(file)
-    }
-  }
-
-  const handleConvert = () => {
-    if (audioChunksRef.current.length > 0) {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" })
-      convertAudio(audioBlob)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    if (e.target.files && e.target.files[0]) {
-      convertAudio(e.target.files[0])
-    }
-  }
-
-  const convertAudio = async (audioFile: Blob) => {
+  async function handleAudioConversion(audioFile: Blob) {
     setIsLoading(true)
+    setError(null)
     const formData = new FormData()
     formData.append("audio", audioFile, "recording.webm")
     formData.append("model_id", "eleven_multilingual_sts_v2")
@@ -122,40 +61,30 @@ const SpeechToSpeechConverter = () => {
         },
       )
 
-      console.log("response ==> ", response)
-
       if (!response.ok) {
         throw new Error("Speech-to-speech conversion failed")
       }
 
-      const chunks: Uint8Array[] = []
-      const reader = response.body?.getReader()
-
-      while (reader) {
-        const { done, value } = await reader.read()
-        if (done) break
-        if (value) chunks.push(value)
-      }
-
-      const blob = new Blob(chunks, { type: "audio/mpeg" })
+      const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       await generateVoiceChange(url, voiceId)
       mutate("/api/audio/voice-change")
-      setAudioUrl(url)
     } catch (error) {
       console.error("Conversion error", error)
+      setError("An error occurred during voice conversion. Please try again.")
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
-    <div className="w-full max-w-3xl">
-      <MagicCard className="p-4">
-        <h2 className="mb-4 text-xl font-bold">Voice Converter</h2>
+    <div className="w-full max-w-3xl space-y-6">
+      <MagicCard className="p-6">
+        <h2 className="mb-6 text-2xl font-bold">Voice Converter</h2>
 
-        <div className="mb-4 flex items-center justify-center space-x-2">
+        <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Select value={voiceId} onValueChange={setVoiceId}>
-            <SelectTrigger className="h-[50px] w-full">
+            <SelectTrigger className="h-[50px]">
               <SelectValue placeholder="Select Voice" />
             </SelectTrigger>
             <SelectContent>
@@ -168,19 +97,13 @@ const SpeechToSpeechConverter = () => {
           </Select>
           <Button
             onClick={isRecording ? stopRecording : startRecording}
-            variant={!isRecording ? "primary" : "destructive"}
-            isLoading={isLoading}
+            variant={!isRecording ? "default" : "destructive"}
+            disabled={isLoading}
+            className="h-[50px]"
           >
+            <Mic className="mr-2 h-4 w-4" />
             {isRecording ? "Stop Recording" : "Start Recording"}
           </Button>
-
-          <input
-            type="file"
-            ref={inputRef}
-            accept="audio/*"
-            onChange={handleChange}
-            className="hidden"
-          />
         </div>
 
         <div
@@ -188,36 +111,53 @@ const SpeechToSpeechConverter = () => {
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          className={`rounded-lg border-2 border-dashed p-6 text-center transition-colors duration-300 ${
+          className={`rounded-lg border-2 border-dashed p-8 text-center transition-colors duration-300 ${
             dragActive
-              ? "border-primary bg-blue-50"
+              ? "border-primary bg-primary/5"
               : "border-muted hover:border-primary"
-          } `}
+          }`}
         >
-          <p className="mb-2 text-gray-600">Drag and drop audio file here</p>
-          <Button
-            onClick={() => inputRef.current?.click()}
-            isLoading={isLoading}
-          >
+          <p className="mb-4 text-muted-foreground">
+            Drag and drop audio file here
+          </p>
+          <Button onClick={triggerFileInput} disabled={isLoading}>
+            <Upload className="mr-2 h-4 w-4" />
             Or Select File
           </Button>
         </div>
+
+        {error && (
+          <div className="mt-4 flex items-center text-destructive">
+            <AlertCircle className="mr-2 h-4 w-4" />
+            <p>{error}</p>
+          </div>
+        )}
       </MagicCard>
 
-      {data ? (
-        <MagicCard className="mt-4 flex flex-col gap-2 p-4">
-          {data?.map((audio) => (
-            <div className="" key={audio.id}>
-              <AudioPlayer
-                audioUrl={audio.url}
-                className="p-0 pt-4 shadow-none"
-              />
-              <Divider />
-            </div>
-          ))}
+      {voiceChanges && voiceChanges.length > 0 ? (
+        <MagicCard className="p-6">
+          <h3 className="mb-4 text-xl font-semibold">Converted Audio</h3>
+          <div className="space-y-4">
+            {voiceChanges.map((audio) => {
+              const timePassed = formatTimePassed(audio.createdAt.toString())
+              return (
+                <div key={audio.id}>
+                  <Label className="pb-4">{timePassed}</Label>
+                  <AudioPlayer
+                    audioUrl={audio.url}
+                    className="p-0 shadow-none"
+                  />
+                  <Divider className="my-4" />
+                </div>
+              )
+            })}
+          </div>
         </MagicCard>
       ) : (
-        <></>
+        <NothingYet
+          subtitle="You generation will be displayed here"
+          title="There is no voice yet"
+        />
       )}
     </div>
   )

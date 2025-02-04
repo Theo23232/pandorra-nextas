@@ -1,11 +1,11 @@
 "use client"
-import { ImagePlus } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
 import { getUserGeneration } from "@/actions/generation.action"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { GenerationResult } from "@/components/image-ai/GenerationResult"
+import { NothingYet } from "@/components/NothingYet"
 import { Skeleton } from "@/components/nyxb/skeleton"
 import { Button } from "@/components/tremor/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -52,6 +52,10 @@ export const Main = (props: MainProps) => {
   const handlePromptChange = (p: string) => {
     setPrompt(p)
     props.onPromptChange(p)
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto" // Réinitialiser pour recalculer
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
   }
   const generate = () => {
     setIsLoading(true)
@@ -95,36 +99,33 @@ export const Main = (props: MainProps) => {
     req().then(() => {})
   }, [])
 
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
-    }
-  }, [prompt])
   return (
-    <div className="flex flex-col justify-center px-4 pt-4">
-      <div className="relative mb-4 w-full">
+    <div className="flex flex-col justify-center">
+      <MagicCard className="mb-4 w-full">
         <Textarea
           ref={textareaRef}
           value={prompt}
           onChange={(e) => handlePromptChange(e.target.value)}
           placeholder="Type a prompt ..."
-          className="no-scroll w-full appearance-none bg-background/70 pr-44 align-middle backdrop-blur"
-          style={{
-            height: "48px",
-            verticalAlign: "middle",
-            paddingTop: "20px",
-          }}
+          className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
         />
-        <div className="absolute bottom-2 right-0 flex items-center space-x-1 pr-2">
-          <Button variant="outline" className="shrink-0">
-            <ImagePlus />
-          </Button>
-          <Button onClick={generate} isLoading={isLoading}>
+        <div className="flex items-center justify-end gap-2 p-4">
+          <Button
+            onClick={generate}
+            isLoading={isLoading}
+            className="text-md h-9"
+          >
             Generate
           </Button>
         </div>
-      </div>
+      </MagicCard>
+
+      {history.length == 0 && isLoaded == true && isLoading == false && (
+        <NothingYet
+          subtitle="Your image generation will be displayed here"
+          title="There is no image yet"
+        />
+      )}
       <div className="flex w-full flex-col-reverse gap-4">
         {history.map((h) => (
           <GenerationResult generated={h} key={h.id} />

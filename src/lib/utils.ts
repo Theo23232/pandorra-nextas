@@ -1,7 +1,7 @@
 // Tremor Raw cx [v0.0.0]
 
-import clsx, { ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import clsx, { ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cx(...args: ClassValue[]) {
   return twMerge(clsx(...args))
@@ -91,8 +91,8 @@ export function getRandomNumber(min: number, max: number): number {
 }
 
 export const logOut = () => {
-  document.cookie = `path=/`
-  window.location.href = "/auth"
+  document.cookie = "auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  window.location.href = "/"
 }
 
 export interface Region {

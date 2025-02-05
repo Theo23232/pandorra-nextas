@@ -1,6 +1,6 @@
-import Image from "next/image"
+import Image from 'next/image';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 export type logoProps = {
   className?: string
@@ -8,17 +8,21 @@ export type logoProps = {
 
 export const Logo = (props: logoProps) => {
   return (
-    <div className="flex items-center gap-0">
+    <>
       <Image
-        src="/logo/Logomark_Transparent_HD.png"
+        src="/logo/logo-full-white.png"
         alt="logo"
-        width={32}
-        height={32}
-        className={cn("h-full", props.className)}
+        width={176}
+        height={40}
+        className={cn("hidden w-fit dark:block", props.className)}
       />
-      <p className="-ml-1 self-stretch pt-2 align-baseline text-2xl font-semibold">
-        andorra.ai
-      </p>
-    </div>
+      <Image
+        src="/logo/logo-full-black.png"
+        alt="logo"
+        width={176}
+        height={40}
+        className={cn("w-fit dark:hidden", props.className)}
+      />
+    </>
   )
 }

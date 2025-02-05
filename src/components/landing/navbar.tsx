@@ -3,105 +3,95 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import { ScrollProgress } from '@/components/animated/magic-ui/scroll-progress';
-import { Button } from '@/components/tremor/ui/button';
-import {
-    Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle
-} from '@heroui/react';
+import { NavigationMenuNavbar } from '@/components/landing/NavigationMenuNavbar';
+import { NavigationMenuLink } from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 
-export const AcmeLogo = () => {
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Alert Dialog",
+    href: "/docs/primitives/alert-dialog",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Hover Card",
+    href: "/docs/primitives/hover-card",
+    description:
+      "For sighted users to preview content available behind a link.",
+  },
+  {
+    title: "Progress",
+    href: "/docs/primitives/progress",
+    description:
+      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  },
+  {
+    title: "Scroll-area",
+    href: "/docs/primitives/scroll-area",
+    description: "Visually or semantically separates content.",
+  },
+  {
+    title: "Tabs",
+    href: "/docs/primitives/tabs",
+    description:
+      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+  },
+  {
+    title: "Tooltip",
+    href: "/docs/primitives/tooltip",
+    description:
+      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+  },
+]
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
   return (
-    <Image
-      src={"/logo/logo-white-256x256.png"}
-      width={36}
-      height={36}
-      alt="logo"
-    />
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className,
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
   )
-}
+})
 
 export default function LandingNavbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ]
-
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen}>
-        <NavbarContent>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
+      <nav className="fixed top-0 z-50 flex w-full items-center justify-center p-4 dark">
+        <div className="flex w-full max-w-[1274px] items-center justify-between">
+          <Image
+            src="/logo/logo-full-white.png"
+            alt="logo"
+            width={176}
+            height={40}
           />
-          <NavbarBrand>
-            <AcmeLogo />
-            <p className="font-bold text-inherit">pandorra</p>
-          </NavbarBrand>
-        </NavbarContent>
-
-        <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Features
+          <div className="flex">
+            <NavigationMenuNavbar />
+            <Link
+              href={"/auth"}
+              className="inline-flex items-center justify-center rounded-full bg-[#EAEBFE] px-5 py-3"
+            >
+              Get started
             </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link aria-current="page" href="#">
-              Customers
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Integrations
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-        <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
-            <Link href="/auth" prefetch={true}>
-              Login
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link href={"/auth"} prefetch={true}>
-              <Button color="primary" variant="light">
-                Sign Up
-              </Button>
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-        <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                className="w-full"
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === menuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href="#"
-              >
-                {item}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
-      </Navbar>
-      <ScrollProgress className="top-[64px]" />
+          </div>
+        </div>
+      </nav>
     </>
   )
 }

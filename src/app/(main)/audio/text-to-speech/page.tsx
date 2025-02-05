@@ -8,6 +8,7 @@ import useSWR, { mutate } from "swr"
 
 import { generateTTS } from "@/actions/elevenlabs.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { VoiceLibrarySearch } from "@/components/audio/VoiceLibrarySearch"
 import { NothingYet } from "@/components/NothingYet"
 import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
@@ -34,7 +35,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { languageOptions } from "@/lib/elevenlabs/langList"
-import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { getVoiceNameById, voicesList } from "@/lib/elevenlabs/voiceList"
 import { fetcher } from "@/lib/utils"
 import { TTS } from "@prisma/client"
 
@@ -235,6 +236,11 @@ export default function Page() {
     setStyle(0)
   }
 
+  const handleVoiceSelect = (voiceId: string, language: string) => {
+    setVoiceId(voiceId)
+    setLang(language)
+  }
+
   const ExampleButton = ({ text, title }: { text: string; title: string }) => (
     <Button
       variant="outline"
@@ -269,6 +275,9 @@ export default function Page() {
                 </DrawerHeader>
                 <DrawerBody>
                   <div className="w-full max-w-md space-y-8 p-4">
+                    {/* Search voice */}
+                    <VoiceLibrarySearch onVoiceSelect={handleVoiceSelect} />
+                    <div className="flex flex-col"></div>
                     {/* Section Durée */}
                     <div className="space-y-4">
                       <div className="space-y-2">
@@ -297,8 +306,8 @@ export default function Page() {
                           className="mt-5"
                         />
                         <div className="mt-1 flex justify-between text-sm text-muted-foreground">
-                          <span>0</span>
-                          <span>100</span>
+                          <span>More variable</span>
+                          <span>More stable</span>
                         </div>
                       </div>
                       <div className="pt-6">
@@ -317,14 +326,14 @@ export default function Page() {
                           className="mt-5"
                         />
                         <div className="mt-1 flex justify-between text-sm text-muted-foreground">
-                          <span>0</span>
-                          <span>100</span>
+                          <span>low</span>
+                          <span>high</span>
                         </div>
                       </div>
                       <div className="pt-6">
                         <div className="flex items-center gap-3">
                           <Label htmlFor="stability" className="text-sm">
-                            Style
+                            Style exaggeration
                           </Label>
                           <Badge className="text-sm">{style}</Badge>
                         </div>
@@ -337,8 +346,8 @@ export default function Page() {
                           className="mt-5"
                         />
                         <div className="mt-1 flex justify-between text-sm text-muted-foreground">
-                          <span>0</span>
-                          <span>100</span>
+                          <span>None</span>
+                          <span>Exaggerated</span>
                         </div>
                       </div>
                     </div>
@@ -446,7 +455,7 @@ export default function Page() {
                     variant="outline"
                     className="h-9 rounded-md text-sm text-foreground"
                   >
-                    {getVoiceName(audio.voice)}
+                    {getVoiceNameById(audio.voice)}
                   </Button>
                 </div>
                 {index < data.length - 1 && <Divider />}

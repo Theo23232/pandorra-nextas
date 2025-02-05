@@ -1,17 +1,10 @@
 import type { Metadata } from "next"
-import "./globals.css"
-import "./outsideStyles.css"
+import './globals.css';
+import './outsideStyles.css';
 
-import { Inter } from "next/font/google"
-import NextTopLoader from "nextjs-toploader"
+import NextTopLoader from 'nextjs-toploader';
 
-import { Providers } from "@/context/providers"
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-})
+import { Providers } from '@/context/providers';
 
 export const metadata: Metadata = {
   title: "Pandorra AI",
@@ -27,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${inter.className} min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-background`}
+        className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-background`}
       >
         <NextTopLoader showSpinner={false} color="#1d4ed8" />
         <Providers>{children}</Providers>

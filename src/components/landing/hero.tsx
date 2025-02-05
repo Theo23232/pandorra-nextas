@@ -1,100 +1,72 @@
 "use client"
 
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRightIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useRef, useState } from 'react';
+import { Sparkles } from 'lucide-react';
 
-import { AnimatedShinyText } from '@/components/animated/magic-ui/animated-shiny-text';
-import { HeroVideoDialog } from '@/components/animated/magic-ui/hero-video-dialog';
-import { LineShadowText } from '@/components/animated/magic-ui/line-shadow-text';
-import { Particles } from '@/components/animated/magic-ui/particles';
-import { TextAnimate } from '@/components/animated/magic-ui/text-animate';
+import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
+import {
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/nyxb/select';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
-gsap.registerPlugin(ScrollTrigger)
-
 export function Hero() {
-  const videoDivRef = useRef<HTMLDivElement | null>(null)
-  const { resolvedTheme } = useTheme()
-  const [color, setColor] = useState("#ffffff")
-  const theme = useTheme()
-  const shadowColor = theme.resolvedTheme === "dark" ? "white" : "black"
-
-  useEffect(() => {
-    if (videoDivRef.current) {
-      gsap.fromTo(
-        videoDivRef.current,
-        { width: "960px" },
-        {
-          width: "1250px",
-          duration: 1,
-          scrollTrigger: {
-            trigger: videoDivRef.current,
-            start: "top center",
-            end: "bottom center",
-            scrub: true,
-          },
-        },
-      )
-    }
-  }, [])
-
-  useEffect(() => {
-    setColor(resolvedTheme === "dark" ? "#ffffff" : "#000000")
-  }, [resolvedTheme])
-
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background">
-      <div className="flex h-[60vh] w-full flex-col items-center justify-center space-y-8 px-4 py-8 text-center">
+    <AspectRatio
+      ratio={16 / 6}
+      className="relative flex w-full flex-col items-center justify-center overflow-hidden"
+    >
+      <div className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
           className={cn(
-            "group w-fit rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+            "group rounded-full border border-white/5 bg-neutral-900 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
           )}
         >
-          <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-            <span>✨ Introducing Pandorra.ai</span>
-            <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+          <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 text-neutral-200 transition ease-out hover:text-neutral-400 hover:duration-300 group-hover:scale-105">
+            <Sparkles className="mr-2 size-5 transition-transform duration-300 ease-in-out" />
+            Introducing Nyxb UI
           </AnimatedShinyText>
         </div>
 
-        <h1 className="mr-4 text-balance text-5xl font-semibold leading-none tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
-          <LineShadowText className="italic" shadowColor={shadowColor}>
-            Creativity
-          </LineShadowText>
-          {" unleashed"}
-        </h1>
-        <TextAnimate duration={0.5} animation="scaleUp" by="text">
-          Leverage generative AI with a unique suite of tools to convey your
-          ideas to the world.
-        </TextAnimate>
+        <p className="text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-white">
+          Unlock the Power <br /> of Creativity
+        </p>
+        <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">
+          <Select defaultValue="image">
+            <SelectTrigger
+              className="ml-2 h-11 w-[100px] rounded-full border-0 bg-[#F4F2FE] shadow-none focus:ring-0"
+              rounded-full
+            >
+              <SelectValue
+                placeholder="Image"
+                className="bg-gradient-to-l from-[#9600ff] to-[#00ccff] bg-clip-text text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-transparent"
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="image">Image</SelectItem>
+              <SelectItem value="video">Video</SelectItem>
+              <SelectItem value="audio">Audio</SelectItem>
+            </SelectContent>
+          </Select>
+          <Input
+            className="text-md flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
+            placeholder="A bridge from a top view"
+          />
+          <Button className="hover:shadow-gradient mr-2 h-11 rounded-full bg-gradient-to-l from-[#9600ff] to-[#00ccff] px-6 transition-all ease-in-out hover:scale-[1.01] hover:shadow-[0_4px_15px_0] hover:shadow-[#9600ff]/30">
+            <Sparkles fill="white" /> Create for free
+          </Button>
+        </div>
       </div>
-
-      <div ref={videoDivRef} className="relative w-[960px] max-w-[90vw]">
-        <div className="absolute -inset-2 animate-gradient rounded-full bg-gradient-to-r from-cyan-400 via-blue-600 to-indigo-600 opacity-50 blur-[120px]"></div>
-        <HeroVideoDialog
-          className="block dark:hidden"
-          animationStyle="from-center"
-          videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-          thumbnailSrc="/img/preview.jpeg"
-          thumbnailAlt="Hero Video"
-        />
-        <HeroVideoDialog
-          className="hidden dark:block"
-          animationStyle="from-center"
-          videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-          thumbnailSrc="/img/preview.jpeg"
-          thumbnailAlt="Hero Video"
-        />
-      </div>
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={100}
-        ease={80}
-        color={color}
-        refresh
-      />
-    </div>
+      <video
+        src="/assets/hero-video-1.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute left-0 top-0 w-full"
+      ></video>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#010101]"></div>
+    </AspectRatio>
   )
 }

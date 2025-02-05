@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -91,6 +92,15 @@
     --line-color-2: hsl(272.1, 71.7%, 47.1%);
     --line-color-3: hsl(155, 89%, 51%);
   }
+}
+
+* {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
 }
 
 .recharts-dot[stroke="#fff"] {

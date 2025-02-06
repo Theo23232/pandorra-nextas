@@ -57,7 +57,7 @@ const shortcuts = [
   },
   {
     name: "Audio AI",
-    href: "/audio/",
+    href: "/audio",
     icon: BoomBox,
     id: "tour1-step9",
   },

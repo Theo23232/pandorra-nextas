@@ -103,7 +103,7 @@ const buttonVariants = tv({
     },
   },
   defaultVariants: {
-    variant: "gradient",
+    variant: "magic",
   },
 })
 

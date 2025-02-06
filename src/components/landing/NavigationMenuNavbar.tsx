@@ -1,13 +1,18 @@
 "use client"
 
-import Link from 'next/link';
-import * as React from 'react';
+import Link from "next/link"
+import * as React from "react"
 
 import {
-    NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
-    NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle
-} from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -102,14 +107,14 @@ export function NavigationMenuNavbar() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
+          <Link href="/affiliation" legacyBehavior passHref>
             <NavigationMenuLink
               className={cn(
                 navigationMenuTriggerStyle(),
                 "bg-transparent text-white hover:bg-accent/50",
               )}
             >
-              Contact
+              Affiliate
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

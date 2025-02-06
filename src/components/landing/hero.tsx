@@ -24,6 +24,7 @@ export function Hero() {
     >
       <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
+          id="hero"
           className={cn(
             "group rounded-full border border-white/5 bg-neutral-900 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
           )}
@@ -58,7 +59,10 @@ export function Hero() {
             className="text-md flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
             placeholder="A bridge from a top view"
           />
-          <Button className="hover:shadow-gradient mr-2 h-11 rounded-full bg-gradient-to-l from-[#9600ff] to-[#00ccff] px-6 transition-all ease-in-out hover:scale-[1.01] hover:shadow-[0_4px_15px_0] hover:shadow-[#9600ff]/30">
+          <Button
+            variant={"default"}
+            className="hover:shadow-gradient mr-2 flex h-11 rounded-full bg-gradient-to-l from-[#9600ff] to-[#00ccff] px-6 transition-all ease-in-out hover:scale-[1.01] hover:shadow-[0_4px_15px_0] hover:shadow-[#9600ff]/30"
+          >
             <Sparkles fill="white" /> Create for free
           </Button>
         </div>

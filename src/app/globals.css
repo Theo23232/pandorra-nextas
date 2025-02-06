@@ -102,6 +102,8 @@
   font-feature-settings:
     "liga" off,
     "clig" off;
+
+  scroll-behavior: smooth;
 }
 
 .recharts-dot[stroke="#fff"] {

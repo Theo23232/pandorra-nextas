@@ -1,18 +1,18 @@
-import type { CSSProperties } from "react";
-import React from "react";
+import type { CSSProperties } from "react"
+import React from "react"
 
 // Modify these
-const MAIN_CIRCLE_SIZE = 210;
-const MAIN_CIRCLE_OPACITY = 0.24;
-const NUM_CIRCLES = 8;
+const MAIN_CIRCLE_SIZE = 210
+const MAIN_CIRCLE_OPACITY = 0.24
+const NUM_CIRCLES = 8
 
 const Ripple = React.memo(() => {
   return (
-    <div className="absolute left-1/2 top-1/2 size-full overflow-visible">
+    <div className="absolute left-1/2 top-1/2 size-full overflow-visible opacity-10">
       {Array.from({ length: NUM_CIRCLES }, (_, i) => (
         <div
           key={i}
-          className="animate-ripple absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-400"
+          className="absolute -translate-x-1/2 -translate-y-1/2 animate-ripple rounded-full bg-[#00ccff]"
           style={
             {
               width: MAIN_CIRCLE_SIZE + i * 70,
@@ -24,9 +24,9 @@ const Ripple = React.memo(() => {
         ></div>
       ))}
     </div>
-  );
-});
+  )
+})
 
-Ripple.displayName = "Ripple";
+Ripple.displayName = "Ripple"
 
-export default Ripple;
+export default Ripple

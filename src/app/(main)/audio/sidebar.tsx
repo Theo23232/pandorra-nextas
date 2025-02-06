@@ -23,7 +23,7 @@ export function Sidebar() {
         href={"/audio/"}
         className={cx(
           isActive("/audio")
-            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
           "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900/50",
           focusRing,
@@ -38,7 +38,7 @@ export function Sidebar() {
         href={"/audio/text-to-speech"}
         className={cx(
           isActive("/audio/text-to-speech")
-            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
           "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900/50",
           focusRing,
@@ -52,7 +52,7 @@ export function Sidebar() {
         href={"/audio/voice-changer"}
         className={cx(
           isActive("/audio/voice-changer")
-            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
           "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900/50",
           focusRing,
@@ -66,7 +66,7 @@ export function Sidebar() {
         href={"/audio/dubbing"}
         className={cx(
           isActive("/audio/dubbing")
-            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
           "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900/50",
           focusRing,

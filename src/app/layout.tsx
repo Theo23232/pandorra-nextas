@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-indigo-700 dark:bg-background`}
+        className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-primary dark:bg-background`}
       >
         <NextTopLoader showSpinner={false} color="#1d4ed8" />
         <Providers>{children}</Providers>

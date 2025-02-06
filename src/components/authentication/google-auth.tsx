@@ -131,12 +131,12 @@ export const GoogleAuth = ({
           isCharging ? "hidden" : "",
           isLoading ? "hidden" : "",
         )}
-        style={{ minHeight: "40px" }}
+        style={{ minHeight: "40px", maxHeight: "40px" }}
       />
-      {isCharging && <Skeleton className="h-12 w-full" />}
+      {isCharging && <Skeleton className="h-10 w-full" />}
 
       {isLoading && (
-        <Button isLoading={true} variant="outline" className="w-full">
+        <Button isLoading={true} variant="outline" className="h-10 w-full">
           Loading...
         </Button>
       )}

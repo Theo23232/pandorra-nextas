@@ -1,26 +1,41 @@
 "use client"
 
-import { Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, Zap } from 'lucide-react';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { toast } from 'sonner';
-import useSWR from 'swr';
+import {
+  Download,
+  Eraser,
+  Expand,
+  Fullscreen,
+  Loader,
+  SendHorizontal,
+  Zap,
+} from "lucide-react"
+import Image from "next/image"
+import React, { useState } from "react"
+import { toast } from "sonner"
+import useSWR from "swr"
 
-import { createComment } from '@/actions/publication.action';
-import { Input } from '@/components/tremor/inputs/input';
-import { Button } from '@/components/tremor/ui/button';
-import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { formatDate } from '@/lib/formatDate';
-import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
-import { models } from '@/lib/leonardo/presets';
-import { fetcher } from '@/lib/utils';
-import { CommentWithAuthor, PublicationWithAuthor } from '@/types/publicationType';
+import { createComment } from "@/actions/publication.action"
+import { Input } from "@/components/tremor/inputs/input"
+import { Button } from "@/components/tremor/ui/button"
+import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { formatDate } from "@/lib/formatDate"
+import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
+import { models } from "@/lib/leonardo/presets"
+import { fetcher } from "@/lib/utils"
+import {
+  CommentWithAuthor,
+  PublicationWithAuthor,
+} from "@/types/publicationType"
 
-import CommentCard from './CommentCard';
+import CommentCard from "./CommentCard"
 
 interface PubCommentProps {
   children: React.ReactNode
@@ -246,7 +261,7 @@ function CommentInput({
       />
       <Button
         type="submit"
-        className="flex h-12 w-16 items-center justify-center rounded-md bg-primary p-0 text-white"
+        className="flex h-10 w-16 items-center justify-center rounded-md p-0 text-white"
       >
         <SendHorizontal className="h-5 w-5" />
       </Button>

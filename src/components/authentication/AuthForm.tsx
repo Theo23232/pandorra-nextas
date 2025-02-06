@@ -1,4 +1,6 @@
 "use client"
+import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -9,6 +11,7 @@ import { Input } from "@/components/tremor/inputs/input"
 import { Label } from "@/components/tremor/inputs/label"
 import { Button } from "@/components/tremor/ui/button"
 import { Divider } from "@/components/tremor/ui/divider"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { useToast } from "@/hooks/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -82,12 +85,20 @@ export default function AuthForm() {
   }
 
   return (
-    <div className="mt-8 flex max-w-md flex-col items-center justify-center rounded-lg bg-background p-6 shadow-md">
+    <ScrollArea className="flex h-fit max-h-screen max-w-md flex-col items-center justify-center rounded-lg bg-background px-6 shadow-md">
       <div className="flex w-full items-center justify-center">
-        <p className="manrope text-5xl font-bold text-primary">Pandorra.ai</p>
+        <Link href={"/"} prefetch>
+          <Image
+            src="/logo/logo-full-white.png"
+            alt="logo"
+            width={1000}
+            height={500}
+            className="hidden h-[40px] w-[176px] scale-[2] object-contain dark:block"
+          />
+        </Link>
       </div>
 
-      <p className="text-md mb-4 text-center text-white">
+      <p className="text-md mb-4 mt-4 text-center text-white">
         Creativity unleashed
       </p>
 
@@ -135,12 +146,7 @@ export default function AuthForm() {
           )}
         </div>
 
-        <Button
-          variant="gradient"
-          type="submit"
-          className="w-full"
-          isLoading={isLoading}
-        >
+        <Button type="submit" className="w-full" isLoading={isLoading}>
           {isLogin ? "Sign in" : "Create account"}
         </Button>
       </form>
@@ -169,6 +175,6 @@ export default function AuthForm() {
         </a>
         .
       </p>
-    </div>
+    </ScrollArea>
   )
 }

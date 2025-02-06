@@ -46,7 +46,7 @@ export const GalleryMultiple = () => {
       </Bounce>
 
       <Bounce className="">
-        <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
+        <button className="mb-24 mt-10 flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
           View more
         </button>
       </Bounce>

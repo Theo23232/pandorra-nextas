@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { createPublication } from "@/actions/publication.action"
-import { Button } from "@/components/tremor/ui/button"
 import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useSelectImage } from "@/hooks/use-select-image"
 import { useToast } from "@/hooks/use-toast"
@@ -101,7 +101,7 @@ export const AIImage = ({
             <DialogTrigger asChild>
               <Tooltip content="Download">
                 <Button
-                  variant={"magic"}
+                  size={"icon"}
                   className="size-10 rounded-full p-2"
                   onClick={(e) => {
                     e.stopPropagation()
@@ -114,7 +114,7 @@ export const AIImage = ({
             </DialogTrigger>
             <Tooltip content="Post this image">
               <Button
-                variant={"magic"}
+                size={"icon"}
                 className="size-10 rounded-full p-2"
                 onClick={(e) => {
                   e.stopPropagation()
@@ -132,7 +132,7 @@ export const AIImage = ({
             </Tooltip>
             <Tooltip content="Edit">
               <Button
-                variant={"magic"}
+                size={"icon"}
                 className="size-10 rounded-full p-2"
                 onClick={(e) => {
                   e.stopPropagation()

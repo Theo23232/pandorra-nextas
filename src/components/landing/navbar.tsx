@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import Bounce from "@/components/animated/uibeats/bounce"
 import { NavigationMenuNavbar } from "@/components/landing/NavigationMenuNavbar"
@@ -73,9 +73,25 @@ const ListItem = React.forwardRef<
 })
 
 export default function LandingNavbar() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 100)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <Bounce className="fixed top-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-lg">
-      <div className="flex w-full max-w-[1274px] items-center justify-between">
+    <Bounce
+      className={`fixed top-0 z-50 flex w-full items-center justify-center p-4`}
+    >
+      {scrolled && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black"></div>
+      )}
+      <div className="relative flex w-full max-w-[1274px] items-center justify-between">
         <a href="/#hero">
           <Image
             src="/logo/logo-full-white.png"
@@ -95,7 +111,6 @@ export default function LandingNavbar() {
           </Link>
         </div>
       </div>
-      <div className="pointer-events-none inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black"></div>
     </Bounce>
   )
 }

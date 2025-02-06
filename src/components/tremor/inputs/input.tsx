@@ -1,15 +1,15 @@
 // Tremor Input [v1.0.5]
 "use client"
-import React from 'react';
-import { tv, VariantProps } from 'tailwind-variants';
+import React from "react"
+import { tv, VariantProps } from "tailwind-variants"
 
-import { cx, focusInput, focusRing, hasErrorInput } from '@/lib/utils';
-import { RiEyeFill, RiEyeOffFill, RiSearchLine } from '@remixicon/react';
+import { cx, focusInput, focusRing, hasErrorInput } from "@/lib/utils"
+import { RiEyeFill, RiEyeOffFill, RiSearchLine } from "@remixicon/react"
 
 const inputStyles = tv({
   base: [
     // base
-    "relative block w-full appearance-none rounded-md border px-2.5 py-3 shadow-sm outline-none transition",
+    "relative block h-10 w-full appearance-none rounded-md border px-2.5 shadow-sm outline-none transition",
     // border color
     "border-gray-300 dark:border-gray-800",
     // text color

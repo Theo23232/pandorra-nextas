@@ -76,13 +76,15 @@ export default function LandingNavbar() {
   return (
     <Bounce className="fixed top-0 z-50 flex w-full items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-lg">
       <div className="flex w-full max-w-[1274px] items-center justify-between">
-        <Image
-          src="/logo/logo-full-white.png"
-          alt="logo"
-          className="h-[40px] w-[176px] object-contain"
-          width={1000}
-          height={500}
-        />
+        <a href="/#hero">
+          <Image
+            src="/logo/logo-full-white.png"
+            alt="logo"
+            className="h-[40px] w-[176px] object-contain"
+            width={1000}
+            height={500}
+          />
+        </a>
         <div className="flex">
           <NavigationMenuNavbar />
           <Link

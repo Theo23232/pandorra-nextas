@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from "next/image"
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils"
 
 export type logoProps = {
   className?: string
@@ -12,16 +12,22 @@ export const Logo = (props: logoProps) => {
       <Image
         src="/logo/logo-full-white.png"
         alt="logo"
-        width={176}
-        height={40}
-        className={cn("hidden w-fit dark:block", props.className)}
+        width={1000}
+        height={500}
+        className={cn(
+          "hidden h-[40px] w-[176px] object-contain dark:block",
+          props.className,
+        )}
       />
       <Image
         src="/logo/logo-full-black.png"
         alt="logo"
-        width={176}
-        height={40}
-        className={cn("w-fit dark:hidden", props.className)}
+        width={1000}
+        height={500}
+        className={cn(
+          "h-[40px] w-[176px] object-contain dark:hidden",
+          props.className,
+        )}
       />
     </>
   )

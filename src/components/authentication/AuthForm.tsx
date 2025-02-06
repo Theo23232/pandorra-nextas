@@ -85,7 +85,7 @@ export default function AuthForm() {
   }
 
   return (
-    <ScrollArea className="flex h-fit max-h-screen max-w-md flex-col items-center justify-center rounded-lg bg-background px-6 shadow-md">
+    <ScrollArea className="flex h-fit max-h-screen max-w-md flex-col items-center justify-center overflow-x-visible rounded-lg bg-background px-6 shadow-md">
       <div className="flex w-full items-center justify-center">
         <Link href={"/"} prefetch>
           <Image

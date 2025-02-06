@@ -18,7 +18,7 @@ export const Content = () => {
       setReferrerId(referrerId)
     }
 
-    const imageId = getRandomNumber(1, 10)
+    const imageId = getRandomNumber(1, 15)
     setImageUrl(`/img/image${imageId}.webp`)
   }, [])
 

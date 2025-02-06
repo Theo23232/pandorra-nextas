@@ -1,16 +1,16 @@
 import Link from "next/link"
 
+import { Logo } from "@/components/logo"
 import { Button } from "@/components/tremor/ui/button"
 import { RiArrowRightLine } from "@remixicon/react"
 
-import { DatabaseLogo } from "../../../public/DatabaseLogo"
 import { siteConfig } from "../siteConfig"
 
 export default function NotFound() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <Link href={siteConfig.baseLinks.home}>
-        <DatabaseLogo className="mt-6 h-10" />
+        <Logo />
       </Link>
       <p className="mt-6 text-4xl font-semibold text-indigo-600 sm:text-5xl dark:text-indigo-500">
         404

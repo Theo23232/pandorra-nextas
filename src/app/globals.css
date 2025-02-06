@@ -145,3 +145,10 @@
 .rotate-text {
   transform: rotate(-3deg); /* Incline le texte de 5 degrés */
 }
+.hero_blob {
+  background:
+    linear-gradient(280deg, #bc2eff 17.47%, #359cff 116.24%),
+    url("../../public//assets/affiliation/_blob_cercle.png") lightgray
+      0px -501.817px / 100% 249.715% no-repeat;
+  background-blend-mode: hue, normal;
+}

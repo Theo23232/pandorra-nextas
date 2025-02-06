@@ -19,7 +19,7 @@ export function Sidebar() {
         href={"/video"}
         className={cx(
           isActive("/video")
-            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
           "text-md flex items-center gap-x-3 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
           focusRing,
@@ -34,7 +34,7 @@ export function Sidebar() {
         href={"/video/text-to-video"}
         className={cx(
           isActive("/video/text-to-video")
-            ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
           "text-md flex items-center gap-x-3 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
           focusRing,

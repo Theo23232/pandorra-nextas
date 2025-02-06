@@ -85,96 +85,98 @@ export default function AuthForm() {
   }
 
   return (
-    <ScrollArea className="flex h-fit max-h-screen max-w-md flex-col items-center justify-center overflow-x-visible rounded-lg bg-background px-6 shadow-md">
-      <div className="flex w-full items-center justify-center">
-        <Link href={"/"} prefetch>
-          <Image
-            src="/logo/logo-full-white.png"
-            alt="logo"
-            width={1000}
-            height={500}
-            className="hidden h-[40px] w-[176px] scale-[2] object-contain dark:block"
-          />
-        </Link>
-      </div>
-
-      <p className="text-md mb-4 mt-4 text-center text-white">
-        Creativity unleashed
-      </p>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
-        {!isLogin && (
-          <div>
-            <Label htmlFor="username">Username</Label>
-            <Input
-              {...register("username")}
-              className="w-full"
-              type="text"
-              id="username"
-              placeholder="john.doe"
+    <ScrollArea className="flex h-fit max-h-screen max-w-[30rem] flex-col items-center justify-center overflow-x-visible rounded-lg bg-background px-6 shadow-md">
+      <div className="p-4">
+        <div className="flex w-full items-center justify-center">
+          <Link href={"/"} prefetch>
+            <Image
+              src="/logo/logo-full-white.png"
+              alt="logo"
+              width={1000}
+              height={500}
+              className="hidden h-[40px] w-[176px] scale-[2] object-contain dark:block"
             />
-            {/* {errors.username && (
+          </Link>
+        </div>
+
+        <p className="text-md mb-4 mt-4 text-center text-white">
+          Creativity unleashed
+        </p>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
+          {!isLogin && (
+            <div>
+              <Label htmlFor="username">Username</Label>
+              <Input
+                {...register("username")}
+                className="w-full"
+                type="text"
+                id="username"
+                placeholder="john.doe"
+              />
+              {/* {errors.username && (
               <p className="text-sm text-red-500">{errors.username?.message}</p>
             )} */}
+            </div>
+          )}
+
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              {...register("email")}
+              type="email"
+              id="email"
+              placeholder="john@company.com"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email?.message}</p>
+            )}
           </div>
-        )}
 
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input
-            {...register("email")}
-            type="email"
-            id="email"
-            placeholder="john@company.com"
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email?.message}</p>
-          )}
-        </div>
+          <div>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              {...register("password")}
+              type="password"
+              id="password"
+              autoComplete="password"
+              placeholder="password"
+            />
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password?.message}</p>
+            )}
+          </div>
 
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            {...register("password")}
-            type="password"
-            id="password"
-            autoComplete="password"
-            placeholder="password"
-          />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password?.message}</p>
-          )}
-        </div>
+          <Button type="submit" className="w-full" isLoading={isLoading}>
+            {isLogin ? "Sign in" : "Create account"}
+          </Button>
+        </form>
 
-        <Button type="submit" className="w-full" isLoading={isLoading}>
-          {isLogin ? "Sign in" : "Create account"}
+        <Button
+          variant="outline"
+          onClick={() => {
+            setIsLogin(!isLogin)
+            reset()
+          }}
+          className="mt-4 w-full"
+        >
+          {isLogin ? "Create an account" : "Already have an account?"}
         </Button>
-      </form>
 
-      <Button
-        variant="outline"
-        onClick={() => {
-          setIsLogin(!isLogin)
-          reset()
-        }}
-        className="mt-4 w-full"
-      >
-        {isLogin ? "Create an account" : "Already have an account?"}
-      </Button>
-
-      <Divider>or with</Divider>
-      <GoogleAuth />
-      <p className="text-tremor-label text-tremor-content dark:text-dark-tremor-content mt-4 text-white">
-        By signing in, you agree to our{" "}
-        <a href="#" className="underline underline-offset-4">
-          terms of service
-        </a>{" "}
-        and{" "}
-        <a href="#" className="underline underline-offset-4">
-          privacy policy
-        </a>
-        .
-      </p>
+        <Divider>or with</Divider>
+        <GoogleAuth />
+        <p className="text-tremor-label text-tremor-content dark:text-dark-tremor-content mt-4 text-white">
+          By signing in, you agree to our{" "}
+          <a href="#" className="underline underline-offset-4">
+            terms of service
+          </a>{" "}
+          and{" "}
+          <a href="#" className="underline underline-offset-4">
+            privacy policy
+          </a>
+          .
+        </p>
+      </div>
     </ScrollArea>
   )
 }

@@ -22,7 +22,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-primary dark:bg-background`}
       >
-        <NextTopLoader showSpinner={false} color="#1d4ed8" />
+        <NextTopLoader showSpinner={false} color="#2ccfff" />
         <Providers>{children}</Providers>
       </body>
     </html>

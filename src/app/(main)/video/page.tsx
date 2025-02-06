@@ -232,40 +232,36 @@ export default function Page() {
             {histories?.some((video) => video.status === "Pending") && (
               <div className="mb-6 space-y-4">
                 <h3 className="text-xl font-medium">Pending</h3>
-                {histories
-                  .filter((video) => video.status === "Pending")
-                  .map((video) => (
-                    <div
-                      key={video.id}
-                      className="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
-                    >
-                      {video.url ? (
-                        <video
-                          src={video.url}
-                          controls
-                          className="h-auto w-full"
-                        />
-                      ) : (
-                        <SkeletonLoader />
-                      )}
-                      <div className="flex flex-col gap-4 p-4">
-                        <p className="flex items-center gap-2">
-                          <span className="text-muted-foreground">Prompt:</span>
-                          <Badge>{video.prompt}</Badge>
-                        </p>
-                        <p className="flex items-center gap-2">
-                          <span className="text-muted-foreground">
-                            Duration:
-                          </span>
-                          <Badge>{video.duration} secondes</Badge>
-                        </p>
-                        <p className="flex items-center gap-2">
-                          <span className="text-muted-foreground">Status:</span>
-                          <Badge>Pending</Badge>
-                        </p>
-                      </div>
+                {histories.map((video) => (
+                  <div
+                    key={video.id}
+                    className="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
+                  >
+                    {video.url ? (
+                      <video
+                        src={video.url}
+                        controls
+                        className="h-auto w-full"
+                      />
+                    ) : (
+                      <SkeletonLoader />
+                    )}
+                    <div className="flex flex-col gap-4 p-4">
+                      <p className="flex items-center gap-2">
+                        <span className="text-muted-foreground">Prompt:</span>
+                        <Badge>{video.prompt}</Badge>
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <span className="text-muted-foreground">Duration:</span>
+                        <Badge>{video.duration} secondes</Badge>
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <span className="text-muted-foreground">Status:</span>
+                        <Badge>Pending</Badge>
+                      </p>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             )}
 

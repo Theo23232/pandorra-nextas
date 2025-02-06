@@ -45,6 +45,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ]
 
+// eslint-disable-next-line react/display-name
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">

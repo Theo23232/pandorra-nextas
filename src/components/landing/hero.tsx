@@ -2,6 +2,7 @@
 
 import { Sparkles } from "lucide-react"
 
+import Bounce from "@/components/animated/uibeats/bounce"
 import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
 import {
   Select,
@@ -21,7 +22,7 @@ export function Hero() {
       ratio={16 / 6}
       className="relative flex w-full flex-col items-center justify-center overflow-hidden"
     >
-      <div className="z-10 flex min-h-64 flex-col items-center justify-center">
+      <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
           className={cn(
             "group rounded-full border border-white/5 bg-neutral-900 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
@@ -61,7 +62,7 @@ export function Hero() {
             <Sparkles fill="white" /> Create for free
           </Button>
         </div>
-      </div>
+      </Bounce>
       <video
         src="/assets/hero-video-1.mp4"
         autoPlay

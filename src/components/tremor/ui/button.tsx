@@ -10,7 +10,7 @@ import { RiLoader2Fill } from "@remixicon/react"
 const buttonVariants = tv({
   base: [
     // base
-    "relative inline-flex items-center justify-center whitespace-nowrap rounded-md border px-4 py-3 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
+    "relative inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
     // disabled
     "disabled:pointer-events-none disabled:shadow-none",
     // focus

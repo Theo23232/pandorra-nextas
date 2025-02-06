@@ -18,9 +18,9 @@ export const UnlockPower = () => {
           stories, ads, and concepts to life in <br /> seconds.
         </Bounce>
         <Bounce>
-          <Button className="flex items-center justify-center gap-2 rounded-full bg-white text-black hover:bg-slate-100">
+          <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
             Try for free <MoveRight />
-          </Button>
+          </button>
         </Bounce>
 
         <Bounce className="relative mt-20 h-[40vw] max-h-[598px] w-full max-w-[1192px] rounded-[10px] bg-[rgba(239,239,239,0.20)] p-2 backdrop-blur-[87px]">
@@ -48,10 +48,13 @@ export const UnlockPower = () => {
           text, and voice generation seamless and powerful.
         </Bounce>
         <Bounce className="flex gap-4">
-          <Button className="flex items-center justify-center gap-2 rounded-full bg-white text-black hover:bg-slate-100">
+          <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
             Create for free
-          </Button>
-          <Button className="flex items-center justify-center gap-2 rounded-full bg-transparent text-white hover:bg-slate-600/50">
+          </button>
+          <Button
+            variant="ghost"
+            className="flex items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
+          >
             View pricing
           </Button>
         </Bounce>

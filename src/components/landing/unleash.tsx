@@ -9,7 +9,7 @@ export function Unleash() {
     <>
       <AspectRatio
         ratio={16 / 5}
-        className="relative flex w-full flex-col items-center justify-center overflow-hidden"
+        className="relative mt-14 flex w-full flex-col items-center justify-center overflow-hidden"
       >
         <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
           <p className="font-inter text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
@@ -19,10 +19,13 @@ export function Unleash() {
         </Bounce>
 
         <Bounce className="z-10 flex gap-4">
-          <Button className="flex items-center justify-center gap-2 rounded-full bg-white text-black hover:bg-slate-100">
+          <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
             Create for free
-          </Button>
-          <Button className="flex items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60">
+          </button>
+          <Button
+            variant="ghost"
+            className="flex items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
+          >
             View pricing
           </Button>
         </Bounce>

@@ -1,11 +1,11 @@
 "use client"
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import Image from "next/image"
+import Link from "next/link"
+import React from "react"
 
-import { NavigationMenuNavbar } from '@/components/landing/NavigationMenuNavbar';
-import { NavigationMenuLink } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
+import { NavigationMenuNavbar } from "@/components/landing/NavigationMenuNavbar"
+import { NavigationMenuLink } from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -78,14 +78,15 @@ export default function LandingNavbar() {
           <Image
             src="/logo/logo-full-white.png"
             alt="logo"
-            width={176}
-            height={40}
+            className="h-[40px] w-[176px] object-contain"
+            width={1000}
+            height={500}
           />
           <div className="flex">
             <NavigationMenuNavbar />
             <Link
               href={"/auth"}
-              className="inline-flex items-center justify-center rounded-full bg-[#EAEBFE] px-5 py-3"
+              className="inline-flex items-center justify-center rounded-full bg-[#EAEBFE] px-5 py-3 text-black"
             >
               Get started
             </Link>

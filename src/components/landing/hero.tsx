@@ -1,15 +1,19 @@
 "use client"
 
-import { Sparkles } from 'lucide-react';
+import { Sparkles } from "lucide-react"
 
-import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
+import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/nyxb/select';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/nyxb/select"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 export function Hero() {
   return (
@@ -25,7 +29,7 @@ export function Hero() {
         >
           <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 text-neutral-200 transition ease-out hover:text-neutral-400 hover:duration-300 group-hover:scale-105">
             <Sparkles className="mr-2 size-5 transition-transform duration-300 ease-in-out" />
-            Introducing Nyxb UI
+            Get started for Free!
           </AnimatedShinyText>
         </div>
 
@@ -35,7 +39,7 @@ export function Hero() {
         <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">
           <Select defaultValue="image">
             <SelectTrigger
-              className="ml-2 h-11 w-[100px] rounded-full border-0 bg-[#F4F2FE] shadow-none focus:ring-0"
+              className="ml-2 h-11 w-[100px] rounded-full border-0 bg-[#F4F2FE] text-black shadow-none focus:ring-0"
               rounded-full
             >
               <SelectValue

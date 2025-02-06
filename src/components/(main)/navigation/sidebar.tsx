@@ -51,7 +51,7 @@ const shortcuts = [
   },
   {
     name: "Video generation",
-    href: "/video/",
+    href: "/video",
     icon: Video,
     id: "tour1-step8",
   },

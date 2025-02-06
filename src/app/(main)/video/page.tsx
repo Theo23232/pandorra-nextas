@@ -1,15 +1,17 @@
 "use client"
 
-import { AlertCircle, Loader2, X } from "lucide-react"
+import { AlertCircle, Info, X } from "lucide-react"
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import useSWR, { mutate } from "swr"
 
 import { generateVideoFromImage } from "@/actions/runway.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/tremor/ui/badge"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Select,
   SelectContent,
@@ -17,10 +19,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"
+
+const SkeletonLoader = () => (
+  <div className="flex animate-pulse space-x-4">
+    <div className="h-64 w-full rounded-lg bg-gray-300"></div>
+  </div>
+)
 
 export default function Page() {
   const { data: histories } = useSWR<Video[]>("/api/video", fetcher)
@@ -28,8 +42,17 @@ export default function Page() {
   const [preview, setPreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [promptText, setPromptText] = useState("")
-  const [duration, setDuration] = useState("2")
+  const [duration, setDuration] = useState("5")
+  const [resolutionRatio, setResolutionRatio] = useState("1280:768")
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      mutate("/api/video")
+    }, 1000) // Check for updates every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -77,6 +100,7 @@ export default function Page() {
 
       try {
         const videoDuration: 5 | 10 = duration === "5" ? 5 : 10
+
         const data = await generateVideoFromImage(
           base64Image,
           promptText,
@@ -134,21 +158,56 @@ export default function Page() {
           className="hidden"
         />
         <div className="mt-4 space-y-4">
-          <Input
-            type="text"
-            placeholder="Enter prompt text"
-            value={promptText}
-            onChange={(e) => setPromptText(e.target.value)}
-          />
-          <Select value={duration} onValueChange={setDuration}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select duration" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="5">5 seconds</SelectItem>
-              <SelectItem value="10">10 seconds</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <p className="text-sm">prompt</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info size={14} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      This should describe in detail what should appear in the
+                      output.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <Input
+              type="text"
+              placeholder="Enter text"
+              value={promptText}
+              onChange={(e) => setPromptText(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <p className="text-sm">duration</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info size={14} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      The number of seconds of duration for the output video.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <Select value={duration} onValueChange={setDuration}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="5">5 seconds</SelectItem>
+                <SelectItem value="10">10 seconds</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <div className="flex items-center justify-between">
             {image && (
               <div className="text-sm text-muted-foreground">
@@ -156,7 +215,7 @@ export default function Page() {
               </div>
             )}
             <Button
-              className="text-md ml-auto h-9"
+              className="text-md ml-auto h-9 w-full"
               disabled={loading}
               onClick={handleSubmit}
             >
@@ -166,93 +225,127 @@ export default function Page() {
         </div>
       </MagicCard>
 
-      <MagicCard className="flex h-[calc(100vh-8rem)] flex-[2] flex-col overflow-hidden p-4">
-        <div className="h-full overflow-y-auto">
-          {/* Pending Videos */}
-          {histories?.some((video) => video.status === "Pending") && (
-            <div className="mb-6 space-y-4">
-              <h3 className="text-xl font-medium">Pending</h3>
-              {histories
-                .filter((video) => video.status === "Pending")
-                .map((video) => (
-                  <Alert key={video.id}>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <AlertTitle>Processing</AlertTitle>
-                    <AlertDescription>
-                      Your video is being generated. This may take a few
-                      minutes.
-                    </AlertDescription>
-                  </Alert>
-                ))}
-            </div>
-          )}
-
-          {/* Failed Videos */}
-          {histories?.some((video) => video.status === "Failed") && (
-            <div className="mb-6 space-y-4">
-              <h3 className="text-xl font-medium">Failed</h3>
-              {histories
-                .filter((video) => video.status === "Failed")
-                .map((video) => (
-                  <Alert key={video.id} variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>
-                      <div className="mt-1 space-y-1">
-                        <p>
-                          <strong>Prompt:</strong> {video.prompt}
-                        </p>
-                        <p>
-                          <strong>Status:</strong> {video.status}
-                        </p>
-                        <p>
-                          <strong>Duration:</strong> {video.duration} seconds
-                        </p>
-                        <p>
-                          <strong>Error:</strong> {"An unknown error occurred"}
-                        </p>
-                      </div>
-                    </AlertDescription>
-                  </Alert>
-                ))}
-            </div>
-          )}
-
-          {/* Completed Videos */}
-          {histories?.some(
-            (video) => video.status === "Generated" && video.url,
-          ) && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">Generated</h3>
-              <div className="flex flex-col space-y-4">
+      <MagicCard className="max-w-3xl p-4">
+        <ScrollArea className="flex h-[calc(100vh-8rem)] flex-[2] flex-col overflow-hidden">
+          <div className="h-full overflow-y-auto">
+            {/* Pending Videos */}
+            {histories?.some((video) => video.status === "Pending") && (
+              <div className="mb-6 space-y-4">
+                <h3 className="text-xl font-medium">Pending</h3>
                 {histories
-                  .filter((video) => video.status === "Generated" && video.url)
+                  .filter((video) => video.status === "Pending")
                   .map((video) => (
                     <div
                       key={video.id}
                       className="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
                     >
-                      <video
-                        src={video.url}
-                        controls
-                        className="h-auto w-full"
-                      />
-                      <div className="p-4">
-                        <p className="text-sm text-gray-500">
-                          Created: {new Date(video.createdAt).toLocaleString()}
+                      {video.url ? (
+                        <video
+                          src={video.url}
+                          controls
+                          className="h-auto w-full"
+                        />
+                      ) : (
+                        <SkeletonLoader />
+                      )}
+                      <div className="flex flex-col gap-4 p-4">
+                        <p className="flex items-center gap-2">
+                          <span className="text-muted-foreground">Prompt:</span>
+                          <Badge>{video.prompt}</Badge>
                         </p>
-                        <p className="mt-2 text-sm">
-                          <strong>Prompt:</strong> {video.prompt}
+                        <p className="flex items-center gap-2">
+                          <span className="text-muted-foreground">
+                            Duration:
+                          </span>
+                          <Badge>{video.duration} secondes</Badge>
                         </p>
-                        <p className="text-sm">
-                          <strong>Duration:</strong> {video.duration} seconds
+                        <p className="flex items-center gap-2">
+                          <span className="text-muted-foreground">Status:</span>
+                          <Badge>Pending</Badge>
                         </p>
                       </div>
                     </div>
                   ))}
               </div>
-            </div>
-          )}
-        </div>
+            )}
+
+            {/* Failed Videos */}
+            {histories?.some((video) => video.status === "Failed") && (
+              <div className="mb-6 space-y-4">
+                <h3 className="text-xl font-medium">Failed</h3>
+                {histories
+                  .filter((video) => video.status === "Failed")
+                  .map((video) => (
+                    <Alert key={video.id} variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>
+                        <div className="mt-1 space-y-1">
+                          <p>
+                            <strong>Prompt:</strong> {video.prompt}
+                          </p>
+                          <p>
+                            <strong>Status:</strong> {video.status}
+                          </p>
+                          <p>
+                            <strong>Duration:</strong> {video.duration} seconds
+                          </p>
+                          <p>
+                            <strong>Error:</strong>{" "}
+                            {"An unknown error occurred"}
+                          </p>
+                        </div>
+                      </AlertDescription>
+                    </Alert>
+                  ))}
+              </div>
+            )}
+
+            {/* Completed Videos */}
+            {histories?.some((video) => video.status === "Generated") && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-medium">Generated</h3>
+                <div className="flex flex-col space-y-4">
+                  {histories
+                    .filter((video) => video.status === "Generated")
+                    .map((video) => (
+                      <div
+                        key={video.id}
+                        className="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
+                      >
+                        <video
+                          src={video.url}
+                          controls
+                          className="h-fit w-full"
+                        />
+                        <div className="flex flex-col gap-4 p-4">
+                          <p className="flex items-start gap-2">
+                            <span className="text-muted-foreground">
+                              Prompt:
+                            </span>
+                            <Badge className="w-[500px] overflow-hidden whitespace-pre-wrap break-words">
+                              {video.prompt}
+                            </Badge>
+                          </p>
+                          <p className="flex items-center gap-2">
+                            <span className="text-muted-foreground">
+                              Duration:
+                            </span>
+                            <Badge>{video.duration} secondes</Badge>
+                          </p>
+                          <p className="flex items-center gap-2">
+                            <span className="text-muted-foreground">Date:</span>
+                            <Badge>
+                              {new Date(video.createdAt).toLocaleString()}
+                            </Badge>
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </ScrollArea>
       </MagicCard>
     </div>
   )

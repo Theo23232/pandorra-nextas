@@ -1,22 +1,32 @@
 "use client"
 import {
-    BoomBox, BotMessageSquare, Crown, Gift, Image, Settings2, User2, Video
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
+  BoomBox,
+  BotMessageSquare,
+  Crown,
+  Gift,
+  Image,
+  Settings2,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Navbar } from '@/components/(main)/authentified-navbar';
-import { Logo } from '@/components/logo';
-import { UserProfileDesktop, UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { useUser } from '@/hooks/use-user';
-import { cx, focusRing } from '@/lib/utils';
-import { RiHome2Line } from '@remixicon/react';
+import { siteConfig } from "@/app/siteConfig"
+import { Navbar } from "@/components/(main)/authentified-navbar"
+import { Logo } from "@/components/logo"
+import {
+  UserProfileDesktop,
+  UserProfileMobile,
+} from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { useUser } from "@/hooks/use-user"
+import { cx, focusRing } from "@/lib/utils"
+import { RiHome2Line } from "@remixicon/react"
 
-import MobileSidebar from './MobileSidebar';
+import MobileSidebar from "./MobileSidebar"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
@@ -93,7 +103,7 @@ export function Sidebar() {
                     href={item.href}
                     className={cx(
                       isActive(item.href)
-                        ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+                        ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
                         : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                       "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                       focusRing,
@@ -117,7 +127,7 @@ export function Sidebar() {
                       href={item.href}
                       className={cx(
                         isActive(item.href)
-                          ? "bg-gray-100 text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+                          ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
                           : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                         "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                         focusRing,

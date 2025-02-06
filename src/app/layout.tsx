@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
-import './globals.css';
-import './outsideStyles.css';
+import "./globals.css"
+import "./outsideStyles.css"
 
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader"
 
-import { Providers } from '@/context/providers';
+import { Providers } from "@/context/providers"
 
 export const metadata: Metadata = {
-  title: "Pandorra AI",
-  description: "Ship your SaaS faster",
+  title: "Pandorra ai",
+  description: "Unlock the Power of Creativity",
 }
 
 export default function RootLayout({

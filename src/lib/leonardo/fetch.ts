@@ -145,6 +145,7 @@ export async function fetchGenerationResult(
     `https://cloud.leonardo.ai/api/rest/v1/generations/${id}`,
     { method: "GET" },
   )
+
   if (result && result.generations_by_pk) {
     return result
   } else {

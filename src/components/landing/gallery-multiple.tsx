@@ -1,10 +1,13 @@
-import Bounce from "@/components/animated/uibeats/bounce"
+import Bounce from '@/components/animated/uibeats/bounce';
 
 export const GalleryMultiple = () => {
   return (
     <div className="mt-24 flex flex-col items-center justify-center">
       <Bounce className="font-inter text-center text-[80px] font-semibold leading-[78px] tracking-[-4.5px] text-[#FDFDFD]">
-        Get inspired by <br /> other creators
+        Get inspired by <br />
+        <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
+          other creators
+        </span>
       </Bounce>
       <Bounce className="flex max-w-[1278px] gap-8 pt-12">
         <button className="font-inter flex h-[16.8px] w-[100.295px] flex-shrink-0 cursor-pointer flex-col justify-center text-[14px] font-medium leading-[22px] text-white">

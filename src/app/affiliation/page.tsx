@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 import { DescribeSection } from "@/app/affiliation/DescribeSection"
 import { Hero } from "@/app/affiliation/Hero"
+import ReasonToJoin from "@/app/affiliation/ReasonToJoin"
 import LandingNavbar from "@/components/landing/navbar"
 
 export default function RoutePage() {
@@ -30,6 +31,7 @@ export default function RoutePage() {
       <LandingNavbar />
       <Hero />
       <DescribeSection />
+      <ReasonToJoin />
     </div>
   )
 }

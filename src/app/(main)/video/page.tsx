@@ -1,31 +1,22 @@
 "use client"
 
-import { AlertCircle, Info, X } from "lucide-react"
-import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
-import useSWR, { mutate } from "swr"
+import { AlertCircle, Info, X } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
-import { generateVideoFromImage } from "@/actions/runway.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { generateVideoFromImage } from '@/actions/runway.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { fetcher } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { fetcher } from '@/lib/utils';
 
 import type { Video } from "@prisma/client"
 import type React from "react"
@@ -53,6 +44,9 @@ export default function Page() {
 
     return () => clearInterval(interval)
   }, [])
+  useEffect(() => {
+    mutate("/api/video")
+  }, [histories])
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -88,30 +82,32 @@ export default function Page() {
   }
 
   const handleSubmit = async () => {
-    if (!image) return alert("Sélectionne une image")
-    if (!promptText) return alert("Ajoute un texte pour le prompt")
+    if (!image && !promptText)
+      return alert("Sélectionne une image ou ajoute un texte pour le prompt")
 
     setLoading(true)
 
-    const reader = new FileReader()
-    reader.readAsDataURL(image)
-    reader.onload = async () => {
-      const base64Image = reader.result as string
+    const base64Image = image
+      ? await new Promise<string>((resolve) => {
+          const reader = new FileReader()
+          reader.readAsDataURL(image)
+          reader.onload = () => resolve(reader.result as string)
+        })
+      : "https://pandorra.ai/assets/fond.png"
 
-      try {
-        const videoDuration: 5 | 10 = duration === "5" ? 5 : 10
+    try {
+      const videoDuration: 5 | 10 = duration === "5" ? 5 : 10
 
-        const data = await generateVideoFromImage(
-          base64Image,
-          promptText,
-          videoDuration,
-        )
-        mutate("/api/video")
-      } catch (error) {
-        alert("Erreur lors de la génération de la vidéo")
-      } finally {
-        setLoading(false)
-      }
+      const data = await generateVideoFromImage(
+        base64Image,
+        promptText,
+        videoDuration,
+      )
+      mutate("/api/video")
+    } catch (error) {
+      alert("Erreur lors de la génération de la vidéo")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -228,117 +224,116 @@ export default function Page() {
       <MagicCard className="max-w-3xl p-4">
         <ScrollArea className="flex h-[calc(100vh-8rem)] flex-[2] flex-col overflow-hidden">
           <div className="h-full overflow-y-auto">
-            {/* Pending Videos */}
-            {histories?.some((video) => video.status === "Pending") && (
-              <div className="mb-6 space-y-4">
-                <h3 className="text-xl font-medium">Pending</h3>
-                {histories.map((video) => (
-                  <div
-                    key={video.id}
-                    className="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
-                  >
-                    {video.url ? (
-                      <video
-                        src={video.url}
-                        controls
-                        className="h-auto w-full"
-                      />
-                    ) : (
-                      <SkeletonLoader />
-                    )}
-                    <div className="flex flex-col gap-4 p-4">
-                      <p className="flex items-center gap-2">
-                        <span className="text-muted-foreground">Prompt:</span>
-                        <Badge>{video.prompt}</Badge>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="text-muted-foreground">Duration:</span>
-                        <Badge>{video.duration} secondes</Badge>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="text-muted-foreground">Status:</span>
-                        <Badge>Pending</Badge>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Failed Videos */}
-            {histories?.some((video) => video.status === "Failed") && (
-              <div className="mb-6 space-y-4">
-                <h3 className="text-xl font-medium">Failed</h3>
-                {histories
-                  .filter((video) => video.status === "Failed")
-                  .map((video) => (
-                    <Alert key={video.id} variant="destructive">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertDescription>
-                        <div className="mt-1 space-y-1">
-                          <p>
-                            <strong>Prompt:</strong> {video.prompt}
-                          </p>
-                          <p>
-                            <strong>Status:</strong> {video.status}
-                          </p>
-                          <p>
-                            <strong>Duration:</strong> {video.duration} seconds
-                          </p>
-                          <p>
-                            <strong>Error:</strong>{" "}
-                            {"An unknown error occurred"}
-                          </p>
-                        </div>
-                      </AlertDescription>
-                    </Alert>
-                  ))}
-              </div>
-            )}
-
-            {/* Completed Videos */}
-            {histories?.some((video) => video.status === "Generated") && (
-              <div className="space-y-4">
-                <h3 className="text-xl font-medium">Generated</h3>
-                <div className="flex flex-col space-y-4">
-                  {histories
-                    .filter((video) => video.status === "Generated")
-                    .map((video) => (
-                      <div
-                        key={video.id}
-                        className="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
-                      >
-                        <video
-                          src={video.url}
-                          controls
-                          className="h-fit w-full"
-                        />
-                        <div className="flex flex-col gap-4 p-4">
-                          <p className="flex items-start gap-2">
-                            <span className="text-muted-foreground">
-                              Prompt:
-                            </span>
-                            <Badge className="w-[500px] overflow-hidden whitespace-pre-wrap break-words">
-                              {video.prompt}
-                            </Badge>
-                          </p>
-                          <p className="flex items-center gap-2">
-                            <span className="text-muted-foreground">
-                              Duration:
-                            </span>
-                            <Badge>{video.duration} secondes</Badge>
-                          </p>
-                          <p className="flex items-center gap-2">
-                            <span className="text-muted-foreground">Date:</span>
-                            <Badge>
-                              {new Date(video.createdAt).toLocaleString()}
-                            </Badge>
-                          </p>
+            {histories && (
+              <>
+                {histories.map((video) => {
+                  if (video.status === "Pending") {
+                    return (
+                      <div key={video.id} className="mb-6 space-y-4">
+                        <h3 className="text-xl font-medium">Pending</h3>
+                        <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                          {video.url ? (
+                            <video
+                              src={video.url}
+                              controls
+                              className="h-auto w-full"
+                            />
+                          ) : (
+                            <SkeletonLoader />
+                          )}
+                          <div className="flex flex-col gap-4 p-4">
+                            <p className="flex items-center gap-2">
+                              <span className="text-muted-foreground">
+                                Prompt:
+                              </span>
+                              <Badge>{video.prompt}</Badge>
+                            </p>
+                            <p className="flex items-center gap-2">
+                              <span className="text-muted-foreground">
+                                Duration:
+                              </span>
+                              <Badge>{video.duration} secondes</Badge>
+                            </p>
+                            <p className="flex items-center gap-2">
+                              <span className="text-muted-foreground">
+                                Status:
+                              </span>
+                              <Badge>Pending</Badge>
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    ))}
-                </div>
-              </div>
+                    )
+                  } else if (video.status === "Failed") {
+                    return (
+                      <div key={video.id} className="mb-6 space-y-4">
+                        <h3 className="text-xl font-medium">Failed</h3>
+                        <Alert variant="destructive">
+                          <AlertCircle className="h-4 w-4" />
+                          <AlertDescription>
+                            <div className="mt-1 space-y-1">
+                              <p>
+                                <strong>Prompt:</strong> {video.prompt}
+                              </p>
+                              <p>
+                                <strong>Status:</strong> {video.status}
+                              </p>
+                              <p>
+                                <strong>Duration:</strong> {video.duration}{" "}
+                                seconds
+                              </p>
+                              <p>
+                                <strong>Error:</strong>{" "}
+                                {"An unknown error occurred"}
+                              </p>
+                            </div>
+                          </AlertDescription>
+                        </Alert>
+                      </div>
+                    )
+                  } else if (video.status === "Generated") {
+                    return (
+                      <div key={video.id} className="space-y-4">
+                        <h3 className="text-xl font-medium">Generated</h3>
+                        <div className="flex flex-col space-y-4">
+                          <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                            <video
+                              src={video.url}
+                              controls
+                              className="h-fit w-full"
+                            />
+                            <div className="flex flex-col gap-4 p-4">
+                              <p className="flex items-start gap-2">
+                                <span className="text-muted-foreground">
+                                  Prompt:
+                                </span>
+                                <Badge className="overflow-hidden whitespace-pre-wrap break-words">
+                                  {video.prompt}
+                                </Badge>
+                              </p>
+                              <p className="flex items-center gap-2">
+                                <span className="text-muted-foreground">
+                                  Duration:
+                                </span>
+                                <Badge>{video.duration} secondes</Badge>
+                              </p>
+                              <p className="flex items-center gap-2">
+                                <span className="text-muted-foreground">
+                                  Date:
+                                </span>
+                                <Badge>
+                                  {new Date(video.createdAt).toLocaleString()}
+                                </Badge>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                  return null
+                })}
+              </>
             )}
           </div>
         </ScrollArea>

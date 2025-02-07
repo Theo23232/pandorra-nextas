@@ -1,9 +1,9 @@
 "use server"
-import { currentUser } from "@/lib/current-user"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
-import { Video } from "@prisma/client"
-import RunwayML from "@runwayml/sdk"
+import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { Video } from '@prisma/client';
+import RunwayML from '@runwayml/sdk';
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env
@@ -19,7 +19,15 @@ export async function generateVideoFromImage(
     // Envoyer l’image à RunwayML
     const imageToVideo = await client.imageToVideo.create({
       model: "gen3a_turbo",
-      promptImage: base64Image,
+      promptImage:
+        base64Image === "https://pandorra.ai/assets/fond.png"
+          ? [
+              {
+                uri: base64Image,
+                position: "last",
+              },
+            ]
+          : base64Image,
       promptText,
       duration: duration,
     })

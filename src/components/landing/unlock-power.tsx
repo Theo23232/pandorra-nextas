@@ -1,7 +1,7 @@
-import { MoveRight } from 'lucide-react';
+import { MoveRight } from "lucide-react"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/tremor/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/tremor/ui/button"
 
 export const UnlockPower = () => {
   return (
@@ -26,12 +26,12 @@ export const UnlockPower = () => {
           </Button>
         </Bounce>
 
-        <Bounce className="relative mt-20 h-[40vw] max-h-[598px] w-full max-w-[1192px] rounded-[10px] bg-[rgba(239,239,239,0.20)] p-2 backdrop-blur-[87px]">
+        <Bounce className="relative mt-20 h-fit max-h-[598px] w-full max-w-[1192px] rounded-[10px] bg-[rgba(239,239,239,0.20)] p-2 backdrop-blur-[87px]">
           <div className="absolute right-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(204,0,255,0.40)] blur-[112px]"></div>
           <div className="absolute left-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(0,155,255,0.40)] blur-[112px]"></div>
           <video
             src="https://cdn.pollo.ai/prod/public/video/index/index-text.mp4"
-            className="absolute inset-0 m-auto h-[35vw] max-h-[573.387px] w-full max-w-[1166px] rounded-[3px] bg-black p-2"
+            className="relative inset-0 m-auto h-[35vw] max-h-[573.387px] w-full max-w-[1166px] rounded-[3px] bg-black p-2"
             autoPlay
             loop
             muted

@@ -1,23 +1,23 @@
 "use client"
 
-import { Sparkles } from 'lucide-react';
+import { Sparkles } from "lucide-react"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
+import Bounce from "@/components/animated/uibeats/bounce"
+import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/nyxb/select';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/nyxb/select"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 export function Hero() {
   return (
-    <AspectRatio
-      ratio={16 / 6}
-      className="relative flex w-full flex-col items-center justify-center overflow-hidden"
-    >
+    <div className="relative flex h-[70vh] w-full flex-col items-center justify-center overflow-hidden">
       <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
           id="hero"
@@ -69,9 +69,9 @@ export function Hero() {
         loop
         muted
         playsInline
-        className="absolute left-0 top-0 w-full"
+        className="absolute left-0 top-0 hidden w-full lg:block"
       ></video>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#010101]"></div>
-    </AspectRatio>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#010101] lg:block"></div>
+    </div>
   )
 }

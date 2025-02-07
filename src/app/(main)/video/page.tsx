@@ -1,7 +1,6 @@
 "use client"
 
-import { AlertCircle, Info, X } from 'lucide-react';
-import Image from 'next/image';
+import { AlertCircle, Upload } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import useSWR, { mutate } from 'swr';
 
@@ -10,17 +9,16 @@ import { MagicCard } from '@/components/animated/magic-ui/magic-card';
 import { Badge } from '@/components/tremor/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Textarea } from '@/components/ui/textarea';
 import { fetcher } from '@/lib/utils';
 
 import type { Video } from "@prisma/client"
 import type React from "react"
-
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
@@ -32,10 +30,14 @@ export default function Page() {
   const [image, setImage] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [prompt, setPrompt] = useState("")
   const [promptText, setPromptText] = useState("")
   const [duration, setDuration] = useState("5")
-  const [resolutionRatio, setResolutionRatio] = useState("1280:768")
+  const [ratio, setRatio] = useState("1280:768")
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const charCount = prompt.length
+  const maxChars = 9680
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -111,116 +113,77 @@ export default function Page() {
     }
   }
 
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPrompt(e.target.value)
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto" // Réinitialiser pour recalculer
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
+  }
+
   return (
-    <div className="flex w-full max-w-7xl gap-8">
-      <MagicCard className="flex-1 p-4">
-        <div
-          className="relative flex h-64 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          onClick={openFileDialog}
-        >
-          {preview ? (
-            <>
-              <Image
-                src={preview || "/placeholder.svg"}
-                alt="Preview"
-                fill
-                className="rounded-lg object-contain"
-              />
-              <Button
-                variant="secondary"
-                size="icon"
-                className="absolute right-2 top-2 z-10"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleReset()
-                }}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </>
-          ) : (
-            <p className="text-xl text-muted-foreground">
-              Drag an image here, or click to select
-            </p>
-          )}
-        </div>
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          accept="image/*"
-          className="hidden"
+    <div className="flex w-full max-w-7xl flex-col gap-4">
+      <MagicCard className="max-w-3xl">
+        <Textarea
+          ref={textareaRef}
+          value={prompt}
+          onChange={handleInput}
+          className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
+          placeholder="Describe the sound you want..."
         />
-        <div className="mt-4 space-y-4">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <p className="text-sm">prompt</p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info size={14} />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      This should describe in detail what should appear in the
-                      output.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <Input
-              type="text"
-              placeholder="Enter text"
-              value={promptText}
-              onChange={(e) => setPromptText(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <p className="text-sm">duration</p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info size={14} />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      The number of seconds of duration for the output video.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <Select value={duration} onValueChange={setDuration}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select duration" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5">5 seconds</SelectItem>
-                <SelectItem value="10">10 seconds</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex items-center justify-between">
-            {image && (
-              <div className="text-sm text-muted-foreground">
-                {image.name} ({(image.size / 1024 / 1024).toFixed(2)} MB)
+        <div className="flex justify-between p-4">
+          <div className="flex flex-col gap-4 p-4">
+            <div className="flex items-center gap-4">
+              <Select value={duration} onValueChange={setDuration}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select duration" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5 s</SelectItem>
+                  <SelectItem value="10">10 s</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={ratio} onValueChange={setRatio}>
+                <SelectTrigger className="w-[100px]">
+                  <SelectValue placeholder="Select ratio" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1280:768">1280:768</SelectItem>
+                  <SelectItem value="768:1280">768:1280</SelectItem>
+                </SelectContent>
+              </Select>
+              <div className="flex items-center gap-4">
+                <Label
+                  htmlFor="image-upload"
+                  className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <Upload className="h-5 w-5" />
+                  {image ? "Change Image" : "Upload Image"}
+                </Label>
+                <input
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
               </div>
-            )}
-            <Button
-              className="text-md ml-auto h-10 w-full"
-              disabled={loading}
-              onClick={handleSubmit}
-            >
-              {loading ? "Processing..." : "Generate Video"}
-            </Button>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="text-sm text-muted-foreground">
+              {charCount.toLocaleString()} / {maxChars.toLocaleString()}
+            </div>
+            <Button className="text-md h-10">Generate Video</Button>
           </div>
         </div>
       </MagicCard>
-
       <MagicCard className="max-w-3xl p-4">
         <ScrollArea className="flex h-[calc(100vh-8rem)] flex-[2] flex-col overflow-hidden">
           <div className="h-full overflow-y-auto">

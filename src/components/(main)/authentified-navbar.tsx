@@ -48,7 +48,6 @@ export function Navbar() {
         <Link href={"/explore"}>
           <Logo />
         </Link>
-
         <FloatingButton />
       </div>
       <div className="flex items-center gap-1 sm:gap-2">

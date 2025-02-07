@@ -42,8 +42,8 @@ export type SidebarProps = {
 
 export function ImageGenerationSidebar(props: SidebarProps) {
   const searchParams = useSearchParams()
-  const queryPresetStyle = searchParams.get("presetStyle")
-  const queryModelId = searchParams.get("modelId")
+  const queryPresetStyle = searchParams?.get("presetStyle")
+  const queryModelId = searchParams?.get("modelId")
   const { startOnborda } = useOnborda()
   const { user } = useUser()
 

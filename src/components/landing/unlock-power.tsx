@@ -7,7 +7,7 @@ export const UnlockPower = () => {
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
-        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] tracking-[-4.5px] text-[#FDFDFD]">
+        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
           Unlock the Power of AI with <br />{" "}
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
             Text to Video
@@ -26,12 +26,12 @@ export const UnlockPower = () => {
           </Button>
         </Bounce>
 
-        <Bounce className="relative mt-20 h-fit max-h-[598px] w-full max-w-[1192px] rounded-[10px] bg-[rgba(239,239,239,0.20)] p-2 backdrop-blur-[87px]">
+        <Bounce className="relative mt-20 h-fit max-h-[598px] w-fit max-w-[1192px] rounded-[10px] bg-[rgba(74,174,199,0.77)] p-2 backdrop-blur-[87px]">
           <div className="absolute right-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(204,0,255,0.40)] blur-[112px]"></div>
           <div className="absolute left-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(0,155,255,0.40)] blur-[112px]"></div>
           <video
             src="https://cdn.pollo.ai/prod/public/video/index/index-text.mp4"
-            className="relative inset-0 m-auto h-[35vw] max-h-[573.387px] w-full max-w-[1166px] rounded-[3px] bg-black p-2"
+            className="relative inset-0 h-[35vw] max-h-[573.387px] w-full max-w-[1166px] rounded-[3px] bg-black p-2"
             autoPlay
             loop
             muted
@@ -41,7 +41,7 @@ export const UnlockPower = () => {
       </div>
 
       <div className="mt-20 flex flex-col items-center justify-center">
-        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] tracking-[-4.5px] text-[#FDFDFD]">
+        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
           The Ultimate AI Content <br />
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
             Generation Platform

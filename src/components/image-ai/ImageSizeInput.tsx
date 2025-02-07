@@ -39,7 +39,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
   }, [])
 
   useEffect(() => {
-    const imageSizeParam = searchParams.get("imageSize")
+    const imageSizeParam = searchParams?.get("imageSize")
     if (imageSizeParam) {
       const [width, height] = imageSizeParam.split("×").map(Number)
       const match = findMatchingRatio(width, height)
@@ -95,7 +95,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
       variant="outline"
       className={cn(
         "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-        activeName === ratio && "bg-primary text-white",
+        activeName === ratio && "primeBg",
       )}
       onClick={() => handleChange(ratio, null)}
     >
@@ -110,7 +110,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
         variant="outline"
         className={cn(
           "flex w-full flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
-          activeSize === size && "bg-primary text-white hover:bg-primary/80",
+          activeSize === size && "primeBg",
         )}
         onClick={() => handleChange(null, size)}
       >

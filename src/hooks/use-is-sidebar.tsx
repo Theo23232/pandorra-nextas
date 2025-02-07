@@ -6,6 +6,6 @@ type Loading = {
 }
 
 export const useIsSidebar = create<Loading>((set) => ({
-  isSidebar: false,
+  isSidebar: true,
   toggleSidebar: () => set((state) => ({ isSidebar: !state.isSidebar })),
 }))

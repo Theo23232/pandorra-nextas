@@ -106,29 +106,26 @@ export const GenerationResult = ({
       </div>
       <div className="flex gap-4">
         {renderTooltipButton(
-          "Model",
+          `Model : ${model?.name ?? ""}`,
           <div className="Model flex items-center gap-2">
             {model?.generated_image?.url && (
               <Image
                 src={model.generated_image.url || "/placeholder.svg"}
-                width={32}
-                height={32}
+                width={64}
+                height={64}
                 alt={model?.name ?? ""}
-                className="size-4 object-cover"
+                className="size-8 object-cover"
               />
             )}
-            <span>{model?.name ?? ""}</span>
           </div>,
         )}
         {renderTooltipButton(
-          "Preset style",
-          <Zap size={16} />,
-          generated?.presetStyle ?? undefined,
+          `Preset style ${generated?.presetStyle ?? ""}`,
+          <Zap size={20} />,
         )}
         {renderTooltipButton(
-          "Resolution",
-          <Move size={16} className="rotate-45" />,
-          `${generated?.imageWidth} × ${generated?.imageHeight}`,
+          `Resolution : ${generated?.imageWidth} × ${generated?.imageHeight}`,
+          <Move size={20} className="rotate-45" />,
         )}
         <GenerationOption generationId={generated?.id || ""}>
           <Button variant="outline" size="icon">
@@ -140,10 +137,10 @@ export const GenerationResult = ({
   )
 
   const renderContent = () => (
-    <div className="grid w-full grid-cols-2 gap-4 lg:grid-cols-4">
+    <div className="grid w-full grid-cols-2 gap-4 xl:grid-cols-4">
       {isLoading
         ? Array.from({ length: count }, (_, index) => (
-            <Skeleton key={index} className="h-96 w-[calc(100%-1rem)]" />
+            <Skeleton key={index} className="h-96 w-full" />
           ))
         : generated?.generated_images.map((g) => (
             <AIImage

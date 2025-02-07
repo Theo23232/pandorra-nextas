@@ -1,14 +1,18 @@
 "use client"
+import { Loader2, Sparkles } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
 import { getUserGeneration } from "@/actions/generation.action"
+import { enhanceImagePrompt } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { GenerationResult } from "@/components/image-ai/GenerationResult"
 import { NothingYet } from "@/components/NothingYet"
 import { Skeleton } from "@/components/nyxb/skeleton"
 import { Button } from "@/components/tremor/ui/button"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
 import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
 import { GeneratedImage, Prisma } from "@prisma/client"
 
@@ -34,13 +38,15 @@ export type GenerationWithImages = Omit<
 export const Main = (props: MainProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
-  const queryPrompt = searchParams.get("prompt")
+  const queryPrompt = searchParams?.get("prompt")
 
+  const [isEnhancing, setIsEnhancing] = useState(false)
   const [prompt, setPrompt] = useState(props.prompt)
   const [isLoading, setIsLoading] = useState(false)
   const [generated, setGenerated] = useState<GenerationWithImages>()
   const [history, setHistory] = useState<GenerationWithImages[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
+  const { toast } = useToast()
 
   useEffect(() => {
     if (queryPrompt) {
@@ -99,6 +105,23 @@ export const Main = (props: MainProps) => {
     req().then(() => {})
   }, [])
 
+  const enhancePrompt = async () => {
+    setIsEnhancing(true)
+    try {
+      const promptEnhanced = await enhanceImagePrompt(prompt)
+      setPrompt(promptEnhanced)
+    } catch (error) {
+      toast({
+        title: " toastTitle",
+        description: "Prompt enhancement failed",
+        variant: "error",
+        duration: 3000,
+      })
+    } finally {
+      setIsEnhancing(false)
+    }
+  }
+
   return (
     <div className="flex flex-col justify-center">
       <MagicCard className="mb-4 w-full">
@@ -110,11 +133,20 @@ export const Main = (props: MainProps) => {
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
         />
         <div className="flex items-center justify-end gap-2 p-4">
-          <Button
-            onClick={generate}
-            isLoading={isLoading}
-            className="text-md h-9"
-          >
+          <Tooltip content="Enhance prompt">
+            <div
+              onClick={enhancePrompt}
+              className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
+            >
+              {isEnhancing ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <Sparkles size={20} />
+              )}
+            </div>
+          </Tooltip>
+
+          <Button onClick={generate} isLoading={isLoading} className="text-md">
             Generate
           </Button>
         </div>

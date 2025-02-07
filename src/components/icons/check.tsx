@@ -1,4 +1,4 @@
-export const Check = () => {
+export const Check = ({ className }: { className?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +6,7 @@ export const Check = () => {
       height="10"
       viewBox="0 0 10 10"
       fill="none"
+      className={className}
     >
       <g clip-path="url(#clip0_1_3288)">
         <path

@@ -1,6 +1,6 @@
-import { KpiEntry } from '@/app/dashboard/overview/page';
-import { Badge } from '@/components/tremor/ui/badge';
-import { ProgressBar } from '@/components/tremor/visualisations/progress-bar';
+import { KpiEntry } from "@/app/dashboard/overview/page"
+import { Badge } from "@/components/tremor/ui/badge"
+import { ProgressBar } from "@/components/tremor/visualisations/progress-bar"
 
 export type CardProps = {
   title: string
@@ -65,7 +65,7 @@ export function ProgressBarCard({
         <div>
           <p className="mt-6 text-xs text-gray-500">
             {ctaDescription}{" "}
-            <a href={ctaLink} className="text-indigo-600 dark:text-indigo-400">
+            <a href={ctaLink} className="text-primary dark:text-primary">
               {ctaText}
             </a>
           </p>

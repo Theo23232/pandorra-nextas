@@ -1,6 +1,6 @@
 "use client"
 
-import Link from 'next/link';
+import Link from "next/link"
 
 export type MenuListProps = {}
 
@@ -65,7 +65,7 @@ export const MenuList = (props: MenuListProps) => {
       <li id="tour2-step4">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#D6141E] to-[#FF824C] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/video-to-video"
+          href="/video"
           prefetch={true}
         >
           <div className="flex items-center justify-between">
@@ -233,7 +233,7 @@ export const MenuList = (props: MenuListProps) => {
       <li id="tour2-step1">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#3F0098] to-[#8933FF] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/image-to-video"
+          href="/audio"
           prefetch={true}
         >
           <div className="flex items-center justify-between">

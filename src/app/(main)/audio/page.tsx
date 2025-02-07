@@ -112,7 +112,7 @@ export default function Page() {
   const ExampleButton = ({ icon: Icon, text }: { icon: any; text: string }) => (
     <Button
       variant="outline"
-      className="h-9 rounded-md text-sm text-foreground"
+      className="h-10 rounded-md text-sm text-foreground"
       onClick={() => setPrompt(text)}
     >
       <Icon className="mr-2 h-4 w-4" />
@@ -133,7 +133,7 @@ export default function Page() {
         <div className="flex justify-between p-4">
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="ghost" className="h-9">
+              <Button variant="ghost" className="h-10">
                 <Settings2 />
               </Button>
             </DrawerTrigger>
@@ -203,7 +203,7 @@ export default function Page() {
               </DrawerBody>
               <DrawerFooter className="mt-6">
                 <Button
-                  className="mt-2 h-9 w-full sm:mt-0 sm:w-fit"
+                  className="mt-2 h-10 w-full sm:mt-0 sm:w-fit"
                   variant="secondary"
                   onClick={handleReset}
                 >
@@ -212,7 +212,7 @@ export default function Page() {
                 <DrawerClose asChild></DrawerClose>
                 <DrawerClose asChild>
                   <Button
-                    className="h-9 w-full sm:w-fit"
+                    className="h-10 w-full sm:w-fit"
                     onClick={handleGenerate}
                     isLoading={isLoading}
                   >
@@ -226,7 +226,7 @@ export default function Page() {
             <div className="text-sm text-muted-foreground">
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
-            <Button className="text-md h-9" onClick={handleGenerate}>
+            <Button className="text-md h-10" onClick={handleGenerate}>
               Generate Sound Effects
             </Button>
           </div>

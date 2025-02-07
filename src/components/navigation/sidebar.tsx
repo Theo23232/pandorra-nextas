@@ -82,7 +82,7 @@ export function Sidebar() {
                     href={item.href}
                     className={cx(
                       isActive(item.href)
-                        ? "text-indigo-600 dark:text-indigo-400"
+                        ? "text-primary dark:text-primary"
                         : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                       "flex items-center gap-x-2.5 rounded-md px-2 py-1.5 text-sm font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                       focusRing,
@@ -106,7 +106,7 @@ export function Sidebar() {
                       href={item.href}
                       className={cx(
                         pathname === item.href || pathname.startsWith(item.href)
-                          ? "text-indigo-600 dark:text-indigo-400"
+                          ? "text-primary dark:text-primary"
                           : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                         "flex items-center gap-x-2.5 rounded-md px-2 py-1.5 text-sm font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                         focusRing,

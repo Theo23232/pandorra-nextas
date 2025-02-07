@@ -85,7 +85,10 @@ export const Hero = () => {
             content creator, marketer, or AI enthusiast, it s a simple <br />{" "}
             way to monetize your network!
           </p>
-          <Button className="flex items-center rounded-sm bg-[#EAEBFE] text-black hover:bg-[#eeefff]">
+          <Button
+            variant={"default"}
+            className="flex items-center rounded-sm bg-[#EAEBFE] text-black hover:bg-[#eeefff]"
+          >
             <p className="text-[16px]">Copy my link</p>
             <Clipboard size={10} />
           </Button>

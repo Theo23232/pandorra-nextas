@@ -244,7 +244,7 @@ export default function Page() {
   const ExampleButton = ({ text, title }: { text: string; title: string }) => (
     <Button
       variant="outline"
-      className="h-9 rounded-md text-sm text-foreground"
+      className="h-10 rounded-md text-sm text-foreground"
       onClick={() => setPrompt(text)}
     >
       {title}
@@ -265,7 +265,7 @@ export default function Page() {
           <div className="flex items-center gap-2">
             <Drawer>
               <DrawerTrigger asChild>
-                <Button variant="ghost" className="h-9">
+                <Button variant="ghost" className="h-10">
                   <Settings2 />
                 </Button>
               </DrawerTrigger>
@@ -355,7 +355,7 @@ export default function Page() {
                 </DrawerBody>
                 <DrawerFooter className="mt-6">
                   <Button
-                    className="mt-2 h-9 w-full sm:mt-0 sm:w-fit"
+                    className="mt-2 h-10 w-full sm:mt-0 sm:w-fit"
                     variant="secondary"
                     onClick={handleReset}
                   >
@@ -364,7 +364,7 @@ export default function Page() {
                   <DrawerClose asChild></DrawerClose>
                   <DrawerClose asChild>
                     <Button
-                      className="h-9 w-full sm:w-fit"
+                      className="h-10 w-full sm:w-fit"
                       onClick={handleGenerate}
                       isLoading={isLoading}
                     >
@@ -375,7 +375,7 @@ export default function Page() {
               </DrawerContent>
             </Drawer>
             <Select value={voiceId} onValueChange={setVoiceId}>
-              <SelectTrigger className="h-9 w-[120px]">
+              <SelectTrigger className="h-10 w-[120px]">
                 <SelectValue placeholder="Select Voice" />
               </SelectTrigger>
               <SelectContent>
@@ -387,7 +387,7 @@ export default function Page() {
               </SelectContent>
             </Select>
             <Select value={lang} onValueChange={setLang}>
-              <SelectTrigger className="h-9 w-[180px]">
+              <SelectTrigger className="h-10 w-[180px]">
                 <SelectValue placeholder="Select Language" />
               </SelectTrigger>
               <SelectContent>
@@ -411,7 +411,7 @@ export default function Page() {
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
             <Button
-              className="text-md h-9"
+              className="text-md h-10"
               onClick={handleGenerate}
               isLoading={isLoading}
             >
@@ -446,14 +446,14 @@ export default function Page() {
                 <div className="mt-6 flex items-center gap-2">
                   <Button
                     variant="outline"
-                    className="flex h-9 items-center gap-2 rounded-md text-sm text-foreground"
+                    className="flex h-10 items-center gap-2 rounded-md text-sm text-foreground"
                   >
                     <CountryFlag className="mr-1 h-4 w-4" />
                     {getLanguageName(audio.lang)}
                   </Button>
                   <Button
                     variant="outline"
-                    className="h-9 rounded-md text-sm text-foreground"
+                    className="h-10 rounded-md text-sm text-foreground"
                   >
                     {getVoiceNameById(audio.voice)}
                   </Button>

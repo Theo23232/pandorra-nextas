@@ -1,7 +1,7 @@
-import { Badge } from '@/components/tremor/ui/badge';
-import { cx } from '@/lib/utils';
+import { Badge } from "@/components/tremor/ui/badge"
+import { cx } from "@/lib/utils"
 
-import type { KpiEntryExtended } from "@/app/dashboard/overview/page";
+import type { KpiEntryExtended } from "@/app/dashboard/overview/page"
 
 export type CardProps = {
   title: string
@@ -75,7 +75,7 @@ export function CategoryBarCard({
         </div>
         <p className="mt-6 text-xs text-gray-500">
           {ctaDescription}{" "}
-          <a href={ctaLink} className="text-indigo-600 dark:text-indigo-400">
+          <a href={ctaLink} className="text-primary dark:text-primary">
             {ctaText}
           </a>
         </p>

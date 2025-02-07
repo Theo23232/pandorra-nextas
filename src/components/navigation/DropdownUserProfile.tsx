@@ -1,19 +1,28 @@
 "use client"
 
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import * as React from 'react';
+import { CreditCard, Crown, LogOut, Settings2 } from "lucide-react"
+import { useTheme } from "next-themes"
+import Link from "next/link"
+import * as React from "react"
 
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
-    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
-    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
-} from '@/components/tremor/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUser } from '@/hooks/use-user';
-import { logOut } from '@/lib/utils';
-import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSubMenu,
+  DropdownMenuSubMenuContent,
+  DropdownMenuSubMenuTrigger,
+  DropdownMenuTrigger,
+} from "@/components/tremor/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useUser } from "@/hooks/use-user"
+import { logOut } from "@/lib/utils"
+import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode
@@ -41,18 +50,20 @@ export function DropdownUserProfile({
           sideOffset={4}
         >
           <DropdownMenuLabel className="p-0 font-normal">
-            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.image} alt={user.username} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">
-                  {user.fullname || ""}
-                </span>
-                <span className="truncate text-xs">{user.email}</span>
+            <Link href={"/profile"} className="" prefetch>
+              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage src={user.image} alt={user.username} />
+                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight text-black dark:text-white">
+                  <span className="truncate font-semibold">
+                    {user.username || ""}
+                  </span>
+                  <span className="truncate text-xs">{user.email}</span>
+                </div>
               </div>
-            </div>
+            </Link>
           </DropdownMenuLabel>
 
           <DropdownMenuGroup>
@@ -102,30 +113,28 @@ export function DropdownUserProfile({
 
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <Link href={"/billing"} prefetch={true}>
+            <Link href={"/setting"} prefetch={true}>
               <DropdownMenuItem>
-                <Sparkles className="mr-2 size-4 shrink-0" />
-                Upgrade plan
+                <Settings2 className="mr-2 size-4 shrink-0" />
+                Settings
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <BadgeCheck className="mr-2 size-4 shrink-0" />
-              Account
-            </DropdownMenuItem>
+            <Link href={"/ranking"} prefetch={true}>
+              <DropdownMenuItem>
+                <Crown className="mr-2 size-4 shrink-0" />
+                Ranking
+              </DropdownMenuItem>
+            </Link>
+
             <Link href={"/billing"} prefetch={true}>
               <DropdownMenuItem>
                 <CreditCard className="mr-2 size-4 shrink-0" />
                 Billing
               </DropdownMenuItem>
             </Link>
-
-            <DropdownMenuItem>
-              <Bell className="mr-2 size-4 shrink-0" />
-              Notifications
-            </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={logOut}>

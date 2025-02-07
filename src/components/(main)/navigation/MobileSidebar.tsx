@@ -1,7 +1,18 @@
+import {
+  BoomBox,
+  BotMessageSquare,
+  Crown,
+  Gift,
+  Image,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { siteConfig } from "@/app/siteConfig"
+import { Logo } from "@/components/logo"
 import { Button } from "@/components/tremor/ui/button"
 import {
   Drawer,
@@ -13,44 +24,36 @@ import {
   DrawerTrigger,
 } from "@/components/tremor/ui/drawer"
 import { cx, focusRing } from "@/lib/utils"
-import {
-  RiHome2Line,
-  RiLinkM,
-  RiListCheck,
-  RiMenuLine,
-  RiSettings5Line,
-} from "@remixicon/react"
+import { RiHome2Line, RiMenuLine } from "@remixicon/react"
 
 const navigation = [
-  { name: "Overview", href: siteConfig.baseLinks.overview, icon: RiHome2Line },
-  { name: "Details", href: siteConfig.baseLinks.details, icon: RiListCheck },
-  {
-    name: "Settings",
-    href: siteConfig.baseLinks.settings,
-    icon: RiSettings5Line,
-  },
+  { name: "Explore", href: "/explore", icon: RiHome2Line },
+  { name: "Profile", href: "/profile", icon: User2 },
+  { name: "Affiliate", href: "/affiliate", icon: Gift },
+  { name: "Ranking", href: "/ranking", icon: Crown },
+  { name: "Upgrade plan", href: "/billing", icon: Sparkles },
 ] as const
 
 const shortcuts = [
   {
-    name: "Add new user",
-    href: "#",
-    icon: RiLinkM,
+    name: "Image AI",
+    href: "/image/generation",
+    icon: Image,
   },
   {
-    name: "Workspace usage",
-    href: "#",
-    icon: RiLinkM,
+    name: "AI Assistant",
+    href: "/assistant",
+    icon: BotMessageSquare,
   },
   {
-    name: "Cost spend control",
-    href: "#",
-    icon: RiLinkM,
+    name: "Video generation",
+    href: "/video",
+    icon: Video,
   },
   {
-    name: "Overview – Rows written",
-    href: "#",
-    icon: RiLinkM,
+    name: "Audio AI",
+    href: "/audio",
+    icon: BoomBox,
   },
 ] as const
 
@@ -77,9 +80,13 @@ export default function MobileSidebar() {
             />
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="sm:max-w-lg">
+        <DrawerContent className="sm:max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Retail Analytics</DrawerTitle>
+            <DrawerTitle>
+              <Link href={"/explore"}>
+                <Logo />
+              </Link>
+            </DrawerTitle>
           </DrawerHeader>
           <DrawerBody>
             <nav
@@ -95,9 +102,9 @@ export default function MobileSidebar() {
                         href={item.href}
                         className={cx(
                           isActive(item.href)
-                            ? "text-primary dark:text-primary"
-                            : "text-gray-600 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                          "flex items-center gap-x-2.5 rounded-md px-2 py-1.5 text-base font-medium transition hover:bg-gray-100 sm:text-sm hover:dark:bg-gray-900",
+                            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
+                            : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                           focusRing,
                         )}
                       >
@@ -113,7 +120,7 @@ export default function MobileSidebar() {
               </ul>
               <div>
                 <span className="text-sm font-medium leading-6 text-gray-500 sm:text-xs">
-                  Shortcuts
+                  AI Assets
                 </span>
                 <ul aria-label="shortcuts" role="list" className="space-y-0.5">
                   {shortcuts.map((item) => (
@@ -123,16 +130,13 @@ export default function MobileSidebar() {
                         href={item.href}
                         className={cx(
                           pathname === item.href || pathname.includes(item.href)
-                            ? "text-primary dark:text-primary"
+                            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
                             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                          "flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 sm:text-sm hover:dark:bg-gray-900",
+                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                           focusRing,
                         )}
                       >
-                        <item.icon
-                          className="size-4 shrink-0"
-                          aria-hidden="true"
-                        />
+                        <item.icon className="size-4 shrink-0" />
                         {item.name}
                       </Link>
                     </li>

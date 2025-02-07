@@ -1,14 +1,15 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
-import { Corp } from "@/components/landing/corp"
-import { Footer } from "@/components/landing/footer"
-import { GalleryMultiple } from "@/components/landing/gallery-multiple"
-import { Hero } from "@/components/landing/hero"
-import LandingNavbar from "@/components/landing/navbar"
-import { UiPresentation } from "@/components/landing/ui-presentation"
-import { Unleash } from "@/components/landing/unleash"
-import { UnlockPower } from "@/components/landing/unlock-power"
+import { Corp } from '@/components/landing/corp';
+import { Footer } from '@/components/landing/footer';
+import { GalleryMultiple } from '@/components/landing/gallery-multiple';
+import { Hero } from '@/components/landing/hero';
+import LandingNavbar from '@/components/landing/navbar';
+import { Pricing } from '@/components/landing/pricing';
+import { UiPresentation } from '@/components/landing/ui-presentation';
+import { Unleash } from '@/components/landing/unleash';
+import { UnlockPower } from '@/components/landing/unlock-power';
 
 export default function RoutePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -38,6 +39,7 @@ export default function RoutePage() {
       <Corp />
       <GalleryMultiple />
       <UnlockPower />
+      <Pricing />
       <Unleash />
       <Footer />
       {/*  <ScrollName />

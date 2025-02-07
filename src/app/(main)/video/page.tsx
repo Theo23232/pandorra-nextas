@@ -1,28 +1,23 @@
 "use client"
 
-import { AlertCircle, Info, Loader2, Sparkles, X } from "lucide-react"
-import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
-import useSWR, { mutate } from "swr"
+import { AlertCircle, Upload } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
-import { enhanceVideoPrompt } from "@/actions/openai.actions"
-import { generateVideoFromImage } from "@/actions/runway.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { enhanceVideoPrompt } from '@/actions/openai.actions';
+import { generateVideoFromImage } from '@/actions/runway.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
-import { fetcher } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { fetcher } from '@/lib/utils';
 
 import type { Video } from "@prisma/client"
 import type React from "react"
@@ -37,10 +32,14 @@ export default function Page() {
   const [image, setImage] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [prompt, setPrompt] = useState("")
   const [promptText, setPromptText] = useState("")
   const [duration, setDuration] = useState("5")
-  const [resolutionRatio, setResolutionRatio] = useState("1280:768")
+  const [ratio, setRatio] = useState("1280:768")
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const charCount = prompt.length
+  const maxChars = 9680
   const [isEnhancing, setIsEnhancing] = useState(false)
   const { toast } = useToast()
 
@@ -118,216 +117,124 @@ export default function Page() {
     }
   }
 
-  const enhancePrompt = async () => {
-    setIsEnhancing(true)
-    try {
-      const promptEnhanced = await enhanceVideoPrompt(promptText)
-      setPromptText(promptEnhanced)
-    } catch (error) {
-      toast({
-        title: " toastTitle",
-        description: "Prompt enhancement failed",
-        variant: "error",
-        duration: 3000,
-      })
-    } finally {
-      setIsEnhancing(false)
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPrompt(e.target.value)
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto" // Réinitialiser pour recalculer
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
   }
 
-  return (
-    <div className="flex w-full max-w-7xl gap-8">
-      <MagicCard className="flex-1 p-4">
-        <div
-          className="relative flex h-64 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          onClick={openFileDialog}
-        >
-          {preview ? (
-            <>
-              <Image
-                src={preview || "/placeholder.svg"}
-                alt="Preview"
-                fill
-                className="rounded-lg object-contain"
-              />
-              <Button
-                variant="secondary"
-                size="icon"
-                className="absolute right-2 top-2 z-10"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleReset()
-                }}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </>
-          ) : (
-            <p className="text-xl text-muted-foreground">
-              Drag an image here, or click to select
-            </p>
-          )}
-        </div>
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          accept="image/*"
-          className="hidden"
-        />
-        <div className="mt-4 space-y-4">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <p className="text-sm">prompt</p>
-              <Tooltip
-                content="This should describe in detail what should appear in the
-                      output."
-              >
-                <Info size={14} />
-              </Tooltip>
-            </div>
-            <Input
-              type="text"
-              placeholder="Enter text"
-              value={promptText}
-              onChange={(e) => setPromptText(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <p className="text-sm">duration</p>
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0])
+      const enhancePrompt = async () => {
+        setIsEnhancing(true)
+        try {
+          const promptEnhanced = await enhanceVideoPrompt(promptText)
+          setPromptText(promptEnhanced)
+        } catch (error) {
+          toast({
+            title: " toastTitle",
+            description: "Prompt enhancement failed",
+            variant: "error",
+            duration: 3000,
+          })
+        } finally {
+          setIsEnhancing(false)
+        }
+      }
+    }
 
-              <Tooltip content="The number of seconds of duration for the output video.">
-                <Info size={14} />
-              </Tooltip>
-            </div>
-            <Select value={duration} onValueChange={setDuration}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select duration" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5">5 seconds</SelectItem>
-                <SelectItem value="10">10 seconds</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="flex gap-2">
-              <Tooltip content="Enhance prompt">
-                <div
-                  onClick={enhancePrompt}
-                  className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
-                >
-                  {isEnhancing ? (
-                    <Loader2 className="animate-spin" />
-                  ) : (
-                    <Sparkles size={20} />
-                  )}
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files[0]) {
+        setImage(e.target.files[0])
+      }
+    }
+
+    return (
+      <div className="flex w-full max-w-7xl flex-col gap-4">
+        <MagicCard className="max-w-3xl">
+          <Textarea
+            ref={textareaRef}
+            value={prompt}
+            onChange={handleInput}
+            className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
+            placeholder="Describe the sound you want..."
+          />
+          <div className="flex justify-between p-4">
+            <div className="flex flex-col gap-4 p-4">
+              <div className="flex items-center gap-4">
+                <Select value={duration} onValueChange={setDuration}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select duration" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">5 s</SelectItem>
+                    <SelectItem value="10">10 s</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={ratio} onValueChange={setRatio}>
+                  <SelectTrigger className="w-[100px]">
+                    <SelectValue placeholder="Select ratio" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1280:768">1280:768</SelectItem>
+                    <SelectItem value="768:1280">768:1280</SelectItem>
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center gap-4">
+                  <Label
+                    htmlFor="image-upload"
+                    className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                  >
+                    <Upload className="h-5 w-5" />
+                    {image ? "Change Image" : "Upload Image"}
+                  </Label>
+                  <input
+                    id="image-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
                 </div>
-              </Tooltip>
-              <Button
-                className="text-md ml-auto h-10 w-full"
-                disabled={loading}
-                onClick={handleSubmit}
-              >
-                {loading ? "Processing..." : "Generate Video"}
-              </Button>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="text-sm text-muted-foreground">
+                {charCount.toLocaleString()} / {maxChars.toLocaleString()}
+              </div>
+              <Button className="text-md h-10">Generate Video</Button>
             </div>
           </div>
-        </div>
-      </MagicCard>
-
-      <MagicCard className="max-w-3xl p-4">
-        <ScrollArea className="flex h-[calc(100vh-8rem)] flex-[2] flex-col overflow-hidden">
-          <div className="h-full overflow-y-auto">
-            {histories && (
-              <>
-                {histories.map((video) => {
-                  if (video.status === "Pending") {
-                    return (
-                      <div key={video.id} className="mb-6 space-y-4">
-                        <h3 className="text-xl font-medium">Pending</h3>
-                        <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
-                          {video.url ? (
-                            <video
-                              src={video.url}
-                              controls
-                              className="h-auto w-full"
-                            />
-                          ) : (
-                            <SkeletonLoader />
-                          )}
-                          <div className="flex flex-col gap-4 p-4">
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Prompt:
-                              </span>
-                              <Badge>{video.prompt}</Badge>
-                            </p>
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Duration:
-                              </span>
-                              <Badge>{video.duration} secondes</Badge>
-                            </p>
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Status:
-                              </span>
-                              <Badge>Pending</Badge>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  } else if (video.status === "Failed") {
-                    return (
-                      <div key={video.id} className="mb-6 space-y-4">
-                        <h3 className="text-xl font-medium">Failed</h3>
-                        <Alert variant="destructive">
-                          <AlertCircle className="h-4 w-4" />
-                          <AlertDescription>
-                            <div className="mt-1 space-y-1">
-                              <p>
-                                <strong>Prompt:</strong> {video.prompt}
-                              </p>
-                              <p>
-                                <strong>Status:</strong> {video.status}
-                              </p>
-                              <p>
-                                <strong>Duration:</strong> {video.duration}{" "}
-                                seconds
-                              </p>
-                              <p>
-                                <strong>Error:</strong>{" "}
-                                {"An unknown error occurred"}
-                              </p>
-                            </div>
-                          </AlertDescription>
-                        </Alert>
-                      </div>
-                    )
-                  } else if (video.status === "Generated") {
-                    return (
-                      <div key={video.id} className="space-y-4">
-                        <h3 className="text-xl font-medium">Generated</h3>
-                        <div className="flex flex-col space-y-4">
+        </MagicCard>
+        <MagicCard className="max-w-3xl p-4">
+          <ScrollArea className="flex h-[calc(100vh-8rem)] flex-[2] flex-col overflow-hidden">
+            <div className="h-full overflow-y-auto">
+              {histories && (
+                <>
+                  {histories.map((video) => {
+                    if (video.status === "Pending") {
+                      return (
+                        <div key={video.id} className="mb-6 space-y-4">
+                          <h3 className="text-xl font-medium">Pending</h3>
                           <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
-                            <video
-                              src={video.url}
-                              controls
-                              className="h-fit w-full"
-                            />
+                            {video.url ? (
+                              <video
+                                src={video.url}
+                                controls
+                                className="h-auto w-full"
+                              />
+                            ) : (
+                              <SkeletonLoader />
+                            )}
                             <div className="flex flex-col gap-4 p-4">
-                              <p className="flex items-start gap-2">
+                              <p className="flex items-center gap-2">
                                 <span className="text-muted-foreground">
                                   Prompt:
                                 </span>
-                                <Badge className="overflow-hidden whitespace-pre-wrap break-words">
-                                  {video.prompt}
-                                </Badge>
+                                <Badge>{video.prompt}</Badge>
                               </p>
                               <p className="flex items-center gap-2">
                                 <span className="text-muted-foreground">
@@ -337,25 +244,89 @@ export default function Page() {
                               </p>
                               <p className="flex items-center gap-2">
                                 <span className="text-muted-foreground">
-                                  Date:
+                                  Status:
                                 </span>
-                                <Badge>
-                                  {new Date(video.createdAt).toLocaleString()}
-                                </Badge>
+                                <Badge>Pending</Badge>
                               </p>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )
-                  }
-                  return null
-                })}
-              </>
-            )}
-          </div>
-        </ScrollArea>
-      </MagicCard>
-    </div>
-  )
+                      )
+                    } else if (video.status === "Failed") {
+                      return (
+                        <div key={video.id} className="mb-6 space-y-4">
+                          <h3 className="text-xl font-medium">Failed</h3>
+                          <Alert variant="destructive">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertDescription>
+                              <div className="mt-1 space-y-1">
+                                <p>
+                                  <strong>Prompt:</strong> {video.prompt}
+                                </p>
+                                <p>
+                                  <strong>Status:</strong> {video.status}
+                                </p>
+                                <p>
+                                  <strong>Duration:</strong> {video.duration}{" "}
+                                  seconds
+                                </p>
+                                <p>
+                                  <strong>Error:</strong>{" "}
+                                  {"An unknown error occurred"}
+                                </p>
+                              </div>
+                            </AlertDescription>
+                          </Alert>
+                        </div>
+                      )
+                    } else if (video.status === "Generated") {
+                      return (
+                        <div key={video.id} className="space-y-4">
+                          <h3 className="text-xl font-medium">Generated</h3>
+                          <div className="flex flex-col space-y-4">
+                            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                              <video
+                                src={video.url}
+                                controls
+                                className="h-fit w-full"
+                              />
+                              <div className="flex flex-col gap-4 p-4">
+                                <p className="flex items-start gap-2">
+                                  <span className="text-muted-foreground">
+                                    Prompt:
+                                  </span>
+                                  <Badge className="overflow-hidden whitespace-pre-wrap break-words">
+                                    {video.prompt}
+                                  </Badge>
+                                </p>
+                                <p className="flex items-center gap-2">
+                                  <span className="text-muted-foreground">
+                                    Duration:
+                                  </span>
+                                  <Badge>{video.duration} secondes</Badge>
+                                </p>
+                                <p className="flex items-center gap-2">
+                                  <span className="text-muted-foreground">
+                                    Date:
+                                  </span>
+                                  <Badge>
+                                    {new Date(video.createdAt).toLocaleString()}
+                                  </Badge>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    }
+                    return null
+                  })}
+                </>
+              )}
+            </div>
+          </ScrollArea>
+        </MagicCard>
+      </div>
+    )
+  }
 }

@@ -1,4 +1,17 @@
-export const voicesList = [
+export interface VoiceDetails {
+  id: string
+  name: string
+  category: "premade" | string
+  language: string
+  accent: string
+  description: string
+  age: "middle-aged" | string
+  gender: "female" | "male" | string
+  use_case: "social media" | string
+  preview_url: string
+}
+
+export const voicesList: VoiceDetails[] = [
   {
     id: "9BWtsMINqrJLrRacOk9x",
     name: "Aria",

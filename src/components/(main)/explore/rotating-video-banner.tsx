@@ -48,7 +48,7 @@ export function RotatingVideosBanner() {
           Introducing Pandorra.ai
         </h2>
         <p className="text-center text-lg">
-          Try out the latest video models in VideoCraft
+          Try out the latest video models in video generation
         </p>
       </div>
     </div>

@@ -1,7 +1,12 @@
-import { AccountSecurityForm } from '@/components/settings/profile/account-security-form';
-import { PersonalInfoForm } from '@/components/settings/profile/personal-info-form';
-import { PreferencesForm } from '@/components/settings/profile/preference-form';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tremor/ui/tabs';
+import { AccountSecurityForm } from "@/components/settings/profile/account-security-form"
+import { PersonalInfoForm } from "@/components/settings/profile/personal-info-form"
+import { PreferencesForm } from "@/components/settings/profile/preference-form"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/tremor/ui/tabs"
 
 export default function Page() {
   return (

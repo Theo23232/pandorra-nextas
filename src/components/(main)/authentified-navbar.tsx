@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useOnborda } from "onborda"
 import { useEffect } from "react"
 
@@ -41,7 +42,9 @@ export function Navbar() {
 
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between bg-white bg-opacity-70 px-2 backdrop-blur-md sm:gap-x-6 sm:px-4 dark:bg-gray-950 dark:bg-opacity-75 dark:backdrop-blur-md">
-      <Logo />
+      <Link href={"/explore"}>
+        <Logo />
+      </Link>
       <div className="flex items-center gap-1 sm:gap-2">
         <JetonCounter />
         <UserProfileMobile />

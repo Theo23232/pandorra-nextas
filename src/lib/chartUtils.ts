@@ -7,7 +7,7 @@ export const chartColors = {
     bg: "bg-indigo-600 dark:bg-indigo-500",
     stroke: "stroke-indigo-600 dark:stroke-indigo-500",
     fill: "fill-indigo-600 dark:fill-indigo-500",
-    text: "text-indigo-600 dark:text-indigo-500",
+    text: "text-primary dark:text-primary",
   },
   blue: {
     bg: "bg-primary",

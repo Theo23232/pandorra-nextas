@@ -1,7 +1,7 @@
-import { Clipboard } from 'lucide-react';
+import { Clipboard } from "lucide-react"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/ui/button"
 
 /* eslint-disable @next/next/no-img-element */
 export const Hero = () => {
@@ -62,7 +62,7 @@ export const Hero = () => {
         </svg>
 
         <Bounce className="absolute -bottom-[280px] mt-4 flex flex-col items-center justify-center gap-[32px]">
-          <p className="font-inter text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
+          <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
             Earn with Pandorra.ai <br />
             <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               Join Our Affiliate Program!

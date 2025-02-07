@@ -1,22 +1,13 @@
-import { Clipboard } from "lucide-react"
+import { Clipboard } from 'lucide-react';
 
-import { Button } from "@/components/ui/button"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/ui/button';
 
 /* eslint-disable @next/next/no-img-element */
 export const Hero = () => {
   return (
     <div className="mt-28 flex flex-col items-center">
       <div className="relative">
-        {/* <Image
-          src="assets/affiliation/_blob_cercle.png"
-          alt=""
-          width={500}
-          height={500}
-          className="h-[335px] w-[744px]"
-          style={{
-            backgroundBlendMode: "hue, normal ",
-          }}
-        /> */}
         <svg
           width="744"
           height="337"
@@ -70,14 +61,16 @@ export const Hero = () => {
           </defs>
         </svg>
 
-        <div className="absolute -bottom-[240px] mt-4 flex flex-col items-center justify-center gap-[32px]">
+        <Bounce className="absolute -bottom-[280px] mt-4 flex flex-col items-center justify-center gap-[32px]">
           <p className="font-inter text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
-            Earn with Pandorra.ai – <br />
-            Join Our Affiliate Program!
+            Earn with Pandorra.ai <br />
+            <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+              Join Our Affiliate Program!
+            </span>
           </p>
-          <p className="w-full max-w-[750px] text-center text-[16px] font-thin leading-normal text-[#FDFDFD]">
+          <p className="w-full max-w-[750px] text-center text-[16px] font-normal leading-normal text-[#FDFDFD]">
             Share Pandorra.ai with your audience and earn{" "}
-            <span className="font-semibold">
+            <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {" "}
               30% commission on every subscription{" "}
             </span>{" "}
@@ -86,13 +79,18 @@ export const Hero = () => {
             way to monetize your network!
           </p>
           <Button
-            variant={"default"}
-            className="flex items-center rounded-sm bg-[#EAEBFE] text-black hover:bg-[#eeefff]"
+            className="h-[48px] px-[21px] py-[12px]"
+            style={{
+              borderRadius: "10px",
+              background:
+                "linear-gradient(277deg, #BC2EFF -10.29%, #359CFF 109.44%), #8645FF",
+              backdropFilter: "200px",
+            }}
           >
             <p className="text-[16px]">Copy my link</p>
             <Clipboard size={10} />
           </Button>
-        </div>
+        </Bounce>
       </div>
     </div>
   )

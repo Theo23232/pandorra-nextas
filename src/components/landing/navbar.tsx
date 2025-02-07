@@ -1,8 +1,9 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
+import Bounce from "@/components/animated/uibeats/bounce"
 import { NavigationMenuNavbar } from "@/components/landing/NavigationMenuNavbar"
 import { NavigationMenuLink } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
@@ -72,10 +73,26 @@ const ListItem = React.forwardRef<
 })
 
 export default function LandingNavbar() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 100)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <>
-      <nav className="fixed top-0 z-50 flex w-full items-center justify-center p-4 dark">
-        <div className="flex w-full max-w-[1274px] items-center justify-between">
+    <Bounce
+      className={`fixed top-0 z-50 flex w-full items-center justify-center p-4`}
+    >
+      {scrolled && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black"></div>
+      )}
+      <div className="relative flex w-full max-w-[1274px] items-center justify-between">
+        <a href="/#hero">
           <Image
             src="/logo/logo-full-white.png"
             alt="logo"
@@ -83,17 +100,17 @@ export default function LandingNavbar() {
             width={1000}
             height={500}
           />
-          <div className="flex">
-            <NavigationMenuNavbar />
-            <Link
-              href={"/auth"}
-              className="inline-flex items-center justify-center rounded-full bg-[#EAEBFE] px-5 py-3 text-black"
-            >
-              Get started
-            </Link>
-          </div>
+        </a>
+        <div className="flex">
+          <NavigationMenuNavbar />
+          <Link
+            href={"/auth"}
+            className="inline-flex items-center justify-center rounded-full bg-[#EAEBFE] px-5 py-3 text-black"
+          >
+            Get started
+          </Link>
         </div>
-      </nav>
-    </>
+      </div>
+    </Bounce>
   )
 }

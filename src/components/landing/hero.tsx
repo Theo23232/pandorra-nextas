@@ -1,20 +1,16 @@
 "use client"
 
-import { Sparkles } from "lucide-react"
+import { Sparkles } from 'lucide-react';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
+import Bounce from '@/components/animated/uibeats/bounce';
+import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/nyxb/select"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/nyxb/select';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 export function Hero() {
   return (
@@ -56,7 +52,7 @@ export function Hero() {
             </SelectContent>
           </Select>
           <Input
-            className="text-md flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0"
+            className="text-md flex-1 border-0 bg-transparent text-black shadow-none focus-visible:ring-0"
             placeholder="A bridge from a top view"
           />
           <Button

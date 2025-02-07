@@ -1,8 +1,8 @@
 "use client"
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/tremor/ui/button"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/tremor/ui/button';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export function Unleash() {
   return (
@@ -19,12 +19,15 @@ export function Unleash() {
         </Bounce>
 
         <Bounce className="z-10 flex gap-4">
-          <button className="flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
+          <Button
+            variant={"gradient"}
+            className="mr-2 flex h-11 items-center justify-center rounded-full px-6 transition-all ease-in-out"
+          >
             Create for free
-          </button>
+          </Button>
           <Button
             variant="ghost"
-            className="flex items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
+            className="flex h-11 items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
           >
             View pricing
           </Button>

@@ -95,7 +95,7 @@ export const AIImage = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <div onClick={() => setIsOpen(true)} className="h-96 w-[calc(25%-1rem)]">
+      <div onClick={() => setIsOpen(true)} className="h-96 w-[calc(100%-1rem)]">
         <DirectionAwareHover imageUrl={image.url}>
           <div className="flex h-full w-full items-center justify-center gap-4">
             <DialogTrigger asChild>

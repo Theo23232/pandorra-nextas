@@ -1,7 +1,12 @@
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Button } from '@/components/ui/button';
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Button } from "@/components/ui/button"
 
 export const Pricing = () => {
   return (
@@ -260,7 +265,7 @@ export const Pricing = () => {
                   </div>
                   <div className="mb-8 flex items-center">
                     <p className="pt-2 text-[24px]">$</p>
-                    <p className="text-[36px] font-bold">2288.99</p>
+                    <p className="text-[36px] font-bold">288.99</p>
                     <p className="ml-2 pt-2 font-light">/month</p>
                   </div>
                   <Button variant={"gradient"} className="w-full">

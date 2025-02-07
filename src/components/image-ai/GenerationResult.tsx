@@ -1,14 +1,6 @@
 "use client"
 
-import {
-  Check,
-  Copy,
-  CornerLeftUp,
-  Images,
-  Menu,
-  Move,
-  Zap,
-} from "lucide-react"
+import { Check, Copy, CornerLeftUp, Menu, Move, Zap } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -134,11 +126,6 @@ export const GenerationResult = ({
           generated?.presetStyle ?? undefined,
         )}
         {renderTooltipButton(
-          "Number of generation",
-          <Images size={16} />,
-          generated?.generated_images.length.toString(),
-        )}
-        {renderTooltipButton(
           "Resolution",
           <Move size={16} className="rotate-45" />,
           `${generated?.imageWidth} × ${generated?.imageHeight}`,
@@ -153,10 +140,10 @@ export const GenerationResult = ({
   )
 
   const renderContent = () => (
-    <div className="flex w-full gap-4">
+    <div className="grid w-full grid-cols-2 gap-4 lg:grid-cols-4">
       {isLoading
         ? Array.from({ length: count }, (_, index) => (
-            <Skeleton key={index} className="h-96 w-[calc(25%-1rem)]" />
+            <Skeleton key={index} className="h-96 w-[calc(100%-1rem)]" />
           ))
         : generated?.generated_images.map((g) => (
             <AIImage

@@ -1,19 +1,26 @@
+"use client"
 import { redirect } from "next/navigation"
 import { Onborda, OnbordaProvider } from "onborda"
 import { ReactNode } from "react"
 
+import { RegisterAffiliate } from "@/app/(main)/register-affiliate"
 import { Sidebar } from "@/components/(main)/navigation/sidebar"
 import { OnboardaCard } from "@/components/onboarda/OnboardaCard"
-import { currentUser } from "@/lib/current-user"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { useUser } from "@/hooks/use-user"
 import { tours } from "@/lib/onboarda/steps"
 
-export default async function RouteLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
-  const user = await currentUser()
-  if (!user) return redirect("/auth")
+export default function RouteLayout({ children }: { children: ReactNode }) {
+  const { user, isLoading, isError } = useUser()
+  const { isSidebar } = useIsSidebar()
+
+  if (isLoading) {
+    return null // Or a loading state
+  }
+
+  if (!user || isError) {
+    return redirect("/auth")
+  }
 
   return (
     <OnbordaProvider>
@@ -32,8 +39,11 @@ export default async function RouteLayout({
           stiffness: 75,
         }}
       >
+        <RegisterAffiliate />
         <Sidebar />
-        <main className="p-8 pr-4 pt-0 lg:pl-64">{children}</main>
+        <main className={`p-8 pr-4 pt-0 ${isSidebar ? "lg:pl-64" : ""}`}>
+          {children}
+        </main>
       </Onborda>
     </OnbordaProvider>
   )

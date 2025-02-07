@@ -162,3 +162,10 @@
       0px -501.817px / 100% 249.715% no-repeat;
   background-blend-mode: hue, normal;
 }
+
+.gdt {
+  background: linear-gradient(to right, #0099ff, #cc00ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

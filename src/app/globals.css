@@ -8,6 +8,12 @@
 
 @layer base {
   :root {
+    --gradient: linear-gradient(
+      78deg,
+      rgb(77, 145, 255) 0.01%,
+      rgb(177, 75, 244) 60%,
+      rgb(250, 85, 96) 100%
+    );
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -49,6 +55,12 @@
     --color-5: 90 100% 63%;
   }
   .dark {
+    --gradient: linear-gradient(
+      78deg,
+      rgb(77, 145, 255) 0.01%,
+      rgb(177, 75, 244) 60%,
+      rgb(250, 85, 96) 100%
+    );
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
     --card: 224 71.4% 4.1%;
@@ -141,7 +153,7 @@
 
 .animate-gradient {
   background: linear-gradient(270deg, #06b6d4, #3b82f6, #6366f1);
-  background-size: 600% 600%;
+  background-size: 100% 600%;
   animation: gradient 15s ease infinite;
 }
 
@@ -168,4 +180,63 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.primeButton {
+  background: var(--gradient);
+}
+
+.primeBg,
+.data-\[state\=active\]\:text-white[data-state="active"] {
+  background: var(--gradient);
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  color: white !important;
+}
+
+.primeBg,
+.data-\[state\=active\]\:text-white[data-state="active"] {
+  border: none; /* border-none */
+  background: linear-gradient(
+    325deg,
+    #0044ff 0%,
+    #2ccfff 55%,
+    #0044ff 90%
+  ); /* bg-[linear-gradient(325deg,#0044ff_0%,#2ccfff_55%,#0044ff_90%)] */
+  background-size: 280% auto; /* bg-[280%_auto] */
+  font-weight: 500; /* font-medium */
+  color: white; /* text-white */
+  box-shadow:
+    0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+    inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+    inset -4px -4px 8px rgba(19, 95, 216, 0.35); /* shadow-[...] */
+  transition: background 0.7s; /* transition-[background] duration-700 */
+}
+
+.primeBg:hover,
+.data-\[state\=active\]\:text-white[data-state="active"]:hover {
+  background-position: right top; /* hover:bg-right-top */
+}
+
+.primeBg:focus,
+.data-\[state\=active\]\:text-white[data-state="active"]:focus {
+  outline: none; /* focus:outline-none */
+  box-shadow:
+    0 0 0 2px #4f8efb,
+    /* focus:ring-blue-400 */ 0 0 0 4px white; /* focus:ring-offset-white */
+}
+
+.primeBg:focus-visible,
+.data-\[state\=active\]\:text-white[data-state="active"]:focus-visible {
+  box-shadow:
+    0 0 0 2px #4f8efb,
+    /* focus-visible:ring-2 */ 0 0 0 4px white; /* focus:ring-offset-white */
+}
+
+.dark .primeBg:focus,
+.dark .data-\[state\=active\]\:text-white[data-state="active"]:focus {
+  box-shadow:
+    0 0 0 2px #3b82f6,
+    /* dark:focus:ring-blue-500 */ 0 0 0 4px black; /* dark:focus:ring-offset-black */
 }

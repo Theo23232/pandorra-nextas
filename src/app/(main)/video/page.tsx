@@ -1,26 +1,31 @@
 "use client"
 
-import { AlertCircle, Info, X } from 'lucide-react';
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import { AlertCircle, Info, Loader2, Sparkles, X } from "lucide-react"
+import Image from "next/image"
+import { useEffect, useRef, useState } from "react"
+import useSWR, { mutate } from "swr"
 
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { Badge } from '@/components/tremor/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { Badge } from "@/components/tremor/ui/badge"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { fetcher } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useToast } from "@/hooks/use-toast"
+import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"
-
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
@@ -36,6 +41,8 @@ export default function Page() {
   const [duration, setDuration] = useState("5")
   const [resolutionRatio, setResolutionRatio] = useState("1280:768")
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isEnhancing, setIsEnhancing] = useState(false)
+  const { toast } = useToast()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -111,6 +118,23 @@ export default function Page() {
     }
   }
 
+  const enhancePrompt = async () => {
+    setIsEnhancing(true)
+    try {
+      const promptEnhanced = await enhanceVideoPrompt(promptText)
+      setPromptText(promptEnhanced)
+    } catch (error) {
+      toast({
+        title: " toastTitle",
+        description: "Prompt enhancement failed",
+        variant: "error",
+        duration: 3000,
+      })
+    } finally {
+      setIsEnhancing(false)
+    }
+  }
+
   return (
     <div className="flex w-full max-w-7xl gap-8">
       <MagicCard className="flex-1 p-4">
@@ -157,19 +181,12 @@ export default function Page() {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2 text-muted-foreground">
               <p className="text-sm">prompt</p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info size={14} />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      This should describe in detail what should appear in the
-                      output.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Tooltip
+                content="This should describe in detail what should appear in the
+                      output."
+              >
+                <Info size={14} />
+              </Tooltip>
             </div>
             <Input
               type="text"
@@ -181,18 +198,10 @@ export default function Page() {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2 text-muted-foreground">
               <p className="text-sm">duration</p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info size={14} />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      The number of seconds of duration for the output video.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+
+              <Tooltip content="The number of seconds of duration for the output video.">
+                <Info size={14} />
+              </Tooltip>
             </div>
             <Select value={duration} onValueChange={setDuration}>
               <SelectTrigger>
@@ -205,18 +214,27 @@ export default function Page() {
             </Select>
           </div>
           <div className="flex items-center justify-between">
-            {image && (
-              <div className="text-sm text-muted-foreground">
-                {image.name} ({(image.size / 1024 / 1024).toFixed(2)} MB)
-              </div>
-            )}
-            <Button
-              className="text-md ml-auto h-10 w-full"
-              disabled={loading}
-              onClick={handleSubmit}
-            >
-              {loading ? "Processing..." : "Generate Video"}
-            </Button>
+            <div className="flex gap-2">
+              <Tooltip content="Enhance prompt">
+                <div
+                  onClick={enhancePrompt}
+                  className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
+                >
+                  {isEnhancing ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    <Sparkles size={20} />
+                  )}
+                </div>
+              </Tooltip>
+              <Button
+                className="text-md ml-auto h-10 w-full"
+                disabled={loading}
+                onClick={handleSubmit}
+              >
+                {loading ? "Processing..." : "Generate Video"}
+              </Button>
+            </div>
           </div>
         </div>
       </MagicCard>

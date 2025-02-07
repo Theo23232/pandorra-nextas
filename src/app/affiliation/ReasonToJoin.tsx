@@ -1,10 +1,17 @@
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/ui/button';
+
 /* eslint-disable @next/next/no-img-element */
 export default function ReasonToJoin() {
   return (
     <div className="mt-[272px] flex flex-col items-center justify-center gap-8">
-      <p className="text-[64px] font-semibold leading-[68px] text-white">
-        Why Join Our Affiliate Program?
-      </p>
+      <Bounce className="text-[64px] font-semibold leading-[68px] text-white">
+        Why Join Our {""}
+        <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+          Affiliate Program
+        </span>{" "}
+        ?
+      </Bounce>
       <div className="flex items-center">
         <svg
           width="540"
@@ -60,7 +67,170 @@ export default function ReasonToJoin() {
             />
           </defs>
         </svg>
+        <Bounce className="flex w-[730px] flex-col items-start">
+          <p className="mb-[40px] text-white">
+            Turn your influence into income with Pandorra.ai’s Affiliate
+            Program! Earn 30% recurring <br /> commission on every subscription
+            and enjoy limitless earning potential. With real-time <br />{" "}
+            tracking, fast payouts, and a top-tier AI platform, promoting
+            Pandorra.ai has never been <br /> easier.
+          </p>
+          <div className="flex flex-col gap-[25px]">
+            <div className="flex items-center gap-[10px] text-white">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-[24px] w-[24px] p-[4.5px]"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid #932AFF",
+                  background:
+                    "linear-gradient(274deg, #C0F -38.05%, #09F 119.39%)",
+                }}
+              >
+                <path
+                  d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
+                  stroke="white"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p className="font-thin">
+                <span className="font-semibold">High Earnings - </span> 30%
+                recurring commussion on every subscription.
+              </p>
+            </div>
+            <div className="flex items-center gap-[10px] text-white">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-[24px] w-[24px] p-[4.5px]"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid #932AFF",
+                  background:
+                    "linear-gradient(274deg, #C0F -38.05%, #09F 119.39%)",
+                }}
+              >
+                <path
+                  d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
+                  stroke="white"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p className="font-thin">
+                <span className="font-semibold">Unlimited Potential - </span> No
+                cap on how much you can earn.
+              </p>
+            </div>
+            <div className="flex items-center gap-[10px] text-white">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-[24px] w-[24px] p-[4.5px]"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid #932AFF",
+                  background:
+                    "linear-gradient(274deg, #C0F -38.05%, #09F 119.39%)",
+                }}
+              >
+                <path
+                  d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
+                  stroke="white"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p className="font-thin">
+                <span className="font-semibold">Easy Tracking - </span>{" "}
+                Real-time dashboard to track clicks, sign-ups, and commissions.
+              </p>
+            </div>
+            <div className="flex items-center gap-[10px] text-white">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-[24px] w-[24px] p-[4.5px]"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid #932AFF",
+                  background:
+                    "linear-gradient(274deg, #C0F -38.05%, #09F 119.39%)",
+                }}
+              >
+                <path
+                  d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
+                  stroke="white"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p className="font-thin">
+                <span className="font-semibold">Fast Payouts - </span> Get paid
+                quickly and securely.
+              </p>
+            </div>
+            <div className="flex items-center gap-[10px] text-white">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-[24px] w-[24px] p-[4.5px]"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid #932AFF",
+                  background:
+                    "linear-gradient(274deg, #C0F -38.05%, #09F 119.39%)",
+                }}
+              >
+                <path
+                  d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
+                  stroke="white"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p className="font-thin">
+                <span className="font-semibold">Quality AI Platform - </span>{" "}
+                Promote a cutting-edge AI tool that users love.
+              </p>
+            </div>
+          </div>
+        </Bounce>
       </div>
+      <Bounce>
+        <Button
+          className="h-[48px] px-[60px] py-[14px]"
+          style={{
+            borderRadius: "37px",
+            background:
+              "linear-gradient(277deg, #BC2EFF -10.29%, #359CFF 109.44%), #8645FF",
+          }}
+        >
+          Start earning today! 🚀
+        </Button>
+Bounce      </Bounce>
     </div>
   )
 }

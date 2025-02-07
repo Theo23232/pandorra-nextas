@@ -1,123 +1,13 @@
 "use client"
 
-import Link from "next/link"
+import Link from 'next/link';
 
 export type MenuListProps = {}
 
 export const MenuList = (props: MenuListProps) => {
   return (
     <ul className="menu-list mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
-      <li id="tour2-step5">
-        <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#018456] to-[#01c080] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/assistant"
-          prefetch={true}
-        >
-          <div className="flex items-center justify-between">
-            <span className="mb-3 inline-flex items-center justify-center">
-              <span className="inline-flex size-9 items-center justify-center text-white">
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M27 3C27 3.82843 26.3284 4.5 25.5 4.5C24.6716 4.5 24 3.82843 24 3C24 2.17157 24.6716 1.5 25.5 1.5C26.3284 1.5 27 2.17157 27 3Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M4.63817 1.9812C4.79375 1.3396 5.70625 1.3396 5.86183 1.9812L6.28992 3.74661C6.34546 3.97568 6.52432 4.15454 6.75339 4.21008L8.5188 4.63817C9.1604 4.79375 9.1604 5.70625 8.5188 5.86183L6.75339 6.28992C6.72475 6.29686 6.69691 6.30573 6.66998 6.31638C6.48153 6.39096 6.33852 6.55295 6.28992 6.75339L5.86183 8.5188C5.85211 8.5589 5.83943 8.59649 5.82416 8.63158C5.59515 9.15789 4.78402 9.1203 4.63817 8.5188L4.21008 6.75339C4.20661 6.73907 4.20266 6.72495 4.19824 6.71104C4.13198 6.50244 3.96137 6.34199 3.74661 6.28992L1.9812 5.86183C1.9411 5.85211 1.90351 5.83943 1.86842 5.82416C1.34211 5.59515 1.3797 4.78402 1.9812 4.63817L3.74661 4.21008C3.97568 4.15454 4.15454 3.97568 4.21008 3.74661L4.63817 1.9812Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M34.5 6C34.5 6.82843 33.8284 7.5 33 7.5C32.1716 7.5 31.5 6.82843 31.5 6C31.5 5.17157 32.1716 4.5 33 4.5C33.8284 4.5 34.5 5.17157 34.5 6Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M9 27.75C9 28.5784 8.32843 29.25 7.5 29.25C6.67157 29.25 6 28.5784 6 27.75C6 26.9216 6.67157 26.25 7.5 26.25C8.32843 26.25 9 26.9216 9 27.75Z"
-                    fill="white"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M25.5 21.75C25.5 25.8921 22.1421 29.25 18 29.25C13.8579 29.25 10.5 25.8921 10.5 21.75C10.5 17.6079 13.8579 14.25 18 14.25C22.1421 14.25 25.5 17.6079 25.5 21.75ZM22.95 21.75C22.95 24.4838 20.7338 26.7 18 26.7C15.2662 26.7 13.05 24.4838 13.05 21.75C13.05 19.0162 15.2662 16.8 18 16.8C20.7338 16.8 22.95 19.0162 22.95 21.75Z"
-                    fill="white"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M12.9584 8.47308C13.693 6.95741 15.1948 6 16.8375 6H19.1625C20.8052 6 22.3069 6.95741 23.0416 8.47308L23.6418 9.71139C23.9382 10.323 24.5442 10.7093 25.2071 10.7093H29.413C31.8083 10.7093 33.75 12.7123 33.75 15.1831V28.5262C33.75 30.997 31.8083 33 29.413 33H6.58696C4.19172 33 2.25 30.997 2.25 28.5262V15.1831C2.25 12.7123 4.19172 10.7093 6.58696 10.7093H10.7929C11.4558 10.7093 12.0618 10.323 12.3582 9.71139L12.9584 8.47308ZM16.8375 8.6686C16.1746 8.6686 15.5687 9.05493 15.2722 9.66651L14.672 10.9048C13.9374 12.4205 12.4357 13.3779 10.7929 13.3779H6.58696C5.62046 13.3779 4.83696 14.1861 4.83696 15.1831V28.5262C4.83696 29.5232 5.62046 30.3314 6.58696 30.3314H29.413C30.3795 30.3314 31.163 29.5232 31.163 28.5262V15.1831C31.163 14.1861 30.3795 13.3779 29.413 13.3779H25.2071C23.5643 13.3779 22.0626 12.4205 21.328 10.9048L20.7278 9.66651C20.4313 9.05493 19.8254 8.6686 19.1625 8.6686H16.8375Z"
-                    fill="white"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
-          </div>
-          <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            AI assistant
-          </div>
-        </Link>
-      </li>
-
-      <li id="tour2-step4">
-        <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#D6141E] to-[#FF824C] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/video"
-          prefetch={true}
-        >
-          <div className="flex items-center justify-between">
-            <span className="mb-3 inline-flex items-center justify-center">
-              <span className="inline-flex size-9 items-center justify-center text-white">
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M27 3C27 3.82843 26.3284 4.5 25.5 4.5C24.6716 4.5 24 3.82843 24 3C24 2.17157 24.6716 1.5 25.5 1.5C26.3284 1.5 27 2.17157 27 3Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M4.63817 1.9812C4.79375 1.3396 5.70625 1.3396 5.86183 1.9812L6.28992 3.74661C6.34546 3.97568 6.52432 4.15454 6.75339 4.21008L8.5188 4.63817C9.1604 4.79375 9.1604 5.70625 8.5188 5.86183L6.75339 6.28992C6.72475 6.29686 6.69691 6.30573 6.66998 6.31638C6.48153 6.39096 6.33852 6.55295 6.28992 6.75339L5.86183 8.5188C5.85211 8.5589 5.83943 8.59649 5.82416 8.63158C5.59515 9.15789 4.78402 9.1203 4.63817 8.5188L4.21008 6.75339C4.20661 6.73907 4.20266 6.72495 4.19824 6.71104C4.13198 6.50244 3.96137 6.34199 3.74661 6.28992L1.9812 5.86183C1.9411 5.85211 1.90351 5.83943 1.86842 5.82416C1.34211 5.59515 1.3797 4.78402 1.9812 4.63817L3.74661 4.21008C3.97568 4.15454 4.15454 3.97568 4.21008 3.74661L4.63817 1.9812Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M34.5 6C34.5 6.82843 33.8284 7.5 33 7.5C32.1716 7.5 31.5 6.82843 31.5 6C31.5 5.17157 32.1716 4.5 33 4.5C33.8284 4.5 34.5 5.17157 34.5 6Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M9 27.75C9 28.5784 8.32843 29.25 7.5 29.25C6.67157 29.25 6 28.5784 6 27.75C6 26.9216 6.67157 26.25 7.5 26.25C8.32843 26.25 9 26.9216 9 27.75Z"
-                    fill="white"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M25.5 21.75C25.5 25.8921 22.1421 29.25 18 29.25C13.8579 29.25 10.5 25.8921 10.5 21.75C10.5 17.6079 13.8579 14.25 18 14.25C22.1421 14.25 25.5 17.6079 25.5 21.75ZM22.95 21.75C22.95 24.4838 20.7338 26.7 18 26.7C15.2662 26.7 13.05 24.4838 13.05 21.75C13.05 19.0162 15.2662 16.8 18 16.8C20.7338 16.8 22.95 19.0162 22.95 21.75Z"
-                    fill="white"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M12.9584 8.47308C13.693 6.95741 15.1948 6 16.8375 6H19.1625C20.8052 6 22.3069 6.95741 23.0416 8.47308L23.6418 9.71139C23.9382 10.323 24.5442 10.7093 25.2071 10.7093H29.413C31.8083 10.7093 33.75 12.7123 33.75 15.1831V28.5262C33.75 30.997 31.8083 33 29.413 33H6.58696C4.19172 33 2.25 30.997 2.25 28.5262V15.1831C2.25 12.7123 4.19172 10.7093 6.58696 10.7093H10.7929C11.4558 10.7093 12.0618 10.323 12.3582 9.71139L12.9584 8.47308ZM16.8375 8.6686C16.1746 8.6686 15.5687 9.05493 15.2722 9.66651L14.672 10.9048C13.9374 12.4205 12.4357 13.3779 10.7929 13.3779H6.58696C5.62046 13.3779 4.83696 14.1861 4.83696 15.1831V28.5262C4.83696 29.5232 5.62046 30.3314 6.58696 30.3314H29.413C30.3795 30.3314 31.163 29.5232 31.163 28.5262V15.1831C31.163 14.1861 30.3795 13.3779 29.413 13.3779H25.2071C23.5643 13.3779 22.0626 12.4205 21.328 10.9048L20.7278 9.66651C20.4313 9.05493 19.8254 8.6686 19.1625 8.6686H16.8375Z"
-                    fill="white"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
-          </div>
-          <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            Image to Video
-          </div>
-        </Link>
-      </li>
-
-      <li id="tour2-step3">
+      <li id="tour2-step1">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#F37300] to-[#F0AA00] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
           href="/ai-video-generator"
@@ -177,8 +67,61 @@ export const MenuList = (props: MenuListProps) => {
           </div>
         </Link>
       </li>
-
       <li id="tour2-step2">
+        <Link
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#D6141E] to-[#FF824C] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
+          href="/video"
+          prefetch={true}
+        >
+          <div className="flex items-center justify-between">
+            <span className="mb-3 inline-flex items-center justify-center">
+              <span className="inline-flex size-9 items-center justify-center text-white">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M27 3C27 3.82843 26.3284 4.5 25.5 4.5C24.6716 4.5 24 3.82843 24 3C24 2.17157 24.6716 1.5 25.5 1.5C26.3284 1.5 27 2.17157 27 3Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.63817 1.9812C4.79375 1.3396 5.70625 1.3396 5.86183 1.9812L6.28992 3.74661C6.34546 3.97568 6.52432 4.15454 6.75339 4.21008L8.5188 4.63817C9.1604 4.79375 9.1604 5.70625 8.5188 5.86183L6.75339 6.28992C6.72475 6.29686 6.69691 6.30573 6.66998 6.31638C6.48153 6.39096 6.33852 6.55295 6.28992 6.75339L5.86183 8.5188C5.85211 8.5589 5.83943 8.59649 5.82416 8.63158C5.59515 9.15789 4.78402 9.1203 4.63817 8.5188L4.21008 6.75339C4.20661 6.73907 4.20266 6.72495 4.19824 6.71104C4.13198 6.50244 3.96137 6.34199 3.74661 6.28992L1.9812 5.86183C1.9411 5.85211 1.90351 5.83943 1.86842 5.82416C1.34211 5.59515 1.3797 4.78402 1.9812 4.63817L3.74661 4.21008C3.97568 4.15454 4.15454 3.97568 4.21008 3.74661L4.63817 1.9812Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M34.5 6C34.5 6.82843 33.8284 7.5 33 7.5C32.1716 7.5 31.5 6.82843 31.5 6C31.5 5.17157 32.1716 4.5 33 4.5C33.8284 4.5 34.5 5.17157 34.5 6Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9 27.75C9 28.5784 8.32843 29.25 7.5 29.25C6.67157 29.25 6 28.5784 6 27.75C6 26.9216 6.67157 26.25 7.5 26.25C8.32843 26.25 9 26.9216 9 27.75Z"
+                    fill="white"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M25.5 21.75C25.5 25.8921 22.1421 29.25 18 29.25C13.8579 29.25 10.5 25.8921 10.5 21.75C10.5 17.6079 13.8579 14.25 18 14.25C22.1421 14.25 25.5 17.6079 25.5 21.75ZM22.95 21.75C22.95 24.4838 20.7338 26.7 18 26.7C15.2662 26.7 13.05 24.4838 13.05 21.75C13.05 19.0162 15.2662 16.8 18 16.8C20.7338 16.8 22.95 19.0162 22.95 21.75Z"
+                    fill="white"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.9584 8.47308C13.693 6.95741 15.1948 6 16.8375 6H19.1625C20.8052 6 22.3069 6.95741 23.0416 8.47308L23.6418 9.71139C23.9382 10.323 24.5442 10.7093 25.2071 10.7093H29.413C31.8083 10.7093 33.75 12.7123 33.75 15.1831V28.5262C33.75 30.997 31.8083 33 29.413 33H6.58696C4.19172 33 2.25 30.997 2.25 28.5262V15.1831C2.25 12.7123 4.19172 10.7093 6.58696 10.7093H10.7929C11.4558 10.7093 12.0618 10.323 12.3582 9.71139L12.9584 8.47308ZM16.8375 8.6686C16.1746 8.6686 15.5687 9.05493 15.2722 9.66651L14.672 10.9048C13.9374 12.4205 12.4357 13.3779 10.7929 13.3779H6.58696C5.62046 13.3779 4.83696 14.1861 4.83696 15.1831V28.5262C4.83696 29.5232 5.62046 30.3314 6.58696 30.3314H29.413C30.3795 30.3314 31.163 29.5232 31.163 28.5262V15.1831C31.163 14.1861 30.3795 13.3779 29.413 13.3779H25.2071C23.5643 13.3779 22.0626 12.4205 21.328 10.9048L20.7278 9.66651C20.4313 9.05493 19.8254 8.6686 19.1625 8.6686H16.8375Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </span>
+            <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
+          </div>
+          <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
+            Image to Video
+          </div>
+        </Link>
+      </li>
+      <li id="tour2-step3">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#007AD4] to-[#2EA4FF] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
           href="/image/generation"
@@ -230,7 +173,61 @@ export const MenuList = (props: MenuListProps) => {
           </div>
         </Link>
       </li>
-      <li id="tour2-step1">
+      <li id="tour2-step4">
+        <Link
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#018456] to-[#01c080] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
+          href="/assistant"
+          prefetch={true}
+        >
+          <div className="flex items-center justify-between">
+            <span className="mb-3 inline-flex items-center justify-center">
+              <span className="inline-flex size-9 items-center justify-center text-white">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M27 3C27 3.82843 26.3284 4.5 25.5 4.5C24.6716 4.5 24 3.82843 24 3C24 2.17157 24.6716 1.5 25.5 1.5C26.3284 1.5 27 2.17157 27 3Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M4.63817 1.9812C4.79375 1.3396 5.70625 1.3396 5.86183 1.9812L6.28992 3.74661C6.34546 3.97568 6.52432 4.15454 6.75339 4.21008L8.5188 4.63817C9.1604 4.79375 9.1604 5.70625 8.5188 5.86183L6.75339 6.28992C6.72475 6.29686 6.69691 6.30573 6.66998 6.31638C6.48153 6.39096 6.33852 6.55295 6.28992 6.75339L5.86183 8.5188C5.85211 8.5589 5.83943 8.59649 5.82416 8.63158C5.59515 9.15789 4.78402 9.1203 4.63817 8.5188L4.21008 6.75339C4.20661 6.73907 4.20266 6.72495 4.19824 6.71104C4.13198 6.50244 3.96137 6.34199 3.74661 6.28992L1.9812 5.86183C1.9411 5.85211 1.90351 5.83943 1.86842 5.82416C1.34211 5.59515 1.3797 4.78402 1.9812 4.63817L3.74661 4.21008C3.97568 4.15454 4.15454 3.97568 4.21008 3.74661L4.63817 1.9812Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M34.5 6C34.5 6.82843 33.8284 7.5 33 7.5C32.1716 7.5 31.5 6.82843 31.5 6C31.5 5.17157 32.1716 4.5 33 4.5C33.8284 4.5 34.5 5.17157 34.5 6Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M9 27.75C9 28.5784 8.32843 29.25 7.5 29.25C6.67157 29.25 6 28.5784 6 27.75C6 26.9216 6.67157 26.25 7.5 26.25C8.32843 26.25 9 26.9216 9 27.75Z"
+                    fill="white"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M25.5 21.75C25.5 25.8921 22.1421 29.25 18 29.25C13.8579 29.25 10.5 25.8921 10.5 21.75C10.5 17.6079 13.8579 14.25 18 14.25C22.1421 14.25 25.5 17.6079 25.5 21.75ZM22.95 21.75C22.95 24.4838 20.7338 26.7 18 26.7C15.2662 26.7 13.05 24.4838 13.05 21.75C13.05 19.0162 15.2662 16.8 18 16.8C20.7338 16.8 22.95 19.0162 22.95 21.75Z"
+                    fill="white"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.9584 8.47308C13.693 6.95741 15.1948 6 16.8375 6H19.1625C20.8052 6 22.3069 6.95741 23.0416 8.47308L23.6418 9.71139C23.9382 10.323 24.5442 10.7093 25.2071 10.7093H29.413C31.8083 10.7093 33.75 12.7123 33.75 15.1831V28.5262C33.75 30.997 31.8083 33 29.413 33H6.58696C4.19172 33 2.25 30.997 2.25 28.5262V15.1831C2.25 12.7123 4.19172 10.7093 6.58696 10.7093H10.7929C11.4558 10.7093 12.0618 10.323 12.3582 9.71139L12.9584 8.47308ZM16.8375 8.6686C16.1746 8.6686 15.5687 9.05493 15.2722 9.66651L14.672 10.9048C13.9374 12.4205 12.4357 13.3779 10.7929 13.3779H6.58696C5.62046 13.3779 4.83696 14.1861 4.83696 15.1831V28.5262C4.83696 29.5232 5.62046 30.3314 6.58696 30.3314H29.413C30.3795 30.3314 31.163 29.5232 31.163 28.5262V15.1831C31.163 14.1861 30.3795 13.3779 29.413 13.3779H25.2071C23.5643 13.3779 22.0626 12.4205 21.328 10.9048L20.7278 9.66651C20.4313 9.05493 19.8254 8.6686 19.1625 8.6686H16.8375Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </span>
+            <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
+          </div>
+          <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
+            AI assistant
+          </div>
+        </Link>
+      </li>
+      <li id="tour2-step5">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#3F0098] to-[#8933FF] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
           href="/audio"

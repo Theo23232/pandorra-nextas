@@ -28,7 +28,7 @@ export const VoiceCard = ({
   age,
 }: VoiceCardProps) => {
   return (
-    <div className="flex cursor-pointer items-center rounded-xl p-4 hover:bg-muted/25">
+    <div className="flex cursor-pointer items-center rounded-xl border border-border p-4 hover:bg-muted/25">
       <img
         src={`https://api.dicebear.com/9.x/glass/svg?seed=${id}&backgroundType=solid,gradientLinear&randomizeIds=true`}
         alt={`Agent ${id}`}

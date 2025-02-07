@@ -13,9 +13,9 @@ export const Content = () => {
     if (typeof window !== "undefined") {
       const pathname = window.location.href
       const url = new URL(pathname)
-      const referrerId = url.searchParams.get("referrer") || ""
-      localStorage.setItem("referrerId", referrerId)
-      setReferrerId(referrerId)
+      const refId = url.searchParams.get("referrer") || ""
+      localStorage.setItem("referrerId", refId)
+      setReferrerId(refId)
     }
 
     const imageId = getRandomNumber(1, 15)
@@ -23,7 +23,7 @@ export const Content = () => {
   }, [])
 
   return (
-    <div className="grid grid-cols-2 dark max-lg:grid-cols-1">
+    <div className="grid grid-cols-2 bg-background dark max-lg:grid-cols-1">
       <div className="flex h-screen w-[50vw] items-center justify-center max-lg:w-full">
         <AuthForm />
       </div>

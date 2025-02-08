@@ -1,15 +1,20 @@
 "use client"
 
-import React from 'react';
+import React from "react"
 
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
-    DropdownMenuSeparator, DropdownMenuTrigger
-} from '@/components/tremor/ui/dropdown-menu';
-import { cx, focusInput } from '@/lib/utils';
-import { RiArrowRightSLine, RiExpandUpDownLine } from '@remixicon/react';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/tremor/ui/dropdown-menu"
+import { cx, focusInput } from "@/lib/utils"
+import { RiArrowRightSLine, RiExpandUpDownLine } from "@remixicon/react"
 
-import { ModalAddWorkspace } from './ModalAddWorkspace';
+import { ModalAddWorkspace } from "./ModalAddWorkspace"
 
 const workspaces = [
   {
@@ -17,7 +22,7 @@ const workspaces = [
     name: "Retail analytics",
     initials: "RA",
     role: "Member",
-    color: "bg-indigo-600 dark:bg-indigo-500",
+    color: "bg-primary dark:bg-primary",
   },
   // Add more workspaces...
 ]
@@ -54,7 +59,7 @@ export const WorkspacesDropdownDesktop = () => {
             )}
           >
             <span
-              className="flex aspect-square size-8 items-center justify-center rounded bg-indigo-600 p-2 text-xs font-medium text-white dark:bg-indigo-500"
+              className="flex aspect-square size-8 items-center justify-center rounded bg-primary p-2 text-xs font-medium text-white dark:bg-primary"
               aria-hidden="true"
             >
               RA
@@ -153,7 +158,7 @@ export const WorkspacesDropdownMobile = () => {
           <button className="flex items-center gap-x-1.5 rounded-md p-2 hover:bg-gray-100 focus:outline-none hover:dark:bg-gray-900">
             <span
               className={cx(
-                "flex aspect-square size-7 items-center justify-center rounded bg-indigo-600 p-2 text-xs font-medium text-white dark:bg-indigo-500",
+                "flex aspect-square size-7 items-center justify-center rounded bg-primary p-2 text-xs font-medium text-white dark:bg-primary",
               )}
               aria-hidden="true"
             >

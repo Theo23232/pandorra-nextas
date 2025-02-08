@@ -76,7 +76,11 @@ export const MoneyTracker = () => {
   return (
     <div className="flex flex-col items-start gap-6">
       <div className="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
-        <Card className={"bg-primary"}>
+        <Card
+          className={
+            "bg-[linear-gradient(325deg,#D6141E_0%,#FF824C_55%,#D6141E_90%)] bg-[280%_auto] shadow-[0px_0px_20px_rgba(255,50,50,0.5),0px_5px_5px_-1px_rgba(255,130,100,0.25),inset_4px_4px_8px_rgba(255,180,150,0.5),inset_-4px_-4px_8px_rgba(214,20,30,0.35)] transition-all duration-700 ease-in-out hover:bg-right-top"
+          }
+        >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-lg font-medium text-white">
               Total accumulated
@@ -89,7 +93,7 @@ export const MoneyTracker = () => {
             </p>
           </CardContent>
         </Card>
-        <Card className={"bg-primary"}>
+        <Card className={"primeBg"}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-lg font-medium text-white">
               Current amount

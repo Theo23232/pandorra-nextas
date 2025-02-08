@@ -1,16 +1,14 @@
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import { Button } from "@/components/ui/button"
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Button } from '@/components/ui/button';
 
 export const Pricing = () => {
   return (
-    <div className="relative mt-20 flex flex-col items-center justify-center">
+    <div
+      id="pricing"
+      className="relative mt-20 flex flex-col items-center justify-center"
+    >
       <div className="absolute bottom-32 right-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(0,153,255,0.6)] blur-[112px]"></div>
       <div className="absolute bottom-32 left-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(204,0,255,0.4)] blur-[112px]"></div>
       <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
@@ -26,7 +24,7 @@ export const Pricing = () => {
       </Bounce>
       <div className="relative flex min-h-[424px] w-full max-w-[1200px] items-center justify-center gap-9 pb-48 pt-8">
         <TabContainer className="relative flex flex-col items-center justify-center">
-          <Tabs className="mb-32">
+          <Tabs className="mb-32 text-white">
             <Tab value={"monthly"}>Monthly</Tab>
             <Tab value={"annualy"} className="flex gap-2">
               Annualy <img src="/save-27.png" className="h-6" />
@@ -71,8 +69,8 @@ export const Pricing = () => {
                   </div>
                 </div>
 
-                <div className="mb-8 flex items-center">
-                  <p className="pt-2 text-[24px]">$</p>
+                <div className="mb-8 flex items-center text-white">
+                  <p className="pt-2 text-[24px]">€</p>
                   <p className="text-[36px] font-bold">12.99</p>
                   <p className="ml-2 pt-2 font-light">/month</p>
                 </div>
@@ -93,7 +91,7 @@ export const Pricing = () => {
                     </p>
 
                     <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      <p className="gdt text-sm font-semibold">Save $40</p>
+                      <p className="gdt text-sm font-semibold">Save €40</p>
                     </div>
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
@@ -124,8 +122,8 @@ export const Pricing = () => {
                       <p className="gdt mx-1 font-extrabold">125</p> minutes
                     </div>
                   </div>
-                  <div className="mb-8 flex items-center">
-                    <p className="pt-2 text-[24px]">$</p>
+                  <div className="mb-8 flex items-center text-white">
+                    <p className="pt-2 text-[24px]">€</p>
                     <p className="text-[36px] font-bold">32.99</p>
                     <p className="ml-2 pt-2 font-light">/month</p>
                   </div>
@@ -169,8 +167,8 @@ export const Pricing = () => {
                   </div>
                 </div>
 
-                <div className="mb-8 flex items-center">
-                  <p className="pt-2 text-[24px]">$</p>
+                <div className="mb-8 flex items-center text-white">
+                  <p className="pt-2 text-[24px]">€</p>
                   <p className="text-[36px] font-bold">89.99</p>
                   <p className="ml-2 pt-2 font-light">/month</p>
                 </div>
@@ -222,8 +220,8 @@ export const Pricing = () => {
                   </div>
                 </div>
 
-                <div className="mb-8 flex items-center">
-                  <p className="pt-2 text-[24px]">$</p>
+                <div className="mb-8 flex items-center text-white">
+                  <p className="pt-2 text-[24px]">€</p>
                   <p className="text-[36px] font-bold">113.99</p>
                   <p className="ml-2 pt-2 font-light">/month</p>
                 </div>
@@ -244,7 +242,7 @@ export const Pricing = () => {
                     </p>
 
                     <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      <p className="gdt text-sm font-semibold">Save $40</p>
+                      <p className="gdt text-sm font-semibold">Save 40</p>
                     </div>
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
@@ -275,8 +273,8 @@ export const Pricing = () => {
                       <p className="gdt mx-1 font-extrabold">125</p> minutes
                     </div>
                   </div>
-                  <div className="mb-8 flex items-center">
-                    <p className="pt-2 text-[24px]">$</p>
+                  <div className="mb-8 flex items-center text-white">
+                    <p className="pt-2 text-[24px]">€</p>
                     <p className="text-[36px] font-bold">288.99</p>
                     <p className="ml-2 pt-2 font-light">/month</p>
                   </div>
@@ -320,8 +318,8 @@ export const Pricing = () => {
                   </div>
                 </div>
 
-                <div className="mb-8 flex items-center">
-                  <p className="pt-2 text-[24px]">$</p>
+                <div className="mb-8 flex items-center text-white">
+                  <p className="pt-2 text-[24px]">€</p>
                   <p className="text-[36px] font-bold">788.99</p>
                   <p className="ml-2 pt-2 font-light">/month</p>
                 </div>

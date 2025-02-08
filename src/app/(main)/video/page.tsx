@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { AlertCircle, Upload } from "lucide-react"
+import { AlertCircle, Upload, X } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import useSWR, { mutate } from "swr"
 
@@ -33,12 +34,11 @@ const SkeletonLoader = () => (
 export default function Page() {
   const { data: histories } = useSWR<Video[]>("/api/video", fetcher)
   const [image, setImage] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [prompt, setPrompt] = useState("")
   const [promptText, setPromptText] = useState("")
   const [duration, setDuration] = useState("5")
   const [ratio, setRatio] = useState("1280:768")
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const charCount = prompt.length
@@ -55,14 +55,22 @@ export default function Page() {
   }, [])
   useEffect(() => {
     mutate("/api/video")
-  }, [histories])
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [previewUrl])
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
     if (file && file.type.startsWith("image/")) {
       setImage(file)
-      setPreview(URL.createObjectURL(file))
+      setPreviewUrl(URL.createObjectURL(file))
     }
   }
 
@@ -74,20 +82,19 @@ export default function Page() {
     const file = e.target.files?.[0]
     if (file && file.type.startsWith("image/")) {
       setImage(file)
-      setPreview(URL.createObjectURL(file))
+      setPreviewUrl(URL.createObjectURL(file))
     }
   }
 
-  const handleReset = () => {
+  const handleRemoveImage = () => {
     setImage(null)
-    setPreview(null)
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl)
+    }
+    setPreviewUrl(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ""
     }
-  }
-
-  const openFileDialog = () => {
-    fileInputRef.current?.click()
   }
 
   const handleSubmit = async () => {
@@ -106,11 +113,14 @@ export default function Page() {
 
     try {
       const videoDuration: 5 | 10 = duration === "5" ? 5 : 10
+      const videoRatio: "768:1280" | "1280:768" =
+        ratio === "768:1280" ? "768:1280" : "1280:768"
 
       const data = await generateVideoFromImage(
         base64Image,
         promptText,
         videoDuration,
+        videoRatio,
       )
       mutate("/api/video")
     } catch (error) {
@@ -121,7 +131,7 @@ export default function Page() {
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPrompt(e.target.value)
+    setPromptText(e.target.value)
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto" // Réinitialiser pour recalculer
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
@@ -130,7 +140,9 @@ export default function Page() {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0])
+      const file = e.target.files[0]
+      setImage(file)
+      setPreviewUrl(URL.createObjectURL(file))
       const enhancePrompt = async () => {
         setIsEnhancing(true)
         try {
@@ -154,45 +166,56 @@ export default function Page() {
       <MagicCard className="max-w-3xl">
         <Textarea
           ref={textareaRef}
-          value={prompt}
+          value={promptText}
           onChange={handleInput}
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
           placeholder="Describe the video you want..."
         />
         <div className="flex justify-between p-4">
-          <div className="flex flex-col gap-4 p-4">
-            <div className="flex items-center gap-4">
-              <Select value={duration} onValueChange={setDuration}>
-                <SelectTrigger className="w-[80px]">
-                  <SelectValue placeholder="Select duration" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="5">5 s</SelectItem>
-                  <SelectItem value="10">10 s</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={ratio} onValueChange={setRatio}>
-                <SelectTrigger className="w-[125px]">
-                  <SelectValue placeholder="Select ratio" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1280:768">Landscape</SelectItem>
-                  <SelectItem value="768:1280">Portrait</SelectItem>
-                </SelectContent>
-              </Select>
+          <div className="flex w-full flex-col gap-4 p-4">
+            {previewUrl && (
+              <div className="relative">
+                <img
+                  src={previewUrl || "/placeholder.svg"}
+                  alt="Uploaded image preview"
+                  className="max-h-64 w-full object-contain"
+                />
+                <button
+                  onClick={handleRemoveImage}
+                  className="absolute -top-5 right-36 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+            <div className="flex w-full items-center justify-between gap-4">
               <div className="flex items-center gap-4">
+                <Select value={duration} onValueChange={setDuration}>
+                  <SelectTrigger className="w-[80px]">
+                    <SelectValue placeholder="Select duration" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">5 s</SelectItem>
+                    <SelectItem value="10">10 s</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={ratio} onValueChange={setRatio}>
+                  <SelectTrigger className="w-[125px]">
+                    <SelectValue placeholder="Select ratio" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1280:768">Landscape</SelectItem>
+                    <SelectItem value="768:1280">Portrait</SelectItem>
+                  </SelectContent>
+                </Select>
                 <Label
                   htmlFor="image-upload"
-                  className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+                  className="flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-gray-300 px-4 py-1.5 transition-colors hover:bg-gray-50"
                 >
-                  <Upload className="h-5 w-5" />
-                  {image ? (
-                    <p>
-                      Image selected. <br /> Click to change image
-                    </p>
-                  ) : (
-                    "Upload Image"
-                  )}
+                  <Upload className="h-5 w-5 text-gray-400" />
+                  <span className="text-sm text-gray-600">
+                    {image ? "Change image" : "Upload image"}
+                  </span>
                 </Label>
                 <input
                   id="image-upload"
@@ -200,16 +223,21 @@ export default function Page() {
                   accept="image/*"
                   className="hidden"
                   onChange={handleImageUpload}
+                  ref={fileInputRef}
                 />
+              </div>
+              <div className="flex items-center gap-4">
+                <Button
+                  className="text-md h-10 w-full"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                >
+                  {loading ? "Processing..." : "Generate Video"}
+                </Button>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {/* <div className="text-sm text-muted-foreground">
-              {charCount.toLocaleString()} / {maxChars.toLocaleString()}
-            </div> */}
-            <Button className="text-md h-10">Generate Video</Button>
-          </div>
+          <div className="flex items-center gap-2"></div>
         </div>
       </MagicCard>
       <MagicCard className="max-w-3xl p-4">
@@ -247,6 +275,12 @@ export default function Page() {
                             </p>
                             <p className="flex items-center gap-2">
                               <span className="text-muted-foreground">
+                                Ratio:
+                              </span>
+                              <Badge>{video.ratio}</Badge>
+                            </p>
+                            <p className="flex items-center gap-2">
+                              <span className="text-muted-foreground">
                                 Status:
                               </span>
                               <Badge>Pending</Badge>
@@ -274,6 +308,9 @@ export default function Page() {
                                 seconds
                               </p>
                               <p>
+                                <strong>Ratio:</strong> {video.ratio}{" "}
+                              </p>
+                              <p>
                                 <strong>Error:</strong>{" "}
                                 {"An unknown error occurred"}
                               </p>
@@ -285,7 +322,6 @@ export default function Page() {
                   } else if (video.status === "Generated") {
                     return (
                       <div key={video.id} className="mb-4 space-y-4">
-                        {/* <h3 className="text-xl font-medium">Generated</h3> */}
                         <div className="flex flex-col space-y-4">
                           <div className="overflow-hidden rounded-lg border border-border shadow-sm">
                             <video
@@ -307,6 +343,17 @@ export default function Page() {
                                   Duration:
                                 </span>
                                 <Badge>{video.duration} secondes</Badge>
+                              </p>
+                              <p className="flex items-center gap-2">
+                                <span className="text-muted-foreground">
+                                  Ratio:
+                                </span>
+                                <Badge>
+                                  {video.ratio}{" "}
+                                  {video.ratio === "1280:768"
+                                    ? "(Landscape)"
+                                    : "(Portrait)"}
+                                </Badge>
                               </p>
                               <p className="flex items-center gap-2">
                                 <span className="text-muted-foreground">

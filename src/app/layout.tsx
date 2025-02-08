@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: "Unlock the Power of Creativity",
 }
 
+// eslint-disable-next-line @next/next/no-async-client-component
 export default function RootLayout({
   children,
 }: Readonly<{

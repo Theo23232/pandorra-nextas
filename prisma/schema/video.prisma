@@ -8,6 +8,7 @@ model Video {
     createdAt DateTime @default(now())
     isImage   Boolean
     taskId    String   @unique
+    ratio     String   @default("")
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

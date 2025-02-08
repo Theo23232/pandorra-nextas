@@ -1,9 +1,9 @@
-import Bounce from '@/components/animated/uibeats/bounce';
+import Bounce from "@/components/animated/uibeats/bounce"
 
 export const GalleryMultiple = () => {
   return (
     <div className="mt-24 flex flex-col items-center justify-center">
-      <Bounce className="font-inter text-center text-[80px] font-semibold leading-[78px] tracking-[-4.5px] text-[#FDFDFD]">
+      <Bounce className="font-inter text-center text-[80px] font-semibold leading-[78px] text-[#FDFDFD]">
         Get inspired by <br />
         <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
           other creators

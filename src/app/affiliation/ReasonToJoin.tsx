@@ -1,5 +1,5 @@
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/ui/button"
 
 /* eslint-disable @next/next/no-img-element */
 export default function ReasonToJoin() {
@@ -230,7 +230,7 @@ export default function ReasonToJoin() {
         >
           Start earning today! 🚀
         </Button>
-Bounce      </Bounce>
+      </Bounce>
     </div>
   )
 }

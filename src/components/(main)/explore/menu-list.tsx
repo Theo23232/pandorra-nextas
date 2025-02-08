@@ -9,7 +9,7 @@ export const MenuList = (props: MenuListProps) => {
     <ul className="menu-list mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
       <li id="tour2-step1">
         <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#F37300] to-[#F0AA00] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#F37300_0%,#F0AA00_55%,#F37300_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(243,115,0,0.5),0px_5px_5px_-1px_rgba(240,170,0,0.25),inset_4px_4px_8px_rgba(255,200,150,0.5),inset_-4px_-4px_8px_rgba(235,130,50,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
           href="/ai-video-generator"
           prefetch={true}
         >
@@ -67,9 +67,62 @@ export const MenuList = (props: MenuListProps) => {
           </div>
         </Link>
       </li>
+
       <li id="tour2-step2">
         <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#D6141E] to-[#FF824C] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#0044ff_0%,#2ccfff_55%,#0044ff_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(71,184,255,0.5),0px_5px_5px_-1px_rgba(58,125,233,0.25),inset_4px_4px_8px_rgba(175,230,255,0.5),inset_-4px_-4px_8px_rgba(19,95,216,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
+          href="/image/generation"
+          prefetch={true}
+        >
+          <div className="flex items-center justify-between">
+            <span className="mb-3 inline-flex items-center justify-center">
+              <span className="inline-flex size-9 items-center justify-center text-white">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M22.0106 7.20541C19.422 6.5982 16.7279 6.5982 14.1392 7.20541C10.7732 7.99499 8.14491 10.6232 7.35534 13.9893C6.74812 16.578 6.74812 19.272 7.35534 21.8607C7.47629 22.3763 7.64038 22.8746 7.84366 23.3517L9.4063 21.789C12.195 19.0003 16.7163 19.0003 19.505 21.789L20.9704 23.2544L20.996 23.2287C23.0719 21.1528 26.3181 21.033 28.531 22.7695C28.6338 22.4734 28.7219 22.1701 28.7945 21.8607C29.4017 19.272 29.4017 16.578 28.7945 13.9893C28.0049 10.6232 25.3767 7.99499 22.0106 7.20541ZM30.2222 25.564C30.758 24.6106 31.1659 23.5742 31.4232 22.4773C32.1255 19.4831 32.1255 16.3669 31.4232 13.3727C30.3994 9.0083 26.9916 5.60052 22.6272 4.57676C19.633 3.87441 16.5169 3.87441 13.5226 4.57676C9.15822 5.60052 5.75045 9.00829 4.72669 13.3727C4.02434 16.3669 4.02434 19.4831 4.72669 22.4773C5.75045 26.8417 9.15823 30.2495 13.5227 31.2732C16.5169 31.9756 19.633 31.9756 22.6272 31.2732C25.6817 30.5567 28.2677 28.6725 29.8957 26.1099C30.0507 25.9525 30.1601 25.7645 30.2222 25.564ZM27.2256 25.2291C26.0819 23.982 24.1153 23.9278 22.9052 25.1379L22.8795 25.1636L25.0358 27.3199C25.8778 26.7496 26.618 26.0423 27.2256 25.2291ZM22.4325 28.5349L17.5958 23.6982C15.8615 21.9639 13.0497 21.9639 11.3155 23.6982L9.30687 25.7068C10.5422 27.1474 12.2209 28.1946 14.1392 28.6446C16.7279 29.2518 19.422 29.2518 22.0106 28.6446C22.1526 28.6113 22.2933 28.5747 22.4325 28.5349Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M21.452 11.0293C21.6231 10.3236 22.6269 10.3236 22.798 11.0293L23.2689 12.9713C23.33 13.2233 23.5267 13.42 23.7787 13.4811L25.7207 13.952C26.4264 14.1231 26.4264 15.1269 25.7207 15.298L23.7787 15.7689C23.5267 15.83 23.33 16.0267 23.2689 16.2787L22.798 18.2207C22.6269 18.9264 21.6231 18.9264 21.452 18.2207L20.9811 16.2787C20.92 16.0267 20.7233 15.83 20.4713 15.7689L18.5293 15.298C18.4852 15.2873 18.4439 15.2734 18.4053 15.2566C17.8263 15.0047 17.8677 14.1124 18.5293 13.952L20.4713 13.4811C20.7233 13.42 20.92 13.2233 20.9811 12.9713L21.452 11.0293Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M33 31.5C33 32.3284 32.3284 33 31.5 33C30.6716 33 30 32.3284 30 31.5C30 30.6716 30.6716 30 31.5 30C32.3284 30 33 30.6716 33 31.5Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M33 4.5C33 5.32843 32.3284 6 31.5 6C30.6716 6 30 5.32843 30 4.5C30 3.67157 30.6716 3 31.5 3C32.3284 3 33 3.67157 33 4.5Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6 31.5C6 32.3284 5.32843 33 4.5 33C3.67157 33 3 32.3284 3 31.5C3 30.6716 3.67157 30 4.5 30C5.32843 30 6 30.6716 6 31.5Z"
+                    fill="white"
+                  />
+                  <path
+                    d="M6 4.5C6 5.32843 5.32843 6 4.5 6C3.67157 6 3 5.32843 3 4.5C3 3.67157 3.67157 3 4.5 3C5.32843 3 6 3.67157 6 4.5Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </span>
+            <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
+          </div>
+          <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
+            Image generation
+          </div>
+        </Link>
+      </li>
+      <li id="tour2-step3">
+        <Link
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#D6141E_0%,#FF824C_55%,#D6141E_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(255,50,50,0.5),0px_5px_5px_-1px_rgba(255,130,100,0.25),inset_4px_4px_8px_rgba(255,180,150,0.5),inset_-4px_-4px_8px_rgba(214,20,30,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
           href="/video"
           prefetch={true}
         >
@@ -121,61 +174,9 @@ export const MenuList = (props: MenuListProps) => {
           </div>
         </Link>
       </li>
-      <li id="tour2-step3">
-        <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#007AD4] to-[#2EA4FF] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
-          href="/image/generation"
-          prefetch={true}
-        >
-          <div className="flex items-center justify-between">
-            <span className="mb-3 inline-flex items-center justify-center">
-              <span className="inline-flex size-9 items-center justify-center text-white">
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M22.0106 7.20541C19.422 6.5982 16.7279 6.5982 14.1392 7.20541C10.7732 7.99499 8.14491 10.6232 7.35534 13.9893C6.74812 16.578 6.74812 19.272 7.35534 21.8607C7.47629 22.3763 7.64038 22.8746 7.84366 23.3517L9.4063 21.789C12.195 19.0003 16.7163 19.0003 19.505 21.789L20.9704 23.2544L20.996 23.2287C23.0719 21.1528 26.3181 21.033 28.531 22.7695C28.6338 22.4734 28.7219 22.1701 28.7945 21.8607C29.4017 19.272 29.4017 16.578 28.7945 13.9893C28.0049 10.6232 25.3767 7.99499 22.0106 7.20541ZM30.2222 25.564C30.758 24.6106 31.1659 23.5742 31.4232 22.4773C32.1255 19.4831 32.1255 16.3669 31.4232 13.3727C30.3994 9.0083 26.9916 5.60052 22.6272 4.57676C19.633 3.87441 16.5169 3.87441 13.5226 4.57676C9.15822 5.60052 5.75045 9.00829 4.72669 13.3727C4.02434 16.3669 4.02434 19.4831 4.72669 22.4773C5.75045 26.8417 9.15823 30.2495 13.5227 31.2732C16.5169 31.9756 19.633 31.9756 22.6272 31.2732C25.6817 30.5567 28.2677 28.6725 29.8957 26.1099C30.0507 25.9525 30.1601 25.7645 30.2222 25.564ZM27.2256 25.2291C26.0819 23.982 24.1153 23.9278 22.9052 25.1379L22.8795 25.1636L25.0358 27.3199C25.8778 26.7496 26.618 26.0423 27.2256 25.2291ZM22.4325 28.5349L17.5958 23.6982C15.8615 21.9639 13.0497 21.9639 11.3155 23.6982L9.30687 25.7068C10.5422 27.1474 12.2209 28.1946 14.1392 28.6446C16.7279 29.2518 19.422 29.2518 22.0106 28.6446C22.1526 28.6113 22.2933 28.5747 22.4325 28.5349Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M21.452 11.0293C21.6231 10.3236 22.6269 10.3236 22.798 11.0293L23.2689 12.9713C23.33 13.2233 23.5267 13.42 23.7787 13.4811L25.7207 13.952C26.4264 14.1231 26.4264 15.1269 25.7207 15.298L23.7787 15.7689C23.5267 15.83 23.33 16.0267 23.2689 16.2787L22.798 18.2207C22.6269 18.9264 21.6231 18.9264 21.452 18.2207L20.9811 16.2787C20.92 16.0267 20.7233 15.83 20.4713 15.7689L18.5293 15.298C18.4852 15.2873 18.4439 15.2734 18.4053 15.2566C17.8263 15.0047 17.8677 14.1124 18.5293 13.952L20.4713 13.4811C20.7233 13.42 20.92 13.2233 20.9811 12.9713L21.452 11.0293Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M33 31.5C33 32.3284 32.3284 33 31.5 33C30.6716 33 30 32.3284 30 31.5C30 30.6716 30.6716 30 31.5 30C32.3284 30 33 30.6716 33 31.5Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M33 4.5C33 5.32843 32.3284 6 31.5 6C30.6716 6 30 5.32843 30 4.5C30 3.67157 30.6716 3 31.5 3C32.3284 3 33 3.67157 33 4.5Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M6 31.5C6 32.3284 5.32843 33 4.5 33C3.67157 33 3 32.3284 3 31.5C3 30.6716 3.67157 30 4.5 30C5.32843 30 6 30.6716 6 31.5Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M6 4.5C6 5.32843 5.32843 6 4.5 6C3.67157 6 3 5.32843 3 4.5C3 3.67157 3.67157 3 4.5 3C5.32843 3 6 3.67157 6 4.5Z"
-                    fill="white"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
-          </div>
-          <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            Image generation
-          </div>
-        </Link>
-      </li>
       <li id="tour2-step4">
         <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#018456] to-[#01c080] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#FF0037_0%,#f73861_55%,#FF0037_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(255,0,55,0.5),0px_5px_5px_-1px_rgba(253,28,77,0.25),inset_4px_4px_8px_rgba(255,100,130,0.5),inset_-4px_-4px_8px_rgba(255,0,55,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
           href="/assistant"
           prefetch={true}
         >
@@ -229,7 +230,7 @@ export const MenuList = (props: MenuListProps) => {
       </li>
       <li id="tour2-step5">
         <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-gradient-to-r from-[#3F0098] to-[#8933FF] p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-opacity-80 md:p-[18px]"
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#3F0098_0%,#8933FF_55%,#3F0098_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(137,51,255,0.5),0px_5px_5px_-1px_rgba(111,33,230,0.25),inset_4px_4px_8px_rgba(170,102,255,0.5),inset_-4px_-4px_8px_rgba(63,0,152,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
           href="/audio"
           prefetch={true}
         >

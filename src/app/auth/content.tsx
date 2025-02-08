@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
-import AuthForm from "@/components/authentication/AuthForm"
-import { getRandomNumber } from "@/lib/utils"
+import AuthForm from '@/components/authentication/AuthForm';
+import { getRandomNumber } from '@/lib/utils';
 
 export const Content = () => {
   const [imageUrl, setImageUrl] = useState("")
@@ -18,7 +18,7 @@ export const Content = () => {
       setReferrerId(refId)
     }
 
-    const imageId = getRandomNumber(1, 15)
+    const imageId = getRandomNumber(1, 14)
     setImageUrl(`/img/image${imageId}.webp`)
   }, [])
 

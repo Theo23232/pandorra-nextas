@@ -24,12 +24,11 @@ export default function BeforeFooter() {
           className="w-full"
         ></Image>
         <Bounce className="absolute inset-0 -top-52 flex flex-col items-center justify-center gap-[22px]">
-          <p className="text-[64px] text-white">
+          <p className="text-[64px] font-semibold text-white">
             Ready to{" "}
-            <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-              Start Earning
-            </span>{" "}
-            ?
+            {/* <span className="bg-gradient-to-r from-[#2f00ff] to-[#ff00dd] bg-clip-text text-transparent"> */}
+            Start Earning
+            {/* </span> */}?
           </p>
           <p className="text-center text-[16px] text-white">
             Join thousands of affiliates who are already making money with

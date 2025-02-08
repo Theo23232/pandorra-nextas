@@ -1,9 +1,9 @@
 "use server"
-import { currentUser } from '@/lib/current-user';
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
-import { Video } from '@prisma/client';
-import RunwayML from '@runwayml/sdk';
+import { currentUser } from "@/lib/current-user"
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
+import { Video } from "@prisma/client"
+import RunwayML from "@runwayml/sdk"
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env
@@ -13,6 +13,7 @@ export async function generateVideoFromImage(
   base64Image: string,
   promptText: string,
   duration: 5 | 10,
+  ratio: "768:1280" | "1280:768",
 ) {
   try {
     const user = await currentUser()
@@ -30,6 +31,7 @@ export async function generateVideoFromImage(
           : base64Image,
       promptText,
       duration: duration,
+      ratio: ratio,
     })
 
     const taskId = imageToVideo.id
@@ -43,11 +45,12 @@ export async function generateVideoFromImage(
       data: {
         userId: user.id,
         prompt: promptText,
-        duration: 5,
+        duration: duration,
         status: "Pending",
         url: "",
         isImage: base64Image ? true : false,
         taskId: taskId,
+        ratio: ratio,
       },
     })
 

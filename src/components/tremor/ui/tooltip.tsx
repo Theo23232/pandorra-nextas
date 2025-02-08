@@ -1,9 +1,9 @@
 // Tremor Tooltip [v0.1.0]
 
-import React from "react"
+import React from 'react';
 
-import { cx } from "@/lib/utils"
-import * as TooltipPrimitives from "@radix-ui/react-tooltip"
+import { cx } from '@/lib/utils';
+import * as TooltipPrimitives from '@radix-ui/react-tooltip';
 
 interface TooltipProps
   extends Omit<TooltipPrimitives.TooltipContentProps, "content" | "onClick">,
@@ -11,7 +11,7 @@ interface TooltipProps
       TooltipPrimitives.TooltipProps,
       "open" | "defaultOpen" | "onOpenChange" | "delayDuration"
     > {
-  content: React.ReactNode
+  content: string
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   side?: "bottom" | "left" | "top" | "right"
   showArrow?: boolean
@@ -39,6 +39,12 @@ const Tooltip = React.forwardRef<
     }: TooltipProps,
     forwardedRef,
   ) => {
+    const formattedContent = content?.split("\n").map((line, i) => (
+      <React.Fragment key={i}>
+        {line}
+        {i !== content.split("\n").length - 1 && <br />}
+      </React.Fragment>
+    ))
     return (
       <TooltipPrimitives.Provider delayDuration={150}>
         <TooltipPrimitives.Root
@@ -72,7 +78,7 @@ const Tooltip = React.forwardRef<
               )}
               {...props}
             >
-              {content}
+              {formattedContent}
               {showArrow ? (
                 <TooltipPrimitives.Arrow
                   className="border-none fill-gray-900 dark:fill-gray-50"

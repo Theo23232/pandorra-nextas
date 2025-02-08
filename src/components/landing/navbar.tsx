@@ -87,7 +87,7 @@ export default function LandingNavbar() {
 
   return (
     <Bounce
-      className={`fixed top-0 z-50 flex w-full items-center justify-center p-4`}
+      className={`fixed top-0 z-50 flex w-full items-center justify-center p-4 dark`}
     >
       {scrolled && (
         <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black"></div>

@@ -6,7 +6,7 @@ import Ripple from '@/components/nyxb/ripple';
 
 export function Footer() {
   return (
-    <div className="relative ml-20 flex h-[60vh] w-full items-center justify-center">
+    <div className="relative ml-20 flex h-fit min-h-[60vh] w-full items-center justify-center py-24">
       <Bounce className="grid w-full max-w-[1274px] grid-cols-5 gap-4">
         <div className="flex h-full w-full flex-col">
           <Image

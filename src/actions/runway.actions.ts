@@ -1,9 +1,9 @@
 "use server"
-import { currentUser } from "@/lib/current-user"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
-import { Video } from "@prisma/client"
-import RunwayML from "@runwayml/sdk"
+import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { Video } from '@prisma/client';
+import RunwayML from '@runwayml/sdk';
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env

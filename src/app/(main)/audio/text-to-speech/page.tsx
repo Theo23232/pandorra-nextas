@@ -35,7 +35,11 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { languageOptions } from "@/lib/elevenlabs/langList"
-import { getVoiceNameById, voicesList } from "@/lib/elevenlabs/voiceList"
+import {
+  getVoiceNameById,
+  voicesList as vlist,
+  VoiceDetails,
+} from "@/lib/elevenlabs/voiceList"
 import { fetcher } from "@/lib/utils"
 import { TTS } from "@prisma/client"
 
@@ -65,16 +69,6 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
   sv: "SE",
   tr: "TR",
   uk: "UA",
-}
-
-const getLanguageName = (code: string) => {
-  const language = languageOptions.find((item) => item.code === code)
-  return language ? language.label : code
-}
-
-const getVoiceName = (id: string) => {
-  const voice = voicesList.find((item) => item.id === id)
-  return voice ? voice.name : id
 }
 
 type TextToSpeechExample = {
@@ -154,13 +148,25 @@ export default function Page() {
   const [stability, setStability] = useState(0)
   const [similarity, setSimilarity] = useState(0)
   const [style, setStyle] = useState(0)
-  const [voiceId, setVoiceId] = useState(voicesList[0].id)
+
+  const [voicesList, setVoicesList] = useState<VoiceDetails[]>(vlist)
+  const [voiceId, setVoiceId] = useState(vlist[0].id)
   const [lang, setLang] = useState("en")
   const charCount = prompt.length
   const maxChars = 9680
 
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
+  const getLanguageName = (code: string) => {
+    const language = languageOptions.find((item) => item.code === code)
+    return language ? language.label : code
+  }
+
+  const getVoiceName = (id: string) => {
+    const voice = voicesList.find((item) => item.id === id)
+    return voice ? voice.name : id
+  }
 
   const handleGenerate = async () => {
     try {
@@ -236,11 +242,35 @@ export default function Page() {
     setStyle(0)
   }
 
-  const handleVoiceSelect = (voiceId: string, language: string) => {
+  const handleVoiceSelect = (
+    voiceId: string,
+    language: string,
+    name: string,
+  ) => {
     setVoiceId(voiceId)
+    setVoicesList((prevVoices) => {
+      // Check if the voice already exists to avoid duplicates
+      const existingVoice = prevVoices.find((voice) => voice.id === voiceId)
+      if (existingVoice) return prevVoices
+
+      // Create a new voice object that matches VoiceDetails interface
+      const newVoice: VoiceDetails = {
+        id: voiceId,
+        name: name,
+        category: "user-selected",
+        language: language,
+        accent: "",
+        description: "",
+        age: "",
+        gender: "",
+        use_case: "",
+        preview_url: "",
+      }
+
+      return [...prevVoices, newVoice]
+    })
     setLang(language)
   }
-
   const ExampleButton = ({ text, title }: { text: string; title: string }) => (
     <Button
       variant="outline"

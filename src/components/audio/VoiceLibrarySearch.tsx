@@ -47,7 +47,7 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
 }
 
 interface VoiceLibrarySearchProps {
-  onVoiceSelect: (voiceId: string, language: string) => void
+  onVoiceSelect: (voiceId: string, language: string, name: string) => void
 }
 
 export const VoiceLibrarySearch = ({
@@ -111,7 +111,7 @@ export const VoiceLibrarySearch = ({
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <Tabs defaultValue="all" className="max-w-md">
+      <Tabs defaultValue="default" className="max-w-md">
         <TabsList className="flex h-14 w-full items-center justify-start gap-2 bg-transparent p-0">
           <TabsTrigger
             value="all"
@@ -175,7 +175,7 @@ export const VoiceLibrarySearch = ({
               </p>
               <button className="text-sm text-primary">View all</button>
             </div>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-2">
               {loading ? (
                 <div className="flex flex-wrap gap-1">
                   {[...Array(10)].map((_, index) => (
@@ -187,7 +187,7 @@ export const VoiceLibrarySearch = ({
                   <div
                     key={voice.voice_id}
                     onClick={() =>
-                      onVoiceSelect(voice.voice_id, voice.language)
+                      onVoiceSelect(voice.voice_id, voice.language, voice.name)
                     }
                   >
                     <VoiceCard
@@ -212,7 +212,7 @@ export const VoiceLibrarySearch = ({
               </p>
               <button className="text-sm text-primary">View all</button>
             </div>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-2">
               {loading ? (
                 <div className="flex flex-wrap gap-1">
                   {[...Array(10)].map((_, index) => (
@@ -226,7 +226,9 @@ export const VoiceLibrarySearch = ({
                 filteredVoices(defaultVoices).map((voice) => (
                   <div
                     key={voice.id}
-                    onClick={() => onVoiceSelect(voice.id, voice.language)}
+                    onClick={() =>
+                      onVoiceSelect(voice.id, voice.language, voice.name)
+                    }
                   >
                     <VoiceCard
                       id={voice.id}

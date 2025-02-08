@@ -1,23 +1,27 @@
 "use client"
 
-import { AlertCircle, Upload } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import { AlertCircle, Upload } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import useSWR, { mutate } from "swr"
 
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { Badge } from '@/components/tremor/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { Badge } from "@/components/tremor/ui/badge"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { fetcher } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"

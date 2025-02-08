@@ -113,7 +113,7 @@ export function DropdownUserProfile({
 
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <Link href={"/setting"} prefetch={true}>
+            <Link href={"/settings"} prefetch={true}>
               <DropdownMenuItem>
                 <Settings2 className="mr-2 size-4 shrink-0" />
                 Settings

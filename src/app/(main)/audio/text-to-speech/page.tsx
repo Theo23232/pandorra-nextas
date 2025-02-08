@@ -1,49 +1,36 @@
 // Page.tsx
 "use client"
-import * as Flags from "country-flag-icons/react/3x2"
-import { ElevenLabsClient } from "elevenlabs"
-import { Settings2 } from "lucide-react"
-import React, { useRef, useState } from "react"
-import useSWR, { mutate } from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ElevenLabsClient } from 'elevenlabs';
+import { Settings2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import React, { useRef, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 
-import { generateTTS } from "@/actions/elevenlabs.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { VoiceLibrarySearch } from "@/components/audio/VoiceLibrarySearch"
-import { NothingYet } from "@/components/NothingYet"
-import { Label } from "@/components/tremor/inputs/label"
-import { Slider } from "@/components/tremor/inputs/slider"
-import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
+import { generateTTS } from '@/actions/elevenlabs.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { VoiceLibrarySearch } from '@/components/audio/VoiceLibrarySearch';
+import { NothingYet } from '@/components/NothingYet';
+import { Label } from '@/components/tremor/inputs/label';
+import { Slider } from '@/components/tremor/inputs/slider';
+import { Button } from '@/components/tremor/ui/button';
+import { CardTitle } from '@/components/tremor/ui/card';
+import { Divider } from '@/components/tremor/ui/divider';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/tremor/ui/drawer"
-import { Badge } from "@/components/ui/badge"
+    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle,
+    DrawerTrigger
+} from '@/components/tremor/ui/drawer';
+import { Badge } from '@/components/ui/badge';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { languageOptions } from "@/lib/elevenlabs/langList"
-import {
-  getVoiceNameById,
-  voicesList as vlist,
-  VoiceDetails,
-} from "@/lib/elevenlabs/voiceList"
-import { fetcher } from "@/lib/utils"
-import { TTS } from "@prisma/client"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { languageOptions } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
+import { fetcher } from '@/lib/utils';
+import { TTS } from '@prisma/client';
 
-import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -139,8 +126,11 @@ const textToSpeechExamples: TextToSpeechExample[] = [
   },
 ]
 export default function Page() {
+  const searchParams = useSearchParams()
+  const queryPrompt = searchParams?.get("prompt")
+
   const { data } = useSWR<TTS[]>("/api/audio/generated-tts", fetcher)
-  const [prompt, setPrompt] = useState("")
+  const [prompt, setPrompt] = useState(queryPrompt || "")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
   const [isLoading, setIsLoading] = useState(false)

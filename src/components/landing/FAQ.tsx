@@ -1,15 +1,12 @@
 "use client"
 
-import { Minus, Plus } from "lucide-react"
-import * as React from "react"
+import { Minus, Plus } from 'lucide-react';
+import * as React from 'react';
 
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/affiliation/Accordion"
-import Bounce from "@/components/animated/uibeats/bounce"
+    Accordion, AccordionContent, AccordionItem, AccordionTrigger
+} from '@/components/affiliation/Accordion';
+import Bounce from '@/components/animated/uibeats/bounce';
 
 const AccordionIcon = ({ isOpen }: { isOpen: boolean }) => {
   return isOpen ? (
@@ -112,7 +109,10 @@ function FAQAccordion() {
 export default function FAQ() {
   return (
     <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8">
-      <p className="text-[64px] font-semibold leading-[68px] text-white">
+      <p
+        id="FAQ"
+        className="text-[64px] font-semibold leading-[68px] text-white"
+      >
         Curious About Pandorra.ai?
         <br />
         <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">

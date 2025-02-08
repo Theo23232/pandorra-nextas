@@ -1,19 +1,19 @@
 "use client"
 
-import { Download, Edit, Send } from "lucide-react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { Download, Edit, Send } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-import { createPublication } from "@/actions/publication.action"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { useToast } from "@/hooks/use-toast"
-import { GeneratedImage } from "@prisma/client"
+import { createPublication } from '@/actions/publication.action';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useSelectImage } from '@/hooks/use-select-image';
+import { useToast } from '@/hooks/use-toast';
+import { GeneratedImage } from '@prisma/client';
 
-import { DirectionAwareHover } from "./GeneratedHover"
+import { DirectionAwareHover } from './GeneratedHover';
 
 interface AllImageProps {
   prompt: string
@@ -49,21 +49,25 @@ export const AIImage = ({
         variant: "loading",
         disableDismiss: true, // Désactive la fermeture automatique
       })
-      await createPublication(
-        imageUrl,
-        prompt,
-        model,
-        preset,
-        generationType,
-      ).then(() => {
-        loadingToast.dismiss()
-        toast({
-          title: "Success",
-          description: "Your image has been published",
-          variant: "success",
-          duration: 3000,
+      await createPublication(imageUrl, prompt, model, preset, generationType)
+        .then(() => {
+          toast({
+            title: "Success",
+            description: "Your image has been published",
+            variant: "success",
+            duration: 3000,
+          })
         })
-      })
+        .catch(() => {
+          toast({
+            title: "An image cannot be published twice",
+            description: "You have already posted this image",
+            variant: "error",
+          })
+        })
+        .finally(() => {
+          loadingToast.dismiss()
+        })
 
       //et le cacher ici
     } catch (error) {

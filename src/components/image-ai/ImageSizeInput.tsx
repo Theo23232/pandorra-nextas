@@ -1,16 +1,50 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
+import { useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 
-import { Label } from "@/components/tremor/inputs/label"
-import { Button } from "@/components/tremor/ui/button"
-import { ratioList } from "@/lib/ratioList"
-import { cn } from "@/lib/utils"
+import { Label } from '@/components/tremor/inputs/label';
+import { Button } from '@/components/tremor/ui/button';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { ratioList } from '@/lib/ratioList';
+import { cn } from '@/lib/utils';
 
 export type ImageSizeProps = {
   onChange: (width: number, height: number) => void
 }
+
+const ratioTooltips = [
+  {
+    name: "2:3",
+    tooltip:
+      "- Classic portrait format\n- Pinterest posts\n- Portrait-oriented images\n- Portraits and product shots.",
+  },
+  {
+    name: "16:9",
+    tooltip:
+      "- Wide landscape format\n- Ideal for landscapes\n- Photography and print.",
+  },
+  {
+    name: "1:1",
+    tooltip:
+      "- Square format\n- Instagram posts\n- Profile pictures and product photos.",
+  },
+  {
+    name: "4:5",
+    tooltip:
+      "- Optimized portrait format\n- Instagram posts\n- Portrait shots.",
+  },
+  {
+    name: "9:16",
+    tooltip:
+      "- Full-screen vertical\n- Stories and mobile display\n- Social media Stories.",
+  },
+  {
+    name: "2:1",
+    tooltip:
+      "- Extended landscape\n- Banners and headers\n- Website and social media banners.",
+  },
+]
 
 type RatioName = "2:3" | "16:9" | "1:1" | "4:5" | "9:16" | "2:1"
 type SizeOption = "small" | "medium" | "large"
@@ -94,7 +128,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
     <Button
       variant="outline"
       className={cn(
-        "h-8 flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
+        "h-8 w-full flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
         activeName === ratio && "primeBg",
       )}
       onClick={() => handleChange(ratio, null)}
@@ -125,16 +159,12 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
   return (
     <div className="space-y-2" id="tour5-step5">
       <Label className="mb-2">Image dimensions</Label>
-      <div className="flex w-full flex-wrap gap-2">
-        {[ratioOptions.slice(0, 3), ratioOptions.slice(3)].map(
-          (group, index) => (
-            <div key={index} className="flex w-full gap-2">
-              {group.map((ratio) => (
-                <RatioButton key={ratio} ratio={ratio} />
-              ))}
-            </div>
-          ),
-        )}
+      <div className="grid w-full grid-cols-3 flex-wrap gap-2">
+        {ratioTooltips.map((e) => (
+          <Tooltip key={e.name} content={e.tooltip}>
+            <RatioButton ratio={e.name as RatioName} />
+          </Tooltip>
+        ))}
       </div>
       <div className="flex w-full flex-wrap justify-between gap-2">
         {sizeOptions.map((size) => (

@@ -1,26 +1,34 @@
 "use client"
 
-import { Sparkles } from "lucide-react"
+import { Sparkles } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useState } from 'react';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
+import Bounce from '@/components/animated/uibeats/bounce';
+import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/nyxb/select"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/nyxb/select';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useUser } from '@/hooks/use-user';
+import { cn } from '@/lib/utils';
 
 export function Hero() {
+  const [prompt, setPrompt] = useState("")
+  const [genType, setGenType] = useState("image")
+
+  const { user } = useUser()
+
+  const handleGenerate = () => {
+    if (genType == "image") redirect(`/image/generation?prompt=${prompt}`)
+    if (genType == "audio") redirect(`/audio/text-to-speech?prompt=${prompt}`)
+    if (genType == "video") redirect(`/video?prompt=${prompt}`)
+  }
   return (
-    <div className="relative flex h-[70vh] w-full flex-col items-center justify-center overflow-hidden">
+    <div className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden">
       <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
-          id="hero"
           className={cn(
             "group rounded-full border border-white/5 bg-neutral-900 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
           )}
@@ -35,7 +43,10 @@ export function Hero() {
           Unlock the Power <br /> of Creativity
         </p>
         <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">
-          <Select defaultValue="image">
+          <Select
+            defaultValue={genType}
+            onValueChange={(value) => setGenType(value)}
+          >
             <SelectTrigger
               className="ml-2 h-11 w-[100px] rounded-full border-0 bg-[#F4F2FE] text-black shadow-none focus:ring-0"
               rounded-full
@@ -54,9 +65,12 @@ export function Hero() {
           <Input
             className="text-md flex-1 border-0 bg-transparent text-black shadow-none focus-visible:ring-0"
             placeholder="A bridge from a top view"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
           />
           <Button
             variant={"default"}
+            onClick={handleGenerate}
             className="hover:shadow-gradient mr-2 flex h-11 rounded-full bg-gradient-to-l from-[#9600ff] to-[#00ccff] px-6 transition-all ease-in-out hover:scale-[1.01] hover:shadow-[0_4px_15px_0] hover:shadow-[#9600ff]/30"
           >
             <Sparkles fill="white" /> Create for free

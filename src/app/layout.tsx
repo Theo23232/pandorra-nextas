@@ -21,7 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="googlebot" content="notranslate" />
+        <meta name="google" content="notranslate" />
+      </head>
       <body
+        translate="no"
         suppressHydrationWarning
         className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-primary dark:bg-background`}
       >

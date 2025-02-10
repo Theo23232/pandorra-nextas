@@ -31,7 +31,7 @@ type RegisterFormData = z.infer<typeof registerSchema>
 type FormData = LoginFormData | RegisterFormData
 
 export default function AuthForm() {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()

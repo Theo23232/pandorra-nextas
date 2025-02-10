@@ -1,18 +1,22 @@
 "use client"
 
-import { Sparkles } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useState } from 'react';
+import { Sparkles } from "lucide-react"
+import { redirect } from "next/navigation"
+import { useState } from "react"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
+import Bounce from "@/components/animated/uibeats/bounce"
+import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/nyxb/select';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useUser } from '@/hooks/use-user';
-import { cn } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/nyxb/select"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useUser } from "@/hooks/use-user"
+import { cn } from "@/lib/utils"
 
 export function Hero() {
   const [prompt, setPrompt] = useState("")
@@ -47,10 +51,7 @@ export function Hero() {
             defaultValue={genType}
             onValueChange={(value) => setGenType(value)}
           >
-            <SelectTrigger
-              className="ml-2 h-11 w-[100px] rounded-full border-0 bg-[#F4F2FE] text-black shadow-none focus:ring-0"
-              rounded-full
-            >
+            <SelectTrigger className="ml-2 h-11 w-[100px] rounded-full border-0 bg-[#F4F2FE] text-black shadow-none focus:ring-0">
               <SelectValue
                 placeholder="Image"
                 className="bg-gradient-to-l from-[#9600ff] to-[#00ccff] bg-clip-text text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-transparent"

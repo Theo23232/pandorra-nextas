@@ -1,36 +1,35 @@
 // Page.tsx
 "use client"
-import * as Flags from 'country-flag-icons/react/3x2';
-import { ElevenLabsClient } from 'elevenlabs';
-import { Settings2 } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import React, { useRef, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import * as Flags from "country-flag-icons/react/3x2"
+import { ElevenLabsClient } from "elevenlabs"
+import { useSearchParams } from "next/navigation"
+import React, { useRef, useState } from "react"
+import useSWR, { mutate } from "swr"
 
-import { generateTTS } from '@/actions/elevenlabs.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { VoiceLibrarySearch } from '@/components/audio/VoiceLibrarySearch';
-import { NothingYet } from '@/components/NothingYet';
-import { Label } from '@/components/tremor/inputs/label';
-import { Slider } from '@/components/tremor/inputs/slider';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { Divider } from '@/components/tremor/ui/divider';
+import { generateTTS } from "@/actions/elevenlabs.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { Divider } from "@/components/tremor/ui/divider"
 import {
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle,
-    DrawerTrigger
-} from '@/components/tremor/ui/drawer';
-import { Badge } from '@/components/ui/badge';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { languageOptions } from "@/lib/elevenlabs/langList"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { languageOptions } from '@/lib/elevenlabs/langList';
-import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
-import { fetcher } from '@/lib/utils';
-import { TTS } from '@prisma/client';
+  getVoiceNameById,
+  voicesList as vlist,
+  VoiceDetails,
+} from "@/lib/elevenlabs/voiceList"
+import { fetcher } from "@/lib/utils"
+import { TTS } from "@prisma/client"
 
-import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -283,7 +282,7 @@ export default function Page() {
         />
         <div className="flex items-center justify-between gap-2 p-4">
           <div className="flex items-center gap-2">
-            <Drawer>
+            {/* <Drawer>
               <DrawerTrigger asChild>
                 <Button variant="ghost" className="h-10">
                   <Settings2 />
@@ -295,10 +294,8 @@ export default function Page() {
                 </DrawerHeader>
                 <DrawerBody>
                   <div className="w-full max-w-md space-y-8 p-4">
-                    {/* Search voice */}
                     <VoiceLibrarySearch onVoiceSelect={handleVoiceSelect} />
                     <div className="flex flex-col"></div>
-                    {/* Section Durée */}
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <h2 className="text-lg font-medium">
@@ -394,6 +391,7 @@ export default function Page() {
                 </DrawerFooter>
               </DrawerContent>
             </Drawer>
+            */}
             <Select value={voiceId} onValueChange={setVoiceId}>
               <SelectTrigger className="h-10 w-[120px]">
                 <SelectValue placeholder="Select Voice" />
@@ -435,7 +433,7 @@ export default function Page() {
               onClick={handleGenerate}
               isLoading={isLoading}
             >
-              Generate Sound Effects
+              Generate voice
             </Button>
           </div>
         </div>

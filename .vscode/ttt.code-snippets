@@ -1,0 +1,8 @@
+{
+  "import-translate-hook": {
+    "prefix": "ttt",
+    "description": "Add {t(` `)}",
+    "scope": "typescriptreact",
+    "body": ["{t(`${1}`)}"],
+  },
+}

@@ -1,14 +1,14 @@
-'use server';
+"use server"
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export const GET = async () => {
-  const user = await currentUser();
+  const user = await currentUser()
   if (!user) {
-    throw new Error('You are not connected');
+    throw new Error("You are not connected")
   }
   try {
     const publications = await prisma.publication.findMany({
@@ -30,19 +30,26 @@ export const GET = async () => {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
-    });
+    })
 
     const response = publications.map((publication) => ({
       ...publication,
-      isLiked: publication.reaction.find((p) => p.userId === user.id) ? true : false,
+      isLiked: publication.reaction.find((p) => p.userId === user.id)
+        ? true
+        : false,
       reactionsCount: publication.reaction.length,
       commentCount: publication.comment.length,
-    }));
+    }))
 
-    return NextResponse.json(response, { status: 200 });
+    return NextResponse.json(response, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    )
+  } finally {
+    await prisma.$disconnect() // Ferme la connexion après chaque requête
   }
-};
+}

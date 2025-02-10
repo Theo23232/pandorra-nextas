@@ -71,7 +71,7 @@ export const TokenPrice = () => {
               <div className="">
                 <div className="flex items-center justify-between">
                   <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
-                    2500 credits
+                    3000 credits
                   </p>
                 </div>
                 <div className="mb-6 mt-8 flex flex-col gap-3">
@@ -111,7 +111,7 @@ export const TokenPrice = () => {
           <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
             <div className="">
               <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
-                7000 credits
+                8000 credits
               </p>
               <div className="mb-6 mt-8 flex flex-col gap-3">
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">

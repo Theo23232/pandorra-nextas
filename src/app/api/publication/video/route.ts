@@ -53,5 +53,7 @@ export const GET = async () => {
       },
       { status: 500 },
     )
+  } finally {
+    await prisma.$disconnect() // Ferme la connexion après chaque requête
   }
 }

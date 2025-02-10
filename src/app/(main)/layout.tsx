@@ -20,12 +20,10 @@ export default function RouteLayout({ children }: RouteLayoutProps) {
   const { isSidebar } = useIsSidebar()
 
   if (isLoading) {
-    console.log("isLoading ==> ", isLoading)
     return null // Or a loading state
   }
 
   if (!user || isError) {
-    console.log("!user || isError ==> ", !user || isError)
     return redirect("/auth")
   }
 

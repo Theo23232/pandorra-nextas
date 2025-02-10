@@ -99,7 +99,7 @@ export const TokenPrice = () => {
                 </div>
                 <div className="mb-8 flex items-center text-white">
                   <p className="pt-2 text-[24px]">€</p>
-                  <p className="text-[36px] font-bold">32.99</p>
+                  <p className="text-[36px] font-bold">34.99</p>
                   <p className="ml-2 pt-2 font-light"></p>
                 </div>
                 <Button variant={"gradient"} className="w-full">

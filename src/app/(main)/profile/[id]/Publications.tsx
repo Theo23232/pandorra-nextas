@@ -4,20 +4,28 @@ import { useEffect, useState } from "react"
 import Masonry from "react-masonry-css"
 import useSWR from "swr"
 
+import PubCard from "@/components/(main)/explore/PubCard"
+import { NothingYet } from "@/components/NothingYet"
 import { Skeleton } from "@/components/nyxb/skeleton"
 import { fetcher } from "@/lib/utils"
 import { PublicationWithAuthor } from "@/types/publicationType"
 
-import PubCard from "./PubCard"
+export type PublicationsProps = {
+  userId: string
+}
 
-export const PublicationContent = () => {
+export const PublicationsProfile = (props: PublicationsProps) => {
   const {
     data: publications,
     error,
     isLoading,
-  } = useSWR<PublicationWithAuthor[]>("/api/publication/all", fetcher, {
-    refreshInterval: 10000,
-  })
+  } = useSWR<PublicationWithAuthor[]>(
+    `/api/publication/user?userId=${props.userId}`,
+    fetcher,
+    {
+      refreshInterval: 10000,
+    },
+  )
   const [loadedPublications, setLoadedPublications] = useState<
     PublicationWithAuthor[]
   >([])
@@ -35,7 +43,7 @@ export const PublicationContent = () => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
+            default: 4,
             1440: 3,
             1200: 2,
             700: 1,
@@ -60,6 +68,14 @@ export const PublicationContent = () => {
     )
   }
 
+  if (!isLoading && !publications)
+    return (
+      <NothingYet
+        title="There is no publication yet"
+        className="w-full"
+        subtitle="When a user post a generation it will appear here"
+      />
+    )
   return (
     <div className="mt-8">
       <Masonry

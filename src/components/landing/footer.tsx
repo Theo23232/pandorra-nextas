@@ -1,13 +1,15 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image"
+import Link from "next/link"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import Ripple from '@/components/nyxb/ripple';
+import Bounce from "@/components/animated/uibeats/bounce"
+import Ripple from "@/components/nyxb/ripple"
 
 export function Footer() {
   return (
     <div className="relative ml-20 flex h-fit min-h-[60vh] w-full items-center justify-center py-24">
-      <Bounce className="grid w-full max-w-[1274px] grid-cols-5 gap-4">
+      <Ripple />
+
+      <Bounce className="relative grid w-full max-w-[1274px] grid-cols-5 gap-4">
         <div className="flex h-full w-full flex-col">
           <Image
             src="/logo/logo-full-white.png"
@@ -23,56 +25,56 @@ export function Footer() {
           </p>
 
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/audio"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             FX Generation
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/audio/text-to-speech"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to speech
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/audio/voice-changer"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Voice changer
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/audio/dubbing"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Dubbing
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/image/generation"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to image
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/video"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to video
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/assistant"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             AI assistant
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/ai-talk"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Talk to AI
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/ai-talk"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Code generation
           </Link>
@@ -84,55 +86,49 @@ export function Footer() {
           </p>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             About Us
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Contact Us
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/pricing"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Pricing
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/explore"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Community
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
-          >
-            Ressources
-          </Link>
-          <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/affiliate"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Affiliate Program
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/refund-policy"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Refund Policy
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/privacy"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Privacy Policy
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/terms"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Terms and Conditions
           </Link>
@@ -142,14 +138,14 @@ export function Footer() {
             Video Tools{" "}
           </p>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/video"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to video
           </Link>
           <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            href="/video"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Image to video
           </Link>
@@ -160,7 +156,6 @@ export function Footer() {
           </p>
         </div>
       </Bounce>
-      <Ripple />
     </div>
   )
 }

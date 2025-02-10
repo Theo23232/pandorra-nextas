@@ -1,13 +1,13 @@
 "use client"
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import Image from "next/image"
+import Link from "next/link"
+import React, { useEffect, useState } from "react"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { NavigationMenuNavbar } from '@/components/landing/NavigationMenuNavbar';
-import { Button } from '@/components/ui/button';
-import { NavigationMenuLink } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { NavigationMenuNavbar } from "@/components/landing/NavigationMenuNavbar"
+import { Button } from "@/components/ui/button"
+import { NavigationMenuLink } from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -104,7 +104,7 @@ export default function LandingNavbar() {
         </a>
         <div className="flex">
           <NavigationMenuNavbar />
-          <Link href={"/auth"}>
+          <Link href={"/explore"}>
             <Button
               variant={"gradient"}
               className="mr-2 flex h-11 rounded-full px-6 transition-all ease-in-out"

@@ -106,6 +106,7 @@ export const PublicationContent = () => {
               isLiked={pub.isLiked}
               likeCount={pub.reactionsCount}
               commentCount={pub.commentCount}
+              pubOwnerId={pub.user.id}
               pubDescription={{
                 prompt: pub.prompt,
                 model: pub.model,

@@ -25,13 +25,14 @@ import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"
+
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
   </div>
 )
 
-export default function Page() {
+export default function VideoGenerator() {
   const { data: histories } = useSWR<Video[]>("/api/video", fetcher)
   const [image, setImage] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
@@ -41,65 +42,52 @@ export default function Page() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-  const charCount = prompt.length
-  const maxChars = 9680
-  const [isEnhancing, setIsEnhancing] = useState(false)
   const { toast } = useToast()
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      mutate("/api/video")
-    }, 1000) // Check for updates every 5 seconds
-
+    const interval = setInterval(() => mutate("/api/video"), 1000)
     return () => clearInterval(interval)
   }, [])
-  useEffect(() => {
-    mutate("/api/video")
-  }, [])
 
   useEffect(() => {
+    mutate("/api/video")
     return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl)
-      }
+      if (previewUrl) URL.revokeObjectURL(previewUrl)
     }
   }, [previewUrl])
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const file = e.dataTransfer.files[0]
+  const handleImageChange = (file: File | null) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file)
       setPreviewUrl(URL.createObjectURL(file))
     }
   }
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
+    handleImageChange(e.dataTransfer.files[0])
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file && file.type.startsWith("image/")) {
-      setImage(file)
-      setPreviewUrl(URL.createObjectURL(file))
-    }
+    handleImageChange(e.target.files?.[0] || null)
   }
 
   const handleRemoveImage = () => {
     setImage(null)
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl)
-    }
+    if (previewUrl) URL.revokeObjectURL(previewUrl)
     setPreviewUrl(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""
-    }
+    if (fileInputRef.current) fileInputRef.current.value = ""
   }
 
   const handleSubmit = async () => {
-    if (!image && !promptText)
-      return alert("Sélectionne une image ou ajoute un texte pour le prompt")
+    if (!image && !promptText) {
+      toast({
+        title: "Error",
+        description: "Please select an image or add text for the prompt",
+        variant: "error",
+      })
+      return
+    }
 
     setLoading(true)
 
@@ -112,11 +100,10 @@ export default function Page() {
       : "https://pandorra.ai/assets/fond.png"
 
     try {
-      const videoDuration: 5 | 10 = duration === "5" ? 5 : 10
-      const videoRatio: "768:1280" | "1280:768" =
-        ratio === "768:1280" ? "768:1280" : "1280:768"
+      const videoDuration = duration === "5" ? 5 : 10
+      const videoRatio = ratio === "768:1280" ? "768:1280" : "1280:768"
 
-      const data = await generateVideoFromImage(
+      await generateVideoFromImage(
         base64Image,
         promptText,
         videoDuration,
@@ -124,7 +111,11 @@ export default function Page() {
       )
       mutate("/api/video")
     } catch (error) {
-      alert("Erreur lors de la génération de la vidéo")
+      toast({
+        title: "Error",
+        description: "Failed to generate video",
+        variant: "error",
+      })
     } finally {
       setLoading(false)
     }
@@ -133,247 +124,142 @@ export default function Page() {
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPromptText(e.target.value)
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto" // Réinitialiser pour recalculer
+      textareaRef.current.style.height = "auto"
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
   }
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      setImage(file)
-      setPreviewUrl(URL.createObjectURL(file))
-      const enhancePrompt = async () => {
-        setIsEnhancing(true)
-        try {
-          const promptEnhanced = await enhanceVideoPrompt(promptText)
-          setPromptText(promptEnhanced)
-        } catch (error) {
-          toast({
-            title: " toastTitle",
-            description: "Prompt enhancement failed",
-            variant: "error",
-            duration: 3000,
-          })
-        } finally {
-          setIsEnhancing(false)
-        }
+      handleImageChange(e.target.files[0])
+      try {
+        const enhancedPrompt = await enhanceVideoPrompt(promptText)
+        setPromptText(enhancedPrompt)
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Prompt enhancement failed",
+          variant: "error",
+        })
       }
     }
   }
+
   return (
-    <div className="flex w-full max-w-7xl flex-col gap-4">
-      <MagicCard className="max-w-3xl">
+    <div className="flex w-full max-w-7xl flex-col gap-8">
+      <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-6 shadow-lg">
         <Textarea
           ref={textareaRef}
           value={promptText}
           onChange={handleInput}
-          className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
+          className="mb-4 w-full resize-none overflow-hidden border-0 bg-transparent text-xl shadow-none focus-visible:ring-0"
           placeholder="Describe the video you want..."
         />
-        <div className="flex justify-between p-4">
-          <div className="flex w-full flex-col gap-4 p-4">
-            {previewUrl && (
-              <div className="relative">
-                <img
-                  src={previewUrl || "/placeholder.svg"}
-                  alt="Uploaded image preview"
-                  className="max-h-64 w-full object-contain"
-                />
-                <button
-                  onClick={handleRemoveImage}
-                  className="absolute -top-5 right-36 rounded-full bg-red-500 p-1 text-white hover:bg-red-600"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            )}
-            <div className="flex w-full items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <Select value={duration} onValueChange={setDuration}>
-                  <SelectTrigger className="w-[80px]">
-                    <SelectValue placeholder="Select duration" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="5">5 s</SelectItem>
-                    <SelectItem value="10">10 s</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={ratio} onValueChange={setRatio}>
-                  <SelectTrigger className="w-[125px]">
-                    <SelectValue placeholder="Select ratio" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1280:768">Landscape</SelectItem>
-                    <SelectItem value="768:1280">Portrait</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Label
-                  htmlFor="image-upload"
-                  className="flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-gray-300 px-4 py-1.5 transition-colors hover:bg-gray-50"
-                >
-                  <Upload className="h-5 w-5 text-gray-400" />
-                  <span className="text-sm text-gray-600">
-                    {image ? "Change image" : "Upload image"}
-                  </span>
-                </Label>
-                <input
-                  id="image-upload"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageUpload}
-                  ref={fileInputRef}
-                />
-              </div>
-              <div className="flex items-center gap-4">
-                <Button
-                  className="text-md h-10 w-full"
-                  onClick={handleSubmit}
-                  disabled={loading}
-                >
-                  {loading ? "Processing..." : "Generate Video"}
-                </Button>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <Select value={duration} onValueChange={setDuration}>
+              <SelectTrigger className="w-[100px]">
+                <SelectValue placeholder="Duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="5">5 seconds</SelectItem>
+                <SelectItem value="10">10 seconds</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={ratio} onValueChange={setRatio}>
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Aspect Ratio" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1280:768">Landscape</SelectItem>
+                <SelectItem value="768:1280">Portrait</SelectItem>
+              </SelectContent>
+            </Select>
+            <Label
+              htmlFor="image-upload"
+              className="flex cursor-pointer items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+            >
+              <Upload className="h-5 w-5" />
+              <span>{previewUrl ? "Change image" : "Upload image"}</span>
+            </Label>
+            <input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageUpload}
+              ref={fileInputRef}
+            />
+          </div>
+          <Button
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-2 text-white transition-all hover:from-purple-700 hover:to-indigo-700"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Generate Video"}
+          </Button>
+        </div>
+        {previewUrl && (
+          <div className="relative mt-6">
+            <img
+              src={previewUrl || "/placeholder.svg"}
+              alt="Uploaded image preview"
+              className="max-h-64 w-full rounded-lg object-contain shadow-md"
+            />
+            <button
+              onClick={handleRemoveImage}
+              className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white shadow-md transition-colors hover:bg-red-600"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+      </MagicCard>
+
+      <MagicCard className="bg-gradient-to-br from-gray-50 to-white p-6 shadow-lg">
+        <h2 className="mb-4 text-2xl font-semibold text-gray-800">
+          Video History
+        </h2>
+        <div className="space-y-6">
+          {histories?.map((video) => (
+            <div
+              key={video.id}
+              className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+            >
+              {video.status === "Generated" ? (
+                <video src={video.url} controls className="h-auto w-full" />
+              ) : video.status === "Pending" ? (
+                <SkeletonLoader />
+              ) : (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    Failed to generate video:{" "}
+                    {video.failedMessage || "Unknown error"}
+                  </AlertDescription>
+                </Alert>
+              )}
+              <div className="space-y-2 p-4">
+                <p className="flex items-center gap-2">
+                  <span className="font-medium text-gray-700">Prompt:</span>
+                  <span className="text-gray-600">{video.prompt}</span>
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="neutral">{video.duration} seconds</Badge>
+                  <Badge variant="neutral">
+                    {video.ratio}{" "}
+                    {video.ratio === "1280:768" ? "(Landscape)" : "(Portrait)"}
+                  </Badge>
+                  <Badge variant="neutral">{video.status}</Badge>
+                  {video.status === "Generated" && (
+                    <Badge variant="neutral">
+                      {new Date(video.createdAt).toLocaleString()}
+                    </Badge>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex items-center gap-2"></div>
-        </div>
-      </MagicCard>
-      <MagicCard className="max-w-3xl p-4">
-        <div className="flex h-fit flex-[2] flex-col overflow-hidden">
-          <div className="h-full overflow-y-auto">
-            {histories && (
-              <>
-                {histories.map((video) => {
-                  if (video.status === "Pending") {
-                    return (
-                      <div key={video.id} className="mb-6 space-y-4">
-                        <h3 className="text-xl font-medium">Pending</h3>
-                        <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
-                          {video.url ? (
-                            <video
-                              src={video.url}
-                              controls
-                              className="h-auto w-full"
-                            />
-                          ) : (
-                            <SkeletonLoader />
-                          )}
-                          <div className="flex flex-col gap-4 p-4">
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Prompt:
-                              </span>
-                              <Badge>{video.prompt}</Badge>
-                            </p>
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Duration:
-                              </span>
-                              <Badge>{video.duration} secondes</Badge>
-                            </p>
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Ratio:
-                              </span>
-                              <Badge>{video.ratio}</Badge>
-                            </p>
-                            <p className="flex items-center gap-2">
-                              <span className="text-muted-foreground">
-                                Status:
-                              </span>
-                              <Badge>Pending</Badge>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  } else if (video.status === "Failed") {
-                    return (
-                      <div key={video.id} className="mb-6 space-y-4">
-                        <h3 className="text-xl font-medium">Failed</h3>
-                        <Alert variant="destructive">
-                          <AlertCircle className="h-4 w-4" />
-                          <AlertDescription>
-                            <div className="mt-1 space-y-1">
-                              <p>
-                                <strong>Prompt:</strong> {video.prompt}
-                              </p>
-                              <p>
-                                <strong>Status:</strong> {video.status}
-                              </p>
-                              <p>
-                                <strong>Duration:</strong> {video.duration}{" "}
-                                seconds
-                              </p>
-                              <p>
-                                <strong>Ratio:</strong> {video.ratio}{" "}
-                              </p>
-                              <p>
-                                <strong>Error:</strong>{" "}
-                                {"An unknown error occurred"}
-                              </p>
-                            </div>
-                          </AlertDescription>
-                        </Alert>
-                      </div>
-                    )
-                  } else if (video.status === "Generated") {
-                    return (
-                      <div key={video.id} className="mb-4 space-y-4">
-                        <div className="flex flex-col space-y-4">
-                          <div className="overflow-hidden rounded-lg border border-border shadow-sm">
-                            <video
-                              src={video.url}
-                              controls
-                              className="h-fit w-full"
-                            />
-                            <div className="flex flex-col gap-4 p-4">
-                              <p className="flex items-start gap-2">
-                                <span className="text-muted-foreground">
-                                  Prompt:
-                                </span>
-                                <Badge className="overflow-hidden whitespace-pre-wrap break-words">
-                                  {video.prompt}
-                                </Badge>
-                              </p>
-                              <p className="flex items-center gap-2">
-                                <span className="text-muted-foreground">
-                                  Duration:
-                                </span>
-                                <Badge>{video.duration} secondes</Badge>
-                              </p>
-                              <p className="flex items-center gap-2">
-                                <span className="text-muted-foreground">
-                                  Ratio:
-                                </span>
-                                <Badge>
-                                  {video.ratio}{" "}
-                                  {video.ratio === "1280:768"
-                                    ? "(Landscape)"
-                                    : "(Portrait)"}
-                                </Badge>
-                              </p>
-                              <p className="flex items-center gap-2">
-                                <span className="text-muted-foreground">
-                                  Date:
-                                </span>
-                                <Badge>
-                                  {new Date(video.createdAt).toLocaleString()}
-                                </Badge>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-                  return null
-                })}
-              </>
-            )}
-          </div>
+          ))}
         </div>
       </MagicCard>
     </div>

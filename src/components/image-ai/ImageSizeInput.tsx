@@ -1,13 +1,12 @@
 "use client"
 
-import { useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useState } from "react"
 
-import { Label } from '@/components/tremor/inputs/label';
-import { Button } from '@/components/tremor/ui/button';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { ratioList } from '@/lib/ratioList';
-import { cn } from '@/lib/utils';
+import { Label } from "@/components/tremor/inputs/label"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { ratioList } from "@/lib/ratioList"
+import { cn } from "@/lib/utils"
 
 export type ImageSizeProps = {
   onChange: (width: number, height: number) => void
@@ -125,25 +124,25 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
   )
 
   const RatioButton = ({ ratio }: { ratio: RatioName }) => (
-    <Button
-      variant="outline"
+    <div
       className={cn(
-        "h-8 w-full flex-1 text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
+        "relative inline-flex h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
+        "h-8 w-full flex-1 border border-input text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
         activeName === ratio && "primeBg",
       )}
       onClick={() => handleChange(ratio, null)}
     >
       {ratio}
-    </Button>
+    </div>
   )
 
   const SizeButton = ({ size }: { size: SizeOption }) => {
     const dimensions = ratioList.find((r) => r.ratio === activeName)?.[size]
     return (
-      <Button
-        variant="outline"
+      <div
         className={cn(
-          "flex w-full flex-col items-center justify-center text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
+          "relative inline-flex h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
+          "flex w-full flex-col items-center justify-center border border-input text-black hover:bg-zinc-200 dark:text-white dark:hover:bg-zinc-900",
           activeSize === size && "primeBg",
         )}
         onClick={() => handleChange(null, size)}
@@ -152,7 +151,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
         <p className="text-[8px]">
           {dimensions ? `${dimensions.h} × ${dimensions.w}` : "Unknown"}
         </p>
-      </Button>
+      </div>
     )
   }
 

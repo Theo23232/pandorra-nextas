@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export async function GET() {
   try {
@@ -29,5 +29,7 @@ export async function GET() {
       { error: "Failed to generate sound" },
       { status: 500 },
     )
+  } finally {
+    await prisma.$disconnect() // Ferme la connexion après chaque requête
   }
 }

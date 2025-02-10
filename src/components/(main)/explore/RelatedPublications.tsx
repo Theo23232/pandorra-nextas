@@ -20,7 +20,6 @@ export default function RelatedPublications({
   const { data: publications } = useSWR<PublicationWithAuthor[]>(
     `/api/publication/model?modelName=${modelName}`,
     fetcher,
-    { refreshInterval: 10000 },
   )
 
   if (!publications?.length) return null

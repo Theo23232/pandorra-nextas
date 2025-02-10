@@ -1,12 +1,24 @@
 import { BadgeCheck } from "lucide-react"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { PublicationsProfile } from "@/app/(main)/profile/[id]/Publications"
 import { Card } from "@/components/tremor/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/prisma"
 
-const prisma = new PrismaClient()
+type Props = {
+  params: { id: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const user = await getUser(params.id)
+  return {
+    title: `${user.fullname || user.username}'s Profile`,
+    description:
+      user.description || `Profile of ${user.fullname || user.username}`,
+  }
+}
 
 async function getUser(id: string) {
   const user = await prisma.user.findUnique({
@@ -26,11 +38,12 @@ async function getUser(id: string) {
   return user
 }
 
-export default async function ProfilePage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export async function generateStaticParams() {
+  const users = await prisma.user.findMany({ select: { id: true } })
+  return users.map((user) => ({ id: user.id }))
+}
+
+export default async function ProfilePage({ params }: Props) {
   const user = await getUser(params.id)
 
   return (
@@ -88,16 +101,6 @@ export default async function ProfilePage({
             </div>
           </div>
         </Card>
-        {/* 
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            Message
-          </Button>
-          <Button size="sm">Follow</Button>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <MoreHorizontal className="h-5 w-5" />
-          </Button>
-        </div> */}
       </div>
 
       <div className="mt-6 grid hidden grid-cols-1 gap-4 md:grid-cols-2">

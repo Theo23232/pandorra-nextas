@@ -1,9 +1,9 @@
 // Tremor Tooltip [v0.1.0]
 
-import React from 'react';
+import React from "react"
 
-import { cx } from '@/lib/utils';
-import * as TooltipPrimitives from '@radix-ui/react-tooltip';
+import { cx } from "@/lib/utils"
+import * as TooltipPrimitives from "@radix-ui/react-tooltip"
 
 interface TooltipProps
   extends Omit<TooltipPrimitives.TooltipContentProps, "content" | "onClick">,

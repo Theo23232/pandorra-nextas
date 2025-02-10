@@ -4,9 +4,7 @@ import { notFound } from "next/navigation"
 import { PublicationsProfile } from "@/app/(main)/profile/[id]/Publications"
 import { Card } from "@/components/tremor/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import { prisma } from "@/prisma"
 
 async function getUser(id: string) {
   const user = await prisma.user.findUnique({
@@ -24,6 +22,11 @@ async function getUser(id: string) {
   })
   if (!user) notFound()
   return user
+}
+
+export async function generateStaticParams() {
+  const users = await prisma.user.findMany({ select: { id: true } })
+  return users.map((user) => ({ id: user.id }))
 }
 
 export default async function ProfilePage({

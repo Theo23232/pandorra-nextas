@@ -4,9 +4,14 @@ import { useEffect, useState } from "react"
 import Masonry from "react-masonry-css"
 import useSWR from "swr"
 
+import { PublicationTabs } from "@/components/(main)/explore/PublicationTabs"
+import { PubVideo } from "@/components/(main)/explore/PubVideo"
 import { Skeleton } from "@/components/nyxb/skeleton"
 import { fetcher } from "@/lib/utils"
-import { PublicationWithAuthor } from "@/types/publicationType"
+import {
+  PublicationVideoWithAuthor,
+  PublicationWithAuthor,
+} from "@/types/publicationType"
 
 import PubCard from "./PubCard"
 
@@ -18,9 +23,23 @@ export const PublicationContent = () => {
   } = useSWR<PublicationWithAuthor[]>("/api/publication/all", fetcher, {
     refreshInterval: 10000,
   })
+
+  const {
+    data: publicationVideos,
+    error: pubVideoError,
+    isLoading: pubVideoIsLoading,
+  } = useSWR<PublicationVideoWithAuthor[]>("/api/publication/video", fetcher, {
+    refreshInterval: 10000,
+  })
+
   const [loadedPublications, setLoadedPublications] = useState<
     PublicationWithAuthor[]
   >([])
+  const [activeTab, setActiveTabs] = useState("image")
+
+  const handleActiveTabs = (value: string) => {
+    setActiveTabs(value)
+  }
 
   useEffect(() => {
     if (publications) {
@@ -60,8 +79,11 @@ export const PublicationContent = () => {
     )
   }
 
+  console.log(PubVideo)
+
   return (
     <div className="mt-8">
+      <PublicationTabs onChange={handleActiveTabs} />
       <Masonry
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
@@ -72,25 +94,45 @@ export const PublicationContent = () => {
           700: 1,
         }}
       >
-        {loadedPublications.map((pub, id) => (
-          <PubCard
-            key={pub.id}
-            imageUrl={pub.imageUrl}
-            index={id}
-            publicationId={pub.id}
-            pubOwner={pub.user.username}
-            pubOwnerImage={pub.user.image ?? ""}
-            isLiked={pub.isLiked}
-            likeCount={pub.reactionsCount}
-            commentCount={pub.commentCount}
-            pubDescription={{
-              prompt: pub.prompt,
-              model: pub.model,
-              preset: pub.preset,
-            }}
-            createdAt={pub.createdAt}
-          />
-        ))}
+        {activeTab === "image" &&
+          loadedPublications.map((pub, id) => (
+            <PubCard
+              key={pub.id}
+              imageUrl={pub.imageUrl}
+              index={id}
+              publicationId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image ?? ""}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionsCount}
+              commentCount={pub.commentCount}
+              pubDescription={{
+                prompt: pub.prompt,
+                model: pub.model,
+                preset: pub.preset,
+              }}
+              createdAt={pub.createdAt}
+            />
+          ))}
+        {activeTab === "video" &&
+          publicationVideos?.map((pub, id) => (
+            <PubVideo
+              key={pub.id}
+              index={id}
+              status={pub.status}
+              videoPrompt={pub.prompt}
+              videoDuration={pub.duration}
+              videoRatio={pub.ratio}
+              url={pub.videoUrl}
+              commentVideoCount={pub.commentVideoCount}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionVideoCount}
+              publicationVideoId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image}
+              date={pub.createdAt}
+            />
+          ))}
       </Masonry>
     </div>
   )

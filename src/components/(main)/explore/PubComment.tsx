@@ -12,6 +12,7 @@ import {
   Zap,
 } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import React, { useState } from "react"
 import { toast } from "sonner"
 import useSWR from "swr"
@@ -43,6 +44,7 @@ interface PublicationDialogProps {
   publication: {
     id: string
     owner: string
+    ownerId: string
     ownerImage: string
     description: {
       prompt: string
@@ -141,6 +143,7 @@ export default function PublicationDialog({
 
             <div className="flex h-fit max-h-[80vh] w-full max-w-lg flex-col gap-4 space-y-4 p-2">
               <PublicationHeader
+                ownerId={publication.ownerId}
                 owner={publication.owner}
                 ownerImage={publication.ownerImage}
                 date={publication.date}
@@ -180,16 +183,18 @@ export default function PublicationDialog({
 
 // Additional components are split out for clarity
 function PublicationHeader({
+  ownerId,
   owner,
   ownerImage,
   date,
 }: {
+  ownerId: string
   owner: string
   ownerImage: string
   date: Date
 }) {
   return (
-    <div className="flex items-center gap-3">
+    <Link href={`/profile/${ownerId}`} className="flex items-center gap-3">
       <Avatar className="h-10 w-10">
         <AvatarImage src={ownerImage} alt={owner} />
         <AvatarFallback>{owner[0]}</AvatarFallback>
@@ -198,7 +203,7 @@ function PublicationHeader({
         <p className="font-semibold">{owner}</p>
         <p className="text-xs text-muted-foreground">{formatDate(date)}</p>
       </div>
-    </div>
+    </Link>
   )
 }
 

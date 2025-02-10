@@ -556,8 +556,16 @@ export function findModelById(id: string): Model | undefined {
 
 export const presetStyles: Value[] = [
   {
+    name: "DYNAMIC",
+    value: "DYNAMIC",
+  },
+  {
     name: "ANIME",
     value: "ANIME",
+  },
+  {
+    name: "CREATIVE",
+    value: "CREATIVE",
   },
   {
     name: "BOKEH",
@@ -567,18 +575,11 @@ export const presetStyles: Value[] = [
     name: "CINEMATIC",
     value: "CINEMATIC",
   },
-  {
-    name: "CINEMATIC_CLOSEUP",
-    value: "CINEMATIC_CLOSEUP",
-  },
-  {
-    name: "CREATIVE",
-    value: "CREATIVE",
-  },
-  {
-    name: "DYNAMIC",
-    value: "DYNAMIC",
-  },
+  // {
+  //   name: "CINEMATIC_CLOSEUP",
+  //   value: "CINEMATIC_CLOSEUP",
+  // },
+
   {
     name: "ENVIRONMENT",
     value: "ENVIRONMENT",
@@ -595,10 +596,10 @@ export const presetStyles: Value[] = [
     name: "FOOD",
     value: "FOOD",
   },
-  {
-    name: "GENERAL",
-    value: "GENERAL",
-  },
+  // {
+  //   name: "GENERAL",
+  //   value: "GENERAL",
+  // },
   {
     name: "HDR",
     value: "HDR",
@@ -615,22 +616,22 @@ export const presetStyles: Value[] = [
     name: "MACRO",
     value: "MACRO",
   },
-  {
-    name: "MINIMALISTIC",
-    value: "MINIMALISTIC",
-  },
+  // {
+  //   name: "MINIMALISTIC",
+  //   value: "MINIMALISTIC",
+  // },
   {
     name: "MONOCHROME",
     value: "MONOCHROME",
   },
-  {
-    name: "MOODY",
-    value: "MOODY",
-  },
-  {
-    name: "NONE",
-    value: "NONE",
-  },
+  // {
+  //   name: "MOODY",
+  //   value: "MOODY",
+  // },
+  // {
+  //   name: "NONE",
+  //   value: "NONE",
+  // },
   {
     name: "NEUTRAL",
     value: "NEUTRAL",
@@ -647,32 +648,32 @@ export const presetStyles: Value[] = [
     name: "RAYTRACED",
     value: "RAYTRACED",
   },
-  {
-    name: "RENDER_3D",
-    value: "RENDER_3D",
-  },
+  // {
+  //   name: "RENDER_3D",
+  //   value: "RENDER_3D",
+  // },
   {
     name: "RETRO",
     value: "RETRO",
   },
-  {
-    name: "SKETCH_BW",
-    value: "SKETCH_BW",
-  },
-  {
-    name: "SKETCH_COLOR",
-    value: "SKETCH_COLOR",
-  },
+  // {
+  //   name: "SKETCH_BW",
+  //   value: "SKETCH_BW",
+  // },
+  // {
+  //   name: "SKETCH_COLOR",
+  //   value: "SKETCH_COLOR",
+  // },
   {
     name: "STOCK_PHOTO",
     value: "STOCK_PHOTO",
   },
-  {
-    name: "VIBRANT",
-    value: "VIBRANT",
-  },
-  {
-    name: "UNPROCESSED",
-    value: "UNPROCESSED",
-  },
+  // {
+  //   name: "VIBRANT",
+  //   value: "VIBRANT",
+  // },
+  // {
+  //   name: "UNPROCESSED",
+  //   value: "UNPROCESSED",
+  // },
 ]

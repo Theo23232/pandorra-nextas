@@ -9,7 +9,6 @@ import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { ImageNumberInput } from "@/components/image-ai/ImageNumberInput"
 import { ImageSizeInput } from "@/components/image-ai/ImageSizeInput"
 import { ModelSelectDialog } from "@/components/image-ai/ModelSelectDialog"
-import { Button } from "@/components/tremor/ui/button"
 import { Card, CardContent } from "@/components/tremor/ui/card"
 import {
   Select,
@@ -25,6 +24,7 @@ import {
   models,
   presetStyles,
 } from "@/lib/leonardo/presets"
+import { cn } from "@/lib/utils"
 
 export type SidebarProps = {
   onModelChange: (model: Model) => void
@@ -135,20 +135,22 @@ export function ImageGenerationSidebar(props: SidebarProps) {
         </div>
         <Select value={presetStyle} onValueChange={handlePresetStyleChange}>
           <SelectCustomTrigger>
-            <Button
-              className="flex h-[56px] w-full items-center justify-between hover:bg-accent/40"
-              variant={"outline"}
+            <div
+              className={cn(
+                "relative inline-flex h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
+                "relative flex h-[56px] w-full items-center justify-between border border-input bg-background text-primary shadow-sm hover:bg-accent/40",
+              )}
               id="tour5-step2"
             >
               <div className="flex items-center">
                 <Zap size={24} />
                 <div className="ml-2 text-start">
                   <p className="text-xs text-muted-foreground">Preset style</p>
-                  <p>PA</p>
+                  <p>{presetStyle}</p>
                 </div>
               </div>
               <ChevronDown />
-            </Button>
+            </div>
           </SelectCustomTrigger>
           <SelectContent>
             <SelectGroup>
@@ -163,9 +165,11 @@ export function ImageGenerationSidebar(props: SidebarProps) {
         </Select>
         <Select value={contrast} onValueChange={handleContrastChange}>
           <SelectCustomTrigger>
-            <Button
-              className="flex h-[56px] w-full items-center justify-between hover:bg-accent/40"
-              variant={"outline"}
+            <div
+              className={cn(
+                "relative inline-flex h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
+                "relative flex h-[56px] w-full items-center justify-between border border-input bg-background text-primary shadow-sm hover:bg-accent/40",
+              )}
               id="tour5-step3"
             >
               <div className="flex items-center">
@@ -176,7 +180,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
                 </div>
               </div>
               <ChevronDown />
-            </Button>
+            </div>
           </SelectCustomTrigger>
           <SelectContent>
             <SelectGroup>

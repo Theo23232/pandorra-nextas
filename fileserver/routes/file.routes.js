@@ -92,11 +92,10 @@ VideoRouter.post("/upload", videoUpload.single("video"), async (req, res) => {
 
         // Renommer la vidéo finale
         const sanitizeFilename = (filename) => {
-          const timestamp = Date.now();
           const sanitized = filename
             .replace(/[^a-zA-Z0-9.-]/g, "_") // Remplacer caractères spéciaux par "_"
             .replace(/\s+/g, "_"); // Remplacer espaces par "_"
-          return `${timestamp}_${sanitized}`;
+          return `${sanitized}`;
         };
 
         const finalVideoFilename = sanitizeFilename(originalFilename);
@@ -174,11 +173,10 @@ VideoRouter.post("/download-from-url", async (req, res) => {
     let originalFilename = path.basename(urlParts.pathname);
 
     // Générer un nom de fichier unique
-    const timestamp = Date.now();
     const sanitizedFilename = originalFilename
       .replace(/[^a-zA-Z0-9.-]/g, "_")
       .replace(/\s+/g, "_");
-    const finalFilename = `${timestamp}_${sanitizedFilename}`;
+    const finalFilename = `${sanitizedFilename}`;
     const savedFilePath = path.join(videoPath, finalFilename);
 
     // Télécharger la vidéo
@@ -197,7 +195,7 @@ VideoRouter.post("/download-from-url", async (req, res) => {
     res.status(200).json({
       message: "Vidéo téléchargée avec succès",
       filename: finalFilename,
-      videoUrl: `/videos/${finalFilename}`
+      videoUrl: `videos/${finalFilename}`
     });
 
   } catch (error) {

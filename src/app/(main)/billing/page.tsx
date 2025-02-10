@@ -1,14 +1,19 @@
 "use client"
-import { useState } from 'react';
+import { useState } from "react"
 
-import { CardPayement } from '@/components/stripe/card/CardPayement';
-import CardSubscription from '@/components/stripe/card/CardSubscription';
-import { CardDescription, CardTitle } from '@/components/tremor/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tremor/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { BuyTokenInfo, SubscriptionType } from '@/lib/PaymentType';
+import { CardPayement } from "@/components/stripe/card/CardPayement"
+import CardSubscription from "@/components/stripe/card/CardSubscription"
+import { CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/tremor/ui/tabs"
+import { Badge } from "@/components/ui/badge"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import { BuyTokenInfo, SubscriptionType } from "@/lib/PaymentType"
 
 export default function RoutePage() {
   const [isSwitchOn, setIsSwitchOn] = useState(false)

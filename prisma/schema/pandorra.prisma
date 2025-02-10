@@ -92,6 +92,22 @@ model Publication {
     reaction Reaction[]
 }
 
+model PublicationVideo {
+    id       String @id @default(cuid())
+    videoUrl String
+    prompt   String
+    duration Int
+    ratio    String
+    status   String
+
+    createdAt DateTime @default(now())
+
+    userId        String
+    user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+    CommentVideo  CommentVideo[]
+    ReactionVideo ReactionVideo[]
+}
+
 model Comment {
     id   String   @id @default(cuid())
     text String
@@ -102,6 +118,18 @@ model Comment {
     publicationId   String
     publication     Publication       @relation(fields: [publicationId], references: [id], onDelete: Cascade)
     commentReaction CommentReaction[]
+}
+
+model CommentVideo {
+    id   String   @id @default(cuid())
+    text String
+    date DateTime @default(now())
+
+    userId               String
+    user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    publicationVideoId   String
+    publicationVideo     PublicationVideo       @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
+    CommentVideoReaction CommentVideoReaction[]
 }
 
 model CommentReaction {
@@ -115,6 +143,16 @@ model CommentReaction {
     updatedAt DateTime @default(now()) @updatedAt
 }
 
+model CommentVideoReaction {
+    id             String       @id @default(cuid())
+    userId         String
+    user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    commentVideoId String
+    commentVideo   CommentVideo @relation(fields: [commentVideoId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+}
+
 model Reaction {
     id            String      @id @default(cuid())
     userId        String
@@ -123,4 +161,14 @@ model Reaction {
     publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @default(now()) @updatedAt
+}
+
+model ReactionVideo {
+    id                 String           @id @default(cuid())
+    userId             String
+    user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+    publicationVideoId String
+    publicationVideo   PublicationVideo @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
 }

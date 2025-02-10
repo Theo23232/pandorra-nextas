@@ -12,7 +12,7 @@ export default function JetonCounter() {
     <div className="flex items-center justify-center gap-3">
       <Tooltip content={`You have ${user?.jeton} tokens. Click to get more`}>
         <Link
-          href={"/billing"}
+          href={"/pricing"}
           prefetch
           type="button"
           id="radix-:Rmf7mfnmmn4q:"
@@ -31,7 +31,7 @@ export default function JetonCounter() {
       </Tooltip>
       {user && user?.plan === Plan.Free && (
         <Tooltip content={`You are in free plan. Click to upgrade`}>
-          <Link prefetch={true} href={"/billing"}>
+          <Link prefetch={true} href={"/pricing"}>
             <img src="/assets/upgrade.png" className="h-10 w-auto" />
           </Link>
         </Tooltip>

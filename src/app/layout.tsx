@@ -5,6 +5,8 @@ import "./outsideStyles.css"
 import NextTopLoader from "nextjs-toploader"
 
 import { Providers } from "@/context/providers"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: "Pandorra ai",
@@ -23,6 +25,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-primary dark:bg-background`}
       >
+        <SpeedInsights />
+        <Analytics />
         <NextTopLoader showSpinner={false} color="#2ccfff" />
         <Providers>{children}</Providers>
       </body>

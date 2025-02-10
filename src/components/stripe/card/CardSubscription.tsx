@@ -1,14 +1,22 @@
 "use client"
-import { CheckIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
+import { CheckIcon } from "lucide-react"
+import { useEffect, useState } from "react"
+import useSWR from "swr"
 
-import { accountSettingSession, subscriptionSession } from '@/actions/stripeSessions.action';
-import { Button } from '@/components/tremor/ui/button';
-import { Card, CardContent, CardDescription, CardTitle } from '@/components/tremor/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { fetcher } from '@/lib/utils';
-import { User } from '@prisma/client';
+import {
+  accountSettingSession,
+  subscriptionSession,
+} from "@/actions/stripeSessions.action"
+import { Button } from "@/components/tremor/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/tremor/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { fetcher } from "@/lib/utils"
+import { User } from "@prisma/client"
 
 interface CardPayementProps {
   identity?: string
@@ -60,7 +68,7 @@ export default function CardSubscription(props: CardPayementProps) {
         const advancedInterval = props.interval === "monthly" ? "year" : "month"
         await subscriptionSession(
           "AdvancedMonthly",
-          "Add 2500 Tokens per month",
+          "Add 3000 Tokens per month",
           advancedPrice,
           advancedInterval,
         )

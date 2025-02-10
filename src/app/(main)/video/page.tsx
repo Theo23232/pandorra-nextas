@@ -1,15 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { AlertCircle, Download, Send, Upload, X } from "lucide-react"
+import { Upload, X } from "lucide-react"
 import { useRef, useState } from "react"
+import Masonry from "react-masonry-css"
 import useSWR, { mutate } from "swr"
 
 import { enhanceVideoPrompt } from "@/actions/openai.actions"
 import { generateVideoFromImage } from "@/actions/runway.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -20,12 +19,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
 import { useToast } from "@/hooks/use-toast"
 import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"
-
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
@@ -124,7 +123,7 @@ export default function VideoGenerator() {
   }
 
   return (
-    <div className="flex w-full max-w-7xl flex-col gap-8">
+    <div className="flex w-full flex-col gap-8">
       <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-6 shadow-lg">
         <Textarea
           ref={textareaRef}
@@ -193,64 +192,31 @@ export default function VideoGenerator() {
           </div>
         )}
       </MagicCard>
-
-      <MagicCard className="bg-gradient-to-br from-gray-50 to-white p-6 shadow-lg">
-        <div className="space-y-6">
-          {histories?.map((video) => (
-            <div
+      <Masonry
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+        breakpointCols={{
+          default: 5,
+          1440: 3,
+          1200: 2,
+          700: 1,
+        }}
+      >
+        {histories?.map((video) => {
+          return (
+            <VideoDisplayCard
               key={video.id}
-              className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
-            >
-              {video.status === "Generated" ? (
-                <video src={video.url} controls className="h-auto w-full" />
-              ) : video.status === "Pending" ? (
-                <SkeletonLoader />
-              ) : (
-                <Alert variant="destructive">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    Failed to generate video:{" "}
-                    {video.failedMessage || "Unknown error"}
-                  </AlertDescription>
-                </Alert>
-              )}
-              <div className="space-y-2 p-4">
-                <p className="flex items-center gap-2">
-                  <span className="font-medium text-gray-700">Prompt:</span>
-                  <span className="text-gray-600">{video.prompt}</span>
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="neutral">{video.duration} seconds</Badge>
-                    <Badge variant="neutral">
-                      {video.ratio}{" "}
-                      {video.ratio === "1280:768"
-                        ? "(Landscape)"
-                        : "(Portrait)"}
-                    </Badge>
-                    <Badge variant="neutral">{video.status}</Badge>
-                    {video.status === "Generated" && (
-                      <Badge variant="neutral">
-                        {new Date(video.createdAt).toLocaleString()}
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex gap-3">
-                    <Button className="h-8 px-4 py-2 text-white transition-all">
-                      <Download />
-                      Download
-                    </Button>
-                    <Button className="h-8 px-4 py-2 text-white transition-all">
-                      <Send />
-                      Post
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </MagicCard>
+              id={video.id}
+              status={video.status}
+              url={video.url}
+              failedMessage={video.failedMessage!}
+              videoPrompt={video.prompt}
+              videoDuration={video.duration}
+              videoRatio={video.ratio}
+            />
+          )
+        })}
+      </Masonry>
     </div>
   )
 }

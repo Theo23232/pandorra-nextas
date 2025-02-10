@@ -49,8 +49,8 @@ export const Hero = () => {
               y2="-46.0644"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#BC2EFF" />
-              <stop offset="1" stop-color="#359CFF" />
+              <stop stopColor="#BC2EFF" />
+              <stop offset="1" stopColor="#359CFF" />
             </linearGradient>
             <image
               id="image0_1_3580"

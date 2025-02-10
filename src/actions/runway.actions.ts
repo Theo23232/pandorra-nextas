@@ -65,7 +65,7 @@ export async function generateVideoFromImage(
 }
 
 export const downloadVideo = async (videoUrl: string) => {
-  const API_BASE_URL = "https://pdr.teratany.org"
+  const API_BASE_URL = "http://localhost:9901"
   try {
     const response = await fetch(`${API_BASE_URL}/videos/download-from-url`, {
       method: "POST",
@@ -95,7 +95,7 @@ export const downloadVideo = async (videoUrl: string) => {
 
 export const videoVerifyTask = SA(
   async (user, taskId: string): Promise<Video> => {
-    const API_BASE_URL = "https://pdr.teratany.org"
+    const API_BASE_URL = "http://localhost:9901"
 
     let video
     let task = await client.tasks.retrieve(taskId)

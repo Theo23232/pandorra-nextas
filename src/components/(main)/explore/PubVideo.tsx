@@ -3,6 +3,7 @@
 import { useRef, useState } from "react"
 
 import { LikePublicationVideo } from "@/components/(main)/explore/LikePublicationVideo"
+import PubVideoComment from "@/components/(main)/explore/PubVideoComment"
 
 interface PubVideoProps {
   status: string
@@ -18,6 +19,7 @@ interface PubVideoProps {
   pubOwner: string
   pubOwnerImage: string
   date: Date
+  ownerId: string
 }
 
 export const PubVideo = ({
@@ -34,6 +36,7 @@ export const PubVideo = ({
   pubOwner,
   pubOwnerImage,
   date,
+  ownerId,
 }: PubVideoProps) => {
   const [isHovered, setIsHovered] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -57,18 +60,31 @@ export const PubVideo = ({
           />
         </div>
       </div>
-      {status === "Generated" && (
-        <video
-          ref={videoRef}
-          src={url}
-          className={`h-auto w-full transform transition-transform duration-1000 ease-in-out ${isHovered ? "scale-125" : ""}`}
-          loop
-          muted
-          playsInline
-          controls={false}
-        />
-      )}
-
+      <PubVideoComment
+        publication={{
+          owner: pubOwner,
+          ownerId: ownerId,
+          ownerImage: pubOwnerImage,
+          id: publicationVideoId,
+          prompt: videoPrompt,
+          duration: videoDuration,
+          ratio: videoRatio,
+          video: url,
+          date: date,
+        }}
+      >
+        {status === "Generated" && (
+          <video
+            ref={videoRef}
+            src={url}
+            className={`h-auto w-full transform transition-transform duration-1000 ease-in-out ${isHovered ? "scale-125" : ""}`}
+            loop
+            muted
+            playsInline
+            controls={false}
+          />
+        )}
+      </PubVideoComment>
       <div
         className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300 ${
           isHovered ? "opacity-100" : "opacity-0"

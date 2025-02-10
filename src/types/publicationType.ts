@@ -40,3 +40,13 @@ export type CommentWithAuthor = Omit<
   isLiked: boolean
   commentReaction: number
 }
+export type CommentVideoWithAuthor = Omit<
+  Prisma.CommentVideoGetPayload<{
+    include: { user: true }
+  }>,
+  "user"
+> & {
+  user: Pick<User, "id" | "fullname" | "username" | "image">
+  isLiked: boolean
+  commentReaction: number
+}

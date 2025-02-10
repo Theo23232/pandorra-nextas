@@ -15,6 +15,7 @@ interface PubCardProps {
   commentCount: number
   isLiked: boolean
   pubOwner: string
+  pubOwnerId: string
   pubOwnerImage: string
   pubDescription: {
     prompt: string
@@ -46,6 +47,7 @@ export default function PubCard(props: PubCardProps) {
       <PubComment
         publication={{
           owner: props.pubOwner,
+          ownerId: props.pubOwnerId,
           ownerImage: props.pubOwnerImage,
           id: props.publicationId,
           description: props.pubDescription,

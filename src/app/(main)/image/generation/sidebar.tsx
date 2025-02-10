@@ -144,10 +144,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
                 <Zap size={24} />
                 <div className="ml-2 text-start">
                   <p className="text-xs text-muted-foreground">Preset style</p>
-                  <p>
-                    {presetStyle.replace(/_/g, " ").charAt(0).toUpperCase() +
-                      presetStyle.slice(1).toLowerCase().replace(/_/g, " ")}
-                  </p>
+                  <p>PA</p>
                 </div>
               </div>
               <ChevronDown />

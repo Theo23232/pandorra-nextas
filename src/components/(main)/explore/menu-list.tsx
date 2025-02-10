@@ -1,6 +1,6 @@
 "use client"
 
-import Link from 'next/link';
+import Link from "next/link"
 
 export type MenuListProps = {}
 
@@ -10,7 +10,7 @@ export const MenuList = (props: MenuListProps) => {
       <li id="tour2-step1">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#F37300_0%,#F0AA00_55%,#F37300_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(243,115,0,0.5),0px_5px_5px_-1px_rgba(240,170,0,0.25),inset_4px_4px_8px_rgba(255,200,150,0.5),inset_-4px_-4px_8px_rgba(235,130,50,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
-          href="/ai-video-generator"
+          href="/video"
           prefetch={true}
         >
           <div className="flex items-center justify-between">
@@ -176,7 +176,7 @@ export const MenuList = (props: MenuListProps) => {
       </li>
       <li id="tour2-step4">
         <Link
-          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#FF0037_0%,#f73861_55%,#FF0037_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(255,0,55,0.5),0px_5px_5px_-1px_rgba(253,28,77,0.25),inset_4px_4px_8px_rgba(255,100,130,0.5),inset_-4px_-4px_8px_rgba(255,0,55,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
+          className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#006B3C_0%,#63D471_55%,#006B3C_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(99,212,113,0.5),0px_5px_5px_-1px_rgba(80,170,90,0.25),inset_4px_4px_8px_rgba(99,212,113,0.5),inset_-4px_-4px_8px_rgba(0,107,60,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
           href="/assistant"
           prefetch={true}
         >

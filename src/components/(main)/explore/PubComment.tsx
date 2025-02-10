@@ -7,6 +7,7 @@ import {
   Fullscreen,
   Loader,
   SendHorizontal,
+  X,
   Zap,
 } from "lucide-react"
 import Image from "next/image"
@@ -20,11 +21,12 @@ import { Button } from "@/components/tremor/ui/button"
 import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/tremor/ui/dialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { formatDate } from "@/lib/formatDate"
 import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
@@ -119,19 +121,26 @@ export default function PubComment({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex h-[90vh] max-w-6xl items-start overflow-hidden p-4">
-        <ScrollArea className="h-full">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="relative h-fit w-full">
+      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-scroll p-4">
+        <DialogTitle className="hidden">{""}</DialogTitle>
+        <div className="relative h-full w-full">
+          <DialogClose className="absolute right-2 top-2 cursor-pointer">
+            <Button variant="outline">
+              <X className="h-4 w-4 text-black" />
+            </Button>
+          </DialogClose>
+          <div className="flex w-full gap-4">
+            <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4">
               <Image
                 src={image}
                 alt={pubDescription.prompt}
-                className="h-auto w-full rounded-lg object-cover shadow-lg"
+                className="h-full w-full overflow-hidden rounded-lg object-contain"
                 width={500}
                 height={800}
               />
             </div>
-            <div className="flex h-fit max-h-[80vh] w-full flex-col gap-4 space-y-4 p-4">
+
+            <div className="flex h-fit max-h-[80vh] w-full max-w-lg flex-col gap-4 space-y-4 p-2">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10">
@@ -226,8 +235,8 @@ export default function PubComment({
               </div>
             </div>
           </div>
-          <RelatedPost model={model?.name!} />
-        </ScrollArea>
+        </div>
+        <RelatedPost model={model?.name!} />
       </DialogContent>
     </Dialog>
   )
@@ -284,8 +293,8 @@ export const RelatedPost = ({ model }: { model: string }) => {
       <div className="">
         <Separator orientation="horizontal" className="my-6" />
         <div className="mb-6 text-lg font-bold">Related posts</div>
-        <div className="grid grid-cols-3 gap-4 pr-4">
-          {publications.slice(0, 9).map((pub) => (
+        <div className="grid grid-cols-5 gap-4 pr-4">
+          {publications.slice(0, 10).map((pub) => (
             <PubComment
               key={pub.id}
               pubOwner={pub.user.username ?? ""}

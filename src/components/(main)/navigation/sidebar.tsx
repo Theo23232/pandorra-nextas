@@ -1,30 +1,44 @@
 "use client"
 import {
-    BoomBox, BotMessageSquare, Crown, Gift, Image, Sparkles, User2, Video
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
+  BoomBox,
+  BotMessageSquare,
+  Coins,
+  Crown,
+  Gift,
+  Image,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Navbar } from '@/components/(main)/authentified-navbar';
-import { Logo } from '@/components/logo';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { useIsSidebar } from '@/hooks/use-is-sidebar';
-import { useUser } from '@/hooks/use-user';
-import { cx, focusRing } from '@/lib/utils';
-import { RiHome2Line } from '@remixicon/react';
+import { siteConfig } from "@/app/siteConfig"
+import { Navbar } from "@/components/(main)/authentified-navbar"
+import { Logo } from "@/components/logo"
+import { UserProfileMobile } from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { useUser } from "@/hooks/use-user"
+import { cx, focusRing } from "@/lib/utils"
+import { RiHome2Line } from "@remixicon/react"
 
-import MobileSidebar from './MobileSidebar';
+import MobileSidebar from "./MobileSidebar"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
   { name: "Profile", href: "/profile", icon: User2, id: "tour1-step2" },
   { name: "Affiliate", href: "/affiliate", icon: Gift, id: "tour1-step3" },
   { name: "Ranking", href: "/ranking", icon: Crown, id: "tour1-step4" },
-  { name: "Upgrade plan", href: "/billing", icon: Sparkles, id: "tour1-step5" },
+  { name: "Upgrade plan", href: "/pricing", icon: Sparkles, id: "tour1-step5" },
+  {
+    name: "Add more tokens",
+    href: "/token",
+    icon: Coins,
+    id: "tour1-step6",
+  },
 ] as const
 
 const shortcuts = [

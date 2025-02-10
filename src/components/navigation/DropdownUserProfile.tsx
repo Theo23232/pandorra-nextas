@@ -129,7 +129,7 @@ export function DropdownUserProfile({
               </DropdownMenuItem>
             </Link>
 
-            <Link href={"/billing"} prefetch={true}>
+            <Link href={"/pricing"} prefetch={true}>
               <DropdownMenuItem>
                 <CreditCard className="mr-2 size-4 shrink-0" />
                 Billing

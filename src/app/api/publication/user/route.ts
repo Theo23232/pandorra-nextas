@@ -12,9 +12,9 @@ export async function GET(request: Request) {
 
   // Get publicationId from URL search params
   const { searchParams } = new URL(request.url)
-  const publicationId = searchParams.get("publicationId")
+  const userId = searchParams.get("userId")
 
-  if (!publicationId) {
+  if (!userId) {
     return NextResponse.json(
       { error: "Publication ID is required" },
       { status: 400 },
@@ -22,42 +22,42 @@ export async function GET(request: Request) {
   }
 
   try {
-    const comments = await prisma.comment.findMany({
+    const publications = await prisma.publication.findMany({
       where: {
-        publicationId: publicationId,
+        userId: userId,
       },
       include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            image: true,
-          },
-        },
-        commentReaction: {
+        user: true,
+        reaction: {
           select: {
             id: true,
             userId: true,
+            publicationId: true,
+          },
+        },
+        comment: {
+          select: {
+            id: true,
+            userId: true,
+            commentReaction: true,
           },
         },
       },
       orderBy: {
-        date: "desc",
+        createdAt: "desc",
       },
     })
 
-    // Transform the data to include isLiked and reaction count
-    const formattedComments = comments.map((comment) => ({
-      ...comment,
-      isLiked: comment.commentReaction.some(
-        (reaction) => reaction.userId === user.id,
-      ),
-      reactionCount: comment.commentReaction.length,
-      // Remove the raw reaction data since we've processed it
-      commentReaction: undefined,
+    const response = publications.map((publication) => ({
+      ...publication,
+      isLiked: publication.reaction.find((p) => p.userId === user.id)
+        ? true
+        : false,
+      reactionsCount: publication.reaction.length,
+      commentCount: publication.comment.length,
     }))
 
-    return NextResponse.json(formattedComments, { status: 200 })
+    return NextResponse.json(response, { status: 200 })
   } catch (error) {
     console.error("Error fetching comments:", error)
     return NextResponse.json(

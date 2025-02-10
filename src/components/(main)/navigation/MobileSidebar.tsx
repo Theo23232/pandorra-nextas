@@ -31,7 +31,7 @@ const navigation = [
   { name: "Profile", href: "/profile", icon: User2 },
   { name: "Affiliate", href: "/affiliate", icon: Gift },
   { name: "Ranking", href: "/ranking", icon: Crown },
-  { name: "Upgrade plan", href: "/billing", icon: Sparkles },
+  { name: "Upgrade plan", href: "/pricing", icon: Sparkles },
 ] as const
 
 const shortcuts = [

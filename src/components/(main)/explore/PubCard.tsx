@@ -44,14 +44,14 @@ export default function PubCard(props: PubCardProps) {
         />
       </div>
       <PubComment
-        pubOwner={props.pubOwner}
-        pubOwnerImage={props.pubOwnerImage}
-        pubId={props.publicationId}
-        pubLikeCount={props.likeCount}
-        pubIsLike={props.isLiked}
-        pubDescription={props.pubDescription}
-        image={props.imageUrl}
-        date={props.createdAt}
+        publication={{
+          owner: props.pubOwner,
+          ownerImage: props.pubOwnerImage,
+          id: props.publicationId,
+          description: props.pubDescription,
+          image: props.imageUrl,
+          date: props.createdAt,
+        }}
       >
         <Image
           width={400}

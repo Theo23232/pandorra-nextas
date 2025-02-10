@@ -25,7 +25,7 @@ export const UserProfileDesktop = () => {
               className="flex size-8 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-xs text-gray-700 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
               aria-hidden="true"
             >
-              {user.username.charAt(0)}
+              P
             </span>
             <span>{user.username}</span>
           </span>

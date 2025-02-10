@@ -1,13 +1,13 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 
-import { Footer } from '@/app/affiliation/AffiliationFooter';
-import BeforeFooter from '@/app/affiliation/BeforeFooter';
-import { DescribeSection } from '@/app/affiliation/DescribeSection';
-import { Hero } from '@/app/affiliation/Hero';
-import Program from '@/app/affiliation/Program';
-import ReasonToJoin from '@/app/affiliation/ReasonToJoin';
-import LandingNavbar from '@/components/landing/navbar';
+import BeforeFooter from "@/app/affiliation/BeforeFooter"
+import { DescribeSection } from "@/app/affiliation/DescribeSection"
+import { Hero } from "@/app/affiliation/Hero"
+import Program from "@/app/affiliation/Program"
+import ReasonToJoin from "@/app/affiliation/ReasonToJoin"
+import { Footer } from "@/components/landing/footer"
+import LandingNavbar from "@/components/landing/navbar"
 
 export default function RoutePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })

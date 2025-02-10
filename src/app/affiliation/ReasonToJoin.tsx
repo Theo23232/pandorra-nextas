@@ -56,8 +56,8 @@ export default function ReasonToJoin() {
               y2="313.364"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#BC2EFF" />
-              <stop offset="1" stop-color="#359CFF" />
+              <stop stopColor="#BC2EFF" />
+              <stop offset="1" stopColor="#359CFF" />
             </linearGradient>
             <image
               id="image0_103_3291"
@@ -94,9 +94,9 @@ export default function ReasonToJoin() {
                 <path
                   d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
                   stroke="white"
-                  stroke-width="1.66667"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.66667"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-thin">
@@ -122,9 +122,9 @@ export default function ReasonToJoin() {
                 <path
                   d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
                   stroke="white"
-                  stroke-width="1.66667"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.66667"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-thin">
@@ -150,9 +150,9 @@ export default function ReasonToJoin() {
                 <path
                   d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
                   stroke="white"
-                  stroke-width="1.66667"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.66667"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-thin">
@@ -178,9 +178,9 @@ export default function ReasonToJoin() {
                 <path
                   d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
                   stroke="white"
-                  stroke-width="1.66667"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.66667"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-thin">
@@ -206,9 +206,9 @@ export default function ReasonToJoin() {
                 <path
                   d="M12.6943 3.8457L5.81934 10.7207L2.69434 7.5957"
                   stroke="white"
-                  stroke-width="1.66667"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.66667"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-thin">

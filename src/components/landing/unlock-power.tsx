@@ -26,7 +26,7 @@ export const UnlockPower = () => {
           </Button>
         </Bounce>
 
-        <Bounce className="relative mt-20 h-fit max-h-[598px] w-fit max-w-[1192px] rounded-[10px] bg-[rgba(74,174,199,0.77)] p-2 backdrop-blur-[87px]">
+        <Bounce className="relative mt-20 h-fit max-h-[598px] w-fit max-w-[1192px] rounded-[10px] bg-[rgba(74,174,199,0.32)] p-2 backdrop-blur-[87px]">
           <div className="absolute right-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(204,0,255,0.40)] blur-[112px]"></div>
           <div className="absolute left-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(0,155,255,0.40)] blur-[112px]"></div>
           <video

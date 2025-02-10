@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import Bounce from "@/components/animated/uibeats/bounce"
 
 export const GalleryMultiple = () => {
@@ -9,7 +11,7 @@ export const GalleryMultiple = () => {
           other creators
         </span>
       </Bounce>
-      <Bounce className="flex max-w-[1278px] gap-8 pt-12">
+      <Bounce className="hidden max-w-[1278px] gap-8 pt-12">
         <button className="font-inter flex h-[16.8px] w-[100.295px] flex-shrink-0 cursor-pointer flex-col justify-center text-[14px] font-medium leading-[22px] text-white">
           Trending
         </button>
@@ -49,9 +51,12 @@ export const GalleryMultiple = () => {
       </Bounce>
 
       <Bounce className="">
-        <button className="mb-24 mt-10 flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
+        <Link
+          href={"/explore"}
+          className="mb-24 mt-10 flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100"
+        >
           View more
-        </button>
+        </Link>
       </Bounce>
     </div>
   )

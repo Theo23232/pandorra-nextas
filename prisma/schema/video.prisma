@@ -1,14 +1,15 @@
 model Video {
-    id        String   @id @default(cuid())
-    userId    String
-    prompt    String
-    duration  Int
-    status    String
-    url       String
-    createdAt DateTime @default(now())
-    isImage   Boolean
-    taskId    String   @unique
-    ratio     String   @default("")
+    id            String   @id @default(cuid())
+    userId        String
+    prompt        String
+    duration      Int
+    status        String
+    url           String
+    createdAt     DateTime @default(now())
+    isImage       Boolean
+    taskId        String   @unique
+    ratio         String   @default("")
+    failedMessage String?
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

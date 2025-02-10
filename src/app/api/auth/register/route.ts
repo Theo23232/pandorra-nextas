@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server"
 
-import { generateToken, hashPassword } from '@/lib/auth';
-import { getDeviceInfo } from '@/lib/device';
-import { prisma } from '@/prisma';
+import { generateToken, hashPassword } from "@/lib/auth"
+import { getDeviceInfo } from "@/lib/device"
+import { prisma } from "@/prisma"
 
 export async function POST(req: NextRequest) {
   try {
@@ -86,5 +86,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error) {
       console.log("Error: ", error.stack)
     }
+  } finally {
+    await prisma.$disconnect() // Ferme la connexion après chaque requête
   }
 }

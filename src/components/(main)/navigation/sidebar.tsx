@@ -14,6 +14,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useOnborda } from "onborda"
 import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 import { siteConfig } from "@/app/siteConfig"
 import { Navbar } from "@/components/(main)/authentified-navbar"
@@ -77,6 +78,7 @@ const shortcuts = [
 ] as const
 
 export function Sidebar() {
+  const { t } = useTranslation()
   const { isSidebar } = useIsSidebar()
 
   const { startOnborda } = useOnborda()
@@ -131,14 +133,14 @@ export function Sidebar() {
                         className="size-5 shrink-0"
                         aria-hidden="true"
                       />
-                      {item.name}
+                      {t(item.name)}
                     </Link>
                   </li>
                 ))}
               </ul>
               <div>
                 <span className="text-sm font-medium leading-6 text-gray-500">
-                  AI Assets
+                  {t(`AI Assets`)}
                 </span>
                 <ul aria-label="shortcuts" role="list" className="space-y-0.5">
                   {shortcuts.map((item) => (
@@ -158,7 +160,7 @@ export function Sidebar() {
                           className="size-5 shrink-0"
                           aria-hidden="true"
                         />
-                        {item.name}
+                        {t(item.name)}
                       </Link>
                     </li>
                   ))}
@@ -169,18 +171,19 @@ export function Sidebar() {
               <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
                 <CardHeader className="space-y-1">
                   <CardTitle className="text-center text-2xl font-bold">
-                    Upgrade Plan
+                    {t(`Upgrade Plan`)}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center space-y-4">
                   <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-                    Subscribe to a plan features and get full access on all
-                    features!
+                    {t(
+                      "Subscribe to a plan features and get full access on all features!",
+                    )}
                   </p>
                 </CardContent>
                 <CardFooter>
                   <Link href={"/pricing"} className="w-full">
-                    <Button className="w-full">Upgrade Now</Button>
+                    <Button className="w-full">{t(`Upgrade Now`)}</Button>
                   </Link>
                 </CardFooter>
               </Card>

@@ -1,4 +1,5 @@
 "use client"
+
 import { redirect } from "next/navigation"
 import { Onborda, OnbordaProvider } from "onborda"
 import { ReactNode } from "react"
@@ -10,15 +11,21 @@ import { useIsSidebar } from "@/hooks/use-is-sidebar"
 import { useUser } from "@/hooks/use-user"
 import { tours } from "@/lib/onboarda/steps"
 
-export default function RouteLayout({ children }: { children: ReactNode }) {
+interface RouteLayoutProps {
+  children: ReactNode
+}
+
+export default function RouteLayout({ children }: RouteLayoutProps) {
   const { user, isLoading, isError } = useUser()
   const { isSidebar } = useIsSidebar()
 
   if (isLoading) {
+    console.log("isLoading ==> ", isLoading)
     return null // Or a loading state
   }
 
   if (!user || isError) {
+    console.log("!user || isError ==> ", !user || isError)
     return redirect("/auth")
   }
 

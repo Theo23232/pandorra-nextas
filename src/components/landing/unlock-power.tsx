@@ -1,4 +1,5 @@
 import { MoveRight } from "lucide-react"
+import Link from "next/link"
 
 import Bounce from "@/components/animated/uibeats/bounce"
 import { Button } from "@/components/tremor/ui/button"
@@ -18,12 +19,14 @@ export const UnlockPower = () => {
           stories, ads, and concepts to life in <br /> seconds.
         </Bounce>
         <Bounce>
-          <Button
-            variant="gradient"
-            className="flex items-center justify-center gap-2 rounded-full px-4"
-          >
-            Try for free <MoveRight />
-          </Button>
+          <Link href={"/explore"}>
+            <Button
+              variant="gradient"
+              className="flex items-center justify-center gap-2 rounded-full px-4"
+            >
+              Try for free <MoveRight />
+            </Button>
+          </Link>
         </Bounce>
 
         <Bounce className="relative mt-20 h-fit max-h-[598px] w-fit max-w-[1192px] rounded-[10px] bg-[rgba(74,174,199,0.32)] p-2 backdrop-blur-[87px]">
@@ -53,18 +56,22 @@ export const UnlockPower = () => {
           text, and voice generation seamless and powerful.
         </Bounce>
         <Bounce className="flex gap-4">
-          <Button
-            variant={"gradient"}
-            className="mr-2 flex h-11 items-center justify-center rounded-full px-6 transition-all ease-in-out"
-          >
-            Create for free
-          </Button>
-          <Button
-            variant="ghost"
-            className="flex h-11 items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
-          >
-            View pricing
-          </Button>
+          <Link href={"/explore"}>
+            <Button
+              variant={"gradient"}
+              className="mr-2 flex h-11 items-center justify-center rounded-full px-6 transition-all ease-in-out"
+            >
+              Create for free
+            </Button>
+          </Link>
+          <Link href={"/pricing"}>
+            <Button
+              variant="ghost"
+              className="flex h-11 items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
+            >
+              View pricing
+            </Button>
+          </Link>
         </Bounce>
 
         <div className="relative flex gap-9 overflow-hidden pt-32">

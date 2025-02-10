@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import Bounce from "@/components/animated/uibeats/bounce"
 
 export const GalleryMultiple = () => {
@@ -49,9 +51,12 @@ export const GalleryMultiple = () => {
       </Bounce>
 
       <Bounce className="">
-        <button className="mb-24 mt-10 flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100">
+        <Link
+          href={"/explore"}
+          className="mb-24 mt-10 flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100"
+        >
           View more
-        </button>
+        </Link>
       </Bounce>
     </div>
   )

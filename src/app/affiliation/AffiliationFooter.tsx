@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image"
+import Link from "next/link"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import Ripple from '@/components/nyxb/ripple';
+import Bounce from "@/components/animated/uibeats/bounce"
+import Ripple from "@/components/nyxb/ripple"
 
 export function Footer() {
   return (
@@ -24,55 +24,55 @@ export function Footer() {
 
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             FX Generation
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to speech
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Voice changer
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Dubbing
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to image
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to video
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             AI assistant
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Talk to AI
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Code generation
           </Link>
@@ -84,55 +84,55 @@ export function Footer() {
           </p>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             About Us
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Contact Us
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Pricing
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Community
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Ressources
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Affiliate Program
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Refund Policy
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Privacy Policy
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Terms and Conditions
           </Link>
@@ -143,13 +143,13 @@ export function Footer() {
           </p>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Text to video
           </Link>
           <Link
             href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white"
+            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
             Image to video
           </Link>

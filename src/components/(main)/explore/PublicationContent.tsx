@@ -119,6 +119,7 @@ export const PublicationContent = () => {
           publicationVideos?.map((pub, id) => (
             <PubVideo
               key={pub.id}
+              ownerId={pub.userId}
               index={id}
               status={pub.status}
               videoPrompt={pub.prompt}

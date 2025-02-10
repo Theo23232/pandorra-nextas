@@ -20,6 +20,14 @@ import { Navbar } from "@/components/(main)/authentified-navbar"
 import { Logo } from "@/components/logo"
 import { UserProfileMobile } from "@/components/navigation/UserProfile"
 import JetonCounter from "@/components/pandorra/jeton-counter"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { useIsSidebar } from "@/hooks/use-is-sidebar"
 import { useUser } from "@/hooks/use-user"
 import { cx, focusRing } from "@/lib/utils"
@@ -157,7 +165,26 @@ export function Sidebar() {
                 </ul>
               </div>
             </nav>
-            <div className="mt-auto">{/* TODO: incitate to subscribe */}</div>
+            <div className="mt-auto">
+              <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                <CardHeader className="space-y-1">
+                  <CardTitle className="text-center text-2xl font-bold">
+                    Upgrade Plan
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center space-y-4">
+                  <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                    Subscribe to a plan features and get full access on all
+                    features!
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href={"/pricing"} className="w-full">
+                    <Button className="w-full">Upgrade Now</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
           </aside>
         </nav>
       )}

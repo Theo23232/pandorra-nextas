@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { AlertCircle, Upload, X } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { AlertCircle, Download, Send, Upload, X } from "lucide-react"
+import { useRef, useState } from "react"
 import useSWR, { mutate } from "swr"
 
 import { enhanceVideoPrompt } from "@/actions/openai.actions"
@@ -44,34 +44,12 @@ export default function VideoGenerator() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const { toast } = useToast()
 
-  useEffect(() => {
-    const interval = setInterval(() => mutate("/api/video"), 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    mutate("/api/video")
-    return () => {
-      if (previewUrl) URL.revokeObjectURL(previewUrl)
-    }
-  }, [previewUrl])
-
   const handleImageChange = (file: File | null) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file)
       setPreviewUrl(URL.createObjectURL(file))
     }
   }
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    handleImageChange(e.dataTransfer.files[0])
-  }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleImageChange(e.target.files?.[0] || null)
-  }
-
   const handleRemoveImage = () => {
     setImage(null)
     if (previewUrl) URL.revokeObjectURL(previewUrl)
@@ -192,7 +170,7 @@ export default function VideoGenerator() {
             />
           </div>
           <Button
-            className="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-2 text-white transition-all hover:from-purple-700 hover:to-indigo-700"
+            className="px-6 py-2 text-white transition-all"
             onClick={handleSubmit}
             disabled={loading}
           >
@@ -217,9 +195,6 @@ export default function VideoGenerator() {
       </MagicCard>
 
       <MagicCard className="bg-gradient-to-br from-gray-50 to-white p-6 shadow-lg">
-        <h2 className="mb-4 text-2xl font-semibold text-gray-800">
-          Video History
-        </h2>
         <div className="space-y-6">
           {histories?.map((video) => (
             <div
@@ -244,18 +219,32 @@ export default function VideoGenerator() {
                   <span className="font-medium text-gray-700">Prompt:</span>
                   <span className="text-gray-600">{video.prompt}</span>
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="neutral">{video.duration} seconds</Badge>
-                  <Badge variant="neutral">
-                    {video.ratio}{" "}
-                    {video.ratio === "1280:768" ? "(Landscape)" : "(Portrait)"}
-                  </Badge>
-                  <Badge variant="neutral">{video.status}</Badge>
-                  {video.status === "Generated" && (
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="neutral">{video.duration} seconds</Badge>
                     <Badge variant="neutral">
-                      {new Date(video.createdAt).toLocaleString()}
+                      {video.ratio}{" "}
+                      {video.ratio === "1280:768"
+                        ? "(Landscape)"
+                        : "(Portrait)"}
                     </Badge>
-                  )}
+                    <Badge variant="neutral">{video.status}</Badge>
+                    {video.status === "Generated" && (
+                      <Badge variant="neutral">
+                        {new Date(video.createdAt).toLocaleString()}
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex gap-3">
+                    <Button className="h-8 px-4 py-2 text-white transition-all">
+                      <Download />
+                      Download
+                    </Button>
+                    <Button className="h-8 px-4 py-2 text-white transition-all">
+                      <Send />
+                      Post
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

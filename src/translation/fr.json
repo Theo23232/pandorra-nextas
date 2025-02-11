@@ -544,5 +544,6 @@
   "You have already posted this video": "Vous avez déjà publié cette vidéo",
   "Post": "Publier",
   "Failed to generate video:": "Échec de la génération de la vidéo :",
-  "Unknown error": "Erreur inconnue"
+  "Unknown error": "Erreur inconnue",
+  "AI-generated images": "images créé par IA"
 }

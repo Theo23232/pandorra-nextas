@@ -80,9 +80,7 @@ export function MessagePanel({ conversationId }: MessagePanelProps) {
           <div className="flex-1 p-4">
             {messages.map((message) => (
               <div key={message.id} className="mb-4">
-                <strong>
-                  {message.role === "user" ? "You" : "Assistant"}:
-                </strong>
+                <strong>{message.role === "user" ? "You" : "Pandorra"}:</strong>
                 <ReactMarkdown
                   className="prose prose-sm max-w-none"
                   components={{

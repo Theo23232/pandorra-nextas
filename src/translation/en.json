@@ -313,12 +313,12 @@
   "Model": "Model",
   "Resolution": "Resolution",
   "Number of Images": "Number of Images",
-  "2:3": "- Classic portrait format\n- Pinterest posts\n- Portrait-oriented images\n- Portraits and product shots.",
-  "16:9": "- Wide landscape format\n- Ideal for landscapes\n- Photography and print.",
-  "1:1": "- Square format\n- Instagram posts\n- Profile pictures and product photos.",
-  "4:5": "- Optimized portrait format\n- Instagram posts\n- Portrait shots.",
-  "9:16": "- Full-screen vertical\n- Stories and mobile display\n- Social media Stories.",
-  "2:1": "- Extended landscape\n- Banners and headers\n- Website and social media banners.",
+  "- Classic portrait format\n- Pinterest posts\n- Portrait-oriented images\n- Portraits and product shots.": "- Classic portrait format\n- Pinterest posts\n- Portrait-oriented images\n- Portraits and product shots.",
+  "- Wide landscape format\n- Ideal for landscapes\n- Photography and print.": "- Wide landscape format\n- Ideal for landscapes\n- Photography and print.",
+  "- Square format\n- Instagram posts\n- Profile pictures and product photos.": "- Square format\n- Instagram posts\n- Profile pictures and product photos.",
+  "- Optimized portrait format\n- Instagram posts\n- Portrait shots.": "- Optimized portrait format\n- Instagram posts\n- Portrait shots.",
+  "- Full-screen vertical\n- Stories and mobile display\n- Social media Stories.": "- Full-screen vertical\n- Stories and mobile display\n- Social media Stories.",
+  "- Extended landscape\n- Banners and headers\n- Website and social media banners.": "- Extended landscape\n- Banners and headers\n- Website and social media banners.",
   "Models": "Models",
   "Pandorra's proprietary foundational model, delivering exceptional prompt adherence and text rendering.": "Pandorra's proprietary foundational model, delivering exceptional prompt adherence and text rendering.",
   "A specialized model built for developers. Great for rapid prototyping and creative iteration.": "A specialized model built for developers. Great for rapid prototyping and creative iteration.",
@@ -545,5 +545,6 @@
   "Post": "Post",
   "Failed to generate video:": "Failed to generate video:",
   "Unknown error": "Unknown error",
-  "AI-generated images": "AI-generated images"
+  "AI-generated images": "AI-generated images",
+  "You are in free plan. Click to upgrade": "You are in free plan. Click to upgrade"
 }

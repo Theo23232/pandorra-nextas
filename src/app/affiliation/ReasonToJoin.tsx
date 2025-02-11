@@ -9,9 +9,9 @@ export default function ReasonToJoin() {
   const { t } = useTranslation()
   return (
     <div className="mt-[272px] flex flex-col items-center justify-center gap-8">
-      <Bounce className="text-[64px] font-semibold leading-[68px] text-white">
+      <Bounce className="max-w-xl text-[64px] font-semibold leading-[68px] text-white">
         {t(`Why Join Our`)} {""}
-        <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+        <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
           {t(`Affiliate Program`)}
         </span>{" "}
         ?

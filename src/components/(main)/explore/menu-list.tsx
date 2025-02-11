@@ -11,7 +11,7 @@ export const MenuList = (props: MenuListProps) => {
       <li id="tour2-step1">
         <Link
           className="text-f-text-secondary hover:text-f-text group relative flex h-full flex-col gap-x-1 rounded-xl bg-[linear-gradient(325deg,#F37300_0%,#F0AA00_55%,#F37300_90%)] bg-[280%_auto] p-4 text-white shadow-[0px_0px_20px_rgba(243,115,0,0.5),0px_5px_5px_-1px_rgba(240,170,0,0.25),inset_4px_4px_8px_rgba(255,200,150,0.5),inset_-4px_-4px_8px_rgba(235,130,50,0.35)] transition-all duration-700 ease-in-out hover:scale-105 hover:bg-right-top md:p-[18px]"
-          href="/video"
+          href="/chat"
           prefetch={true}
         >
           <div className="flex items-center justify-between">

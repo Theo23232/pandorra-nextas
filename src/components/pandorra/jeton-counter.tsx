@@ -34,7 +34,7 @@ export default function JetonCounter() {
         </Link>
       </Tooltip>
       {user && user?.plan === Plan.Free && (
-        <Tooltip content={`You are in free plan. Click to upgrade`}>
+        <Tooltip content={t(`You are in free plan. Click to upgrade`)}>
           <Link prefetch={true} href={"/pricing"}>
             <img src="/assets/upgrade.png" className="h-10 w-auto" />
           </Link>

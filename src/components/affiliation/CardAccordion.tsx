@@ -64,7 +64,9 @@ export default function FAQAccordion() {
                 <div
                   key={`item-${colIndex}-${itemIndex}`}
                   className={`w-full rounded-[16px] p-[1.5px] hover:bg-gradient-to-r ${
-                    isOpen ? "bg-gradient-to-r from-[#0099FF] to-[#CC00FF]" : ""
+                    isOpen
+                      ? "mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF]"
+                      : ""
                   }`}
                   style={{
                     boxShadow: isOpen

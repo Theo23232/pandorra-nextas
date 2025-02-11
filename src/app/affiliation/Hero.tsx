@@ -67,13 +67,13 @@ export const Hero = () => {
         <Bounce className="absolute -bottom-[280px] mt-4 flex flex-col items-center justify-center gap-[32px]">
           <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
             {t(`Earn with Pandorra.ai`)} <br />
-            <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+            <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`Join Our Affiliate Program!`)}
             </span>
           </p>
           <p className="w-full max-w-[750px] text-center text-[16px] font-normal leading-normal text-[#FDFDFD]">
             {t(`Share Pandorra.ai with your audience and earn`)}
-            <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+            <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`30% commission on every subscription`)}
             </span>
             {t(

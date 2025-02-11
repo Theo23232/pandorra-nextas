@@ -3,31 +3,31 @@
 import { Heart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { createCommentReaction, deleteCommentReaction } from '@/actions/publication.action';
+import { createCommentVideoReaction, deleteCommentVideoReaction } from '@/actions/pubVideo.actions';
 import { Card, CardContent } from '@/components/tremor/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDate } from '@/lib/formatDate';
-import { CommentWithAuthor } from '@/types/publicationType';
+import { CommentVideoWithAuthor } from '@/types/publicationType';
 
 interface CommentCardProps {
-  comment: CommentWithAuthor
+  comment: CommentVideoWithAuthor
 }
 
-export default function CommentCard(props: CommentCardProps) {
+export default function CommentVideoCard(props: CommentCardProps) {
   const [isLiked, setIsLiked] = useState<boolean>(props.comment.isLiked)
   const [likeCount, setLikeCount] = useState<number>(
-    props.comment.reactionCount,
+    props.comment.reactionVideoCount,
   )
 
   const handleReaction = async () => {
     if (isLiked) {
       setIsLiked(false)
       setLikeCount(likeCount - 1)
-      await deleteCommentReaction(props.comment.id)
+      await deleteCommentVideoReaction(props.comment.id)
     } else {
       setIsLiked(true)
       setLikeCount(likeCount + 1)
-      await createCommentReaction(props.comment.id)
+      await createCommentVideoReaction(props.comment.id)
     }
   }
 

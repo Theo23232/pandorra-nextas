@@ -18,7 +18,7 @@ export default function RankingsPage() {
           {t(`Ranking Coming Soon!`)}
         </p>
         <p className="mb-8 text-center font-[inter] text-[16px] font-semibold leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
-          {t(`Be in the top 3 per month and earn up to 3.000$!`)}
+          {t(`Be in the top 3 per month and earn up to $3,000!`)}
         </p>
         <p className="mb-8 text-center font-[inter] text-[16px] leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
           {t(

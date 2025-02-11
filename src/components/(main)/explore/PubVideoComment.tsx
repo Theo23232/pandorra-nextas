@@ -1,38 +1,27 @@
 // PublicationDialog.tsx
 "use client"
 
-import {
-  Clock10,
-  Download,
-  Frame,
-  Loader,
-  Scan,
-  SendHorizontal,
-  X,
-} from "lucide-react"
-import Link from "next/link"
-import React, { useState } from "react"
-import useSWR from "swr"
+import { Clock10, Download, Frame, Loader, Scan, SendHorizontal, X } from 'lucide-react';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
 
-import { createCommentVideo } from "@/actions/pubVideo.actions"
-import { Input } from "@/components/tremor/inputs/input"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Button } from "@/components/tremor/ui/button"
+import { createCommentVideo } from '@/actions/pubVideo.actions';
+import { Input } from '@/components/tremor/inputs/input';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/formatDate"
-import { fetcher } from "@/lib/utils"
-import { CommentVideoWithAuthor } from "@/types/publicationType"
+    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { formatDate } from '@/lib/formatDate';
+import { fetcher } from '@/lib/utils';
+import { CommentVideoWithAuthor } from '@/types/publicationType';
 
-import CommentCard from "./CommentCard"
+import CommentCard from './CommentCard';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -53,6 +42,7 @@ export default function PubVideoComment({
   children,
   publication,
 }: PublicationDialogProps) {
+  const { t } = useTranslation()
   const { data: comments, mutate } = useSWR<CommentVideoWithAuthor[]>(
     `/api/publication/video/commentVideo?publicationVideoId=${publication.id}`,
     fetcher,
@@ -72,11 +62,13 @@ export default function PubVideoComment({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-scroll p-4">
-        <DialogTitle className="sr-only">Publication Details</DialogTitle>
+        <DialogTitle className="sr-only">
+          {t(`Publication Details`)}
+        </DialogTitle>
         <div className="relative h-full w-full">
           <DialogClose asChild>
             <Button variant="outline" className="absolute right-2 top-2">
-              <X className="h-4 w-4 text-black" />
+              <X className="h-4 w-4 text-black dark:text-white" />
             </Button>
           </DialogClose>
 
@@ -147,6 +139,8 @@ function PublicationHeader({
 }
 
 function CommentSection({ comments, comment, setComment, onPostComment }) {
+  const { t } = useTranslation()
+
   return (
     <div className="space-y-4">
       <form
@@ -160,7 +154,7 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
           type="text"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Add a comment..."
+          placeholder={t(`Add a comment...`)}
           className="flex-grow"
         />
         <Button
@@ -181,11 +175,12 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
 }
 
 function PublicationActions({ prompt, isLoading, duration, ratio }) {
+  const { t } = useTranslation()
   if (isLoading) {
     return (
       <Card>
         <Button className="flex h-8 w-full items-center justify-center gap-2">
-          <Loader className="animate-spin" size={20} /> Loading
+          <Loader className="animate-spin" size={20} /> {t(`Loading`)}
         </Button>
       </Card>
     )
@@ -194,11 +189,11 @@ function PublicationActions({ prompt, isLoading, duration, ratio }) {
   return (
     <Card className="flex flex-col gap-4 p-3">
       <div className="flex flex-col gap-1">
-        <p className="text-lg font-semibold">Prompt details</p>
+        <p className="text-lg font-semibold">{t(`Prompt details`)}</p>
         <p>{prompt}</p>
       </div>
       <Button className="flex h-8 w-full items-center justify-center gap-2">
-        <Download size={20} /> Download
+        <Download size={20} /> {t(`Download`)}
       </Button>
       <div className="flex items-center gap-3">
         <Badge className="flex items-center gap-2">
@@ -212,7 +207,7 @@ function PublicationActions({ prompt, isLoading, duration, ratio }) {
         <Badge>
           {" "}
           <Scan size={14} />
-          {ratio === "1280:768" ? "Landscape" : "Portrait"}{" "}
+          {ratio === "1280:768" ? t(`Landscape`) : t(`Portrait`)}{" "}
         </Badge>
       </div>
     </Card>

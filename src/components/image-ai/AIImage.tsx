@@ -4,6 +4,7 @@ import { Download, Edit, Send } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { createPublication } from '@/actions/publication.action';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
@@ -30,6 +31,7 @@ export const AIImage = ({
   image,
   generationId,
 }: AllImageProps) => {
+  const { t } = useTranslation()
   const { toast } = useToast()
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
@@ -44,24 +46,24 @@ export const AIImage = ({
   ) => {
     try {
       const loadingToast = toast({
-        title: "Loading",
-        description: "Your image is being published",
+        title: t(`Loading`),
+        description: t(`Your image is being published`),
         variant: "loading",
         disableDismiss: true, // Désactive la fermeture automatique
       })
       await createPublication(imageUrl, prompt, model, preset, generationType)
         .then(() => {
           toast({
-            title: "Success",
-            description: "Your image has been published",
+            title: t(`Success`),
+            description: t(`Your image has been published`),
             variant: "success",
             duration: 3000,
           })
         })
         .catch(() => {
           toast({
-            title: "An image cannot be published twice",
-            description: "You have already posted this image",
+            title: t(`An image cannot be published twice`),
+            description: t(`You have already posted this image`),
             variant: "error",
           })
         })
@@ -103,7 +105,7 @@ export const AIImage = ({
         <DirectionAwareHover imageUrl={image.url}>
           <div className="flex h-full w-full items-center justify-center gap-4">
             <DialogTrigger asChild>
-              <Tooltip content="Download">
+              <Tooltip content={t(`Download`)}>
                 <Button
                   size={"icon"}
                   className="size-10 rounded-full p-2"
@@ -116,7 +118,7 @@ export const AIImage = ({
                 </Button>
               </Tooltip>
             </DialogTrigger>
-            <Tooltip content="Post this image">
+            <Tooltip content={t(`Post this image`)}>
               <Button
                 size={"icon"}
                 className="size-10 rounded-full p-2"
@@ -134,7 +136,7 @@ export const AIImage = ({
                 <Send />
               </Button>
             </Tooltip>
-            <Tooltip content="Edit">
+            <Tooltip content={t(`Edit`)}>
               <Button
                 size={"icon"}
                 className="size-10 rounded-full p-2"

@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
     DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
@@ -19,6 +20,7 @@ export function DropdownUserProfile({
   children,
   align = "start",
 }: DropdownUserProfileProps) {
+  const { t } = useTranslation()
   const [mounted, setMounted] = React.useState(false)
   const { theme, setTheme } = useTheme()
   React.useEffect(() => {
@@ -36,7 +38,9 @@ export function DropdownUserProfile({
           <DropdownMenuLabel>emma.stone@pandorra.com</DropdownMenuLabel>
           <DropdownMenuGroup>
             <DropdownMenuSubMenu>
-              <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
+              <DropdownMenuSubMenuTrigger>
+                {t(`Theme`)}
+              </DropdownMenuSubMenuTrigger>
               <DropdownMenuSubMenuContent>
                 <DropdownMenuRadioGroup
                   value={theme}
@@ -50,7 +54,7 @@ export function DropdownUserProfile({
                     iconType="check"
                   >
                     <RiSunLine className="size-4 shrink-0" aria-hidden="true" />
-                    Light
+                    {t(`Light`)}
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem
                     aria-label="Switch to Dark Mode"
@@ -61,7 +65,7 @@ export function DropdownUserProfile({
                       className="size-4 shrink-0"
                       aria-hidden="true"
                     />
-                    Dark
+                    {t(`Dark`)}
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem
                     aria-label="Switch to System Mode"
@@ -72,7 +76,7 @@ export function DropdownUserProfile({
                       className="size-4 shrink-0"
                       aria-hidden="true"
                     />
-                    System
+                    {t(`System`)}
                   </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubMenuContent>
@@ -81,21 +85,21 @@ export function DropdownUserProfile({
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              Changelog
+              {t(`Changelog`)}
               <RiArrowRightUpLine
                 className="mb-1 ml-1 size-2.5 shrink-0 text-gray-500"
                 aria-hidden="true"
               />
             </DropdownMenuItem>
             <DropdownMenuItem>
-              Documentation
+              {t(`Documentation`)}
               <RiArrowRightUpLine
                 className="mb-1 ml-1 size-2.5 shrink-0 text-gray-500"
                 aria-hidden="true"
               />
             </DropdownMenuItem>
             <DropdownMenuItem>
-              Join Slack community
+              {t(`Join Slack community`)}
               <RiArrowRightUpLine
                 className="mb-1 ml-1 size-2.5 shrink-0 text-gray-500"
                 aria-hidden="true"
@@ -104,7 +108,7 @@ export function DropdownUserProfile({
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
+            <DropdownMenuItem>{t(`Sign out`)}</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

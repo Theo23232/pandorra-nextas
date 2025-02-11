@@ -1,7 +1,9 @@
 "use client"
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
@@ -29,11 +31,11 @@ export default function ForgotPasswordForm() {
 
   return (
     <div className="mx-auto mt-8 max-w-md rounded-lg bg-white p-6 shadow-md">
-      <h2 className="mb-6 text-2xl font-bold">Forgot password</h2>
+      <h2 className="mb-6 text-2xl font-bold">{t(`Forgot password`)}</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="mb-1 block">Email</label>
+          <label className="mb-1 block">{t(`Email`)}</label>
           <input
             type="email"
             value={email}
@@ -51,7 +53,7 @@ export default function ForgotPasswordForm() {
           type="submit"
           className="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
         >
-          Send verification code
+          {t(`Send verification code`)}
         </button>
       </form>
     </div>

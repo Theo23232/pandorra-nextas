@@ -1,38 +1,30 @@
 "use client"
 
-import { CreditCard, Crown, LogOut, Settings2 } from "lucide-react"
-import { useTheme } from "next-themes"
-import Link from "next/link"
-import * as React from "react"
+import { CreditCard, Crown, LogOut, Settings2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSubMenu,
-  DropdownMenuSubMenuContent,
-  DropdownMenuSubMenuTrigger,
-  DropdownMenuTrigger,
-} from "@/components/tremor/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@/hooks/use-user"
-import { logOut } from "@/lib/utils"
-import { RiComputerLine, RiMoonLine, RiSunLine } from "@remixicon/react"
+    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
+    DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSubMenu,
+    DropdownMenuSubMenuContent, DropdownMenuSubMenuTrigger, DropdownMenuTrigger
+} from '@/components/tremor/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useUser } from '@/hooks/use-user';
+import { logOut } from '@/lib/utils';
+import { RiComputerLine, RiMoonLine, RiSunLine } from '@remixicon/react';
 
 export type DropdownUserProfileProps = {
   children: React.ReactNode
   align?: "center" | "start" | "end"
 }
-
 export function DropdownUserProfile({
   children,
   align = "start",
 }: DropdownUserProfileProps) {
+  const { t } = useTranslation()
   const { theme, setTheme } = useTheme()
 
   const { user, isLoading } = useUser()
@@ -68,7 +60,9 @@ export function DropdownUserProfile({
 
           <DropdownMenuGroup>
             <DropdownMenuSubMenu>
-              <DropdownMenuSubMenuTrigger>Theme</DropdownMenuSubMenuTrigger>
+              <DropdownMenuSubMenuTrigger>
+                {t(`Theme`)}
+              </DropdownMenuSubMenuTrigger>
               <DropdownMenuSubMenuContent>
                 <DropdownMenuRadioGroup
                   value={theme}
@@ -82,7 +76,7 @@ export function DropdownUserProfile({
                     iconType="check"
                   >
                     <RiSunLine className="size-4 shrink-0" aria-hidden="true" />
-                    Light
+                    {t(`Light`)}
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem
                     aria-label="Switch to Dark Mode"
@@ -93,7 +87,7 @@ export function DropdownUserProfile({
                       className="size-4 shrink-0"
                       aria-hidden="true"
                     />
-                    Dark
+                    {t(`Dark`)}
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem
                     aria-label="Switch to System Mode"
@@ -104,7 +98,7 @@ export function DropdownUserProfile({
                       className="size-4 shrink-0"
                       aria-hidden="true"
                     />
-                    System
+                    {t(`System`)}
                   </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubMenuContent>
@@ -116,7 +110,7 @@ export function DropdownUserProfile({
             <Link href={"/settings"} prefetch={true}>
               <DropdownMenuItem>
                 <Settings2 className="mr-2 size-4 shrink-0" />
-                Settings
+                {t(`Settings`)}
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
@@ -125,21 +119,21 @@ export function DropdownUserProfile({
             <Link href={"/ranking"} prefetch={true}>
               <DropdownMenuItem>
                 <Crown className="mr-2 size-4 shrink-0" />
-                Ranking
+                {t(`Ranking`)}
               </DropdownMenuItem>
             </Link>
 
             <Link href={"/pricing"} prefetch={true}>
               <DropdownMenuItem>
                 <CreditCard className="mr-2 size-4 shrink-0" />
-                Billing
+                {t(`Billing`)}
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={logOut}>
             <LogOut className="mr-2 size-4 shrink-0" />
-            Log out
+            {t(`Log out`)}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

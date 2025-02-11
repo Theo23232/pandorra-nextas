@@ -1,43 +1,31 @@
 // PublicationDialog.tsx
 "use client"
 
-import {
-  Download,
-  Eraser,
-  Expand,
-  Fullscreen,
-  Loader,
-  SendHorizontal,
-  X,
-  Zap,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import React, { useState } from "react"
-import { toast } from "sonner"
-import useSWR from "swr"
+import { Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, X, Zap } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import useSWR from 'swr';
 
-import { createComment } from "@/actions/publication.action"
-import { Input } from "@/components/tremor/inputs/input"
-import { Button } from "@/components/tremor/ui/button"
-import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import { createComment } from '@/actions/publication.action';
+import { Input } from '@/components/tremor/inputs/input';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/formatDate"
-import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
-import { models } from "@/lib/leonardo/presets"
-import { fetcher } from "@/lib/utils"
-import { CommentWithAuthor } from "@/types/publicationType"
+    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import { formatDate } from '@/lib/formatDate';
+import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
+import { models } from '@/lib/leonardo/presets';
+import { fetcher } from '@/lib/utils';
+import { CommentWithAuthor } from '@/types/publicationType';
 
-import CommentCard from "./CommentCard"
-import RelatedPublications from "./RelatedPublications"
+import CommentCard from './CommentCard';
+import RelatedPublications from './RelatedPublications';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -60,6 +48,8 @@ export default function PublicationDialog({
   children,
   publication,
 }: PublicationDialogProps) {
+  const { t } = useTranslation()
+
   const { data: comments, mutate } = useSWR<CommentWithAuthor[]>(
     `/api/publication/comment?publicationId=${publication.id}`,
     fetcher,
@@ -92,7 +82,7 @@ export default function PublicationDialog({
           await removeBg(publication.image)
           break
       }
-      toast("You can see the result in your gallery page")
+      toast(t(`You can see the result in your gallery page`))
     } catch (error) {
       toast.error("An error occurred while processing the image")
     } finally {
@@ -122,7 +112,9 @@ export default function PublicationDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-scroll p-4">
-        <DialogTitle className="sr-only">Publication Details</DialogTitle>
+        <DialogTitle className="sr-only">
+          {t(`Publication Details`)}
+        </DialogTitle>
         <div className="relative h-full w-full">
           <DialogClose asChild>
             <Button
@@ -221,11 +213,12 @@ function PublicationActions({
   onDownload,
   onImageAction,
 }) {
+  const { t } = useTranslation()
   if (isLoading) {
     return (
       <Card>
         <Button className="flex h-8 w-full items-center justify-center gap-2">
-          <Loader className="animate-spin" size={20} /> Loading
+          <Loader className="animate-spin" size={20} /> {t(`Loading`)}
         </Button>
       </Card>
     )
@@ -233,7 +226,7 @@ function PublicationActions({
 
   return (
     <Card>
-      <CardTitle>Prompt details</CardTitle>
+      <CardTitle>{t(`Prompt details`)}</CardTitle>
       <CardDescription>{description.prompt}</CardDescription>
 
       <div className="mt-4 space-y-2">
@@ -241,7 +234,7 @@ function PublicationActions({
           className="flex h-8 w-full items-center justify-center gap-2"
           onClick={onDownload}
         >
-          <Download size={20} /> Download
+          <Download size={20} /> {t(`Download`)}
         </Button>
 
         <div className="flex items-center justify-center gap-2">
@@ -250,21 +243,21 @@ function PublicationActions({
             className="flex h-8 w-full flex-1 items-center justify-center gap-2"
             onClick={() => onImageAction("unzoom")}
           >
-            <Fullscreen size={20} /> Unzoom
+            <Fullscreen size={20} /> {t(`Unzoom`)}
           </Button>
           <Button
             variant="secondary"
             className="flex h-8 w-full flex-1 items-center justify-center gap-2"
             onClick={() => onImageAction("upscale")}
           >
-            <Expand size={20} /> Upscale
+            <Expand size={20} /> {t(`Upscale`)}
           </Button>
           <Button
             variant="secondary"
             className="flex h-8 w-full flex-1 items-center justify-center gap-2"
             onClick={() => onImageAction("removeBg")}
           >
-            <Eraser size={20} /> Bg Remove
+            <Eraser size={20} /> {t(`BG Remove`)}
           </Button>
         </div>
       </div>
@@ -284,7 +277,7 @@ function PublicationActions({
         </div>
         <div className="flex items-center gap-2">
           <Zap size={16} />
-          <span className="text-muted-foreground">{description.preset}</span>
+          <span className="text-muted-foreground">{t(description.preset)}</span>
         </div>
       </div>
     </Card>
@@ -292,6 +285,7 @@ function PublicationActions({
 }
 
 function CommentSection({ comments, comment, setComment, onPostComment }) {
+  const { t } = useTranslation()
   return (
     <div className="space-y-4">
       <form
@@ -305,7 +299,7 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
           type="text"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Add a comment..."
+          placeholder={t(`Add a comment...`)}
           className="flex-grow"
         />
         <Button

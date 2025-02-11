@@ -1,10 +1,13 @@
-import { Clipboard } from "lucide-react"
+"use client"
+import { Clipboard } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/ui/button"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/ui/button';
 
 /* eslint-disable @next/next/no-img-element */
 export const Hero = () => {
+  const { t } = useTranslation()
   return (
     <div className="mt-28 flex flex-col items-center">
       <div className="relative">
@@ -63,20 +66,19 @@ export const Hero = () => {
 
         <Bounce className="absolute -bottom-[280px] mt-4 flex flex-col items-center justify-center gap-[32px]">
           <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
-            Earn with Pandorra.ai <br />
+            {t(`Earn with Pandorra.ai`)} <br />
             <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-              Join Our Affiliate Program!
+              {t(`Join Our Affiliate Program!`)}
             </span>
           </p>
           <p className="w-full max-w-[750px] text-center text-[16px] font-normal leading-normal text-[#FDFDFD]">
-            Share Pandorra.ai with your audience and earn{" "}
+            {t(`Share Pandorra.ai with your audience and earn`)}
             <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-              {" "}
-              30% commission on every subscription{" "}
-            </span>{" "}
-            purchased <br /> through your referral link. Whether you re a
-            content creator, marketer, or AI enthusiast, it s a simple <br />{" "}
-            way to monetize your network!
+              {t(`30% commission on every subscription`)}
+            </span>
+            {t(
+              `purchased  through your referral link. Whether you re a content creator, marketer, or AI enthusiast, it s a simple way to monetize your network!`,
+            )}
           </p>
           <Button
             className="h-[48px] px-[21px] py-[12px]"
@@ -87,7 +89,7 @@ export const Hero = () => {
               backdropFilter: "200px",
             }}
           >
-            <p className="text-[16px]">Copy my link</p>
+            <p className="text-[16px]">{t(`Copy my link`)}</p>
             <Clipboard size={10} />
           </Button>
         </Bounce>

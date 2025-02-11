@@ -1,13 +1,17 @@
+"use client"
+import { useTranslation } from 'react-i18next';
+
 import Bounce from '@/components/animated/uibeats/bounce';
 
 export const DescribeSection = () => {
+  const { t } = useTranslation()
   return (
     <Bounce className="mb-8 mt-[600px] flex flex-col items-center justify-center gap-4">
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <p className="text-[64px] font-semibold leading-[68px] text-white">
-          How it {""}
+          {t(`How it`)}
           <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-            Works
+            {t(`Works`)}
           </span>
         </p>
         <div
@@ -31,8 +35,8 @@ export const DescribeSection = () => {
               1
             </p>
             <p className="text-[24px] font-normal leading-[28px]">
-              <span className="font-semibold">Sign Up - </span>Create your
-              affiliate account in seconds
+              <span className="font-semibold">{t(`Sign Up`)} - </span>
+              {t(`Create your affiliate account in seconds`)}
             </p>
           </div>
         </div>
@@ -57,27 +61,29 @@ export const DescribeSection = () => {
             <p className="text-[24px] font-normal leading-[28px]">
               {number === "2" && (
                 <>
-                  <span className="font-semibold">Share Your Link - </span>Get
-                  your unique referral link and <br />
-                  start sharing.
+                  <span className="font-semibold">
+                    {t(`Share Your Link`)} -{" "}
+                  </span>
+                  {t(`Get your unique referral link and start sharing.`)}
                 </>
               )}
               {number === "3" && (
                 <>
-                  Earn{" "}
+                  {t(`Earn`)}
                   <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-                    30% Commission -{" "}
+                    {t(`30% Commission`)} -{" "}
                   </span>
-                  Every time someone <br /> subscribes using your link, you earn
-                  30% of their <br />
-                  subscription.
+                  {t(
+                    `Every time someone subscribes using your link, you earn 30% of their subscription.`,
+                  )}
                 </>
               )}
               {number === "4" && (
                 <>
-                  <span className="font-semibold">Get Paid - </span>
-                  Withdraw your earnings easily via your <br /> preferred
-                  payment method.
+                  <span className="font-semibold">{t(`Get Paid`)} - </span>
+                  {t(
+                    `Withdraw your earnings easily via your preferred payment method.`,
+                  )}
                 </>
               )}
             </p>

@@ -1,19 +1,20 @@
 "use client"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 
-import { GoogleAuth } from "@/components/authentication/google-auth"
-import { Input } from "@/components/tremor/inputs/input"
-import { Label } from "@/components/tremor/inputs/label"
-import { Button } from "@/components/tremor/ui/button"
-import { Divider } from "@/components/tremor/ui/divider"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useToast } from "@/hooks/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { GoogleAuth } from '@/components/authentication/google-auth';
+import { Input } from '@/components/tremor/inputs/input';
+import { Label } from '@/components/tremor/inputs/label';
+import { Button } from '@/components/tremor/ui/button';
+import { Divider } from '@/components/tremor/ui/divider';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required"),
@@ -29,8 +30,8 @@ const registerSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>
 type RegisterFormData = z.infer<typeof registerSchema>
 type FormData = LoginFormData | RegisterFormData
-
 export default function AuthForm() {
+  const { t } = useTranslation()
   const [isLogin, setIsLogin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -74,8 +75,8 @@ export default function AuthForm() {
       }
     } catch (err: any) {
       toast({
-        title: "Error",
-        description: err.message,
+        title: t(`Error`),
+        description: t(err.message),
         variant: "error",
         duration: 3000,
       })
@@ -100,13 +101,13 @@ export default function AuthForm() {
         </div>
 
         <p className="text-md mb-4 mt-4 text-center text-white">
-          Creativity unleashed
+          {t(`Creativity unleashed`)}
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
           {!isLogin && (
             <div>
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">{t(`Username`)}</Label>
               <Input
                 {...register("username")}
                 className="w-full"
@@ -121,7 +122,7 @@ export default function AuthForm() {
           )}
 
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t(`Email`)}</Label>
             <Input
               {...register("email")}
               type="email"
@@ -134,13 +135,13 @@ export default function AuthForm() {
           </div>
 
           <div>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t(`Password`)}</Label>
             <Input
               {...register("password")}
               type="password"
               id="password"
               autoComplete="password"
-              placeholder="password"
+              placeholder={t(`Password`)}
             />
             {errors.password && (
               <p className="text-sm text-red-500">{errors.password?.message}</p>
@@ -148,7 +149,7 @@ export default function AuthForm() {
           </div>
 
           <Button type="submit" className="w-full" isLoading={isLoading}>
-            {isLogin ? "Sign in" : "Create account"}
+            {isLogin ? t(`Sign in`) : t(`Create account`)}
           </Button>
         </form>
 
@@ -160,19 +161,19 @@ export default function AuthForm() {
           }}
           className="mt-4 w-full"
         >
-          {isLogin ? "Create an account" : "Already have an account?"}
+          {isLogin ? t(`Create an account`) : t(`Already have an account?`)}
         </Button>
 
-        <Divider>or with</Divider>
+        <Divider>{t(`or with`)}</Divider>
         <GoogleAuth />
         <p className="text-tremor-label text-tremor-content dark:text-dark-tremor-content mt-4 text-white">
-          By signing in, you agree to our{" "}
+          {t(`By signing in, you agree to our`)}
           <a href="#" className="underline underline-offset-4">
-            terms of service
+            {t(`terms of service`)}
           </a>{" "}
-          and{" "}
+          {t(`and`)}{" "}
           <a href="#" className="underline underline-offset-4">
-            privacy policy
+            {t(`privacy policy`)}
           </a>
           .
         </p>

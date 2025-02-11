@@ -35,25 +35,35 @@ export const TokenPrice = () => {
 
               <div className="mb-6 mt-8 flex flex-col gap-3">
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                  <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                  <p className="gdt mx-1 font-extrabold">8</p> {t(`videos`)}
+                  <Check className="mr-3" />{" "}
+                  <p>
+                    {t(`Short Video`)} (5 sec):{" "}
+                    <span className="font-italic mx-1 font-extrabold">8</span>{" "}
+                    {t(`videos`)}
+                  </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                  <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                  <p className="gdt mx-1 font-extrabold">2</p> {t(`videos`)}
+                  <Check className="mr-3" />{" "}
+                  <p>
+                    {t(`Medium Video`)} (10 sec):{" "}
+                    <span className="font-italic mx-1 font-extrabold">2</span>{" "}
+                    {t(`videos`)}
+                  </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                   <Check className="mr-3" /> {t(`Images`)}:{" "}
-                  <p className="gdt mx-1 font-extrabold">80</p>{" "}
-                  {t(`AI-generated`)}
-                  {t(`images`)}
+                  <p>
+                    <span className="font-italic mx-1 font-extrabold">80</span>{" "}
+                    {t(`AI-generated images`)}
+                  </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                   <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                   <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                  <p className="gdt mx-1 font-extrabold">3</p> {t(`minutes`)}
+                  <p className="font-italic mx-1 font-extrabold">3</p>{" "}
+                  {t(`minutes`)}
                 </div>
               </div>
 
@@ -64,7 +74,7 @@ export const TokenPrice = () => {
               </div>
               <Button
                 variant={"ghost"}
-                className="w-full bg-white hover:bg-white/80"
+                className="mt-auto w-full bg-white hover:bg-white/80"
               >
                 <p className="gdt">{t(`Add credits`)}</p>
               </Button>
@@ -80,25 +90,48 @@ export const TokenPrice = () => {
                 </div>
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">62</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Short Video`)} (5 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        62
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">32</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Medium Video`)} (10 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        32
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`AI-generated images`)}
+                    <Check className="mr-3" />
+
+                    <p>
+                      {t(`Images`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`AI-generated images`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`minutes`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`AI Voice`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`minutes`)}
+                    </p>
                   </div>
                 </div>
                 <div className="mb-8 flex items-center text-white">
@@ -106,7 +139,7 @@ export const TokenPrice = () => {
                   <p className="text-[36px] font-bold">34.99</p>
                   <p className="ml-2 pt-2 font-light"></p>
                 </div>
-                <Button variant={"gradient"} className="w-full">
+                <Button variant={"gradient"} className="mt-auto w-full">
                   <p className="">{t(`Add credits`)}</p>
                 </Button>
               </div>
@@ -119,24 +152,40 @@ export const TokenPrice = () => {
               </p>
               <div className="mb-6 mt-8 flex flex-col gap-3">
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                  <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                  <p className="gdt mx-1 font-extrabold">175</p> {t(`videos`)}
+                  <Check className="mr-3" />
+                  <p>
+                    {t(`Short Video`)} (5 sec):{" "}
+                    <span className="font-italic mx-1 font-extrabold">175</span>{" "}
+                    {t(`videos`)}
+                  </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                  <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                  <p className="gdt mx-1 font-extrabold">87</p> {t(`videos`)}
+                  <Check className="mr-3" />
+                  <p>
+                    {t(`Medium Video`)} (10 sec):{" "}
+                    <span className="font-italic mx-1 font-extrabold">87</span>{" "}
+                    {t(`videos`)}
+                  </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                  <Check className="mr-3" /> {t(`Images`)}:{" "}
-                  <p className="gdt mx-1 font-extrabold">350</p>{" "}
-                  {t(`AI-generated images`)}
+                  <Check className="mr-3" />
+                  <p>
+                    {" "}
+                    {t(`Images`)}:{" "}
+                    <span className="font-italic mx-1 font-extrabold">350</span>{" "}
+                    {t(`AI-generated images`)}
+                  </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                   <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                  <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                  <p className="gdt mx-1 font-extrabold">350</p> {t(`minutes`)}
+                  <Check className="mr-3" />
+                  <p>
+                    {t(`AI Voice`)}:{" "}
+                    <span className="font-italic mx-1 font-extrabold">350</span>{" "}
+                    {t(`minutes`)}
+                  </p>
                 </div>
               </div>
 
@@ -147,7 +196,7 @@ export const TokenPrice = () => {
               </div>
               <Button
                 variant={"ghost"}
-                className="w-full bg-white hover:bg-white/80"
+                className="mt-auto w-full bg-white hover:bg-white/80"
               >
                 <p className="gdt">{t(`Add credits`)}</p>
               </Button>

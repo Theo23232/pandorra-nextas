@@ -57,8 +57,32 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         break
       case "fifthtour":
         EditUserTourDone("fifthtour")
+        startOnborda("sixthtour")
         break
-      // Ajoutez d'autres cas si nécessaire
+      case "sixthtour":
+        EditUserTourDone("sixthtour")
+        router.push("/assistant")
+        break
+      case "seventhtour":
+        EditUserTourDone("seventhtour")
+        router.push("/video")
+        break
+      case "eighthtour":
+        EditUserTourDone("eighthtour")
+        router.push("/audio")
+        break
+      case "ninthtour":
+        EditUserTourDone("ninthtour")
+        router.push("/audio/text-to-speech")
+        break
+      case "tenthtour":
+        EditUserTourDone("tenthtour")
+        router.push("/audio/voice-changer")
+        break
+      case "eleventhtour":
+        EditUserTourDone("eleventhtour")
+        router.push("/audio/dubbing")
+        break
       default:
         break
     }

@@ -3,7 +3,8 @@
 import * as Flags from 'country-flag-icons/react/3x2';
 import { ElevenLabsClient } from 'elevenlabs';
 import { useSearchParams } from 'next/navigation';
-import React, { useRef, useState } from 'react';
+import { useOnborda } from 'onborda';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR, { mutate } from 'swr';
 
@@ -17,6 +18,7 @@ import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useUser } from '@/hooks/use-user';
 import { languageOptions } from '@/lib/elevenlabs/langList';
 import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
 import { fetcher } from '@/lib/utils';
@@ -24,6 +26,12 @@ import { TTS } from '@prisma/client';
 
 import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
   fr: "FR",
@@ -131,6 +139,8 @@ export default function Page() {
   const [stability, setStability] = useState(0)
   const [similarity, setSimilarity] = useState(0)
   const [style, setStyle] = useState(0)
+  const { user } = useUser()
+  const { startOnborda } = useOnborda()
 
   const [voicesList, setVoicesList] = useState<VoiceDetails[]>(vlist)
   const [voiceId, setVoiceId] = useState(vlist[0].id)
@@ -225,6 +235,19 @@ export default function Page() {
     setStyle(0)
   }
 
+  useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      console.log(tourOnboarding)
+      if (
+        !tourOnboarding.includes("tenthtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("tenthtour")
+      }
+    }
+  }, [user, startOnborda])
+
   const handleVoiceSelect = (
     voiceId: string,
     language: string,
@@ -268,6 +291,7 @@ export default function Page() {
     <div className="w-full max-w-3xl">
       <MagicCard>
         <Textarea
+          id="tour10-step1"
           ref={textareaRef}
           value={prompt}
           onChange={handleInput}
@@ -387,7 +411,7 @@ export default function Page() {
             </Drawer>
             */}
             <Select value={voiceId} onValueChange={setVoiceId}>
-              <SelectTrigger className="h-10 w-[120px]">
+              <SelectTrigger className="h-10 w-[120px]" id="tour10-step2">
                 <SelectValue placeholder="Select Voice" />
               </SelectTrigger>
               <SelectContent>
@@ -399,7 +423,7 @@ export default function Page() {
               </SelectContent>
             </Select>
             <Select value={lang} onValueChange={setLang}>
-              <SelectTrigger className="h-10 w-[180px]">
+              <SelectTrigger className="h-10 w-[180px]"  id="tour10-step3">
                 <SelectValue placeholder={t(`Select Language`)} />
               </SelectTrigger>
               <SelectContent>
@@ -423,6 +447,7 @@ export default function Page() {
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
             <Button
+              id="tour10-step4"
               className="text-md h-10"
               onClick={handleGenerate}
               isLoading={isLoading}
@@ -437,7 +462,10 @@ export default function Page() {
         <div className="text-center text-muted-foreground">
           {t(`Or try out an example to get started!`)}
         </div>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
+        <div
+          className="mt-4 flex flex-wrap justify-center gap-2"
+          id="tour10-step5"
+        >
           {textToSpeechExamples.map((e) => (
             <ExampleButton key={e.title} text={e.text} title={e.title} />
           ))}
@@ -449,7 +477,7 @@ export default function Page() {
           {data?.map((audio, index) => {
             const CountryFlag = Flags[languageToCountry[audio.lang] || "GB"]
             return (
-              <div className="pt-2" key={audio.id}>
+              <div className="pt-2" key={audio.id} id="tour10-step6">
                 <CardTitle>{audio.prompt}</CardTitle>
                 <AudioPlayer
                   audioUrl={audio.url}

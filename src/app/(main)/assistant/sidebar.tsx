@@ -2,7 +2,8 @@
 "use client"
 import * as Flags from 'country-flag-icons/react/3x2';
 import { ChevronDown, Download, Loader, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
@@ -12,6 +13,7 @@ import { Card } from '@/components/tremor/ui/card';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useUser } from '@/hooks/use-user';
 import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
 import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
 import { formatTimePassed } from '@/lib/utils';
@@ -55,6 +57,9 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [downloadingId, setDownloadingId] = useState("")
+  const [activeConversationId, setActiveConversationId] = useState("")
+  const { user } = useUser()
+  const { startOnborda } = useOnborda()
 
   const [selectedAgent, setSelectedAgent] = useState<{
     id: string
@@ -77,12 +82,26 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   }
 
   if (error) return <div>{t(`Failed to load`)}</div>
+  useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      console.log(tourOnboarding)
+      if (
+        !tourOnboarding.includes("seventhtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("seventhtour")
+      }
+    }
+  }, [user, startOnborda])
+
+  if (error) return <div>Failed to load</div>
   if (!data)
     return (
       <Card className="h-fit max-h-[80vh] w-96 border-l bg-background p-4">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="mb-4 w-full">
+            <Button className="mb-4 w-full" id="tour7-step1">
               <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
             </Button>
           </DialogTrigger>
@@ -97,7 +116,10 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
         </Dialog>
 
         <Collapsible defaultOpen>
-          <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">
+          <CollapsibleTrigger
+            className="mb-2 flex w-full items-center justify-between"
+            id="tour7-step2"
+          >
             <h3 className="text-lg font-semibold">{t(`Agents`)}</h3>
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
@@ -108,7 +130,10 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
         </Collapsible>
 
         <Collapsible defaultOpen className="mt-4">
-          <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">
+          <CollapsibleTrigger
+            className="mb-2 flex w-full items-center justify-between"
+            id="tour7-step3"
+          >
             <h3 className="text-lg font-semibold">{t(`Conversations`)}</h3>
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
@@ -135,7 +160,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
     <Card className="sticky top-20 h-fit max-h-[70vh] w-96 overflow-y-auto border-l bg-background p-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <Button className="mb-4 w-full">
+          <Button className="mb-4 w-full" id="tour7-step1">
             <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
           </Button>
         </DialogTrigger>
@@ -149,7 +174,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
         </DialogContent>
       </Dialog>
 
-      <Collapsible defaultOpen>
+      <Collapsible defaultOpen id="tour7-step2">
         <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">
           <h3 className="text-lg font-semibold">{t(`Agents`)}</h3>
           <ChevronDown className="h-4 w-4" />
@@ -183,7 +208,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
         </CollapsibleContent>
       </Collapsible>
 
-      <Collapsible defaultOpen className="mt-4">
+      <Collapsible defaultOpen className="mt-4" id="tour7-step3">
         <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">
           <h3 className="text-lg font-semibold">{t(`Conversations`)}</h3>
           <ChevronDown className="h-4 w-4" />
@@ -212,6 +237,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
                   </div>
                   <Button
                     size={"icon"}
+                    id="tour7-step4"
                     variant={"ghost"}
                     onClick={(e) => {
                       e.stopPropagation()

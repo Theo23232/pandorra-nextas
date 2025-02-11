@@ -1,20 +1,20 @@
 "use client"
-import { Loader2, Sparkles } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { Loader2, Sparkles } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
-import { getUserGeneration } from "@/actions/generation.action"
-import { enhanceImagePrompt } from "@/actions/openai.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { GenerationResult } from "@/components/image-ai/GenerationResult"
-import { NothingYet } from "@/components/NothingYet"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Button } from "@/components/tremor/ui/button"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
-import { GeneratedImage, Prisma } from "@prisma/client"
+import { getUserGeneration } from '@/actions/generation.action';
+import { enhanceImagePrompt } from '@/actions/openai.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { GenerationResult } from '@/components/image-ai/GenerationResult';
+import { NothingYet } from '@/components/NothingYet';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Button } from '@/components/tremor/ui/button';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { fetchGenerationResult, generationInsert } from '@/lib/leonardo/fetch';
+import { GeneratedImage, Prisma } from '@prisma/client';
 
 export type MainProps = {
   prompt: string
@@ -126,6 +126,7 @@ export const Main = (props: MainProps) => {
     <div className="flex flex-col justify-center">
       <MagicCard className="mb-4 w-full">
         <Textarea
+          id="tour6-step1"
           ref={textareaRef}
           value={prompt}
           onChange={(e) => handlePromptChange(e.target.value)}
@@ -135,6 +136,7 @@ export const Main = (props: MainProps) => {
         <div className="flex items-center justify-end gap-2 p-4">
           <Tooltip content="Enhance prompt">
             <div
+              id="tour6-step2"
               onClick={enhancePrompt}
               className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
             >
@@ -146,7 +148,12 @@ export const Main = (props: MainProps) => {
             </div>
           </Tooltip>
 
-          <Button onClick={generate} isLoading={isLoading} className="text-md">
+          <Button
+            onClick={generate}
+            isLoading={isLoading}
+            className="text-md"
+            id="tour6-step3"
+          >
             Generate
           </Button>
         </div>

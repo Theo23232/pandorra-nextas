@@ -83,7 +83,28 @@ export function MessagePanel({ conversationId }: MessagePanelProps) {
                 <strong>
                   {message.role === "user" ? "You" : "Assistant"}:
                 </strong>
-                <ReactMarkdown className="ml-2">
+                <ReactMarkdown
+                  className="prose prose-sm max-w-none"
+                  components={{
+                    p: ({ children }) => (
+                      <p className="mb-2 last:mb-0">{children}</p>
+                    ),
+                    ul: ({ children }) => (
+                      <ul className="mb-2 list-disc pl-4">{children}</ul>
+                    ),
+                    ol: ({ children }) => (
+                      <ol className="mb-2 list-decimal pl-4">{children}</ol>
+                    ),
+                    li: ({ children }) => <li className="mb-1">{children}</li>,
+                    code: ({ node, className, children, ...props }) => {
+                      return (
+                        <pre className="overflow-x-auto rounded bg-muted p-2">
+                          <code {...props}>{children}</code>
+                        </pre>
+                      )
+                    },
+                  }}
+                >
                   {message.content}
                 </ReactMarkdown>
               </div>

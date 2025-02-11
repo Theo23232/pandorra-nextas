@@ -1,38 +1,25 @@
 // PublicationDialog.tsx
 "use client"
 
-import {
-  Clock10,
-  Download,
-  Frame,
-  Loader,
-  Scan,
-  SendHorizontal,
-  X,
-} from "lucide-react"
-import Link from "next/link"
-import React, { useState } from "react"
-import useSWR from "swr"
+import { Clock10, Download, Frame, Loader, Scan, SendHorizontal, X } from 'lucide-react';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import useSWR from 'swr';
 
-import { createCommentVideo } from "@/actions/pubVideo.actions"
-import { Input } from "@/components/tremor/inputs/input"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Button } from "@/components/tremor/ui/button"
+import { createCommentVideo } from '@/actions/pubVideo.actions';
+import CommentVideoCard from '@/components/(main)/explore/CommentVideoCard';
+import { Input } from '@/components/tremor/inputs/input';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/formatDate"
-import { fetcher } from "@/lib/utils"
-import { CommentVideoWithAuthor } from "@/types/publicationType"
-
-import CommentCard from "./CommentCard"
+    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { formatDate } from '@/lib/formatDate';
+import { fetcher } from '@/lib/utils';
+import { CommentVideoWithAuthor } from '@/types/publicationType';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -175,7 +162,7 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
 
       <div className="flex flex-col gap-4">
         {comments?.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
+          <CommentVideoCard key={comment.id} comment={comment} />
         ))}
       </div>
     </div>

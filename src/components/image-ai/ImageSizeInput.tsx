@@ -158,16 +158,22 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
   }
 
   return (
-    <div className="space-y-2" id="tour5-step5">
-      <Label className="mb-2">Image dimensions</Label>
-      <div className="grid w-full grid-cols-3 flex-wrap gap-2">
-        {ratioTooltips.map((e) => (
-          <Tooltip key={e.name} content={t(e.tooltip)}>
-            <RatioButton ratio={e.name as RatioName} />
-          </Tooltip>
-        ))}
+    <div className="space-y-2">
+      <div className="" id="tour5-step5">
+        <Label className="mb-2">Image dimensions</Label>
+        <div className="grid w-full grid-cols-3 flex-wrap gap-2">
+          {ratioTooltips.map((e) => (
+            <Tooltip key={e.name} content={t(e.tooltip)}>
+              <RatioButton ratio={e.name as RatioName} />
+            </Tooltip>
+          ))}
+        </div>
       </div>
-      <div className="flex w-full flex-wrap justify-between gap-2">
+
+      <div
+        className="flex w-full flex-wrap justify-between gap-2"
+        id="tour5-step6"
+      >
         {sizeOptions.map((size) => (
           <SizeButton key={size} size={size} />
         ))}

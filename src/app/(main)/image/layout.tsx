@@ -1,10 +1,7 @@
-import { redirect } from "next/navigation"
-import { Onborda, OnbordaProvider } from "onborda"
-import { ReactNode } from "react"
+import { redirect } from 'next/navigation';
+import { ReactNode } from 'react';
 
-import { OnboardaCard } from "@/components/onboarda/OnboardaCard"
-import { currentUser } from "@/lib/current-user"
-import { tours } from "@/lib/onboarda/steps"
+import { currentUser } from '@/lib/current-user';
 
 export default async function RouteLayout({
   children,
@@ -14,25 +11,5 @@ export default async function RouteLayout({
   const user = await currentUser()
   if (!user) return redirect("/auth")
 
-  return (
-    <OnbordaProvider>
-      <Onborda
-        steps={tours}
-        showOnborda={true}
-        shadowRgb="55,48,163"
-        shadowOpacity="0.8"
-        cardComponent={OnboardaCard}
-        cardTransition={{
-          duration: 0.8,
-          type: "spring",
-          bounce: 0.25,
-          damping: 10,
-          mass: 0.7,
-          stiffness: 75,
-        }}
-      >
-        {children}
-      </Onborda>
-    </OnbordaProvider>
-  )
+  return <div>{children}</div>
 }

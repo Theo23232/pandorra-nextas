@@ -115,11 +115,12 @@ export default function Page() {
           onChange={handleInput}
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
           placeholder={t(`Describe the sound you want...`)}
+          id="tour9-step5"
         />
         <div className="flex justify-between p-4">
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="ghost" className="h-10">
+              <Button variant="ghost" className="h-10" id="tour9-step6">
                 <Settings2 />
               </Button>
             </DrawerTrigger>
@@ -215,7 +216,11 @@ export default function Page() {
             <div className="text-sm text-muted-foreground">
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
-            <Button className="text-md h-10" onClick={handleGenerate}>
+            <Button
+              className="text-md h-10"
+              onClick={handleGenerate}
+              id="tour9-step7"
+            >
               {t(`Generate Sound Effects`)}
             </Button>
           </div>
@@ -233,7 +238,10 @@ export default function Page() {
         <div className="text-center text-muted-foreground">
           {t(`Or try out an example to get started!`)}
         </div>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
+        <div
+          className="mt-4 flex flex-wrap justify-center gap-2"
+          id="tour9-step8"
+        >
           <ExampleButton icon={Car} text="Car whizzing by" />
           <ExampleButton icon={Music} text="Percussion sounds" />
           <ExampleButton icon={Cat} text="Animal sounds" />
@@ -248,7 +256,7 @@ export default function Page() {
       {data ? (
         <MagicCard className="mt-4 p-4">
           {data?.map((audio) => (
-            <div className="" key={audio.id}>
+            <div className="" key={audio.id} id="tour9-step9">
               <CardTitle>{audio.prompt}</CardTitle>
               <AudioPlayer
                 audioUrl={audio.url}

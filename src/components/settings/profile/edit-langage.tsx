@@ -37,7 +37,7 @@ export function EditLangage() {
         toast({
           title: t(`Success`),
           description: t(
-            `Your prefered langage has been updated successfully.`,
+            `Your preferred langage has been updated successfully.`,
           ),
           variant: "success",
           duration: 3000,
@@ -59,7 +59,7 @@ export function EditLangage() {
         defaultValue={user.language}
       >
         <SelectTrigger>
-          <SelectValue placeholder={t(`Select langage`)} />
+          <SelectValue placeholder={t(`Select language`)} />
         </SelectTrigger>
         <SelectContent>
           {data.map((item) => (

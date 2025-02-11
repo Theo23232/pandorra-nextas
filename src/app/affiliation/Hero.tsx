@@ -77,7 +77,7 @@ export const Hero = () => {
               {t(`30% commission on every subscription`)}
             </span>
             {t(
-              `purchased  through your referral link. Whether you re a content creator, marketer, or AI enthusiast, it s a simple way to monetize your network!`,
+              `purchased through your referral link. Whether you're a content creator, marketer, or AI enthusiast, it's a simple way to monetize your network!`,
             )}
           </p>
           <Button

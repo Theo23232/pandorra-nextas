@@ -35,7 +35,7 @@ export default function Page() {
           <div className="text-sm text-muted-foreground">
             {charCount.toLocaleString()} / {maxChars.toLocaleString()}
           </div>
-          <Button className="text-md h-9">{t(`Generate Vidéo`)}</Button>
+          <Button className="text-md h-9">{t(`Generate Video`)}</Button>
         </div>
       </MagicCard>
     </div>

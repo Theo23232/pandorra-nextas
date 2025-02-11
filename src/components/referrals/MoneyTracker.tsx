@@ -1,15 +1,15 @@
 "use client"
 
-import { FormEvent, useEffect, useState } from 'react';
-import useSWR from 'swr';
+import { FormEvent, useEffect, useState } from "react"
+import useSWR from "swr"
 
-import { withdrawMoney } from '@/actions/stripe.actions';
-import { CreateReferralAccount } from '@/app/(main)/affiliate/CreateReferralAccount';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { fetcher } from '@/lib/utils';
-import { User } from '@prisma/client';
+import { withdrawMoney } from "@/actions/stripe.actions"
+import { CreateReferralAccount } from "@/app/(main)/affiliate/CreateReferralAccount"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { fetcher } from "@/lib/utils"
+import { User } from "@prisma/client"
 
 export const MoneyTracker = () => {
   const { data: user } = useSWR<User>("/api/user/current", fetcher)
@@ -77,6 +77,7 @@ export const MoneyTracker = () => {
     <div className="flex flex-col items-start gap-6">
       <div className="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
         <Card
+          id="tour13-step1"
           className={
             "bg-[linear-gradient(325deg,#D6141E_0%,#FF824C_55%,#D6141E_90%)] bg-[280%_auto] shadow-[0px_0px_20px_rgba(255,50,50,0.5),0px_5px_5px_-1px_rgba(255,130,100,0.25),inset_4px_4px_8px_rgba(255,180,150,0.5),inset_-4px_-4px_8px_rgba(214,20,30,0.35)] transition-all duration-700 ease-in-out hover:bg-right-top"
           }
@@ -93,7 +94,7 @@ export const MoneyTracker = () => {
             </p>
           </CardContent>
         </Card>
-        <Card className={"primeBg"}>
+        <Card id="tour13-step2" className={"primeBg"}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-lg font-medium text-white">
               Current amount
@@ -111,7 +112,7 @@ export const MoneyTracker = () => {
       </div>
       <div className="flex w-full max-w-2xl flex-col items-start">
         {isAccountExist === "" && (
-          <div className="flex w-full items-center">
+          <div className="flex w-full items-center" id="tour13-step3">
             <p>
               You must create an account with Stripe Connect to enable
               withdrawal.
@@ -123,7 +124,10 @@ export const MoneyTracker = () => {
         )}
 
         {isAccountExist === "" ? (
-          <Card className="pointer-events-none w-full opacity-100">
+          <Card
+            className="pointer-events-none w-full opacity-100"
+            id="tour13-step4"
+          >
             <CardHeader>
               <CardTitle>Withdraw funds</CardTitle>
             </CardHeader>

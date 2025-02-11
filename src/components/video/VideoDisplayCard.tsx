@@ -159,6 +159,7 @@ export const VideoDisplayCard = ({
       </div>
       {status === "Generated" ? (
         <video
+          id="tour8-step6"
           ref={videoRef}
           src={url}
           className={`h-auto w-full transform transition-transform duration-1000 ease-in-out ${isHovered ? "scale-125" : ""}`}

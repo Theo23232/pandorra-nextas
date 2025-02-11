@@ -1,13 +1,13 @@
 "use client"
 
-import { ChevronsUpDown } from "lucide-react"
+import { ChevronsUpDown } from 'lucide-react';
 
-import { Button } from "@/components/tremor/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@/hooks/use-user"
-import { cx, focusRing } from "@/lib/utils"
+import { Button } from '@/components/tremor/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useUser } from '@/hooks/use-user';
+import { cx, focusRing } from '@/lib/utils';
 
-import { DropdownUserProfile } from "./DropdownUserProfile"
+import { DropdownUserProfile } from './DropdownUserProfile';
 
 export const UserProfileDesktop = () => {
   const { user, isError } = useUser()
@@ -15,9 +15,9 @@ export const UserProfileDesktop = () => {
     return (
       <DropdownUserProfile>
         <Button
+          id="tour3-step4"
           aria-label="User settings"
           variant="ghost"
-          id="tour3-step3"
           className={cx(
             focusRing,
             "group flex w-full items-center justify-between rounded-md p-2 text-sm font-medium text-gray-900 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10",
@@ -48,7 +48,7 @@ export const UserProfileMobile = () => {
         <Button
           aria-label="User settings"
           variant="ghost"
-          id="tour3-step3"
+          id="tour3-step4"
           className={cx(
             "group flex items-center rounded-md p-1 text-sm font-medium text-gray-900 hover:bg-gray-100 data-[state=open]:bg-gray-100 data-[state=open]:bg-gray-400/10 hover:dark:bg-gray-400/10",
           )}

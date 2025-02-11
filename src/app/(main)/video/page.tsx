@@ -2,13 +2,15 @@
 "use client"
 
 import { Upload, X } from "lucide-react"
-import { useRef, useState } from "react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
 import Masonry from "react-masonry-css"
 import useSWR, { mutate } from "swr"
 
 import { enhanceVideoPrompt } from "@/actions/openai.actions"
 import { generateVideoFromImage } from "@/actions/runway.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -21,6 +23,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
 import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
 import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
@@ -42,6 +45,8 @@ export default function VideoGenerator() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const { toast } = useToast()
+  const { user } = useUser()
+  const { startOnborda } = useOnborda()
 
   const handleImageChange = (file: File | null) => {
     if (file && file.type.startsWith("image/")) {
@@ -122,6 +127,19 @@ export default function VideoGenerator() {
     }
   }
 
+  useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      console.log(tourOnboarding)
+      if (
+        !tourOnboarding.includes("eighthtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("eighthtour")
+      }
+    }
+  }, [user, startOnborda])
+
   return (
     <div className="flex w-full flex-col gap-8">
       <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-6 shadow-lg">
@@ -131,11 +149,12 @@ export default function VideoGenerator() {
           onChange={handleInput}
           className="mb-4 w-full resize-none overflow-hidden border-0 bg-transparent text-xl shadow-none focus-visible:ring-0"
           placeholder="Describe the video you want..."
+          id="tour8-step1"
         />
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <Select value={duration} onValueChange={setDuration}>
-              <SelectTrigger className="w-[100px]">
+              <SelectTrigger className="w-[100px]" id="tour8-step2">
                 <SelectValue placeholder="Duration" />
               </SelectTrigger>
               <SelectContent>
@@ -144,7 +163,7 @@ export default function VideoGenerator() {
               </SelectContent>
             </Select>
             <Select value={ratio} onValueChange={setRatio}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-[140px]" id="tour8-step3">
                 <SelectValue placeholder="Aspect Ratio" />
               </SelectTrigger>
               <SelectContent>
@@ -152,23 +171,25 @@ export default function VideoGenerator() {
                 <SelectItem value="768:1280">Portrait</SelectItem>
               </SelectContent>
             </Select>
-            <Label
-              htmlFor="image-upload"
-              className="flex cursor-pointer items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
-            >
-              <Upload className="h-5 w-5" />
-              <span>{previewUrl ? "Change image" : "Upload image"}</span>
-            </Label>
-            <input
-              id="image-upload"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageUpload}
-              ref={fileInputRef}
-            />
+            <div className="" id="tour8-step4">
+              <Label
+                htmlFor="image-upload"
+                className="flex cursor-pointer items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+              >
+                <Upload className="h-5 w-5" />
+                <span>{previewUrl ? "Change image" : "Upload image"}</span>
+              </Label>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageUpload}
+                ref={fileInputRef}
+              />
+            </div>
           </div>
           <Button
+            id="tour8-step5"
             className="px-6 py-2 text-white transition-all"
             onClick={handleSubmit}
             disabled={loading}
@@ -192,18 +213,19 @@ export default function VideoGenerator() {
           </div>
         )}
       </MagicCard>
-      <Masonry
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-        breakpointCols={{
-          default: 5,
-          1440: 3,
-          1200: 2,
-          700: 1,
-        }}
-      >
-        {histories?.map((video) => {
-          return (
+
+      {histories && histories.length > 0 ? (
+        <Masonry
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+          breakpointCols={{
+            default: 5,
+            1440: 3,
+            1200: 2,
+            700: 1,
+          }}
+        >
+          {histories.map((video) => (
             <VideoDisplayCard
               key={video.id}
               id={video.id}
@@ -214,9 +236,16 @@ export default function VideoGenerator() {
               videoDuration={video.duration}
               videoRatio={video.ratio}
             />
-          )
-        })}
-      </Masonry>
+          ))}
+        </Masonry>
+      ) : (
+        <div className="" id="tour8-step6">
+          <NothingYet
+            subtitle="Your video generation will be displayed here"
+            title="There is no video yet"
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -1,19 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import Masonry from "react-masonry-css"
-import useSWR from "swr"
+import { useEffect, useState } from 'react';
+import Masonry from 'react-masonry-css';
+import useSWR from 'swr';
 
-import { PublicationTabs } from "@/components/(main)/explore/PublicationTabs"
-import { PubVideo } from "@/components/(main)/explore/PubVideo"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { fetcher } from "@/lib/utils"
-import {
-  PublicationVideoWithAuthor,
-  PublicationWithAuthor,
-} from "@/types/publicationType"
+import { PublicationTabs } from '@/components/(main)/explore/PublicationTabs';
+import { PubVideo } from '@/components/(main)/explore/PubVideo';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { fetcher } from '@/lib/utils';
+import { PublicationVideoWithAuthor, PublicationWithAuthor } from '@/types/publicationType';
 
-import PubCard from "./PubCard"
+import PubCard from './PubCard';
 
 export const PublicationContent = () => {
   const {
@@ -74,8 +71,6 @@ export const PublicationContent = () => {
       </div>
     )
   }
-
-  console.log(PubVideo)
 
   return (
     <div className="mt-8">

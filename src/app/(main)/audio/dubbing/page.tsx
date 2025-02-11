@@ -1,7 +1,8 @@
 "use client"
 
 import { ArrowRight, Mic, Pause, Play, StopCircle, Upload } from "lucide-react"
-import { useRef, useState } from "react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
 
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { Button } from "@/components/ui/button"
@@ -14,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useUser } from "@/hooks/use-user"
 import { languageOptions } from "@/lib/elevenlabs/langList"
 
 export default function RouterPage() {
@@ -26,6 +28,8 @@ export default function RouterPage() {
   const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const chunksRef = useRef<Blob[]>([])
+  const { user } = useUser()
+  const { startOnborda } = useOnborda()
 
   const startRecording = async () => {
     try {
@@ -128,12 +132,24 @@ export default function RouterPage() {
     }
     setIsLoading(false)
   }
+  useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      console.log(tourOnboarding)
+      if (
+        !tourOnboarding.includes("twelfthtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("twelfthtour")
+      }
+    }
+  }, [user, startOnborda])
 
   return (
     <div className="max-w-xl">
       <MagicCard className="p-4">
         <div className="space-y-6">
-          <div>
+          <div id="tour12-step1">
             <label className="mb-2 block text-sm font-medium">
               Project name
             </label>
@@ -146,7 +162,7 @@ export default function RouterPage() {
                 Source Language*
               </label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger id="tour12-step2">
                   <SelectValue placeholder="Detect" />
                 </SelectTrigger>
                 <SelectContent>
@@ -165,7 +181,7 @@ export default function RouterPage() {
                 Target Languages*
               </label>
               <Select onValueChange={(value) => setTargetLang(value)}>
-                <SelectTrigger>
+                <SelectTrigger id="tour12-step3">
                   <SelectValue placeholder="Select languages" />
                 </SelectTrigger>
                 <SelectContent>
@@ -184,7 +200,7 @@ export default function RouterPage() {
               Audio or video source*
             </label>
 
-            <Card className="border-dashed">
+            <Card className="border-dashed" id="tour12-step4">
               <CardContent className="py-8">
                 {!mediaFile && !isRecording ? (
                   <div
@@ -288,7 +304,7 @@ export default function RouterPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div>
+            <div id="tour12-step5">
               <label className="mb-2 block text-sm font-medium">
                 Number of speakers
               </label>
@@ -306,7 +322,7 @@ export default function RouterPage() {
                 </SelectContent>
               </Select>
             </div>
-            <div>
+            <div id="tour12-step6">
               <label className="mb-2 block text-sm font-medium">
                 Time range to dub
               </label>
@@ -318,6 +334,7 @@ export default function RouterPage() {
           </div>
 
           <Button
+            id="tour12-step7"
             className="w-full bg-gray-400 hover:bg-gray-500"
             onClick={handleCreateDub}
             disabled={!mediaFile || isLoading}

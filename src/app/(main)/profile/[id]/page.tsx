@@ -8,13 +8,14 @@ import { Card } from "@/components/tremor/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { fetcher } from "@/lib/utils"
 
-export default async function ProfilePage() {
+export default function ProfilePage() {
   const searchParams = useSearchParams()
 
   // Exemple pour récupérer une valeur spécifique
   const userId = searchParams.get("userId")
 
   const { data: user } = useSWR(`/api/user/search?userId=${userId}`, fetcher)
+
   if (user)
     return (
       <div className="mx-auto max-w-7xl p-4">
@@ -73,7 +74,7 @@ export default async function ProfilePage() {
           </Card>
         </div>
 
-        <div className="mt-6 grid hidden grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded-lg border bg-card p-4">
             <h2 className="mb-2 font-semibold">Account Info</h2>
             <div className="space-y-2 text-sm">

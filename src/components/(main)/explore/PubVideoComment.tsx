@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
 import { createCommentVideo } from '@/actions/pubVideo.actions';
+import CommentVideoCard from '@/components/(main)/explore/CommentVideoCard';
 import { Input } from '@/components/tremor/inputs/input';
 import { Badge } from '@/components/tremor/ui/badge';
 import { Button } from '@/components/tremor/ui/button';
@@ -20,8 +21,6 @@ import { Separator } from '@/components/ui/separator';
 import { formatDate } from '@/lib/formatDate';
 import { fetcher } from '@/lib/utils';
 import { CommentVideoWithAuthor } from '@/types/publicationType';
-
-import CommentCard from './CommentCard';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -167,7 +166,7 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
 
       <div className="flex flex-col gap-4">
         {comments?.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
+          <CommentVideoCard key={comment.id} comment={comment} />
         ))}
       </div>
     </div>

@@ -74,7 +74,7 @@ export default function ReasonToJoin() {
         <Bounce className="flex w-[730px] flex-col items-start">
           <p className="mb-[40px] max-w-lg text-white">
             {t(
-              `Turn your influence into income with Pandorra.ai’s Affiliate Program! Earn 30% recurring commission on every subscription and enjoy limitless earning potential. With real-time  tracking, fast payouts, and a top-tier AI platform, promoting Pandorra.ai has never been easier.`,
+              `Turn your influence into income with Pandorra.ai’s Affiliate Program! Earn 30% commission on every subscription and enjoy limitless earning potential. With real-time tracking, fast payouts, and a top-tier AI platform, promoting Pandorra.ai has never been easier.`,
             )}
           </p>
           <div className="flex flex-col gap-[25px]">
@@ -103,7 +103,7 @@ export default function ReasonToJoin() {
               </svg>
               <p className="font-thin">
                 <span className="font-semibold">{t(`High Earnings`)} - </span>{" "}
-                {t(`30% recurring commussion on every subscription.`)}
+                {t(`30% commission on every subscription.`)}
               </p>
             </div>
             <div className="flex items-center gap-[10px] text-white">

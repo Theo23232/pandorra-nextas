@@ -477,7 +477,7 @@ export default function Page() {
         </MagicCard>
       ) : (
         <NothingYet
-          subtitle={t(`You voice generation will be displayed here`)}
+          subtitle={t(`Your voice generation will be displayed here`)}
           title={t(`There is no audio yet`)}
         />
       )}

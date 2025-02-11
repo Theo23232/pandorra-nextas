@@ -153,7 +153,7 @@ const SpeechToSpeechConverter: React.FC = () => {
         </MagicCard>
       ) : (
         <NothingYet
-          subtitle={t(`You generation will be displayed here`)}
+          subtitle={t(`Your generation will be displayed here`)}
           title={t(`There is no voice yet`)}
         />
       )}

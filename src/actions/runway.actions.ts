@@ -131,8 +131,6 @@ export const videoVerifyTask = SA(
         },
       })
     }
-    console.log("task. ==> ", task.failure)
-
     return video
   },
 )

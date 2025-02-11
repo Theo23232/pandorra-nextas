@@ -45,8 +45,6 @@ export default function PubVideoComment({
     fetcher,
   )
 
-  console.log("comments ==> ", comments)
-
   const [comment, setComment] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
 

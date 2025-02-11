@@ -1,8 +1,8 @@
 "use server"
 
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
-import { Agent } from '@prisma/client';
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
+import { Agent } from "@prisma/client"
 
 interface AgentOption {
   language: string
@@ -14,8 +14,6 @@ export const createAgent = SA(
     // Create agent (POST /v1/convai/agents/create)
     let firstMessage = "Bonjour, comment puis-je vous aider?"
     let language = option.language
-    console.log("option.voiceId ==> ", option.voiceId)
-    console.log("language ==> ", language)
     switch (language) {
       case "en":
         firstMessage = "Hello, how can I help you?"
@@ -98,8 +96,6 @@ export const createAgent = SA(
         voiceId: option.voiceId,
       },
     })
-
-    console.log("existingAgent ==> ", existingAgent)
 
     if (existingAgent) {
       return existingAgent
@@ -184,8 +180,6 @@ export const saveConversation = SA(async (user, agentId) => {
       },
     )
     const transcriptBody = await transcriptResponse.json()
-
-    console.log("transcriptBody ==> ", transcriptBody)
 
     await prisma.$transaction(async (prisma) => {
       const conv = await prisma.conversation.create({

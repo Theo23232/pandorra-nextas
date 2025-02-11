@@ -37,7 +37,7 @@ export default function RoutePage() {
           className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
         >
           <div className="relative w-full rounded-lg border p-6 text-left shadow-sm">
-            <CardTitle>{t(`Buy some token`)}</CardTitle>
+            <CardTitle>{t(`Buy some tokens`)}</CardTitle>
             <CardDescription>
               {t(
                 `Whatever your status, our offers evolve according to your needs.`,

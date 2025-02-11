@@ -135,7 +135,7 @@ export default function Page() {
                       <h2 className="text-lg font-medium">{t(`Duration`)}</h2>
                       <p className="text-sm text-muted-foreground">
                         {t(
-                          `Définissez la durée souhaitée pour votre génération. Choisissez entre 0.5 et 22 secondes.`,
+                          `Set the desired duration for your generation. Choose between 0.5 and 22 seconds.`,
                         )}
                       </p>
                     </div>
@@ -146,7 +146,7 @@ export default function Page() {
                         onCheckedChange={setIsAuto}
                       />
                       <Label htmlFor="auto-length" className="text-sm">
-                        {t(`Choisir automatiquement la meilleure durée`)}
+                        {t(`Automatically choose the best duration`)}
                       </Label>
                     </div>
                     <InputNumber
@@ -170,7 +170,7 @@ export default function Page() {
                       </h2>
                       <p className="text-sm text-muted-foreground">
                         {t(
-                          `Ajustez le curseur pour que votre génération adhère parfaitement au prompt ou laisse un peu de place à la créativité.`,
+                          `Adjust the slider so that your generation perfectly follows the prompt or leaves some room for creativity.`,
                         )}
                       </p>
                     </div>
@@ -261,7 +261,7 @@ export default function Page() {
       ) : (
         <NothingYet
           subtitle={t(`Your FX generation will be displayed here`)}
-          title={t(`There is no FC yet`)}
+          title={t(`There is no FX yet`)}
         />
       )}
     </div>

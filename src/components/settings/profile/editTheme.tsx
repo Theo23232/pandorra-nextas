@@ -32,7 +32,7 @@ export function EditTheme() {
       .then(() => {
         toast({
           title: t(`success`),
-          description: t(`Your prefered theme has been updated successfully.`),
+          description: t(`Your preferred theme has been updated successfully.`),
           variant: "success",
           duration: 3000,
         })

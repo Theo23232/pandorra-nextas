@@ -32,8 +32,8 @@ export const Pricing = () => {
           <Tabs className="mb-32 text-white">
             <Tab value={"small"}>{t(`Small`)}</Tab>
             <Tab value={"monthly"}>{t(`Monthly`)}</Tab>
-            <Tab value={"annualy"} className="flex gap-2">
-              {t(`Annualy`)} <img src="/save-27.png" className="h-6" />
+            <Tab value={"Annually"} className="flex gap-2">
+              {t(`Annually`)} <img src="/save-27.png" className="h-6" />
             </Tab>
           </Tabs>
           <TabPanel
@@ -255,7 +255,7 @@ export const Pricing = () => {
             </div>
           </TabPanel>
           <TabPanel
-            value={"annualy"}
+            value={"Annually"}
             className="relative flex justify-between gap-4"
           >
             <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">

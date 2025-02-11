@@ -70,7 +70,7 @@ export function ConversationDetails({
               >
                 {conversation.call_successful === "true"
                   ? t(`Successful`)
-                  : t(`Interupted`)}
+                  : t(`Interrupted`)}
               </Badge>
             </div>
           </div>

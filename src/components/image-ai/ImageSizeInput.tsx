@@ -162,7 +162,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
       <Label className="mb-2">Image dimensions</Label>
       <div className="grid w-full grid-cols-3 flex-wrap gap-2">
         {ratioTooltips.map((e) => (
-          <Tooltip key={e.name} content={t(e.name)}>
+          <Tooltip key={e.name} content={t(e.tooltip)}>
             <RatioButton ratio={e.name as RatioName} />
           </Tooltip>
         ))}

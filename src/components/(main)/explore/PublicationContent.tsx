@@ -20,17 +20,13 @@ export const PublicationContent = () => {
     data: publications,
     error,
     isLoading,
-  } = useSWR<PublicationWithAuthor[]>("/api/publication/all", fetcher, {
-    refreshInterval: 10000,
-  })
+  } = useSWR<PublicationWithAuthor[]>("/api/publication/all", fetcher)
 
   const {
     data: publicationVideos,
     error: pubVideoError,
     isLoading: pubVideoIsLoading,
-  } = useSWR<PublicationVideoWithAuthor[]>("/api/publication/video", fetcher, {
-    refreshInterval: 10000,
-  })
+  } = useSWR<PublicationVideoWithAuthor[]>("/api/publication/video", fetcher)
 
   const [loadedPublications, setLoadedPublications] = useState<
     PublicationWithAuthor[]

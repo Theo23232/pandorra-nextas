@@ -22,9 +22,6 @@ export const PublicationsProfile = (props: PublicationsProps) => {
   } = useSWR<PublicationWithAuthor[]>(
     `/api/publication/user?userId=${props.userId}`,
     fetcher,
-    {
-      refreshInterval: 10000,
-    },
   )
   const [loadedPublications, setLoadedPublications] = useState<
     PublicationWithAuthor[]

@@ -1,6 +1,6 @@
 "use client"
 import i18next from "i18next"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { initReactI18next } from "react-i18next"
 
 import translationEnglish from "./translation/en.json"
@@ -31,27 +31,22 @@ const detectBrowserLanguage = (): string => {
   return "en" // Valeur par défaut pour le serveur
 }
 
-const I18nProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<string>("en")
+if (!i18next.isInitialized) {
+  i18next.use(initReactI18next).init({
+    resources,
+    lng: detectBrowserLanguage(),
+  })
+}
 
+export const useI18n = () => {
   useEffect(() => {
-    const lang = detectBrowserLanguage()
-    setLanguage(lang)
-    if (!i18next.isInitialized) {
-      i18next.use(initReactI18next).init({
-        resources,
-        lng: lang,
-        fallbackLng: "en",
-        interpolation: {
-          escapeValue: false,
-        },
-      })
-    } else {
-      i18next.changeLanguage(lang)
+    const browserLang = detectBrowserLanguage()
+    if (i18next.language !== browserLang) {
+      i18next.changeLanguage(browserLang)
     }
   }, [])
 
-  return <>{children}</>
+  return i18next
 }
 
-export default I18nProvider
+export default i18next

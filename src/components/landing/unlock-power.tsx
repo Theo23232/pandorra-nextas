@@ -1,22 +1,26 @@
-import { MoveRight } from "lucide-react"
-import Link from "next/link"
+"use client"
+import { MoveRight } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/tremor/ui/button"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/tremor/ui/button';
 
 export const UnlockPower = () => {
+  const { t } = useTranslation()
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
         <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
-          Unlock the Power of AI with <br />{" "}
+          {t(`Unlock the Power of AI with`)} <br />{" "}
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
-            Text to Video
+            {t(`Text to Video`)}
           </span>
         </Bounce>
         <Bounce className="my-6 text-center font-medium leading-normal text-neutral-400">
-          Convert simple text prompts into engaging AI-generated videos. Bring
-          stories, ads, and concepts to life in <br /> seconds.
+          {t(
+            `Convert simple text prompts into engaging AI-generated videos. Bring stories, ads, and concepts to life in seconds.`,
+          )}
         </Bounce>
         <Bounce>
           <Link href={"/explore"}>
@@ -24,7 +28,7 @@ export const UnlockPower = () => {
               variant="gradient"
               className="flex items-center justify-center gap-2 rounded-full px-4"
             >
-              Try for free <MoveRight />
+              {t(`Try for free`)} <MoveRight />
             </Button>
           </Link>
         </Bounce>
@@ -45,15 +49,16 @@ export const UnlockPower = () => {
 
       <div className="mt-20 flex flex-col items-center justify-center">
         <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
-          The Ultimate AI Content <br />
+          {t(`The Ultimate AI Content`)} <br />
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
-            Generation Platform
+            {t(`Generation Platform`)}
           </span>
         </Bounce>
         <Bounce className="my-6 text-center font-medium leading-normal text-neutral-400">
-          🚀 Revolutionize Your Creativity with AI - Pandorra.ai empowers
-          creators with cutting-edge <br /> AI models, making video, image,
-          text, and voice generation seamless and powerful.
+          🚀{" "}
+          {t(
+            `Revolutionize Your Creativity with AI - Pandorra.ai empowers creators with cutting-edge AI models, making video, image, text, and voice generation seamless and powerful.`,
+          )}
         </Bounce>
         <Bounce className="flex gap-4">
           <Link href={"/explore"}>
@@ -61,7 +66,7 @@ export const UnlockPower = () => {
               variant={"gradient"}
               className="mr-2 flex h-11 items-center justify-center rounded-full px-6 transition-all ease-in-out"
             >
-              Create for free
+              {t(`Create for free`)}
             </Button>
           </Link>
           <Link href={"/pricing"}>
@@ -69,7 +74,7 @@ export const UnlockPower = () => {
               variant="ghost"
               className="flex h-11 items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
             >
-              View pricing
+              {t(`View pricing`)}
             </Button>
           </Link>
         </Bounce>
@@ -83,20 +88,21 @@ export const UnlockPower = () => {
             </div>
             <div className="relative z-40 -mt-5 px-11 pb-10">
               <p className="font-inter text-[32px] font-bold leading-[36px] text-white">
-                Why Choose <br />
-                Pandorra.ai?
+                {t(`Why Choose Pandorra.ai?`)}
               </p>
-              <p className="monserat mb-6 mt-4 font-thin leading-normal text-white/80">
-                Whether you’re crafting stunning visuals, generating compelling
-                text, or producing AI-powered videos and voices, our platform
-                delivers unmatched quality, speed, and flexibility.
+              <p className="monserat mb-6 mt-4 max-w-xl font-thin leading-normal text-white/80">
+                {t(
+                  `Whether you’re crafting stunning visuals, generating compelling text, or producing AI-powered videos and voices, our platform delivers unmatched quality, speed, and flexibility.`,
+                )}
               </p>
 
               <p className="flex flex-wrap gap-3 text-[13px] font-thin leading-3 text-white">
-                AI Video Generation <span className="text-[#4C4A5B]">|</span> AI
-                Image Creation
-                <span className="text-[#4C4A5B]">|</span> AI Text Generation{" "}
-                <span className="text-[#4C4A5B]">|</span> AI Voice Synthesis
+                {t(`AI Video Generation`)}{" "}
+                <span className="text-[#4C4A5B]">|</span>
+                <span className="text-[#4C4A5B]">|</span>{" "}
+                {t(`AI Text Generation`)}{" "}
+                <span className="text-[#4C4A5B]">|</span>{" "}
+                {t(`AI Voice Synthesis`)}
               </p>
             </div>
           </Bounce>
@@ -109,24 +115,27 @@ export const UnlockPower = () => {
             </div>
             <div className="relative z-40 -mt-5 px-11 pb-10">
               <p className="font-inter text-[32px] font-bold leading-[36px] text-white">
-                How it works?
+                {t(`How it works?`)}
               </p>
               <p className="monserat mb-6 mt-4 font-thin leading-normal text-white/80">
-                Using Pandorra.ai is as simple as typing, selecting, and
-                generating. Our intuitive platform lets you transform ideas into
-                reality in just a few clicks.
+                {t(
+                  `Using Pandorra.ai is as simple as typing, selecting, and generating. Our intuitive platform lets you transform ideas into reality in just a few clicks.`,
+                )}
               </p>
 
               <div className="mb-6 flex flex-wrap gap-3 text-[13px] font-thin text-white">
-                ⚡ No complex tools, no limits—just pure creativity at your
-                fingertips
+                ⚡{" "}
+                {t(
+                  `No complex tools, no limits—just pure creativity at your fingertips`,
+                )}
               </div>
 
               <p className="flex flex-wrap gap-3 text-[13px] font-thin leading-3 text-white">
-                Enter your prompt <span className="text-[#4C4A5B]">|</span>{" "}
-                Choose AI model
-                <span className="text-[#4C4A5B]">|</span> Generate image
-                <span className="text-[#4C4A5B]">|</span> Download and share
+                {t(`Enter your prompt`)}{" "}
+                <span className="text-[#4C4A5B]">|</span> {t(`Choose AI model`)}
+                <span className="text-[#4C4A5B]">|</span> {t(`Generate image`)}
+                <span className="text-[#4C4A5B]">|</span>{" "}
+                {t(`Download and share`)}
               </p>
             </div>
           </Bounce>

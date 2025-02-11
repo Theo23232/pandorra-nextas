@@ -1,14 +1,17 @@
-import Link from "next/link"
+"use client"
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
+import Bounce from '@/components/animated/uibeats/bounce';
 
 export const GalleryMultiple = () => {
+  const { t } = useTranslation()
   return (
     <div className="mt-24 flex flex-col items-center justify-center">
       <Bounce className="font-inter text-center text-[80px] font-semibold leading-[78px] text-[#FDFDFD]">
-        Get inspired by <br />
+        {t(`Get inspired by`)} <br />
         <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
-          other creators
+          {t(`other creators`)}
         </span>
       </Bounce>
       <Bounce className="hidden max-w-[1278px] gap-8 pt-12">
@@ -55,7 +58,7 @@ export const GalleryMultiple = () => {
           href={"/explore"}
           className="mb-24 mt-10 flex h-10 items-center justify-center gap-2 rounded-full bg-white px-4 text-black hover:bg-slate-100"
         >
-          View more
+          {t(`View more`)}
         </Link>
       </Bounce>
     </div>

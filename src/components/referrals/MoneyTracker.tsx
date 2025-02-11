@@ -1,6 +1,7 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
 import { withdrawMoney } from '@/actions/stripe.actions';
@@ -12,6 +13,7 @@ import { fetcher } from '@/lib/utils';
 import { User } from '@prisma/client';
 
 export const MoneyTracker = () => {
+  const { t } = useTranslation()
   const { data: user } = useSWR<User>("/api/user/current", fetcher)
   const [isAccountExist, setIsAccountExist] = useState<string>("")
   const [accumulated, setIsAccumulated] = useState<string>("")
@@ -41,11 +43,11 @@ export const MoneyTracker = () => {
             window.location.reload()
           })
         } catch (error) {
-          setError("Withdrawal failed. Please try again.")
+          setError(t(`Withdrawal failed. Please try again.`))
         }
       }
     } else {
-      setError("No account found or amount is zero.")
+      setError(t(`No account found or amount is zero.`))
     }
   }
 
@@ -67,8 +69,8 @@ export const MoneyTracker = () => {
     } else {
       setError(
         numericValue === 0 || !numericValue
-          ? "Amount can't be zero"
-          : `Amount can't exceed the current amount`,
+          ? t(`Amount can't be zero`)
+          : t(`Amount can't exceed the current amount`),
       )
     }
   }
@@ -83,20 +85,20 @@ export const MoneyTracker = () => {
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-lg font-medium text-white">
-              Total accumulated
+              {t(`Total accumulated`)}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold text-white">$ {accumulated}</div>
             <p className="text-xs text-muted-foreground text-white">
-              Lifetime savings
+              {t(`Lifetime savings`)}
             </p>
           </CardContent>
         </Card>
         <Card className={"primeBg"}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-lg font-medium text-white">
-              Current amount
+              {t(`Current amount`)}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -104,7 +106,7 @@ export const MoneyTracker = () => {
               $ {currentTotal}
             </div>
             <p className="text-xs text-muted-foreground text-white">
-              Available balance
+              {t(`Available balance`)}
             </p>
           </CardContent>
         </Card>
@@ -113,11 +115,12 @@ export const MoneyTracker = () => {
         {isAccountExist === "" && (
           <div className="flex w-full items-center">
             <p>
-              You must create an account with Stripe Connect to enable
-              withdrawal.
+              {t(
+                `You must create an account with Stripe Connect to enable withdrawal.`,
+              )}
             </p>
             <CreateReferralAccount>
-              <Button variant="link">Create account</Button>
+              <Button variant="link">{t(`Create account`)}</Button>
             </CreateReferralAccount>
           </div>
         )}
@@ -125,19 +128,19 @@ export const MoneyTracker = () => {
         {isAccountExist === "" ? (
           <Card className="pointer-events-none w-full opacity-100">
             <CardHeader>
-              <CardTitle>Withdraw funds</CardTitle>
+              <CardTitle>{t(`Withdraw funds`)}</CardTitle>
             </CardHeader>
             <CardContent>
               <form className="space-y-4">
                 <div className="flex space-x-2">
                   <Input
                     type="number"
-                    placeholder="Enter amount to withdraw"
+                    placeholder={t(`Enter amount to withdraw`)}
                     className="flex-grow"
                     disabled
                   />
                   <Button type="submit" disabled>
-                    Withdraw
+                    {t(`Withdraw`)}
                   </Button>
                 </div>
                 <Button
@@ -146,7 +149,7 @@ export const MoneyTracker = () => {
                   className="w-full"
                   disabled
                 >
-                  Withdraw all ($ {currentTotal})
+                  {t(`Withdraw all`)} ($ {currentTotal})
                 </Button>
               </form>
             </CardContent>
@@ -154,20 +157,20 @@ export const MoneyTracker = () => {
         ) : (
           <Card className="pointer-events-none w-full opacity-100">
             <CardHeader>
-              <CardTitle>Withdraw funds</CardTitle>
+              <CardTitle>{t(`Withdraw funds`)}</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex space-x-2">
                   <Input
                     type="text"
-                    placeholder="Enter amount to withdraw"
+                    placeholder={t(`Enter amount to withdraw`)}
                     className="flex-grow"
                     value={fundsWithdraw}
                     onChange={(e) => setFundsWithDraw(e.target.value)}
                   />
                   <Button type="submit" onClick={(e) => handleSubmit(e)}>
-                    Withdraw
+                    {t(`Withdraw`)}
                   </Button>
                 </div>
                 <Button
@@ -176,10 +179,10 @@ export const MoneyTracker = () => {
                   className="w-full"
                   onClick={(e) => handleWithdrawAll(e)}
                 >
-                  Withdraw all ($ {currentTotal})
+                  {t(`Withdraw all`)} ($ {currentTotal})
                 </Button>
               </form>
-              {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+              {error && <p className="mt-2 text-sm text-red-500">{t(error)}</p>}
             </CardContent>
           </Card>
         )}

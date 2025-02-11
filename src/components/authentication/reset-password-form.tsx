@@ -1,6 +1,7 @@
 "use client"
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function ResetPasswordFormContent() {
   const router = useRouter()
@@ -10,12 +11,12 @@ function ResetPasswordFormContent() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
-
+  const { t } = useTranslation()
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      setError("The password does not match")
+      setError(t("The password does not match"))
       return
     }
 
@@ -36,11 +37,11 @@ function ResetPasswordFormContent() {
 
   return (
     <div className="mx-auto mt-8 max-w-md rounded-lg bg-white p-6 shadow-md">
-      <h2 className="mb-6 text-2xl font-bold">Reset your password</h2>
+      <h2 className="mb-6 text-2xl font-bold">{t(`Reset your password`)}</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="mb-1 block">New password</label>
+          <label className="mb-1 block">{t(`New password`)}</label>
           <input
             type="password"
             value={password}
@@ -51,7 +52,7 @@ function ResetPasswordFormContent() {
         </div>
 
         <div>
-          <label className="mb-1 block">Confirm password</label>
+          <label className="mb-1 block">{t(`Confirm password`)}</label>
           <input
             type="password"
             value={confirmPassword}
@@ -67,7 +68,7 @@ function ResetPasswordFormContent() {
           type="submit"
           className="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
         >
-          Reset your password
+          {t(`Reset your password`)}
         </button>
       </form>
     </div>
@@ -75,8 +76,10 @@ function ResetPasswordFormContent() {
 }
 
 export default function ResetPasswordForm() {
+  const { t } = useTranslation()
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>{t(`Loading...`)}</div>}>
       <ResetPasswordFormContent />
     </Suspense>
   )

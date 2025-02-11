@@ -2,6 +2,7 @@
 import { ElevenLabsClient } from 'elevenlabs';
 import { Building2, Car, Cat, Gamepad2, Mic2, Music, Settings2, Waves, Wind } from 'lucide-react';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSWR, { mutate } from 'swr';
 
 import { generateFX } from '@/actions/elevenlabs.actions';
@@ -25,6 +26,7 @@ import { FX } from '@prisma/client';
 import { AudioPlayer } from './audio-player'; // Assurez-vous du bon chemin d'importation
 
 export default function Page() {
+  const { t } = useTranslation()
   const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
   const [prompt, setPrompt] = useState("")
   const [durationSeconds, setDurationSeconds] = useState(8)
@@ -97,10 +99,10 @@ export default function Page() {
     <Button
       variant="outline"
       className="h-10 rounded-md text-sm text-foreground"
-      onClick={() => setPrompt(text)}
+      onClick={() => setPrompt(t(text))}
     >
       <Icon className="mr-2 h-4 w-4" />
-      {text}
+      {t(text)}
     </Button>
   )
 
@@ -112,7 +114,7 @@ export default function Page() {
           value={prompt}
           onChange={handleInput}
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
-          placeholder="Describe the sound you want..."
+          placeholder={t(`Describe the sound you want...`)}
         />
         <div className="flex justify-between p-4">
           <Drawer>
@@ -123,17 +125,18 @@ export default function Page() {
             </DrawerTrigger>
             <DrawerContent className="sm:max-w-lg">
               <DrawerHeader>
-                <DrawerTitle>Settings</DrawerTitle>
+                <DrawerTitle>{t(`Settings`)}</DrawerTitle>
               </DrawerHeader>
               <DrawerBody>
                 <div className="w-full max-w-md space-y-8 p-4">
                   {/* Section Durée */}
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <h2 className="text-lg font-medium">Duration</h2>
+                      <h2 className="text-lg font-medium">{t(`Duration`)}</h2>
                       <p className="text-sm text-muted-foreground">
-                        Définissez la durée souhaitée pour votre génération.
-                        Choisissez entre 0.5 et 22 secondes.
+                        {t(
+                          `Définissez la durée souhaitée pour votre génération. Choisissez entre 0.5 et 22 secondes.`,
+                        )}
                       </p>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -143,7 +146,7 @@ export default function Page() {
                         onCheckedChange={setIsAuto}
                       />
                       <Label htmlFor="auto-length" className="text-sm">
-                        Choisir automatiquement la meilleure durée
+                        {t(`Choisir automatiquement la meilleure durée`)}
                       </Label>
                     </div>
                     <InputNumber
@@ -162,11 +165,13 @@ export default function Page() {
                   {/* Section Influence du Prompt */}
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <h2 className="text-lg font-medium">Prompt Influence</h2>
+                      <h2 className="text-lg font-medium">
+                        {t(`Prompt Influence`)}
+                      </h2>
                       <p className="text-sm text-muted-foreground">
-                        Ajustez le curseur pour que votre génération adhère
-                        parfaitement au prompt ou laisse un peu de place à la
-                        créativité.
+                        {t(
+                          `Ajustez le curseur pour que votre génération adhère parfaitement au prompt ou laisse un peu de place à la créativité.`,
+                        )}
                       </p>
                     </div>
                     <div className="space-y-3">
@@ -178,8 +183,8 @@ export default function Page() {
                         onValueChange={handleSliderChange}
                       />
                       <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>More Creative</span>
-                        <span>Follow Prompt</span>
+                        <span>{t(`More Creative`)}</span>
+                        <span>{t(`Follow Prompt`)}</span>
                       </div>
                     </div>
                   </div>
@@ -191,7 +196,7 @@ export default function Page() {
                   variant="secondary"
                   onClick={handleReset}
                 >
-                  Reset
+                  {t(`Reset`)}
                 </Button>{" "}
                 <DrawerClose asChild></DrawerClose>
                 <DrawerClose asChild>
@@ -200,7 +205,7 @@ export default function Page() {
                     onClick={handleGenerate}
                     isLoading={isLoading}
                   >
-                    Ok, got it!
+                    {t(`Ok, got it!`)}
                   </Button>
                 </DrawerClose>
               </DrawerFooter>
@@ -211,7 +216,7 @@ export default function Page() {
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
             <Button className="text-md h-10" onClick={handleGenerate}>
-              Generate Sound Effects
+              {t(`Generate Sound Effects`)}
             </Button>
           </div>
         </div>
@@ -226,7 +231,7 @@ export default function Page() {
 
       <MagicCard className="mt-4 p-4">
         <div className="text-center text-muted-foreground">
-          Or try out an example to get started!
+          {t(`Or try out an example to get started!`)}
         </div>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <ExampleButton icon={Car} text="Car whizzing by" />
@@ -255,8 +260,8 @@ export default function Page() {
         </MagicCard>
       ) : (
         <NothingYet
-          subtitle="Your FX generation will be displayed here"
-          title="There is no FC yet"
+          subtitle={t(`Your FX generation will be displayed here`)}
+          title={t(`There is no FC yet`)}
         />
       )}
     </div>

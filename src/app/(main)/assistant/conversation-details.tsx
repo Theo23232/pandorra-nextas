@@ -3,6 +3,7 @@
 import { format } from 'date-fns';
 import { BotIcon, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
 import { MagicCard } from '@/components/animated/magic-ui/magic-card';
@@ -23,7 +24,7 @@ export function ConversationDetails({
 }: ConversationDetailsProps) {
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [conversation, setConversation] = useState<any>(null)
-
+  const { t } = useTranslation()
   useEffect(() => {
     if (data && data.agents) {
       const conv = data.agents
@@ -33,19 +34,19 @@ export function ConversationDetails({
     }
   }, [data, conversationId])
 
-  if (error) return <div>Failed to load conversation details</div>
-  if (!data || !conversation) return <div>Loading...</div>
+  if (error) return <div>{t(`Failed to load conversation details`)}</div>
+  if (!data || !conversation) return <div>{t(`Loading...`)}</div>
 
   return (
     <MagicCard gradientSize={700} className="w-full max-w-4xl p-6">
       <CardTitle className="mb-2">
-        Conversation with {getVoiceNameById(conversation.agent.voiceId)}
+        {t(`Conversation with`)} {getVoiceNameById(conversation.agent.voiceId)}
       </CardTitle>
       <CardContent className="grid gap-6 p-0">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <p className="text-sm font-medium text-muted-foreground">
-              Duration
+              {t(`Duration`)}
             </p>
             <p className="text-2xl font-bold">
               {conversation.callDurationSecs}s
@@ -53,12 +54,14 @@ export function ConversationDetails({
           </div>
           <div className="space-y-2">
             <p className="text-sm font-medium text-muted-foreground">
-              Messages
+              {t(`Messages`)}
             </p>
             <p className="text-2xl font-bold">{conversation.messageCount}</p>
           </div>
           <div className="space-y-2">
-            <p className="text-sm font-medium text-muted-foreground">Status</p>
+            <p className="text-sm font-medium text-muted-foreground">
+              {t(`Status`)}
+            </p>
             <div className="flex items-center space-x-2">
               <Badge
                 variant={
@@ -66,13 +69,15 @@ export function ConversationDetails({
                 }
               >
                 {conversation.call_successful === "true"
-                  ? "Successful"
-                  : "Interupted"}
+                  ? t(`Successful`)
+                  : t(`Interupted`)}
               </Badge>
             </div>
           </div>
           <div className="space-y-2">
-            <p className="text-sm font-medium text-muted-foreground">Created</p>
+            <p className="text-sm font-medium text-muted-foreground">
+              {t(`Created`)}
+            </p>
             <p className="text-sm">
               {format(new Date(conversation.createdAt), "PPpp")}
             </p>
@@ -80,7 +85,7 @@ export function ConversationDetails({
         </div>
         <Separator />
         <div>
-          <h3 className="mb-4 text-lg font-semibold">Transcript</h3>
+          <h3 className="mb-4 text-lg font-semibold">{t(`Transcript`)}</h3>
           <div className="flex h-fit flex-col rounded-md border py-4">
             {conversation.Transcript.map(
               (transcript: Transcript, index: number) => (
@@ -109,7 +114,7 @@ export function ConversationDetails({
                         >
                           {transcript.role === "agent"
                             ? getVoiceNameById(conversation.agent.voiceId)
-                            : "User"}
+                            : t(`User`)}
                         </span>
                       </p>
                       <p className="text-sm">{transcript.message}</p>

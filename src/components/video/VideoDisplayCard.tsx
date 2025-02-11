@@ -1,19 +1,15 @@
 "use client"
 
-import { AlertCircle, Download, Send } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { AlertCircle, Download, Send } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { createPublicationVideo } from "@/actions/pubVideo.actions"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { useToast } from "@/hooks/use-toast"
+import { createPublicationVideo } from '@/actions/pubVideo.actions';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useToast } from '@/hooks/use-toast';
 
 interface VideoDisplayCardProps {
   id: string
@@ -34,6 +30,7 @@ export const VideoDisplayCard = ({
   videoDuration,
   videoRatio,
 }: VideoDisplayCardProps) => {
+  const { t } = useTranslation()
   const [isHovered, setIsHovered] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { toast } = useToast()
@@ -63,8 +60,8 @@ export const VideoDisplayCard = ({
       console.log("here")
 
       const loadingToast = toast({
-        title: "Loading",
-        description: "Your video is being published",
+        title: t(`Loading`),
+        description: t(`Your video is being published`),
         variant: "loading",
         disableDismiss: true,
       })
@@ -78,16 +75,16 @@ export const VideoDisplayCard = ({
       )
         .then(() => {
           toast({
-            title: "Success",
-            description: "Your video has been published",
+            title: t(`Success`),
+            description: t(`Your video has been published`),
             variant: "success",
             duration: 3000,
           })
         })
         .catch(() => {
           toast({
-            title: "A video cannot be published twice",
-            description: "You have already posted this image",
+            title: t(`A video cannot be published twice`),
+            description: t(`You have already posted this video`),
             variant: "error",
           })
         })
@@ -125,7 +122,7 @@ export const VideoDisplayCard = ({
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Download</p>
+                <p>{t(`Download`)}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -151,7 +148,7 @@ export const VideoDisplayCard = ({
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Post</p>
+                <p>{t(`Post`)}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -173,7 +170,8 @@ export const VideoDisplayCard = ({
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            Failed to generate video: {failedMessage || "Unknown error"}
+            {t(`Failed to generate video:`)}{" "}
+            {t(failedMessage || "Unknown error")}
           </AlertDescription>
         </Alert>
       )}

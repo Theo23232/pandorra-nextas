@@ -1,10 +1,11 @@
 "use client"
 
-import Link from "next/link"
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export type MenuListProps = {}
-
 export const MenuList = (props: MenuListProps) => {
+  const { t } = useTranslation()
   return (
     <ul className="menu-list mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
       <li id="tour2-step1">
@@ -63,7 +64,7 @@ export const MenuList = (props: MenuListProps) => {
             <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
           </div>
           <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            Chat with AI
+            {t(`Chat with AI`)}
           </div>
         </Link>
       </li>
@@ -116,7 +117,7 @@ export const MenuList = (props: MenuListProps) => {
             <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
           </div>
           <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            Image generation
+            {t(`Image generation`)}
           </div>
         </Link>
       </li>
@@ -170,7 +171,7 @@ export const MenuList = (props: MenuListProps) => {
             <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
           </div>
           <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            Image to Video
+            {t(`Image to Video`)}
           </div>
         </Link>
       </li>
@@ -224,7 +225,7 @@ export const MenuList = (props: MenuListProps) => {
             <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
           </div>
           <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            AI assistant
+            {t(`AI assistant`)}
           </div>
         </Link>
       </li>
@@ -284,7 +285,7 @@ export const MenuList = (props: MenuListProps) => {
             <span className="i-com--right-arrow inline-flex size-6 items-center justify-center text-white transition-all group-hover:translate-x-1 md:block"></span>
           </div>
           <div className="whitespace-pre-wrap text-sm font-semibold text-white md:text-base">
-            Audio generation
+            {t(`Audio generation`)}
           </div>
         </Link>
       </li>

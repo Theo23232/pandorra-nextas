@@ -1,6 +1,7 @@
 "use client"
 import { Trash } from 'lucide-react';
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { deleteGeneration } from '@/actions/generation.action';
 import {
@@ -12,8 +13,8 @@ export type GenerationOptionProps = {
   generationId: string
   children: ReactNode
 }
-
 export const GenerationOption = (props: GenerationOptionProps) => {
+  const { t } = useTranslation()
   const { startLoading, stopLoading } = useLoadingStore()
   const removeGen = async () => {
     startLoading()
@@ -30,7 +31,7 @@ export const GenerationOption = (props: GenerationOptionProps) => {
             onClick={removeGen}
           >
             <Trash size={20} />
-            <span>Delete</span>
+            <span>{t(`Delete`)}</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

@@ -1,21 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import Masonry from "react-masonry-css"
-import useSWR from "swr"
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Masonry from 'react-masonry-css';
+import useSWR from 'swr';
 
-import { PublicationTabs } from "@/components/(main)/explore/PublicationTabs"
-import { PubVideo } from "@/components/(main)/explore/PubVideo"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { fetcher } from "@/lib/utils"
-import {
-  PublicationVideoWithAuthor,
-  PublicationWithAuthor,
-} from "@/types/publicationType"
+import { PublicationTabs } from '@/components/(main)/explore/PublicationTabs';
+import { PubVideo } from '@/components/(main)/explore/PubVideo';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { fetcher } from '@/lib/utils';
+import { PublicationVideoWithAuthor, PublicationWithAuthor } from '@/types/publicationType';
 
-import PubCard from "./PubCard"
+import PubCard from './PubCard';
 
 export const PublicationContent = () => {
+  const { t } = useTranslation()
   const {
     data: publications,
     error,
@@ -70,12 +69,10 @@ export const PublicationContent = () => {
   if (error) {
     return (
       <div className="w-full text-center text-red-500">
-        Error loading publications
+        {t(`Error loading publications`)}
       </div>
     )
   }
-
-  console.log(PubVideo)
 
   return (
     <div className="mt-8">

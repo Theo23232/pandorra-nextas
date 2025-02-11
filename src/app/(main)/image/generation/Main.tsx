@@ -128,6 +128,7 @@ export const Main = (props: MainProps) => {
     <div className="flex flex-col justify-center">
       <MagicCard className="mb-4 w-full">
         <Textarea
+          id="tour6-step1"
           ref={textareaRef}
           value={prompt}
           onChange={(e) => handlePromptChange(e.target.value)}
@@ -137,6 +138,7 @@ export const Main = (props: MainProps) => {
         <div className="flex items-center justify-end gap-2 p-4">
           <Tooltip content={t(`Enhance prompt`)}>
             <div
+              id="tour6-step2"
               onClick={enhancePrompt}
               className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
             >
@@ -148,7 +150,12 @@ export const Main = (props: MainProps) => {
             </div>
           </Tooltip>
 
-          <Button onClick={generate} isLoading={isLoading} className="text-md">
+          <Button
+            onClick={generate}
+            isLoading={isLoading}
+            className="text-md"
+            id="tour6-step3"
+          >
             {t(`Generate`)}
           </Button>
         </div>

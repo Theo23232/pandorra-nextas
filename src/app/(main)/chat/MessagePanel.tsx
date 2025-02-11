@@ -74,10 +74,10 @@ export function MessagePanel({ conversationId }: MessagePanelProps) {
   }
 
   return (
-    <div className="flex h-full max-w-5xl flex-col">
+    <div className="flex h-full w-full max-w-5xl flex-col pt-20">
       {conversationId ? (
         <>
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 p-4">
             {messages.map((message) => (
               <div key={message.id} className="mb-4">
                 <strong>

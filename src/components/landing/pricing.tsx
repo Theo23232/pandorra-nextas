@@ -86,7 +86,7 @@ export const Pricing = () => {
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />
-                      <p className="gdt mr-1 font-extrabold"> 2500</p>
+                      <p className="gdt mr-1 font-extrabold"> 3000</p>
                       credits
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -113,7 +113,7 @@ export const Pricing = () => {
                   </div>
                   <div className="mb-8 flex items-center text-white">
                     <p className="pt-2 text-[24px]">€</p>
-                    <p className="text-[36px] font-bold">32.99</p>
+                    <p className="text-[36px] font-bold">34.99</p>
                     <p className="ml-2 pt-2 font-light">/month</p>
                   </div>
                   <Button variant={"gradient"} className="w-full">
@@ -184,13 +184,13 @@ export const Pricing = () => {
                     </p>
 
                     <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      <p className="gdt text-sm font-semibold">Save €40</p>
+                      <p className="gdt text-sm font-semibold">Save 40%</p>
                     </div>
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />
-                      <p className="gdt mr-1 font-extrabold"> 2500</p>
+                      <p className="gdt mr-1 font-extrabold"> 3000</p>
                       credits
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -217,7 +217,7 @@ export const Pricing = () => {
                   </div>
                   <div className="mb-8 flex items-center text-white">
                     <p className="pt-2 text-[24px]">€</p>
-                    <p className="text-[36px] font-bold">32.99</p>
+                    <p className="text-[36px] font-bold">34.99</p>
                     <p className="ml-2 pt-2 font-light">/month</p>
                   </div>
                   <Button variant={"gradient"} className="w-full">
@@ -234,7 +234,7 @@ export const Pricing = () => {
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
-                    <p className="gdt mr-1 font-extrabold"> 7000</p>
+                    <p className="gdt mr-1 font-extrabold"> 8000</p>
                     credits
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -335,13 +335,13 @@ export const Pricing = () => {
                     </p>
 
                     <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      <p className="gdt text-sm font-semibold">Save 40</p>
+                      <p className="gdt text-sm font-semibold">Save 40%</p>
                     </div>
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />
-                      <p className="gdt mr-1 font-extrabold"> 2500</p>
+                      <p className="gdt mr-1 font-extrabold"> 3000</p>
                       credits
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -385,7 +385,7 @@ export const Pricing = () => {
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
-                    <p className="gdt mr-1 font-extrabold"> 7000</p>
+                    <p className="gdt mr-1 font-extrabold"> 8000</p>
                     credits
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">

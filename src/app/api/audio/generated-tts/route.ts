@@ -29,5 +29,7 @@ export async function GET() {
       { error: "Failed to generate sound" },
       { status: 500 },
     )
+  } finally {
+    await prisma.$disconnect() // Ferme la connexion après chaque requête
   }
 }

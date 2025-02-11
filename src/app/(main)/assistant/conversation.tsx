@@ -97,7 +97,7 @@ export function Conversation({
           onValueChange={setVoiceId}
           disabled={!!preSelectedVoiceId}
         >
-          <SelectTrigger className="h-[50px] w-[300px]">
+          <SelectTrigger className="h-[50px] w-[300px]" id="tour7-step5">
             <SelectValue placeholder="Select Voice" />
           </SelectTrigger>
           <SelectContent>
@@ -114,7 +114,7 @@ export function Conversation({
           onValueChange={setLang}
           disabled={!!preSelectedLanguage}
         >
-          <SelectTrigger className="h-[50px] w-[300px]">
+          <SelectTrigger className="h-[50px] w-[300px]" id="tour7-step6">
             <SelectValue placeholder="Select Language" />
           </SelectTrigger>
           <SelectContent>
@@ -131,6 +131,7 @@ export function Conversation({
             onClick={startConversation}
             className="w-[300px] gap-2"
             isLoading={isLoading}
+            id="tour7-step7"
           >
             <Mic className={`h-4 w-4 ${isLoading ?? "hidden"}`} /> Start
             Conversation

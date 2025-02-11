@@ -1,28 +1,44 @@
 "use client"
-import { ElevenLabsClient } from 'elevenlabs';
-import { Building2, Car, Cat, Gamepad2, Mic2, Music, Settings2, Waves, Wind } from 'lucide-react';
-import React, { useRef, useState } from 'react';
-import useSWR, { mutate } from 'swr';
-
-import { generateFX } from '@/actions/elevenlabs.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { InputNumber } from '@/components/input-number';
-import { NothingYet } from '@/components/NothingYet';
-import { Label } from '@/components/tremor/inputs/label';
-import { Slider } from '@/components/tremor/inputs/slider';
-import { Switch } from '@/components/tremor/inputs/switch';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { Divider } from '@/components/tremor/ui/divider';
+import { ElevenLabsClient } from "elevenlabs"
 import {
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle,
-    DrawerTrigger
-} from '@/components/tremor/ui/drawer';
-import { Textarea } from '@/components/ui/textarea';
-import { fetcher } from '@/lib/utils';
-import { FX } from '@prisma/client';
+  Building2,
+  Car,
+  Cat,
+  Gamepad2,
+  Mic2,
+  Music,
+  Settings2,
+  Waves,
+  Wind,
+} from "lucide-react"
+import React, { useRef, useState } from "react"
+import useSWR, { mutate } from "swr"
 
-import { AudioPlayer } from './audio-player'; // Assurez-vous du bon chemin d'importation
+import { generateFX } from "@/actions/elevenlabs.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { InputNumber } from "@/components/input-number"
+import { NothingYet } from "@/components/NothingYet"
+import { Label } from "@/components/tremor/inputs/label"
+import { Slider } from "@/components/tremor/inputs/slider"
+import { Switch } from "@/components/tremor/inputs/switch"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { Divider } from "@/components/tremor/ui/divider"
+import {
+  Drawer,
+  DrawerBody,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/tremor/ui/drawer"
+import { Textarea } from "@/components/ui/textarea"
+import { fetcher } from "@/lib/utils"
+import { FX } from "@prisma/client"
+
+import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'importation
 
 export default function Page() {
   const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
@@ -113,11 +129,12 @@ export default function Page() {
           onChange={handleInput}
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
           placeholder="Describe the sound you want..."
+          id="tour9-step5"
         />
         <div className="flex justify-between p-4">
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="ghost" className="h-10">
+              <Button variant="ghost" className="h-10" id="tour9-step6">
                 <Settings2 />
               </Button>
             </DrawerTrigger>
@@ -210,7 +227,12 @@ export default function Page() {
             <div className="text-sm text-muted-foreground">
               {charCount.toLocaleString()} / {maxChars.toLocaleString()}
             </div>
-            <Button className="text-md h-10" onClick={handleGenerate}>
+
+            <Button
+              className="text-md h-10"
+              onClick={handleGenerate}
+              id="tour9-step7"
+            >
               Generate Sound Effects
             </Button>
           </div>
@@ -228,7 +250,10 @@ export default function Page() {
         <div className="text-center text-muted-foreground">
           Or try out an example to get started!
         </div>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
+        <div
+          className="mt-4 flex flex-wrap justify-center gap-2"
+          id="tour9-step8"
+        >
           <ExampleButton icon={Car} text="Car whizzing by" />
           <ExampleButton icon={Music} text="Percussion sounds" />
           <ExampleButton icon={Cat} text="Animal sounds" />
@@ -243,7 +268,7 @@ export default function Page() {
       {data ? (
         <MagicCard className="mt-4 p-4">
           {data?.map((audio) => (
-            <div className="" key={audio.id}>
+            <div className="" key={audio.id} id="tour9-step9">
               <CardTitle>{audio.prompt}</CardTitle>
               <AudioPlayer
                 audioUrl={audio.url}

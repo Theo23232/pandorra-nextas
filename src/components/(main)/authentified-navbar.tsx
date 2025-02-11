@@ -35,6 +35,27 @@ export function Navbar() {
           case "thirdtour":
             startOnborda("fourthtour")
             break
+          case "fourthtour":
+            startOnborda("fifthtour")
+            break
+          case "fifthtour":
+            startOnborda("sixthtour")
+            break
+          case "sixthtour":
+            startOnborda("seventhtour")
+            break
+          case "seventhtour":
+            startOnborda("eighthtour")
+            break
+          case "eighthtour":
+            startOnborda("ninthtour")
+            break
+          case "ninthtour":
+            startOnborda("tenthtour")
+            break
+          case "tenthtour":
+            startOnborda("eleventhtour")
+            break
           default:
             break
         }
@@ -63,6 +84,7 @@ export const FloatingButton = () => {
 
   return (
     <div
+      id="tour3-step1"
       className="ml-8 cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
       onClick={toggleSidebar}
     >

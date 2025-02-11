@@ -1,9 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
-import Link from "next/link"
+import Link from 'next/link';
 
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { useUser } from "@/hooks/use-user"
-import { Plan } from "@prisma/client"
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { useUser } from '@/hooks/use-user';
+import { Plan } from '@prisma/client';
 
 export default function JetonCounter() {
   const { user } = useUser()
@@ -21,7 +22,7 @@ export default function JetonCounter() {
           data-state="closed"
         >
           <div
-            id="tour3-step1"
+            id="tour3-step2"
             className="flex h-10 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-bold hover:bg-muted"
           >
             <span>{user?.jeton}</span>
@@ -31,7 +32,7 @@ export default function JetonCounter() {
       </Tooltip>
       {user && user?.plan === Plan.Free && (
         <Tooltip content={`You are in free plan. Click to upgrade`}>
-          <Link prefetch={true} href={"/pricing"}>
+          <Link prefetch={true} href={"/pricing"} id="tour3-step3">
             <img src="/assets/upgrade.png" className="h-10 w-auto" />
           </Link>
         </Tooltip>

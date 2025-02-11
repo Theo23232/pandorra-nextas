@@ -1,24 +1,21 @@
 "use client"
 
-import * as Flags from "country-flag-icons/react/3x2"
-import { ElevenLabsClient } from "elevenlabs"
-import { useEffect, useState } from "react"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ElevenLabsClient } from 'elevenlabs';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { VoiceCard } from "@/components/audio/VoiceCard"
-import { Input } from "@/components/nyxb/input"
+import { VoiceCard } from '@/components/audio/VoiceCard';
+import { Input } from '@/components/nyxb/input';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
-import { languageOptions } from "@/lib/elevenlabs/langList"
-import { voicesList } from "@/lib/elevenlabs/voiceList"
-import { VoiceDefault, VoiceType } from "@/types/voices"
-import { TabsTrigger } from "@radix-ui/react-tabs"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
+import { languageOptions } from '@/lib/elevenlabs/langList';
+import { voicesList } from '@/lib/elevenlabs/voiceList';
+import { VoiceDefault, VoiceType } from '@/types/voices';
+import { TabsTrigger } from '@radix-ui/react-tabs';
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -49,10 +46,10 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
 interface VoiceLibrarySearchProps {
   onVoiceSelect: (voiceId: string, language: string, name: string) => void
 }
-
 export const VoiceLibrarySearch = ({
   onVoiceSelect,
 }: VoiceLibrarySearchProps) => {
+  const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState("")
   const [allVoices, setAllVoices] = useState<VoiceType[]>([])
   const [defaultVoices, setDefaultVoices] = useState<VoiceDefault[]>([])
@@ -70,12 +67,12 @@ export const VoiceLibrarySearch = ({
       Promise.all([
         client.voices.getShared({
           page_size: 1,
-          gender: "male",
+          gender: t(`male`),
           language: lang.code,
         }),
         client.voices.getShared({
           page_size: 1,
-          gender: "female",
+          gender: t(`female`),
           language: lang.code,
         }),
       ]),
@@ -107,7 +104,7 @@ export const VoiceLibrarySearch = ({
     <div className="">
       <Input
         className="h-12 rounded-xl"
-        placeholder="Search voices..."
+        placeholder={t(`Search voices...`)}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -117,18 +114,18 @@ export const VoiceLibrarySearch = ({
             value="all"
             className="h-7 rounded-lg px-3 text-sm data-[state=active]:bg-primary data-[state=active]:text-white"
           >
-            All
+            {t(`All`)}
           </TabsTrigger>
           <TabsTrigger
             value="default"
             className="h-7 rounded-lg px-3 text-sm data-[state=active]:bg-primary data-[state=active]:text-white"
           >
-            Default
+            {t(`Default`)}
           </TabsTrigger>
           <Select onValueChange={(value) => setActiveGender(value)}>
             <SelectTrigger
               className={`h-7 w-[100px] rounded-lg border-none px-3 text-sm shadow-none focus:ring-0 focus:ring-offset-0 ${
-                activeGender === "male" || activeGender === "female"
+                activeGender === t(`male`) || activeGender === t(`female`)
                   ? "bg-primary text-white"
                   : "bg-transparent"
               }`}
@@ -137,10 +134,10 @@ export const VoiceLibrarySearch = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="male" className="h-9">
-                Male
+                {t(`Male`)}
               </SelectItem>
               <SelectItem value="female" className="h-9">
-                Female
+                {t(`Female`)}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -171,9 +168,9 @@ export const VoiceLibrarySearch = ({
           <div className="mt-8 space-y-2">
             <div className="flex items-center justify-between">
               <p className="text-md font-medium text-muted-foreground">
-                All Voices
+                {t(`All Voices`)}
               </p>
-              <button className="text-sm text-primary">View all</button>
+              <button className="text-sm text-primary">{t(`View all`)}</button>
             </div>
             <div className="flex flex-col gap-2">
               {loading ? (
@@ -208,9 +205,9 @@ export const VoiceLibrarySearch = ({
           <div className="mt-8 space-y-2">
             <div className="flex items-center justify-between">
               <p className="text-md font-medium text-muted-foreground">
-                Default Voices
+                {t(`Default Voices`)}
               </p>
-              <button className="text-sm text-primary">View all</button>
+              <button className="text-sm text-primary">{t(`View all`)}</button>
             </div>
             <div className="flex flex-col gap-2">
               {loading ? (

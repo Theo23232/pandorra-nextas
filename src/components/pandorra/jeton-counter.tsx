@@ -1,16 +1,20 @@
 "use client"
-import Link from "next/link"
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { useUser } from "@/hooks/use-user"
-import { Plan } from "@prisma/client"
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { useUser } from '@/hooks/use-user';
+import { Plan } from '@prisma/client';
 
 export default function JetonCounter() {
+  const { t } = useTranslation()
   const { user } = useUser()
 
   return (
     <div className="flex items-center justify-center gap-3">
-      <Tooltip content={`You have ${user?.jeton} tokens. Click to get more`}>
+      <Tooltip
+        content={`${t("You have")} ${user?.jeton} ${t(`tokens. Click to get more`)}`}
+      >
         <Link
           href={"/pricing"}
           prefetch

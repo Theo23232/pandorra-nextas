@@ -1,13 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Badge } from "@/components/tremor/ui/badge"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { useTranslation } from 'react-i18next';
+
+import { Badge } from '@/components/tremor/ui/badge';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface VoiceCardProps {
   id: string
@@ -27,6 +24,7 @@ export const VoiceCard = ({
   // voiceType,
   age,
 }: VoiceCardProps) => {
+  const { t } = useTranslation()
   return (
     <div className="flex cursor-pointer items-center rounded-xl border border-border p-4 hover:bg-muted/25">
       <img
@@ -42,12 +40,12 @@ export const VoiceCard = ({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Badge>+3 more</Badge>
+                <Badge>{t(`more`)}</Badge>
               </TooltipTrigger>
               <TooltipContent className="flex flex-col gap-2 bg-gray-100 text-sm text-black dark:bg-muted dark:text-white">
                 {/* <p className="px-2">{voiceType}</p> */}
                 <p className="px-2">{age}</p>
-                <p className="px-2">{gender}</p>
+                <p className="px-2">{t(gender)}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

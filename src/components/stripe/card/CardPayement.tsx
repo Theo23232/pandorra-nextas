@@ -1,5 +1,6 @@
 "use client"
 import { CheckIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import { payementSession } from '@/actions/stripeSessions.action';
 import { Button } from '@/components/tremor/ui/button';
@@ -16,6 +17,7 @@ interface CardPayementProps {
 }
 
 export const CardPayement = (props: CardPayementProps) => {
+  const { t } = useTranslation()
   const handleButtonClick = async () => {
     switch (props.identity) {
       case "1000Tokens":
@@ -37,10 +39,10 @@ export const CardPayement = (props: CardPayementProps) => {
       case "5000Tokens":
         await payementSession(
           "5000 Tokens",
-          "Purchase 5000 Tokens on Pandorra",
+          "Purchase 8000 Tokens on Pandorra",
           2999,
         )
-        localStorage.setItem("article", "5000Tokens")
+        localStorage.setItem("article", "8000Tokens")
         break
       default:
         break

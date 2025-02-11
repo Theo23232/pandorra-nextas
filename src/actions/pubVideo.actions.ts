@@ -1,7 +1,7 @@
 "use server"
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 export const createPublicationVideo = async (
   id: string,
@@ -71,7 +71,7 @@ export const createPubVideoReaction = async (publicationVideoId: string) => {
   } else throw new Error("You are not authenticated")
 }
 
-export const createCommentReaction = async (commentId: string) => {
+export const createCommentVideoReaction = async (commentId: string) => {
   const user = await currentUser()
 
   if (user) {

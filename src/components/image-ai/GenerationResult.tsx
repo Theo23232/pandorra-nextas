@@ -81,7 +81,12 @@ export const GenerationResult = ({
       <div className="flex items-center gap-2">
         {renderTooltipButton(
           t(`Reuse generation option`),
-          <Button variant="outline" size="icon" onClick={handleReuseGeneration}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleReuseGeneration}
+            id="tour6-step4"
+          >
             <CornerLeftUp size={20} />
           </Button>,
         )}
@@ -92,6 +97,7 @@ export const GenerationResult = ({
           <Button
             variant="ghost"
             size="sm"
+            id="tour6-step5"
             className="flex items-center gap-2 p-2 transition-all duration-200 ease-in-out"
             onClick={handleCopy}
           >
@@ -107,30 +113,32 @@ export const GenerationResult = ({
         </Tooltip>
       </div>
       <div className="flex gap-4">
-        {renderTooltipButton(
-          `${t(`Model`)} : ${model?.name ?? ""}`,
-          <div className="Model flex items-center gap-2">
-            {model?.generated_image?.url && (
-              <Image
-                src={model.generated_image.url || "/placeholder.svg"}
-                width={64}
-                height={64}
-                alt={model?.name ?? ""}
-                className="size-8 object-cover"
-              />
-            )}
-          </div>,
-        )}
-        {renderTooltipButton(
-          `${t(`Preset style`)} ${t(generated?.presetStyle || "")}`,
-          <Zap size={20} />,
-        )}
-        {renderTooltipButton(
-          `${t(`Resolution`)} : ${generated?.imageWidth} × ${generated?.imageHeight}`,
-          <Move size={20} className="rotate-45" />,
-        )}
+        <div className="flex gap-4" id="tour6-step6">
+          {renderTooltipButton(
+            `${t(`Model`)} : ${model?.name ?? ""}`,
+            <div className="Model flex items-center gap-2">
+              {model?.generated_image?.url && (
+                <Image
+                  src={model.generated_image.url || "/placeholder.svg"}
+                  width={64}
+                  height={64}
+                  alt={model?.name ?? ""}
+                  className="size-8 object-cover"
+                />
+              )}
+            </div>,
+          )}
+          {renderTooltipButton(
+            `${t(`Preset style`)} ${t(generated?.presetStyle || "")}`,
+            <Zap size={20} />,
+          )}
+          {renderTooltipButton(
+            `${t(`Resolution`)} : ${generated?.imageWidth} × ${generated?.imageHeight}`,
+            <Move size={20} className="rotate-45" />,
+          )}
+        </div>
         <GenerationOption generationId={generated?.id || ""}>
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" id="tour6-step7">
             <Menu />
           </Button>
         </GenerationOption>

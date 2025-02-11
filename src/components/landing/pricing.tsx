@@ -49,7 +49,7 @@ export const Pricing = () => {
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
+                    <p className="font-italic mx-1 font-extrabold">125</p>{" "}
                     {t(`AI-generated images`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -57,7 +57,7 @@ export const Pricing = () => {
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
+                    <p className="font-italic mx-1 font-extrabold">125</p>{" "}
                     {t(`minutes`)}
                   </div>
                 </div>
@@ -79,28 +79,48 @@ export const Pricing = () => {
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                      <p className="gdt mx-1 font-extrabold">62</p>{" "}
-                      {t(`videos`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Short Video`)} (5 sec):{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          62
+                        </span>{" "}
+                        {t(`videos`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                      <p className="gdt mx-1 font-extrabold">32</p>{" "}
-                      {t(`videos`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Medium Video`)} (10 sec):{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          32
+                        </span>{" "}
+                        {t(`videos`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Images`)}:{" "}
-                      <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                      {t(`AI-generated images`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Images`)}:{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          125
+                        </span>{" "}
+                        {t(`AI-generated images`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />{" "}
                       {t(`Text Generation unlimited`)}
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                      <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                      {t(`minutes`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`AI Voice`)}:{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          125
+                        </span>{" "}
+                        {t(`minutes`)}
+                      </p>
                     </div>
                   </div>
                   <div className="mb-8 flex items-center text-white">
@@ -127,25 +147,43 @@ export const Pricing = () => {
 
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">62</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {" "}
+                      {t(`Short Video`)} (5 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        62
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">32</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Medium Video`)} (10 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        32
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
+                    <p className="font-italic mx-1 font-extrabold">125</p>{" "}
                     {t(`AI-generated images`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`minutes`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`AI Voice`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`minutes`)}
+                    </p>
                   </div>
                 </div>
 
@@ -169,35 +207,55 @@ export const Pricing = () => {
                     <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
                       {t(`Pro vision`)}
                     </p>
-
+                    {/* 
                     <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      {/* <p className="gdt text-sm font-semibold">Save 40%</p> */}
-                    </div>
+                      <p className="gdt text-sm font-semibold">Save 40%</p>
+                    </div> */}
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                      <p className="gdt mx-1 font-extrabold">62</p>{" "}
-                      {t(`videos`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Short Video`)} (5 sec):{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          62
+                        </span>{" "}
+                        {t(`videos`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                      <p className="gdt mx-1 font-extrabold">32</p>{" "}
-                      {t(`videos`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Medium Video`)} (10 sec):{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          32
+                        </span>{" "}
+                        {t(`videos`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Images`)}:{" "}
-                      <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                      {t(`AI-generated images`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Images`)}:{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          125
+                        </span>{" "}
+                        {t(`AI-generated images`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />{" "}
                       {t(`Text Generation unlimited`)}
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                      <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                      {t(`minutes`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`AI Voice`)}:{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          125
+                        </span>{" "}
+                        {t(`minutes`)}
+                      </p>
                     </div>
                   </div>
                   <div className="mb-8 flex items-center text-white">
@@ -218,25 +276,47 @@ export const Pricing = () => {
                 </p>
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">62</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Short Video`)} (5 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        62
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">32</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Medium Video`)} (10 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        32
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`AI-generated images`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Images`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`AI-generated images`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`minutes`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`AI Voice`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`minutes`)}
+                    </p>
                   </div>
                 </div>
 
@@ -266,25 +346,47 @@ export const Pricing = () => {
 
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">62</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Short Video`)} (5 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        62
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">32</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Medium Video`)} (10 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        32
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`AI-generated images`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Images`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`AI-generated images`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`minutes`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`AI Voice`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`minutes`)}
+                    </p>
                   </div>
                 </div>
 
@@ -309,34 +411,54 @@ export const Pricing = () => {
                       {t(`Pro vision`)}
                     </p>
 
-                    <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      {/* <p className="gdt text-sm font-semibold">Save 40%</p> */}
-                    </div>
+                    {/* <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
+                      <p className="gdt text-sm font-semibold">Save 40%</p>
+                    </div> */}
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                      <p className="gdt mx-1 font-extrabold">62</p>{" "}
-                      {t(`videos`)}
+                      <Check className="mr-3" />{" "}
+                      <p>
+                        {t(`Short Video`)} (5 sec):{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          62
+                        </span>{" "}
+                        {t(`videos`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                      <p className="gdt mx-1 font-extrabold">32</p>{" "}
-                      {t(`videos`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Medium Video`)} (10 sec):{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          32
+                        </span>{" "}
+                        {t(`videos`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`Images`)}:{" "}
-                      <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                      {t(`AI-generated images`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`Images`)}:{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          125
+                        </span>{" "}
+                        {t(`AI-generated images`)}
+                      </p>
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />{" "}
                       {t(`Text Generation unlimited`)}
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                      <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                      <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                      {t(`minutes`)}
+                      <Check className="mr-3" />
+                      <p>
+                        {t(`AI Voice`)}:{" "}
+                        <span className="font-italic mx-1 font-extrabold">
+                          125
+                        </span>{" "}
+                        {t(`minutes`)}
+                      </p>
                     </div>
                   </div>
                   <div className="mb-8 flex items-center text-white">
@@ -357,25 +479,47 @@ export const Pricing = () => {
                 </p>
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Short Video`)} (5 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">62</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Short Video`)} (5 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        62
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Medium Video`)} (10 sec):{" "}
-                    <p className="gdt mx-1 font-extrabold">32</p> {t(`videos`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Medium Video`)} (10 sec):{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        32
+                      </span>{" "}
+                      {t(`videos`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`AI-generated images`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`Images`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`AI-generated images`)}
+                    </p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Text Generation unlimited`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="gdt mx-1 font-extrabold">125</p>{" "}
-                    {t(`minutes`)}
+                    <Check className="mr-3" />
+                    <p>
+                      {t(`AI Voice`)}:{" "}
+                      <span className="font-italic mx-1 font-extrabold">
+                        125
+                      </span>{" "}
+                      {t(`minutes`)}
+                    </p>
                   </div>
                 </div>
 

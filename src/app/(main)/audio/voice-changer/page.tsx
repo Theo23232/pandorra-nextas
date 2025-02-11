@@ -1,6 +1,7 @@
 "use client"
 import { AlertCircle, Mic, Upload } from "lucide-react"
-import { useState } from "react"
+import { useOnborda } from "onborda"
+import { useEffect, useState } from "react"
 import useSWR, { mutate } from "swr"
 
 import { generateVoiceChange } from "@/actions/elevenlabs.actions"
@@ -19,6 +20,7 @@ import {
 } from "@/components/ui/select"
 import { useAudioRecorder } from "@/hooks/use-audio-recorder"
 import { useAudioUploader } from "@/hooks/use-audio-uploader"
+import { useUser } from "@/hooks/use-user"
 import { voicesList } from "@/lib/elevenlabs/voiceList"
 import { fetcher, formatTimePassed } from "@/lib/utils"
 
@@ -32,6 +34,8 @@ const SpeechToSpeechConverter: React.FC = () => {
   const [voiceId, setVoiceId] = useState(voicesList[0].id)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { user } = useUser()
+  const { startOnborda } = useOnborda()
 
   const { isRecording, startRecording, stopRecording } = useAudioRecorder({
     onRecordingComplete: handleAudioConversion,
@@ -77,6 +81,19 @@ const SpeechToSpeechConverter: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      console.log(tourOnboarding)
+      if (
+        !tourOnboarding.includes("eleventhtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("eleventhtour")
+      }
+    }
+  }, [user, startOnborda])
+
   return (
     <div className="w-full max-w-3xl space-y-6">
       <MagicCard className="p-6">
@@ -84,7 +101,7 @@ const SpeechToSpeechConverter: React.FC = () => {
 
         <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Select value={voiceId} onValueChange={setVoiceId}>
-            <SelectTrigger className="h-[50px]">
+            <SelectTrigger className="h-[50px]" id="tour11-step1">
               <SelectValue placeholder="Select Voice" />
             </SelectTrigger>
             <SelectContent>
@@ -96,6 +113,7 @@ const SpeechToSpeechConverter: React.FC = () => {
             </SelectContent>
           </Select>
           <Button
+            id="tour11-step2"
             onClick={isRecording ? stopRecording : startRecording}
             variant={!isRecording ? "default" : "destructive"}
             disabled={isLoading}
@@ -107,6 +125,7 @@ const SpeechToSpeechConverter: React.FC = () => {
         </div>
 
         <div
+          id="tour11-step3"
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
@@ -141,7 +160,7 @@ const SpeechToSpeechConverter: React.FC = () => {
             {voiceChanges.map((audio) => {
               const timePassed = formatTimePassed(audio.createdAt.toString())
               return (
-                <div key={audio.id}>
+                <div key={audio.id} id="tour11-step4">
                   <Label className="pb-4">{timePassed}</Label>
                   <AudioPlayer
                     audioUrl={audio.url}

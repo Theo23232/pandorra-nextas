@@ -113,5 +113,7 @@ export const GET = async (request: Request) => {
       { error: "An error occurred while fetching users" },
       { status: 500 },
     )
+  } finally {
+    await prisma.$disconnect() // Ferme la connexion après chaque requête
   }
 }

@@ -121,12 +121,15 @@ export default function PublicationDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-scroll p-4">
+      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-scroll p-4">
         <DialogTitle className="sr-only">Publication Details</DialogTitle>
         <div className="relative h-full w-full">
           <DialogClose asChild>
-            <Button variant="outline" className="absolute right-2 top-2">
-              <X className="h-4 w-4 text-black" />
+            <Button
+              variant="outline"
+              className="absolute right-2 top-2 size-9 p-0"
+            >
+              <X className="h-4 w-4 text-accent-foreground" />
             </Button>
           </DialogClose>
 

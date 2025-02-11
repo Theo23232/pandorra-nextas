@@ -50,7 +50,7 @@ export async function postMessage(gptConversationId: string, content: string) {
       const assistantMessage = await prisma.message.create({
         data: {
           content: assistantMessageContent,
-          role: "assistant",
+          role: "Pandorra",
           gptConversationId,
         },
       })

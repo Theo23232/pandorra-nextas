@@ -16,7 +16,7 @@ export default function Home() {
   if (isError || !user) return <p>Error loading user or unauthorized</p>
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       <ConversationList
         userId={user.id}
         selectedConversationId={selectedConversationId}

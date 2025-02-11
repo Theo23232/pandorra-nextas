@@ -1,8 +1,9 @@
 "use client"
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { useTypingEffect } from "@/hooks/useTypingEffect"
+import { useTypingEffect } from '@/hooks/useTypingEffect';
 
 type AIState = "idle" | "listening" | "speaking"
 interface Props {
@@ -11,16 +12,18 @@ interface Props {
   isAudioPlaying?: boolean
   currentText: string
 }
+
 export default function AiTalkingAnimation({
   onStartListening,
   onStopListening,
   isAudioPlaying,
   currentText,
 }: Props) {
+  const { t } = useTranslation()
   const [aiState, setAiState] = useState<AIState>("idle")
   const animatedCurrentText = useTypingEffect(currentText, 20)
   const displayedText = useTypingEffect(
-    "Click the circle to start the conversation",
+    t(`Click the circle to start the conversation`),
     20,
   )
   const handleCircleClick = () => {
@@ -88,8 +91,8 @@ export default function AiTalkingAnimation({
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
         <p className="font-mono text-lg text-gray-800" aria-live="polite">
           {aiState === "listening"
-            ? "Listening..."
-            : aiState === "speaking"
+            ? t(`Listening...`)
+            : aiState === t(`Speaking...`)
               ? animatedCurrentText
               : displayedText}
         </p>

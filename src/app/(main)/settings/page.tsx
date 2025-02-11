@@ -1,21 +1,20 @@
-import { AccountSecurityForm } from "@/components/settings/profile/account-security-form"
-import { PersonalInfoForm } from "@/components/settings/profile/personal-info-form"
-import { PreferencesForm } from "@/components/settings/profile/preference-form"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/tremor/ui/tabs"
+"use client"
+import { useTranslation } from 'react-i18next';
+
+import { AccountSecurityForm } from '@/components/settings/profile/account-security-form';
+import { PersonalInfoForm } from '@/components/settings/profile/personal-info-form';
+import { PreferencesForm } from '@/components/settings/profile/preference-form';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tremor/ui/tabs';
 
 export default function Page() {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <Tabs defaultValue="personalInfo" className="max-w-2xl">
         <TabsList>
-          <TabsTrigger value="personalInfo">Personal info</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="preferences">Preferences</TabsTrigger>
+          <TabsTrigger value="personalInfo">{t(`Personal info`)}</TabsTrigger>
+          <TabsTrigger value="security">{t(`Security`)}</TabsTrigger>
+          <TabsTrigger value="preferences">{t(`Preferences`)}</TabsTrigger>
         </TabsList>
         <div className="ml-2 mt-4">
           <TabsContent

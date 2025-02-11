@@ -1,11 +1,15 @@
+"use client"
+import { useTranslation } from 'react-i18next';
+
 import FAQAccordion from '@/components/affiliation/CardAccordion';
 import Bounce from '@/components/animated/uibeats/bounce';
 
 export default function Program() {
+  const { t } = useTranslation()
   return (
     <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8">
       <p className="text-[64px] font-semibold leading-[68px] text-white">
-        Affiliate Program {""}
+        {t(`Affiliate Program`)} {""}
         <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
           FAQ
         </span>{" "}

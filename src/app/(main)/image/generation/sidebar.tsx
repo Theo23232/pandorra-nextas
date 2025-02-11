@@ -1,30 +1,22 @@
 "use client"
-import { ChevronDown, ChevronsUpDown, SunMedium, Zap } from "lucide-react"
-import Image from "next/image"
-import { useSearchParams } from "next/navigation"
-import { useOnborda } from "onborda"
-import * as React from "react"
+import { ChevronDown, ChevronsUpDown, SunMedium, Zap } from 'lucide-react';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { ImageNumberInput } from "@/components/image-ai/ImageNumberInput"
-import { ImageSizeInput } from "@/components/image-ai/ImageSizeInput"
-import { ModelSelectDialog } from "@/components/image-ai/ModelSelectDialog"
-import { Card, CardContent } from "@/components/tremor/ui/card"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { ImageNumberInput } from '@/components/image-ai/ImageNumberInput';
+import { ImageSizeInput } from '@/components/image-ai/ImageSizeInput';
+import { ModelSelectDialog } from '@/components/image-ai/ModelSelectDialog';
+import { Card, CardContent } from '@/components/tremor/ui/card';
 import {
-  Select,
-  SelectContent,
-  SelectCustomTrigger,
-  SelectGroup,
-  SelectItem,
-} from "@/components/ui/select"
-import { useUser } from "@/hooks/use-user"
-import {
-  findModelById,
-  Model,
-  models,
-  presetStyles,
-} from "@/lib/leonardo/presets"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
+} from '@/components/ui/select';
+import { useUser } from '@/hooks/use-user';
+import { findModelById, Model, models, presetStyles } from '@/lib/leonardo/presets';
+import { cn } from '@/lib/utils';
 
 export type SidebarProps = {
   onModelChange: (model: Model) => void
@@ -41,6 +33,7 @@ export type SidebarProps = {
 }
 
 export function ImageGenerationSidebar(props: SidebarProps) {
+  const { t } = useTranslation()
   const searchParams = useSearchParams()
   const queryPresetStyle = searchParams?.get("presetStyle")
   const queryModelId = searchParams?.get("modelId")
@@ -145,8 +138,10 @@ export function ImageGenerationSidebar(props: SidebarProps) {
               <div className="flex items-center">
                 <Zap size={24} />
                 <div className="ml-2 text-start">
-                  <p className="text-xs text-muted-foreground">Preset style</p>
-                  <p>{presetStyle}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t(`Preset style`)}
+                  </p>
+                  <p>{t(presetStyle)}</p>
                 </div>
               </div>
               <ChevronDown />
@@ -156,8 +151,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
             <SelectGroup>
               {presetStyles.map((style) => (
                 <SelectItem value={style.value} key={style.name}>
-                  {style.name.replace(/_/g, " ").charAt(0).toUpperCase() +
-                    style.name.slice(1).toLowerCase().replace(/_/g, " ")}
+                  {t(style.name)}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -175,7 +169,9 @@ export function ImageGenerationSidebar(props: SidebarProps) {
               <div className="flex items-center">
                 <SunMedium size={24} />
                 <div className="ml-2 text-start">
-                  <p className="text-xs text-muted-foreground">Contrast</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t(`Contrast`)}
+                  </p>
                   <p>{contrast}</p>
                 </div>
               </div>
@@ -184,9 +180,9 @@ export function ImageGenerationSidebar(props: SidebarProps) {
           </SelectCustomTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="Low">Low</SelectItem>
-              <SelectItem value="Medium">Medium</SelectItem>
-              <SelectItem value="Hight">Hight</SelectItem>
+              <SelectItem value="Low">{t(`Low`)}</SelectItem>
+              <SelectItem value="Medium">{t(`Medium`)}</SelectItem>
+              <SelectItem value="Hight">{t(`Hight`)}</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

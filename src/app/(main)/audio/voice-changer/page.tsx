@@ -1,30 +1,28 @@
 "use client"
-import { AlertCircle, Mic, Upload } from "lucide-react"
-import { useState } from "react"
-import useSWR, { mutate } from "swr"
+import { AlertCircle, Mic, Upload } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { generateVoiceChange } from "@/actions/elevenlabs.actions"
-import { AudioPlayer } from "@/app/(main)/audio/audio-player"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { NothingYet } from "@/components/NothingYet"
-import { Divider } from "@/components/tremor/ui/divider"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { generateVoiceChange } from '@/actions/elevenlabs.actions';
+import { AudioPlayer } from '@/app/(main)/audio/audio-player';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { NothingYet } from '@/components/NothingYet';
+import { Divider } from '@/components/tremor/ui/divider';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { useAudioRecorder } from "@/hooks/use-audio-recorder"
-import { useAudioUploader } from "@/hooks/use-audio-uploader"
-import { voicesList } from "@/lib/elevenlabs/voiceList"
-import { fetcher, formatTimePassed } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { useAudioRecorder } from '@/hooks/use-audio-recorder';
+import { useAudioUploader } from '@/hooks/use-audio-uploader';
+import { voicesList } from '@/lib/elevenlabs/voiceList';
+import { fetcher, formatTimePassed } from '@/lib/utils';
 
 import type { VoiceChange } from "@prisma/client"
 import type React from "react"
 const SpeechToSpeechConverter: React.FC = () => {
+  const { t } = useTranslation()
   const { data: voiceChanges } = useSWR<VoiceChange[]>(
     "/api/audio/voice-change",
     fetcher,
@@ -80,12 +78,12 @@ const SpeechToSpeechConverter: React.FC = () => {
   return (
     <div className="w-full max-w-3xl space-y-6">
       <MagicCard className="p-6">
-        <h2 className="mb-6 text-2xl font-bold">Voice Converter</h2>
+        <h2 className="mb-6 text-2xl font-bold">{t(`Voice Converter`)}</h2>
 
         <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Select value={voiceId} onValueChange={setVoiceId}>
             <SelectTrigger className="h-[50px]">
-              <SelectValue placeholder="Select Voice" />
+              <SelectValue placeholder={t(`Select Voice`)} />
             </SelectTrigger>
             <SelectContent>
               {voicesList.map((item) => (
@@ -102,7 +100,7 @@ const SpeechToSpeechConverter: React.FC = () => {
             className="h-[50px]"
           >
             <Mic className="mr-2 h-4 w-4" />
-            {isRecording ? "Stop Recording" : "Start Recording"}
+            {isRecording ? t(`Stop Recording`) : t(`Start Recording`)}
           </Button>
         </div>
 
@@ -118,11 +116,11 @@ const SpeechToSpeechConverter: React.FC = () => {
           }`}
         >
           <p className="mb-4 text-muted-foreground">
-            Drag and drop audio file here
+            {t(`Drag and drop audio file here`)}
           </p>
           <Button onClick={triggerFileInput} disabled={isLoading}>
             <Upload className="mr-2 h-4 w-4" />
-            Or Select File
+            {t(`Or Select File`)}
           </Button>
         </div>
 
@@ -136,7 +134,7 @@ const SpeechToSpeechConverter: React.FC = () => {
 
       {voiceChanges && voiceChanges.length > 0 ? (
         <MagicCard className="p-6">
-          <h3 className="mb-4 text-xl font-semibold">Converted Audio</h3>
+          <h3 className="mb-4 text-xl font-semibold">{t(`Converted Audio`)}</h3>
           <div className="space-y-4">
             {voiceChanges.map((audio) => {
               const timePassed = formatTimePassed(audio.createdAt.toString())
@@ -155,8 +153,8 @@ const SpeechToSpeechConverter: React.FC = () => {
         </MagicCard>
       ) : (
         <NothingYet
-          subtitle="You generation will be displayed here"
-          title="There is no voice yet"
+          subtitle={t(`You generation will be displayed here`)}
+          title={t(`There is no voice yet`)}
         />
       )}
     </div>

@@ -1,21 +1,18 @@
 "use client"
-import { useState } from "react"
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { CardPayement } from "@/components/stripe/card/CardPayement"
-import CardSubscription from "@/components/stripe/card/CardSubscription"
-import { CardDescription, CardTitle } from "@/components/tremor/ui/card"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/tremor/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { BuyTokenInfo, SubscriptionType } from "@/lib/PaymentType"
+import { CardPayement } from '@/components/stripe/card/CardPayement';
+import CardSubscription from '@/components/stripe/card/CardSubscription';
+import { CardDescription, CardTitle } from '@/components/tremor/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tremor/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { BuyTokenInfo, SubscriptionType } from '@/lib/PaymentType';
 
 export default function RoutePage() {
+  const { t } = useTranslation()
   const [isSwitchOn, setIsSwitchOn] = useState(false)
 
   const [intervalType, setIntervalType] = useState<string>("annual")
@@ -31,8 +28,8 @@ export default function RoutePage() {
   return (
     <Tabs defaultValue="1" className="max-w-7xl">
       <TabsList>
-        <TabsTrigger value="1">Buy tokens</TabsTrigger>
-        <TabsTrigger value="2">Subscription</TabsTrigger>
+        <TabsTrigger value="1">{t(`Buy tokens`)}</TabsTrigger>
+        <TabsTrigger value="2">{t(`Subscription`)}</TabsTrigger>
       </TabsList>
       <div className="ml-2 mt-4">
         <TabsContent
@@ -40,9 +37,11 @@ export default function RoutePage() {
           className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
         >
           <div className="relative w-full rounded-lg border p-6 text-left shadow-sm">
-            <CardTitle>Buy some token</CardTitle>
+            <CardTitle>{t(`Buy some token`)}</CardTitle>
             <CardDescription>
-              Whatever your status, our offers evolve according to your needs.
+              {t(
+                `Whatever your status, our offers evolve according to your needs.`,
+              )}
             </CardDescription>
             <div className="flex flex-wrap gap-4">
               {BuyTokenInfo.map((tokenOffer) => (

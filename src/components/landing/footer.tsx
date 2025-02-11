@@ -1,10 +1,13 @@
-import Image from "next/image"
-import Link from "next/link"
+"use client"
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import Ripple from "@/components/nyxb/ripple"
+import Bounce from '@/components/animated/uibeats/bounce';
+import Ripple from '@/components/nyxb/ripple';
 
 export function Footer() {
+  const { t } = useTranslation()
   return (
     <div className="relative ml-20 flex h-fit min-h-[60vh] w-full items-center justify-center py-24">
       <Ripple />
@@ -21,138 +24,138 @@ export function Footer() {
         </div>
         <div className="flex h-full w-full flex-col">
           <p className="font-inter mb-5 text-[18px] font-medium text-white">
-            Features
+            {t(`Features`)}
           </p>
 
           <Link
             href="/audio"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            FX Generation
+            {t(`FX Generation`)}
           </Link>
           <Link
             href="/audio/text-to-speech"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Text to speech
+            {t(`Text to speech`)}
           </Link>
           <Link
             href="/audio/voice-changer"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Voice changer
+            {t(`Voice changer`)}
           </Link>
           <Link
             href="/audio/dubbing"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Dubbing
+            {t(`Dubbing`)}
           </Link>
           <Link
             href="/image/generation"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Text to image
+            {t(`Text to image`)}
           </Link>
           <Link
             href="/video"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Text to video
+            {t(`Text to video`)}
           </Link>
           <Link
             href="/assistant"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            AI assistant
+            {t(`AI assistant`)}
           </Link>
           <Link
             href="/ai-talk"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Talk to AI
+            {t(`Talk to AI`)}
           </Link>
           <Link
             href="/ai-talk"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Code generation
+            {t(`Code generation`)}
           </Link>
         </div>
 
         <div className="flex h-full w-full flex-col">
           <p className="font-inter mb-5 text-[18px] font-medium text-white">
-            Company
+            {t(`Company`)}
           </p>
           <Link
             href="/"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            About Us
+            {t(`About Us`)}
           </Link>
           <Link
             href="/"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Contact Us
+            {t(`Contact Us`)}
           </Link>
           <Link
             href="/pricing"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Pricing
+            {t(`Pricing`)}
           </Link>
           <Link
             href="/explore"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Community
+            {t(`Community`)}
           </Link>
           <Link
             href="/affiliate"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Affiliate Program
+            {t(`Affiliate Program`)}
           </Link>
           <Link
             href="/refund-policy"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Refund Policy
+            {t(`Refund Policy`)}
           </Link>
           <Link
             href="/privacy"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Privacy Policy
+            {t(`Privacy Policy`)}
           </Link>
           <Link
             href="/terms"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Terms and Conditions
+            {t(`Terms and Conditions`)}
           </Link>
         </div>
         <div className="flex h-full w-full flex-col">
           <p className="font-inter mb-5 text-[18px] font-medium text-white">
-            Video Tools{" "}
+            {t(`Video Tools`)}
           </p>
           <Link
             href="/video"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Text to video
+            {t(`Text to video`)}
           </Link>
           <Link
             href="/video"
             className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
           >
-            Image to video
+            {t(`Image to video`)}
           </Link>
         </div>
         <div className="flex h-full w-full flex-col">
           <p className="font-inter mb-5 text-[18px] font-medium text-white">
-            Social
+            {t(`Social`)}
           </p>
         </div>
       </Bounce>

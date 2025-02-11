@@ -1,28 +1,19 @@
 "use client"
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import * as z from 'zod';
 
-import { editPassword } from "@/actions/user.ations"
-import { Input } from "@/components/tremor/inputs/input"
-import { Button } from "@/components/tremor/ui/button"
+import { editPassword } from '@/actions/user.ations';
+import { Input } from '@/components/tremor/inputs/input';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/tremor/ui/card"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { useToast } from "@/hooks/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
+    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const accountSecuritySchema = z
   .object({
@@ -40,6 +31,7 @@ const accountSecuritySchema = z
   })
 
 export function AccountSecurityForm() {
+  const { t } = useTranslation()
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -57,16 +49,16 @@ export function AccountSecurityForm() {
     await editPassword(values.newPassword, values.currentPassword)
       .then(() => {
         toast({
-          title: " Success",
-          description: "Password updated successfully",
+          title: t(`Success`),
+          description: t(`Password updated successfully`),
           variant: "success",
           duration: 3000,
         })
       })
       .catch((e) => {
         toast({
-          title: " Error",
-          description: e.message,
+          title: t(`Error`),
+          description: t(e.message),
           variant: "error",
           duration: 3000,
         })
@@ -78,8 +70,10 @@ export function AccountSecurityForm() {
 
   return (
     <Card>
-      <CardTitle>Account security</CardTitle>
-      <CardDescription>Update your security information here.</CardDescription>
+      <CardTitle>{t(`Account security`)}</CardTitle>
+      <CardDescription>
+        {t(`Update your security information here.`)}
+      </CardDescription>
       <CardContent className="p-0">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -88,7 +82,7 @@ export function AccountSecurityForm() {
               name="currentPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Current password</FormLabel>
+                  <FormLabel>{t(`Current password`)}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -101,7 +95,7 @@ export function AccountSecurityForm() {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New password</FormLabel>
+                  <FormLabel>{t(`New password`)}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -114,7 +108,7 @@ export function AccountSecurityForm() {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm password</FormLabel>
+                  <FormLabel>{t(`Confirm password`)}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -123,7 +117,7 @@ export function AccountSecurityForm() {
               )}
             />
             <Button type="submit" isLoading={isLoading}>
-              Update Security
+              {t(`Update Security`)}
             </Button>
           </form>
         </Form>

@@ -1,14 +1,15 @@
 "use client"
-import "./google-auth.css"
+import './google-auth.css';
 
-import { useRouter } from "next/navigation"
-import Script from "next/script"
-import { useEffect, useState } from "react"
+import { Loader } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import Script from 'next/script';
+import { useEffect, useState } from 'react';
 
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Button } from "@/components/tremor/ui/button"
-import { useToast } from "@/hooks/use-toast"
-import { cn } from "@/lib/utils"
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Button } from '@/components/tremor/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 interface GoogleAuthProps {
   onSuccess?: () => void
@@ -137,7 +138,7 @@ export const GoogleAuth = ({
 
       {isLoading && (
         <Button isLoading={true} variant="outline" className="h-10 w-full">
-          Loading...
+          <Loader className="animate-spin" />
         </Button>
       )}
     </>

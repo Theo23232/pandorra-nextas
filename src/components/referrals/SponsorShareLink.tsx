@@ -1,13 +1,13 @@
 "use client"
 
-import { Check, ClipboardIcon } from 'lucide-react';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
+import { Check, ClipboardIcon } from "lucide-react"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
 
-import { Button } from '@/components/ui/button';
-import { fetcher } from '@/lib/utils';
-import { User } from '@prisma/client';
+import { Button } from "@/components/ui/button"
+import { fetcher } from "@/lib/utils"
+import { User } from "@prisma/client"
 
 export const SponsorShareLink = () => {
   const { t } = useTranslation()
@@ -29,7 +29,10 @@ export const SponsorShareLink = () => {
   }
 
   return (
-    <div className="mt-4 flex max-w-2xl flex-col items-start gap-6">
+    <div
+      className="mt-4 flex max-w-2xl flex-col items-start gap-6"
+      id="tour13-step5"
+    >
       <div className="text-start">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
           {t(`Become a referrer`)}

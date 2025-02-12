@@ -83,6 +83,18 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         EditUserTourDone("eleventhtour")
         router.push("/audio/dubbing")
         break
+      case "eleventhtour":
+        EditUserTourDone("eleventhtour")
+        router.push("/audio/dubbing")
+        break
+      case "twelfthtour":
+        EditUserTourDone("twelfthtour")
+        router.push("/profile")
+        break
+      case "thirteenthtour":
+        EditUserTourDone("thirteenthtour")
+        router.push("/affiliate")
+        break
       default:
         break
     }

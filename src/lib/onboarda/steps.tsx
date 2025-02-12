@@ -670,11 +670,11 @@ export const tours: Tour[] = [
     steps: [
       {
         icon: <>👋</>,
-        title: "Dashboard Overview",
+        title: "FX Generation",
         content: (
           <>
-            This section provides an overview of your dashboard, including key
-            metrics and recent activity.
+            Cette section contient la génération de son audio que vous voulez
+            avoir, comme le son d&apos;une voiture.
           </>
         ),
         selector: "#tour9-step1",
@@ -685,11 +685,11 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🪄</>,
-        title: "User Settings",
+        title: "Text to Speech",
         content: (
           <>
-            Here you can update your personal information, change your password,
-            and configure other user settings.
+            Cette section contient la génération audio à partir des texts
+            prompts.
           </>
         ),
         selector: "#tour9-step2",
@@ -700,11 +700,11 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🎩</>,
-        title: "Notifications",
+        title: "Voice changer",
         content: (
           <>
-            This section displays your notifications, including alerts and
-            messages from other users.
+            Ici vous pouvez changer uen voix entrée en séléctionnant un agent
+            pour prendre son timbre vocale.
           </>
         ),
         selector: "#tour9-step3",
@@ -715,13 +715,8 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Activity Log",
-        content: (
-          <>
-            The activity log shows a history of your actions and events within
-            the application.
-          </>
-        ),
+        title: "Dubbing",
+        content: <>La section dubbing consiste à créer un doublage audio.</>,
         selector: "#tour9-step4",
         side: "bottom-left",
         showControls: true,
@@ -730,11 +725,9 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Help Center",
+        title: "Prompt text",
         content: (
-          <>
-            Access the help center for FAQs, tutorials, and support resources.
-          </>
+          <>Entrez ici le text en prompt pour générer le son que vous voulez.</>
         ),
         selector: "#tour9-step5",
         side: "bottom-left",
@@ -744,10 +737,11 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🎩</>,
-        title: "Reports",
+        title: "Settings",
         content: (
           <>
-            Generate and view detailed reports on your activity and performance.
+            Ceci ouvre un menu pour ajouter quelques options spécifiques à la
+            génération de son audio.
           </>
         ),
         selector: "#tour9-step6",
@@ -758,9 +752,12 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Integrations",
+        title: "Lancer la génération",
         content: (
-          <>Manage your integrations with other services and applications.</>
+          <>
+            Ici pour lancer la génération après avoir bien compléter les options
+            de génération.
+          </>
         ),
         selector: "#tour9-step7",
         side: "bottom-right",
@@ -795,12 +792,9 @@ export const tours: Tour[] = [
     steps: [
       {
         icon: <>👋</>,
-        title: "Introduction",
+        title: "Prompt text",
         content: (
-          <>
-            Welcome to the tenth tour! This step will introduce you to the main
-            features.
-          </>
+          <>Entrez ici le text en prompt pour générer le son que vous voulez.</>
         ),
         selector: "#tour10-step1",
         side: "bottom-left",
@@ -810,8 +804,10 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🪄</>,
-        title: "Feature One",
-        content: <>This is the first feature of the tenth tour.</>,
+        title: "Séléction d'agent",
+        content: (
+          <>Séléctionnez un agent pour la génération de text-to-speech.</>
+        ),
         selector: "#tour10-step2",
         side: "bottom-left",
         showControls: true,
@@ -820,8 +816,8 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🎩</>,
-        title: "Feature Two",
-        content: <>This is the second feature of the tenth tour.</>,
+        title: "Language",
+        content: <>Séléctionnez une langue.</>,
         selector: "#tour10-step3",
         side: "bottom-right",
         showControls: true,
@@ -830,8 +826,8 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Feature Three",
-        content: <>This is the third feature of the tenth tour.</>,
+        title: "Lancer la génération",
+        content: <>Ici pour lancer la génération.</>,
         selector: "#tour10-step4",
         side: "bottom-right",
         showControls: true,
@@ -840,8 +836,10 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Feature Four",
-        content: <>This is the fourth feature of the tenth tour.</>,
+        title: "Exemple de text prompt",
+        content: (
+          <>Séléctionnez des texts prompts prédéfinis pour la génération.</>
+        ),
         selector: "#tour10-step5",
         side: "bottom-left",
         showControls: true,
@@ -850,8 +848,8 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🎩</>,
-        title: "Feature Five",
-        content: <>This is the fifth feature of the tenth tour.</>,
+        title: "Résultats",
+        content: <>Ici s&apos;affichera les résultas.</>,
         selector: "#tour10-step6",
         side: "bottom-left",
         showControls: true,
@@ -865,11 +863,11 @@ export const tours: Tour[] = [
     steps: [
       {
         icon: <>👋</>,
-        title: "Introduction",
+        title: "Séléction de voix",
         content: (
           <>
-            Welcome to the eleventh tour! This step will introduce you to the
-            main features.
+            Séléctionner un agent, la voix en entrée sera remplacer par la voix
+            de cet agent.
           </>
         ),
         selector: "#tour11-step1",
@@ -880,18 +878,20 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🪄</>,
-        title: "Feature One",
-        content: <>This is the first feature of the eleventh tour.</>,
+        title: "Enregistrement de voix",
+        content: <>Enregistrer une voix en entrée.</>,
         selector: "#tour11-step2",
-        side: "bottom-left",
+        side: "bottom-right",
         showControls: true,
         pointerPadding: 12,
         pointerRadius: 12,
       },
       {
         icon: <>🎩</>,
-        title: "Feature Two",
-        content: <>This is the second feature of the eleventh tour.</>,
+        title: "Upload de voix existante",
+        content: (
+          <>Uploader un fichier audio qui contient la voix à modifier.</>
+        ),
         selector: "#tour11-step3",
         side: "bottom-left",
         showControls: true,
@@ -900,9 +900,59 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Feature Three",
-        content: <>This is the third feature of the eleventh tour.</>,
+        title: "Résultats",
+        content: <>Ici s&apos;affichera les résultats.</>,
         selector: "#tour11-step4",
+        side: "bottom-left",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+    ],
+  },
+  {
+    tour: "twelfthtour",
+    steps: [
+      {
+        icon: <>👋</>,
+        title: "Welcome",
+        content: (
+          <>
+            Welcome to the twelfth tour! This step will introduce you to the
+            main features.
+          </>
+        ),
+        selector: "#tour12-step1",
+        side: "bottom-left",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+      {
+        icon: <>🪄</>,
+        title: "Feature One",
+        content: <>This is the first feature of the twelfth tour.</>,
+        selector: "#tour12-step2",
+        side: "bottom-left",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+      {
+        icon: <>🎩</>,
+        title: "Feature Two",
+        content: <>This is the second feature of the twelfth tour.</>,
+        selector: "#tour12-step3",
+        side: "bottom-right",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+      {
+        icon: <>🚀</>,
+        title: "Feature Three",
+        content: <>This is the third feature of the twelfth tour.</>,
+        selector: "#tour12-step4",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
@@ -911,9 +961,9 @@ export const tours: Tour[] = [
       {
         icon: <>🚀</>,
         title: "Feature Four",
-        content: <>This is the fourth feature of the eleventh tour.</>,
-        selector: "#tour11-step5",
-        side: "bottom-left",
+        content: <>This is the fourth feature of the twelfth tour.</>,
+        selector: "#tour12-step5",
+        side: "bottom-right",
         showControls: true,
         pointerPadding: 12,
         pointerRadius: 12,
@@ -921,9 +971,9 @@ export const tours: Tour[] = [
       {
         icon: <>🎩</>,
         title: "Feature Five",
-        content: <>This is the fifth feature of the eleventh tour.</>,
-        selector: "#tour11-step6",
-        side: "bottom-left",
+        content: <>This is the fifth feature of the twelfth tour.</>,
+        selector: "#tour12-step6",
+        side: "bottom-right",
         showControls: true,
         pointerPadding: 12,
         pointerRadius: 12,
@@ -931,8 +981,48 @@ export const tours: Tour[] = [
       {
         icon: <>🚀</>,
         title: "Feature Six",
-        content: <>This is the sixth feature of the eleventh tour.</>,
-        selector: "#tour11-step7",
+        content: <>This is the sixth feature of the twelfth tour.</>,
+        selector: "#tour12-step7",
+        side: "bottom-right",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+    ],
+  },
+  {
+    tour: "thirteenthtour",
+    steps: [
+      {
+        icon: <>👋</>,
+        title: "Introduction",
+        content: (
+          <>
+            Welcome to the thirteenth tour! This step will introduce you to the
+            main features.
+          </>
+        ),
+        selector: "#tour13-step1",
+        side: "bottom-left",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+      {
+        icon: <>🪄</>,
+        title: "Feature One",
+        content: <>This is the first feature of the thirteenth tour.</>,
+        selector: "#tour13-step2",
+        side: "bottom-left",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+      {
+        icon: <>🎩</>,
+        title: "Feature Two",
+        content: <>This is the second feature of the thirteenth tour.</>,
+        selector: "#tour13-step3",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
@@ -940,9 +1030,9 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Feature Seven",
-        content: <>This is the seventh feature of the eleventh tour.</>,
-        selector: "#tour11-step8",
+        title: "Feature Three",
+        content: <>This is the third feature of the thirteenth tour.</>,
+        selector: "#tour13-step4",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
@@ -951,8 +1041,8 @@ export const tours: Tour[] = [
       {
         icon: <>🚀</>,
         title: "Conclusion",
-        content: <>This is the final step of the eleventh tour.</>,
-        selector: "#tour11-step9",
+        content: <>This is the final step of the thirteenth tour.</>,
+        selector: "#tour13-step5",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,

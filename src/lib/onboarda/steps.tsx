@@ -5,13 +5,14 @@ export const tours: Tour[] = [
     tour: "firsttour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Sidebar menu: Explorer",
+        icon: <>📂</>,
+        title: "Explorer le menu de la barre latérale",
         content: (
           <>
-            Sur le sidebar, vous pouvez accéder à la section explorer pour voir
-            le feed de l&apos;application et toutes les publications images et
-            vidéos, ainsi que les types de générations que vous pouvez faire.
+            Dans la barre latérale, vous pouvez accéder à la section Explorer
+            pour voir le flux de l&apos;application et toutes les publications
+            d&apos;images et de vidéos, ainsi que les types de générations que
+            vous pouvez effectuer.
           </>
         ),
         selector: "#tour1-step1",
@@ -21,13 +22,10 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Sidebar menu: Profil",
+        icon: <>👤</>,
+        title: "Accéder à votre profil",
         content: (
-          <>
-            La section profil vous redirigera vers votre profile
-            d&apos;utilisateur.
-          </>
+          <>La section Profil vous redirigera vers votre profil utilisateur.</>
         ),
         selector: "#tour1-step2",
         side: "bottom-left",
@@ -36,11 +34,11 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Sidebar menu: Affiliation",
+        icon: <>🤝</>,
+        title: "Affiliation",
         content: (
           <>
-            Sur la section affiliation vous pourrez créer un lien
+            Dans la section Affiliation, vous pouvez créer un lien
             d&apos;affiliation avec de nouveaux utilisateurs et gagner des
             bonus.
           </>
@@ -52,12 +50,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Sidebar menu: Classement",
+        icon: <>🏆</>,
+        title: "Classement",
         content: (
           <>
-            Dans le classement, vous pourrez voir les classements par rang de
-            popularité des users actifs sur le platform
+            Dans la section Classement, vous pouvez voir les classements par
+            popularité des utilisateurs actifs sur la plateforme.
           </>
         ),
         selector: "#tour1-step4",
@@ -67,9 +65,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Sidebar menu: Mettre à jour",
-        content: <>First tour, fifth step</>,
+        icon: <>🔄</>,
+        title: "Mettre à jour",
+        content: <>Mettre à jour vos informations ou paramètres.</>,
         selector: "#tour1-step5",
         side: "bottom-left",
         showControls: true,
@@ -77,12 +75,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Sidebar menu: Ajouter plus de jetons",
+        icon: <>💰</>,
+        title: "Ajouter des jetons",
         content: (
           <>
-            Ici, vous pourrez vous acheter plus de jetons pour les générations.
-            Vous pourrez aussi créer un abonnement pour l&apos;ajout des jetons,
+            Ici, vous pouvez acheter plus de jetons pour les générations. Vous
+            pouvez également créer un abonnement pour l&apos;ajout de jetons,
             que ce soit par semaine, par mois ou par année.
           </>
         ),
@@ -93,9 +91,11 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Sidebar menu: AI Image",
-        content: <>La section IA IMAGE est pour la generation d&apos;image.</>,
+        icon: <>🖼️</>,
+        title: "Génération d'images IA",
+        content: (
+          <>La section IA IMAGE est dédiée à la génération d&apos;images.</>
+        ),
         selector: "#tour1-step7",
         side: "bottom-left",
         showControls: true,
@@ -103,11 +103,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Sidebar menu: Assistant IA",
+        icon: <>🤖</>,
+        title: "Assistant IA",
         content: (
           <>
-            L&apos;assistant IA est une séction où pourrez discuter avec un IA.
+            L&apos;assistant IA est une section où vous pouvez discuter avec une
+            IA pour obtenir de l&apos;aide ou des suggestions.
           </>
         ),
         selector: "#tour1-step8",
@@ -117,12 +118,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Sidebar menu: Génération de vidéos",
+        icon: <>🎥</>,
+        title: "Génération de vidéos",
         content: (
           <>
-            Ici, vous pourrez générez des vidéos à partir des textes comme
-            prompt et aussi avec des images pour les dynamiser.
+            Ici, vous pouvez générer des vidéos à partir de textes comme prompt
+            et également avec des images pour les dynamiser.
           </>
         ),
         selector: "#tour1-step9",
@@ -132,12 +133,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Sidebar menu: IA Audio",
+        icon: <>🎵</>,
+        title: "Génération audio IA",
         content: (
           <>
-            Avec l&apos;IA Audio vous aurez la possiblité de générer des sons
-            audios à partir des textes en prompt.
+            Avec l&apos;IA Audio, vous pouvez générer des sons audios à partir
+            de textes en prompt.
           </>
         ),
         selector: "#tour1-step10",
@@ -152,12 +153,13 @@ export const tours: Tour[] = [
     tour: "secondtour",
     steps: [
       {
-        icon: <>👋👋</>,
-        title: "Feed menu: Chat with AI",
+        icon: <>💬</>,
+        title: "Chat avec l'IA",
         content: (
           <>
-            Vous serez rediriger vers une page où vous pourrez discuter avec une
-            intelligence artificielle.
+            Vous serez redirigé vers une page où vous pourrez discuter avec une
+            intelligence artificielle pour obtenir des réponses à vos questions
+            ou des suggestions.
           </>
         ),
         selector: "#tour2-step1",
@@ -167,10 +169,14 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄🪄</>,
-        title: "Feed menu: Image generation",
+        icon: <>🖼️</>,
+        title: "Génération d'images",
         content: (
-          <>Vous serez rediriger vers une page de generation d&apos;image.</>
+          <>
+            Vous serez redirigé vers une page de génération d&apos;images où
+            vous pouvez créer des images à partir de textes ou d&apos;autres
+            images.
+          </>
         ),
         selector: "#tour2-step2",
         side: "bottom-right",
@@ -179,12 +185,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩🎩</>,
-        title: "Feed menu: Image to video",
+        icon: <>🎥</>,
+        title: "Image vers vidéo",
         content: (
           <>
-            Vous serez rediriger vers une page de generation de vidéo à partir
-            d&apos;une image.
+            Vous serez redirigé vers une page de génération de vidéos à partir
+            d&apos;une image, où vous pouvez transformer des images en vidéos.
           </>
         ),
         selector: "#tour2-step3",
@@ -194,12 +200,13 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀🚀</>,
-        title: "Feed menu: AI assistant",
+        icon: <>🤖</>,
+        title: "Assistant IA",
         content: (
           <>
-            Vous serez rediriger vers une page d&apos;assistance gérer par une
-            intelligence artificielle
+            Vous serez redirigé vers une page d&apos;assistance gérée par une
+            intelligence artificielle pour obtenir de l&apos;aide ou des
+            suggestions.
           </>
         ),
         selector: "#tour2-step4",
@@ -209,10 +216,14 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀🚀</>,
-        title: "Feed menu: Audio generation",
+        icon: <>🎵</>,
+        title: "Génération audio",
         content: (
-          <>Vous serez rediriger vers une page de génération de son audio.</>
+          <>
+            Vous serez redirigé vers une page de génération de sons audios où
+            vous pouvez créer des sons à partir de textes ou d&apos;autres
+            audios.
+          </>
         ),
         selector: "#tour2-step5",
         side: "bottom-right",
@@ -226,11 +237,11 @@ export const tours: Tour[] = [
     tour: "thirdtour",
     steps: [
       {
-        icon: <>🪄🪄🪄</>,
-        title: "Navigation bar: Cacher le sidebar",
+        icon: <>📂</>,
+        title: "Cacher le menu latéral",
         content: (
           <>
-            Ce composant sert à montrer ou à cacher le sidebar pour plus
+            Ce composant sert à montrer ou à cacher le menu latéral pour plus
             d&apos;espace pendant la navigation si besoin.
           </>
         ),
@@ -241,12 +252,13 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>👋👋👋</>,
-        title: "Navigation bar: Jeton",
+        icon: <>💰</>,
+        title: "Jetons",
         content: (
           <>
-            Cette section sur la navigation bar vous montre le nombre actuel de
-            jeton à votre possession.
+            Cette section sur la barre de navigation vous montre le nombre
+            actuel de jetons en votre possession, que vous pouvez utiliser pour
+            différentes générations.
           </>
         ),
         selector: "#tour3-step2",
@@ -256,9 +268,14 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄🪄🪄</>,
-        title: "Navigation bar: upgrade subscription",
-        content: <>Ici, vous pourrez améliorer votre plan d&apos;abonnement.</>,
+        icon: <>🔄</>,
+        title: "Améliorer l'abonnement",
+        content: (
+          <>
+            Ici, vous pouvez améliorer votre plan d&apos;abonnement pour obtenir
+            plus de fonctionnalités et de jetons.
+          </>
+        ),
         selector: "#tour3-step3",
         side: "bottom-right",
         showControls: true,
@@ -266,12 +283,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄🪄🪄</>,
-        title: "Navigation bar: Menu de connexion",
+        icon: <>⚙️</>,
+        title: "Menu de connexion",
         content: (
           <>
-            En l&apos;ouvrant, vous pourrez voir les menus suivants: Settings,
-            Thèmes, Ranking, Billing et la déconnexion .
+            En l&apos;ouvrant, vous pouvez voir les menus suivants : Paramètres,
+            Thèmes, Classement, Facturation et Déconnexion.
           </>
         ),
         selector: "#tour3-step4",
@@ -286,12 +303,13 @@ export const tours: Tour[] = [
     tour: "fourthtour",
     steps: [
       {
-        icon: <>🪄</>,
-        title: "Feed",
+        icon: <>📜</>,
+        title: "Flux",
         content: (
           <>
-            Dans le feed, il y a toutes les images et vidéos générées et postées
-            par leurs créateurs.
+            Dans le flux, vous pouvez voir toutes les images et vidéos générées
+            et postées par leurs créateurs. Vous pouvez également interagir avec
+            ces publications en les aimant, les commentant ou les partageant.
           </>
         ),
         selector: "#tour4-step1",
@@ -306,13 +324,13 @@ export const tours: Tour[] = [
     tour: "fifthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Model de generation",
+        icon: <>🖼️</>,
+        title: "Modèle de génération",
         content: (
           <>
-            Vous pouvez selectionner différentes model pour la génération
-            d&apos;image, le model aura un influence sur le genre d&apos;image
-            que vous allez générer.
+            Vous pouvez sélectionner différents modèles pour la génération
+            d&apos;images, le modèle influencera le type d&apos;image que vous
+            allez générer.
           </>
         ),
         selector: "#tour5-step1",
@@ -322,9 +340,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Preset style",
-        content: <>Le preset style définiera le style de l&apos;image.</>,
+        icon: <>🎨</>,
+        title: "Style prédéfini",
+        content: <>Le style prédéfini définira le style de l&apos;image.</>,
         selector: "#tour5-step2",
         side: "bottom-left",
         showControls: true,
@@ -332,8 +350,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Contrast",
+        icon: <>🌈</>,
+        title: "Contraste",
         content: (
           <>C&apos;est l&apos;option de contraste sur l&apos;image générée.</>
         ),
@@ -344,9 +362,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Nombre d'image",
-        content: <>Le nombred&apos;image sortie par la génération.</>,
+        icon: <>🔢</>,
+        title: "Nombre d'images",
+        content: <>Le nombre d&apos;images générées par la génération.</>,
         selector: "#tour5-step4",
         side: "bottom-left",
         showControls: true,
@@ -354,8 +372,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Dimensions d'image",
+        icon: <>📏</>,
+        title: "Dimensions de l'image",
         content: <>Ceci va définir le ratio de l&apos;image générée.</>,
         selector: "#tour5-step5",
         side: "bottom-left",
@@ -364,7 +382,7 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀🚀🚀🚀🚀</>,
+        icon: <>📐</>,
         title: "Résolution de l'image",
         content: <>Ceci va définir la résolution de l&apos;image générée.</>,
         selector: "#tour5-step6",
@@ -379,11 +397,11 @@ export const tours: Tour[] = [
     tour: "sixthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Text prompt",
+        icon: <>✏️</>,
+        title: "Texte prompt",
         content: (
           <>
-            Entrez ici une text comme déscription de l&apos;image que vous
+            Entrez ici un texte comme description de l&apos;image que vous
             voulez générer.
           </>
         ),
@@ -394,11 +412,11 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Text IA",
+        icon: <>🤖</>,
+        title: "Texte IA",
         content: (
           <>
-            Générez ou améliorez votre text prompt avec une intelligence
+            Générez ou améliorez votre texte prompt avec une intelligence
             artificielle.
           </>
         ),
@@ -409,9 +427,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Boutton de génération",
-        content: <>Boutton pour lancer la génération d&apos;image</>,
+        icon: <>🚀</>,
+        title: "Bouton de génération",
+        content: <>Bouton pour lancer la génération d&apos;image</>,
         selector: "#tour6-step3",
         side: "bottom-right",
         showControls: true,
@@ -419,21 +437,21 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Réutilisation du text prompt",
+        icon: <>🔄</>,
+        title: "Réutilisation du texte prompt",
         content: (
-          <>Ceci sert à réutiliser le prompt de l&apos;image déjà générée. </>
+          <>Ceci sert à réutiliser le prompt de l&apos;image déjà générée.</>
         ),
         selector: "#tour6-step4",
-        side: "bottom-right",
+        side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
         pointerRadius: 12,
       },
       {
-        icon: <>🚀Réutilisation du text prompt</>,
-        title: "Sixth tour, Step 5",
-        content: <>Copier le prompt de l&apos;image déja générée.</>,
+        icon: <>📋</>,
+        title: "Copier le texte prompt",
+        content: <>Copier le prompt de l&apos;image déjà générée.</>,
         selector: "#tour6-step5",
         side: "bottom-right",
         showControls: true,
@@ -441,12 +459,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
+        icon: <>📑</>,
         title: "Détails de l'image",
         content: (
           <>
-            Ce sont les détails de l&apos;image générée: model, preset style,
-            contrast.
+            Ce sont les détails de l&apos;image générée : modèle, style
+            prédéfini, contraste.
           </>
         ),
         selector: "#tour6-step6",
@@ -456,12 +474,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
+        icon: <>🗑️</>,
         title: "Menu",
         content: (
           <>
-            Ceci contient les actions possible sur l&apos;image générée comme la
-            suppression de l&apos;image.
+            Ceci contient les actions possibles sur l&apos;image générée comme
+            la suppression de l&apos;image.
           </>
         ),
         selector: "#tour6-step7",
@@ -471,12 +489,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
+        icon: <>🖼️</>,
         title: "Image générée",
         content: (
           <>
-            Ici se place les images que avez généré, survolez l&apos;image pour
-            voir les options: download, publier.{" "}
+            Ici se placent les images que vous avez générées, survolez
+            l&apos;image pour voir les options : télécharger, publier.
           </>
         ),
         selector: "#tour6-step8",
@@ -491,8 +509,8 @@ export const tours: Tour[] = [
     tour: "seventhtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Create discussion",
+        icon: <>💬</>,
+        title: "Créer une discussion",
         content: (
           <>
             Ceci vous sert à lancer une conversation avec l&apos;assistant IA.
@@ -505,12 +523,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
+        icon: <>🤖</>,
         title: "Agents d'assistance",
         content: (
           <>
             Ici s&apos;affiche la liste des agents d&apos;assistance, ils
-            s&apos;afficheront quand vous aurez commencer des discussions avec
+            s&apos;afficheront quand vous aurez commencé des discussions avec
             des assistants IA.
           </>
         ),
@@ -521,8 +539,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Listes des conversations",
+        icon: <>🗂️</>,
+        title: "Liste des conversations",
         content: (
           <>
             Ici s&apos;affiche la liste des conversations effectuées avec des
@@ -536,11 +554,11 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Donwload conversation",
+        icon: <>📥</>,
+        title: "Télécharger la conversation",
         content: (
           <>
-            Vous pouvez télécharger en audio les discussions que vous avez eu
+            Vous pouvez télécharger en audio les discussions que vous avez eues
             avec les agents IA.
           </>
         ),
@@ -551,8 +569,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Séléction d'agents IA",
+        icon: <>🔍</>,
+        title: "Sélection d'agents IA",
         content: (
           <>
             Vous avez plusieurs choix d&apos;agents avec qui vous pouvez
@@ -566,9 +584,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Language de la discussion",
-        content: <>Vous pouvez choisir la language de discussion.</>,
+        icon: <>🌐</>,
+        title: "Langue de la discussion",
+        content: <>Vous pouvez choisir la langue de discussion.</>,
         selector: "#tour7-step6",
         side: "bottom-left",
         showControls: true,
@@ -577,7 +595,7 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Start conversation",
+        title: "Démarrer la conversation",
         content: <>Ici pour lancer la conversation.</>,
         selector: "#tour7-step7",
         side: "bottom-left",
@@ -591,14 +609,14 @@ export const tours: Tour[] = [
     tour: "eighthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Text prompt, génération de vidéo",
+        icon: <>✏️</>,
+        title: "Texte prompt pour la génération de vidéo",
         content: (
           <>
-            Le text prompt décrit la vidéo qui va être générée. S&apos;il
-            n&apos;y a pas de text prompt, l&apos;image entrée sera juste
+            Le texte prompt décrit la vidéo qui va être générée. S&apos;il
+            n&apos;y a pas de texte prompt, l&apos;image entrée sera juste
             transformée en vidéo. Et s&apos;il n&apos;y a pas d&apos;image, le
-            text décrira la vidéo qui sera générée.
+            texte décrira la vidéo qui sera générée.
           </>
         ),
         selector: "#tour8-step1",
@@ -608,9 +626,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Duration",
-        content: <>C&apos;est la duration de la vidéo.</>,
+        icon: <>⏱️</>,
+        title: "Durée",
+        content: <>C&apos;est la durée de la vidéo.</>,
         selector: "#tour8-step2",
         side: "bottom-left",
         showControls: true,
@@ -618,12 +636,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
+        icon: <>📏</>,
         title: "Ratio",
         content: (
           <>
             C&apos;est la résolution de la vidéo, soit en &quot;1280:768&quot;
-            pour un &quot;Landscape&quot; ou en &quot;768:1280&quot; pour un
+            pour un &quot;Paysage&quot; ou en &quot;768:1280&quot; pour un
             &quot;Portrait&quot;.
           </>
         ),
@@ -634,9 +652,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Upload image",
-        content: <>Sert à importer unne image pour la génération de vidéo.</>,
+        icon: <>📤</>,
+        title: "Importer une image",
+        content: <>Sert à importer une image pour la génération de vidéo.</>,
         selector: "#tour8-step4",
         side: "bottom-left",
         showControls: true,
@@ -645,8 +663,8 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Boutton de génération",
-        content: <>Boutton qui lance la génération de la vidéo.</>,
+        title: "Bouton de génération",
+        content: <>Bouton qui lance la génération de la vidéo.</>,
         selector: "#tour8-step5",
         side: "bottom-right",
         showControls: true,
@@ -654,8 +672,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Vidéos",
+        icon: <>🎥</>,
+        title: "Vidéos générées",
         content: <>Ici s&apos;affichera la liste des vidéos générées.</>,
         selector: "#tour8-step6",
         side: "bottom-left",
@@ -669,12 +687,12 @@ export const tours: Tour[] = [
     tour: "ninthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "FX Generation",
+        icon: <>🎵</>,
+        title: "Génération d'effets audio",
         content: (
           <>
-            Cette section contient la génération de son audio que vous voulez
-            avoir, comme le son d&apos;une voiture.
+            Cette section contient la génération d&apos;effets audio que vous
+            voulez avoir, comme le son d&apos;une voiture.
           </>
         ),
         selector: "#tour9-step1",
@@ -684,11 +702,11 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Text to Speech",
+        icon: <>🗣️</>,
+        title: "Texte en parole",
         content: (
           <>
-            Cette section contient la génération audio à partir des texts
+            Cette section contient la génération audio à partir de textes
             prompts.
           </>
         ),
@@ -699,12 +717,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Voice changer",
+        icon: <>🔊</>,
+        title: "Changeur de voix",
         content: (
           <>
-            Ici vous pouvez changer uen voix entrée en séléctionnant un agent
-            pour prendre son timbre vocale.
+            Ici vous pouvez changer une voix entrée en sélectionnant un agent
+            pour prendre son timbre vocal.
           </>
         ),
         selector: "#tour9-step3",
@@ -714,9 +732,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Dubbing",
-        content: <>La section dubbing consiste à créer un doublage audio.</>,
+        icon: <>🎙️</>,
+        title: "Doublage",
+        content: <>La section doublage consiste à créer un doublage audio.</>,
         selector: "#tour9-step4",
         side: "bottom-left",
         showControls: true,
@@ -724,10 +742,12 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Prompt text",
+        icon: <>✏️</>,
+        title: "Texte prompt",
         content: (
-          <>Entrez ici le text en prompt pour générer le son que vous voulez.</>
+          <>
+            Entrez ici le texte en prompt pour générer le son que vous voulez.
+          </>
         ),
         selector: "#tour9-step5",
         side: "bottom-left",
@@ -736,8 +756,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Settings",
+        icon: <>⚙️</>,
+        title: "Paramètres",
         content: (
           <>
             Ceci ouvre un menu pour ajouter quelques options spécifiques à la
@@ -755,7 +775,7 @@ export const tours: Tour[] = [
         title: "Lancer la génération",
         content: (
           <>
-            Ici pour lancer la génération après avoir bien compléter les options
+            Ici pour lancer la génération après avoir bien complété les options
             de génération.
           </>
         ),
@@ -766,8 +786,8 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Exemple de text",
+        icon: <>📋</>,
+        title: "Exemple de texte",
         content: <>Vous pouvez choisir des exemples de texte.</>,
         selector: "#tour9-step8",
         side: "bottom-left",
@@ -776,9 +796,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Audio",
-        content: <>Voici l&apos;audio généré.</>,
+        icon: <>🎵</>,
+        title: "Audios générés",
+        content: <>Ici c&apos;est la section des générations effectuées.</>,
         selector: "#tour9-step9",
         side: "bottom-left",
         showControls: true,
@@ -791,10 +811,12 @@ export const tours: Tour[] = [
     tour: "tenthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Prompt text",
+        icon: <>✏️</>,
+        title: "Texte prompt",
         content: (
-          <>Entrez ici le text en prompt pour générer le son que vous voulez.</>
+          <>
+            Entrez ici le texte en prompt pour générer le son que vous voulez.
+          </>
         ),
         selector: "#tour10-step1",
         side: "bottom-left",
@@ -803,10 +825,10 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Séléction d'agent",
+        icon: <>🔍</>,
+        title: "Sélection d'agent",
         content: (
-          <>Séléctionnez un agent pour la génération de text-to-speech.</>
+          <>Sélectionnez un agent pour la génération de texte en parole.</>
         ),
         selector: "#tour10-step2",
         side: "bottom-left",
@@ -815,9 +837,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Language",
-        content: <>Séléctionnez une langue.</>,
+        icon: <>🌐</>,
+        title: "Langue",
+        content: <>Sélectionnez une langue.</>,
         selector: "#tour10-step3",
         side: "bottom-right",
         showControls: true,
@@ -835,10 +857,10 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Exemple de text prompt",
+        icon: <>📋</>,
+        title: "Exemple de texte prompt",
         content: (
-          <>Séléctionnez des texts prompts prédéfinis pour la génération.</>
+          <>Sélectionnez des textes prompts prédéfinis pour la génération.</>
         ),
         selector: "#tour10-step5",
         side: "bottom-left",
@@ -847,9 +869,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
+        icon: <>📑</>,
         title: "Résultats",
-        content: <>Ici s&apos;affichera les résultas.</>,
+        content: <>Ici s&apos;afficheront les résultats.</>,
         selector: "#tour10-step6",
         side: "bottom-left",
         showControls: true,
@@ -862,11 +884,11 @@ export const tours: Tour[] = [
     tour: "eleventhtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Séléction de voix",
+        icon: <>🔍</>,
+        title: "Sélection de voix",
         content: (
           <>
-            Séléctionner un agent, la voix en entrée sera remplacer par la voix
+            Sélectionnez un agent, la voix en entrée sera remplacée par la voix
             de cet agent.
           </>
         ),
@@ -877,9 +899,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
+        icon: <>🎙️</>,
         title: "Enregistrement de voix",
-        content: <>Enregistrer une voix en entrée.</>,
+        content: <>Enregistrez une voix en entrée.</>,
         selector: "#tour11-step2",
         side: "bottom-right",
         showControls: true,
@@ -887,7 +909,7 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
+        icon: <>📤</>,
         title: "Upload de voix existante",
         content: (
           <>Uploader un fichier audio qui contient la voix à modifier.</>
@@ -899,9 +921,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
+        icon: <>📑</>,
         title: "Résultats",
-        content: <>Ici s&apos;affichera les résultats.</>,
+        content: <>Ici s&apos;afficheront les résultats.</>,
         selector: "#tour11-step4",
         side: "bottom-left",
         showControls: true,
@@ -914,14 +936,9 @@ export const tours: Tour[] = [
     tour: "twelfthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Welcome",
-        content: (
-          <>
-            Welcome to the twelfth tour! This step will introduce you to the
-            main features.
-          </>
-        ),
+        icon: <>✏️</>,
+        title: "Nom de projet",
+        content: <>Entrez le nom du projet pour le doublage.</>,
         selector: "#tour12-step1",
         side: "bottom-left",
         showControls: true,
@@ -929,9 +946,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Feature One",
-        content: <>This is the first feature of the twelfth tour.</>,
+        icon: <>🌐</>,
+        title: "Langue source",
+        content: <>Sélectionnez la langue source pour faire la doublure.</>,
         selector: "#tour12-step2",
         side: "bottom-left",
         showControls: true,
@@ -939,9 +956,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Feature Two",
-        content: <>This is the second feature of the twelfth tour.</>,
+        icon: <>🌐</>,
+        title: "Langue cible",
+        content: <>Sélectionnez la langue cible.</>,
         selector: "#tour12-step3",
         side: "bottom-right",
         showControls: true,
@@ -949,9 +966,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Feature Three",
-        content: <>This is the third feature of the twelfth tour.</>,
+        icon: <>📤</>,
+        title: "Importation",
+        content: <>Importez ici le son ou la vidéo pour la doublure.</>,
         selector: "#tour12-step4",
         side: "bottom-left",
         showControls: true,
@@ -959,9 +976,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Feature Four",
-        content: <>This is the fourth feature of the twelfth tour.</>,
+        icon: <>🔢</>,
+        title: "Nombre d'intervenants",
+        content: <>Choisissez le nombre d&apos;intervenants.</>,
         selector: "#tour12-step5",
         side: "bottom-right",
         showControls: true,
@@ -969,9 +986,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Feature Five",
-        content: <>This is the fifth feature of the twelfth tour.</>,
+        icon: <>⏱️</>,
+        title: "Plage de temps à doubler",
+        content: <>Sélectionnez la plage de temps à doubler.</>,
         selector: "#tour12-step6",
         side: "bottom-right",
         showControls: true,
@@ -980,8 +997,8 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🚀</>,
-        title: "Feature Six",
-        content: <>This is the sixth feature of the twelfth tour.</>,
+        title: "Lancer l'opération",
+        content: <>Lancer l&apos;opération de doublage.</>,
         selector: "#tour12-step7",
         side: "bottom-right",
         showControls: true,
@@ -994,12 +1011,12 @@ export const tours: Tour[] = [
     tour: "thirteenthtour",
     steps: [
       {
-        icon: <>👋</>,
-        title: "Introduction",
+        icon: <>💰</>,
+        title: "Compte accumulé",
         content: (
           <>
-            Welcome to the thirteenth tour! This step will introduce you to the
-            main features.
+            Ceci est la somme d&apos;argent accumulée pendant tout votre temps
+            de connexion sur la plateforme depuis le début.
           </>
         ),
         selector: "#tour13-step1",
@@ -1009,9 +1026,14 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🪄</>,
-        title: "Feature One",
-        content: <>This is the first feature of the thirteenth tour.</>,
+        icon: <>💰</>,
+        title: "Compte actuel",
+        content: (
+          <>
+            Ceci est la somme d&apos;argent actuelle sur votre compte sur la
+            plateforme.
+          </>
+        ),
         selector: "#tour13-step2",
         side: "bottom-left",
         showControls: true,
@@ -1019,9 +1041,14 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎩</>,
-        title: "Feature Two",
-        content: <>This is the second feature of the thirteenth tour.</>,
+        icon: <>⚠️</>,
+        title: "Condition de retrait d&apos;argent",
+        content: (
+          <>
+            Vous devez effectuer cette action pour pouvoir effectuer un retrait
+            d&apos;argent sur la plateforme.
+          </>
+        ),
         selector: "#tour13-step3",
         side: "bottom-left",
         showControls: true,
@@ -1029,9 +1056,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Feature Three",
-        content: <>This is the third feature of the thirteenth tour.</>,
+        icon: <>💸</>,
+        title: "Retrait d&apos;argent",
+        content: <>Entrez la somme que vous voulez retirer.</>,
         selector: "#tour13-step4",
         side: "bottom-left",
         showControls: true,
@@ -1039,9 +1066,15 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🚀</>,
-        title: "Conclusion",
-        content: <>This is the final step of the thirteenth tour.</>,
+        icon: <>🔗</>,
+        title: "Parrainage",
+        content: (
+          <>
+            Copiez le lien et partagez-le pour que de nouveaux utilisateurs
+            puissent s&apos;y connecter et vous aurez des bénéfices de
+            parrainage.
+          </>
+        ),
         selector: "#tour13-step5",
         side: "bottom-left",
         showControls: true,

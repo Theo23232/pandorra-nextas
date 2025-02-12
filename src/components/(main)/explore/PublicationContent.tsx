@@ -7,7 +7,6 @@ import useSWR from "swr"
 
 import { PublicationTabs } from "@/components/(main)/explore/PublicationTabs"
 import { PubVideo } from "@/components/(main)/explore/PubVideo"
-import { NothingYet } from "@/components/NothingYet"
 import { Skeleton } from "@/components/nyxb/skeleton"
 import { fetcher } from "@/lib/utils"
 import {
@@ -81,68 +80,58 @@ export const PublicationContent = () => {
   return (
     <div className="mt-8">
       <PublicationTabs onChange={handleActiveTabs} />
-      {(!(loadedPublications?.length === 0) && activeTab === "image") ||
-      (!(publicationVideos?.length === 0) && activeTab === "video") ? (
-        <Masonry
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-          breakpointCols={{
-            default: 5,
-            1440: 3,
-            1200: 2,
-            700: 1,
-          }}
-        >
-          {activeTab === "image" &&
-            loadedPublications.map((pub, id) => (
-              <PubCard
-                key={pub.id}
-                imageUrl={pub.imageUrl}
-                index={id}
-                publicationId={pub.id}
-                pubOwner={pub.user.username}
-                pubOwnerImage={pub.user.image ?? ""}
-                isLiked={pub.isLiked}
-                likeCount={pub.reactionsCount}
-                commentCount={pub.commentCount}
-                pubOwnerId={pub.user.id}
-                pubDescription={{
-                  prompt: pub.prompt,
-                  model: pub.model,
-                  preset: pub.preset,
-                }}
-                createdAt={pub.createdAt}
-              />
-            ))}
-          {activeTab === "video" &&
-            publicationVideos?.map((pub, id) => (
-              <PubVideo
-                key={pub.id}
-                ownerId={pub.userId}
-                index={id}
-                status={pub.status}
-                videoPrompt={pub.prompt}
-                videoDuration={pub.duration}
-                videoRatio={pub.ratio}
-                url={pub.videoUrl}
-                commentVideoCount={pub.commentVideoCount}
-                isLiked={pub.isLiked}
-                likeCount={pub.reactionVideoCount}
-                publicationVideoId={pub.id}
-                pubOwner={pub.user.username}
-                pubOwnerImage={pub.user.image}
-                date={pub.createdAt}
-              />
-            ))}
-        </Masonry>
-      ) : (
-        <div className="" id="tour4-step1">
-          <NothingYet
-            subtitle={t(`Your FX generation will be displayed here`)}
-            title={t(`There is no FX yet`)}
-          />
-        </div>
-      )}
+      <Masonry
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+        breakpointCols={{
+          default: 5,
+          1440: 3,
+          1200: 2,
+          700: 1,
+        }}
+      >
+        {activeTab === "image" &&
+          loadedPublications.map((pub, id) => (
+            <PubCard
+              key={pub.id}
+              imageUrl={pub.imageUrl}
+              index={id}
+              publicationId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image ?? ""}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionsCount}
+              commentCount={pub.commentCount}
+              pubOwnerId={pub.user.id}
+              pubDescription={{
+                prompt: pub.prompt,
+                model: pub.model,
+                preset: pub.preset,
+              }}
+              createdAt={pub.createdAt}
+            />
+          ))}
+        {activeTab === "video" &&
+          publicationVideos?.map((pub, id) => (
+            <PubVideo
+              key={pub.id}
+              ownerId={pub.userId}
+              index={id}
+              status={pub.status}
+              videoPrompt={pub.prompt}
+              videoDuration={pub.duration}
+              videoRatio={pub.ratio}
+              url={pub.videoUrl}
+              commentVideoCount={pub.commentVideoCount}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionVideoCount}
+              publicationVideoId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image}
+              date={pub.createdAt}
+            />
+          ))}
+      </Masonry>
     </div>
   )
 }

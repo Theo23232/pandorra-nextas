@@ -89,11 +89,11 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         break
       case "twelfthtour":
         EditUserTourDone("twelfthtour")
-        router.push("/profile")
+        router.push("/affiliate")
         break
       case "thirteenthtour":
         EditUserTourDone("thirteenthtour")
-        router.push("/affiliate")
+        EditUserTourDone("stop")
         break
       default:
         break

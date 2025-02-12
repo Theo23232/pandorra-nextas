@@ -59,7 +59,7 @@ export function Navbar() {
           case "eleventhtour":
             startOnborda("twelfthtour")
             break
-          case "thirteenthtour":
+          case "twelfthtour":
             startOnborda("thirteenthtour")
             break
           default:

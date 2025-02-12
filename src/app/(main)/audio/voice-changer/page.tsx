@@ -155,7 +155,7 @@ const SpeechToSpeechConverter: React.FC = () => {
         )}
       </MagicCard>
 
-      {voiceChanges && voiceChanges.length > 0 ? (
+      {voiceChanges && !(voiceChanges.length === 0) ? (
         <MagicCard className="p-6">
           <h3 className="mb-4 text-xl font-semibold">{t(`Converted Audio`)}</h3>
           <div className="space-y-4">
@@ -175,10 +175,12 @@ const SpeechToSpeechConverter: React.FC = () => {
           </div>
         </MagicCard>
       ) : (
-        <NothingYet
-          subtitle={t(`Your generation will be displayed here`)}
-          title={t(`There is no voice yet`)}
-        />
+        <div id="tour11-step4" className="mt-4">
+          <NothingYet
+            subtitle={t(`Your generation will be displayed here`)}
+            title={t(`There is no voice yet`)}
+          />
+        </div>
       )}
     </div>
   )

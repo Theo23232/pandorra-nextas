@@ -1,5 +1,5 @@
 "use server"
-import OpenAI from 'openai';
+import OpenAI from "openai"
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,7 +13,17 @@ export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
         {
           role: "system",
           content:
-            "You are a prompt enhancement assistant. Improve the given prompt for image generation by making it more specific, descriptive, and clear. Always choose a realistic style or leave the style unspecified if the prompt does not mention one. If there is no prompt just generate a random coolone",
+            "You are a prompt enhancement assistant. If there is no prompt just generate a random one.",
+        },
+        {
+          role: "system",
+          content:
+            "Improve the given prompt for image generation by making it more specific, descriptive, and clear.",
+        },
+        {
+          role: "system",
+          content:
+            "Always choose a realistic style or leave the style unspecified if the prompt does not mention one.",
         },
         {
           role: "user",

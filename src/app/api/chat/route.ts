@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { OpenAI } from 'openai';
+import { NextResponse } from "next/server"
+import { OpenAI } from "openai"
 
-import { prisma } from '@/prisma';
+import { prisma } from "@/prisma"
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -33,7 +33,20 @@ export async function POST(req: Request) {
     // Appeler l'API OpenAI avec streaming
     const stream = await openai.chat.completions.create({
       model: "gpt-4",
-      messages: [...messages, { role: "user", content }],
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are Pandorra, an AI assistant built by Pandorra.ai, help the user and answear all his question.",
+        },
+        {
+          role: "system",
+          content:
+            "If the user ask you to fix or edit his code, y will allways respond by giving the full code and don't forget any line",
+        },
+        ...messages,
+        { role: "user", content },
+      ],
       stream: true, // Activer le streaming
     })
 

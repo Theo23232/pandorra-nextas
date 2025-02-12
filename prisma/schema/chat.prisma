@@ -1,0 +1,18 @@
+model GptConversation {
+    id        String    @id @default(cuid())
+    userId    String
+    user      User      @relation(fields: [userId], references: [id])
+    title     String
+    messages  Message[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model Message {
+    id                String           @id @default(cuid())
+    content           String
+    gptConversationId String
+    role              String // "user" ou "assistant"
+    createdAt         DateTime         @default(now())
+    GptConversation   GptConversation? @relation(fields: [gptConversationId], references: [id])
+}

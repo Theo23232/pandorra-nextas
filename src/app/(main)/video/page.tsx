@@ -1,27 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Upload, X } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Masonry from 'react-masonry-css';
-import useSWR, { mutate } from 'swr';
+import { Upload, X } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import Masonry from "react-masonry-css"
+import useSWR, { mutate } from "swr"
 
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { NothingYet } from '@/components/NothingYet';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"
@@ -221,8 +225,8 @@ export default function VideoGenerator() {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
-            1440: 3,
+            default: 3,
+            1440: 2,
             1200: 2,
             700: 1,
           }}

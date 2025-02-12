@@ -111,6 +111,69 @@ export const PublicationContent = () => {
               createdAt={pub.createdAt}
             />
           ))}
+        {activeTab === "image" &&
+          loadedPublications.map((pub, id) => (
+            <PubCard
+              key={pub.id}
+              imageUrl={pub.imageUrl}
+              index={id}
+              publicationId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image ?? ""}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionsCount}
+              commentCount={pub.commentCount}
+              pubOwnerId={pub.user.id}
+              pubDescription={{
+                prompt: pub.prompt,
+                model: pub.model,
+                preset: pub.preset,
+              }}
+              createdAt={pub.createdAt}
+            />
+          ))}
+        {activeTab === "image" &&
+          loadedPublications.map((pub, id) => (
+            <PubCard
+              key={pub.id}
+              imageUrl={pub.imageUrl}
+              index={id}
+              publicationId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image ?? ""}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionsCount}
+              commentCount={pub.commentCount}
+              pubOwnerId={pub.user.id}
+              pubDescription={{
+                prompt: pub.prompt,
+                model: pub.model,
+                preset: pub.preset,
+              }}
+              createdAt={pub.createdAt}
+            />
+          ))}
+        {activeTab === "image" &&
+          loadedPublications.map((pub, id) => (
+            <PubCard
+              key={pub.id}
+              imageUrl={pub.imageUrl}
+              index={id}
+              publicationId={pub.id}
+              pubOwner={pub.user.username}
+              pubOwnerImage={pub.user.image ?? ""}
+              isLiked={pub.isLiked}
+              likeCount={pub.reactionsCount}
+              commentCount={pub.commentCount}
+              pubOwnerId={pub.user.id}
+              pubDescription={{
+                prompt: pub.prompt,
+                model: pub.model,
+                preset: pub.preset,
+              }}
+              createdAt={pub.createdAt}
+            />
+          ))}
         {activeTab === "video" &&
           publicationVideos?.map((pub, id) => (
             <PubVideo

@@ -92,11 +92,26 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🖼️</>,
+        title: "Discutez avec notre IA",
+        content: (
+          <>
+            Vous pourez discuter avec notre IA texte avancé. De manière
+            totalement gratuite.
+          </>
+        ),
+        selector: "#tour1-step7",
+        side: "bottom-left",
+        showControls: true,
+        pointerPadding: 12,
+        pointerRadius: 12,
+      },
+      {
+        icon: <>🖼️</>,
         title: "Génération d'images IA",
         content: (
           <>La section IA IMAGE est dédiée à la génération d&apos;images.</>
         ),
-        selector: "#tour1-step7",
+        selector: "#tour1-step8",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
@@ -111,7 +126,7 @@ export const tours: Tour[] = [
             IA pour obtenir de l&apos;aide ou des suggestions.
           </>
         ),
-        selector: "#tour1-step8",
+        selector: "#tour1-step9",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
@@ -126,7 +141,7 @@ export const tours: Tour[] = [
             et également avec des images pour les dynamiser.
           </>
         ),
-        selector: "#tour1-step9",
+        selector: "#tour1-step10",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,
@@ -141,7 +156,7 @@ export const tours: Tour[] = [
             de textes en prompt.
           </>
         ),
-        selector: "#tour1-step10",
+        selector: "#tour1-step11",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,

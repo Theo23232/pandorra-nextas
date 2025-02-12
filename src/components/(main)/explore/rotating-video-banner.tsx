@@ -1,7 +1,9 @@
 "use client"
 
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+
+import Bounce from "@/components/animated/uibeats/bounce"
 
 const videos = [
   "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/15.webm",
@@ -29,7 +31,7 @@ export function RotatingVideosBanner() {
   }, [])
 
   return (
-    <div className="relative max-h-[30vh] w-full overflow-hidden rounded-xl">
+    <Bounce className="relative max-h-[30vh] w-full overflow-hidden rounded-xl">
       <div
         className={`transition-opacity duration-1000 ${isTransitioning ? "opacity-0" : "opacity-100"}`}
       >
@@ -53,6 +55,6 @@ export function RotatingVideosBanner() {
           {t(`Try out the latest video models in video generation`)}
         </p>
       </div>
-    </div>
+    </Bounce>
   )
 }

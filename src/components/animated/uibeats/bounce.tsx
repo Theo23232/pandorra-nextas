@@ -9,6 +9,9 @@ interface FadeInProps {
   duration?: number
   className?: string
   once?: boolean
+  id?: string
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }
 
 const Bounce: React.FC<FadeInProps> = ({
@@ -17,6 +20,9 @@ const Bounce: React.FC<FadeInProps> = ({
   duration = 1,
   className = "",
   once = false,
+  id = "",
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   const controls = useAnimation()
   const [ref, inView] = useInView({
@@ -47,10 +53,13 @@ const Bounce: React.FC<FadeInProps> = ({
   return (
     <motion.div
       ref={ref}
+      id={id}
       initial="hidden"
       animate={controls}
       variants={variants}
       className={className}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {children}
     </motion.div>

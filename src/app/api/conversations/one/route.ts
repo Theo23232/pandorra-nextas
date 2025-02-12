@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server';
+// /api/conversations/one/route.ts
+import { NextResponse } from "next/server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export async function GET(request: Request) {
   try {

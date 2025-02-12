@@ -1,15 +1,20 @@
 "use client"
 
-import { AlertCircle, Download, Send } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { AlertCircle, Download, Send } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { createPublicationVideo } from '@/actions/pubVideo.actions';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useToast } from '@/hooks/use-toast';
+import { createPublicationVideo } from "@/actions/pubVideo.actions"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { useToast } from "@/hooks/use-toast"
 
 interface VideoDisplayCardProps {
   id: string
@@ -97,12 +102,12 @@ export const VideoDisplayCard = ({
   }
   return (
     <div
-      className="relative cursor-pointer overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="relative cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`absolute left-0 right-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-5 transition-opacity duration-300 ${
+        className={`absolute left-0 right-0 top-0 p-5 transition-opacity duration-300 ${
           isHovered ? "opacity-100" : "z-40 opacity-0"
         }`}
       >
@@ -177,7 +182,7 @@ export const VideoDisplayCard = ({
         </Alert>
       )}
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300 ${
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 transition-opacity duration-300 ${
           isHovered ? "opacity-100" : "opacity-0"
         }`}
       >

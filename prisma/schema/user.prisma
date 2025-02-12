@@ -1,73 +1,73 @@
 model User {
-    id                   String                 @id @default(cuid())
-    firstname            String?
-    lastname             String?
-    fullname             String?
-    image                String
-    tourOnboarding       String[]
-    username             String                 @unique
-    email                String                 @unique
-    language             String                 @default("en")
-    description          String?
-    theme                String                 @default("light")
-    password             String
-    createdAt            DateTime               @default(now())
-    updatedAt            DateTime               @updatedAt
-    permissions          String[]
-    isEmailVerified      Boolean                @default(false)
-    referreId            String?
-    emailNotification    Boolean                @default(true)
-    pushNotification     Boolean                @default(true)
-    jeton                Int                    @default(150)
-    stripeCustomerId     String?
-    connectStripeId      String?
-    amountAccumulated    String                 @default("0")
-    currentAmount        String                 @default("0")
-    plan                 Plan                   @default(Free)
-    Comment              Comment[]
-    CommentReaction      CommentReaction[]
-    Feedback             Feedback[]
-    Generation           Generation[]
-    Post                 Post[]
-    Publication          Publication[]
-    Rank                 Rank[]
-    Reaction             Reaction[]
-    Session              Session[]
-    UserImage            UserImage[]
-    Variant              Variant[]
-    Agent                Agent[]
-    Conversation         Conversation[]
-    FX                   FX[]
-    TTS                  TTS[]
-    VoiceChange          VoiceChange[]
-    Video                Video[]
-    PublicationVideo     PublicationVideo[]
-    CommentVideo         CommentVideo[]
-    CommentVideoReaction CommentVideoReaction[]
-    ReactionVideo        ReactionVideo[]
-    GptConversation      GptConversation[]
+  id                   String                 @id @default(cuid())
+  firstname            String?
+  lastname             String?
+  fullname             String?
+  image                String
+  tourOnboarding       String[]
+  username             String                 @unique
+  email                String                 @unique
+  language             String                 @default("en")
+  description          String?
+  theme                String                 @default("light")
+  password             String
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  permissions          String[]
+  isEmailVerified      Boolean                @default(false)
+  referreId            String?
+  emailNotification    Boolean                @default(true)
+  pushNotification     Boolean                @default(true)
+  jeton                Int                    @default(150)
+  stripeCustomerId     String?
+  connectStripeId      String?
+  amountAccumulated    String                 @default("0")
+  currentAmount        String                 @default("0")
+  plan                 Plan                   @default(Free)
+  Agent                Agent[]
+  Comment              Comment[]
+  CommentReaction      CommentReaction[]
+  CommentVideo         CommentVideo[]
+  CommentVideoReaction CommentVideoReaction[]
+  Conversation         Conversation[]
+  FX                   FX[]
+  Feedback             Feedback[]
+  Generation           Generation[]
+  GptConversation      GptConversation[]
+  Post                 Post[]
+  Publication          Publication[]
+  PublicationVideo     PublicationVideo[]
+  Rank                 Rank[]
+  Reaction             Reaction[]
+  ReactionVideo        ReactionVideo[]
+  Session              Session[]
+  TTS                  TTS[]
+  UserImage            UserImage[]
+  Variant              Variant[]
+  Video                Video[]
+  VoiceChange          VoiceChange[]
 }
 
 model Session {
-    id             String   @id @default(cuid())
-    userId         String
-    deviceType     String
-    deviceOs       String
-    deviceModel    String?
-    browser        String?
-    browserVersion String?
-    authType       String   @default("classic")
-    ip             String
-    country        String?
-    lastActive     DateTime @default(now())
-    createdAt      DateTime @default(now())
-    user           User     @relation(fields: [userId], references: [id])
+  id             String   @id @default(cuid())
+  userId         String
+  deviceType     String
+  deviceOs       String
+  deviceModel    String?
+  browser        String?
+  browserVersion String?
+  authType       String   @default("classic")
+  ip             String
+  country        String?
+  lastActive     DateTime @default(now())
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
 }
 
 model PasswordReset {
-    id        String   @id @default(cuid())
-    email     String
-    token     String   @unique
-    expires   DateTime
-    createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
 }

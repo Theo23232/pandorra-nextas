@@ -39,11 +39,7 @@ export async function POST(req: Request) {
           content:
             "You are Pandorra, an AI assistant built by Pandorra.ai, help the user and answear all his question.",
         },
-        {
-          role: "system",
-          content:
-            "If the user ask you to fix or edit his code, y will allways respond by giving the full code and don't forget any line",
-        },
+
         ...messages,
         { role: "user", content },
       ],

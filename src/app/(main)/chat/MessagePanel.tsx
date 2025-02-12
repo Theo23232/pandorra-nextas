@@ -1,13 +1,14 @@
 "use client"
 
 import axios from 'axios';
-import { Loader, Send, StopCircle } from 'lucide-react';
+import { Send, StopCircle } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 
 import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { Textarea } from '@/components/tremor/inputs/textarea';
 import { Button } from '@/components/tremor/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+
+import { Message } from './message';
 
 interface MessagePanelProps {
   conversationId: string | null
@@ -124,20 +125,19 @@ export function MessagePanel({ conversationId }: MessagePanelProps) {
   }
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-5xl flex-col pt-20">
+    <div className="mx-auto flex h-full w-full max-w-3xl flex-col">
       {conversationId ? (
         <>
-          <div className="flex-1 p-4">
+          <div className="min-h-[calc(100vh-204px)] flex-1 p-4">
             {messages.map((message) => (
               <div key={message.id} className="mb-4">
-                <strong>{message.role === "user" ? "You" : "Pandorra"}:</strong>
-                <ReactMarkdown>{message.content}</ReactMarkdown>
+                <Message content={message.content} role={message.role} />
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <MagicCard className="sticky bottom-0 p-4">
-            <form onSubmit={sendMessage}>
+          <MagicCard className="sticky bottom-8 z-50 p-4">
+            <form onSubmit={sendMessage} className="flex">
               <Textarea
                 ref={textareaRef}
                 value={newMessage}
@@ -146,15 +146,23 @@ export function MessagePanel({ conversationId }: MessagePanelProps) {
                 placeholder="Type your message..."
                 rows={1}
               />
-              <div className="mt-2 flex justify-end gap-2">
-                {isStreaming && (
-                  <Button type="button" onClick={stopGeneration}>
-                    <StopCircle />
+              <div className="flex items-end">
+                {isStreaming ? (
+                  <Button
+                    type="button"
+                    onClick={stopGeneration}
+                    className="flex h-10 w-10 items-center justify-center p-0"
+                  >
+                    <StopCircle size={20} />
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="flex h-10 w-10 items-center justify-center p-0"
+                  >
+                    <Send size={20} />
                   </Button>
                 )}
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? <Loader className="animate-spin" /> : <Send />}
-                </Button>
               </div>
             </form>
           </MagicCard>

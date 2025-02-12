@@ -45,6 +45,7 @@ model User {
     CommentVideo         CommentVideo[]
     CommentVideoReaction CommentVideoReaction[]
     ReactionVideo        ReactionVideo[]
+    GptConversation      GptConversation[]
 }
 
 model Session {

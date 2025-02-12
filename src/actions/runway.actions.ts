@@ -80,10 +80,7 @@ export const downloadVideo = async (videoUrl: string) => {
     }
 
     const data = await response.json()
-    console.log(
-      `Vidéo téléchargée avec succès ! Nom du fichier: ${data.filename}`,
-    )
-    console.log("URL de la vidéo:", `${API_BASE_URL}${data.videoUrl}`)
+
     return data
   } catch (err) {
     console.error(`Erreur: ${(err as Error).message}`)

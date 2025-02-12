@@ -1,47 +1,44 @@
 model FX {
-    id        String   @id @default(cuid())
-    userId    String
-    prompt    String
-    url       String
-    createdAt DateTime @default(now())
-
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  prompt    String
+  url       String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model TTS {
-    id        String   @id @default(cuid())
-    userId    String
-    prompt    String
-    url       String
-    createdAt DateTime @default(now())
-    lang      String
-    voice     String
-
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  prompt    String
+  url       String
+  createdAt DateTime @default(now())
+  lang      String
+  voice     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VoiceChange {
-    id        String   @id @default(cuid())
-    userId    String
-    url       String
-    createdAt DateTime @default(now())
-    voice     String
-
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  url       String
+  createdAt DateTime @default(now())
+  voice     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VoiceDub {
-    id                    String   @id @default(cuid())
-    name                  String
-    userId                String
-    target_lang           String[]
-    num_speakers          Int
-    source_lang           String
-    start_time            Int?
-    end_time              Int?
-    drop_background_audio Boolean  @default(false)
-    use_profanity_filter  Boolean  @default(false)
-    status                String   @default("dubbing")
-    error                 String?
-    duration              String?
+  id                    String   @id @default(cuid())
+  name                  String
+  userId                String
+  target_lang           String[]
+  num_speakers          Int
+  source_lang           String
+  start_time            Int?
+  end_time              Int?
+  drop_background_audio Boolean  @default(false)
+  use_profanity_filter  Boolean  @default(false)
+  status                String   @default("dubbing")
+  error                 String?
+  duration              String?
 }

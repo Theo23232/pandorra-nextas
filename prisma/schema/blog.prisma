@@ -1,17 +1,17 @@
 model Post {
-    id          String     @id @default(cuid())
-    title       String
-    content     String
-    status      PostStatus @default(DRAFT)
-    authorId    String
-    author      User       @relation(fields: [authorId], references: [id])
-    createdAt   DateTime   @default(now())
-    updatedAt   DateTime   @updatedAt
-    publishedAt DateTime?
+  id          String     @id @default(cuid())
+  title       String
+  content     String
+  status      PostStatus @default(DRAFT)
+  authorId    String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  publishedAt DateTime?
+  author      User       @relation(fields: [authorId], references: [id])
 }
 
 enum PostStatus {
-    DRAFT
-    PUBLISHED
-    ARCHIVED
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }

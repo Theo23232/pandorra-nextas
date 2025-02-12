@@ -91,7 +91,7 @@ export const FloatingButton = () => {
   return (
     <div
       id="tour3-step1"
-      className="ml-8 cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
+      className="ml-16 cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
       onClick={toggleSidebar}
     >
       {isSidebar ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}

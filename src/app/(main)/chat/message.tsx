@@ -1,22 +1,25 @@
-//message.tsx
-
 import { Check, Copy } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism"
+import remarkGfm from "remark-gfm"
 
-import type React from "react"
 export type MessageProps = {
   content: string
   role: string
+  isStreaming?: boolean
 }
 
-export const Message: React.FC<MessageProps> = ({ content, role }) => {
+export const Message: React.FC<MessageProps> = ({
+  content,
+  role,
+  isStreaming,
+}) => {
   const [copied, setCopied] = useState<Record<string, boolean>>({})
   const { theme } = useTheme()
-  const mRef = useRef()
+
   const handleCopy = (code: string, index: string) => {
     navigator.clipboard.writeText(code)
     setCopied({ ...copied, [index]: true })
@@ -34,6 +37,26 @@ export const Message: React.FC<MessageProps> = ({ content, role }) => {
   }
 
   const components: Partial<Components> = {
+    table: ({ children }) => (
+      <div className="my-4 overflow-x-auto">
+        <table className="w-full border-collapse border border-border">
+          {children}
+        </table>
+      </div>
+    ),
+    thead: ({ children }) => <thead className="bg-muted">{children}</thead>,
+    tbody: ({ children }) => <tbody>{children}</tbody>,
+    tr: ({ children }) => (
+      <tr className="border-b border-border">{children}</tr>
+    ),
+    th: ({ children }) => (
+      <th className="border-r border-border p-2 text-left font-semibold last:border-r-0">
+        {children}
+      </th>
+    ),
+    td: ({ children }) => (
+      <td className="border-r border-border p-2 last:border-r-0">{children}</td>
+    ),
     code({ className, children, node, ...props }) {
       const match = /language-(\w+)/.exec(className || "")
       const code = String(children).replace(/\n$/, "")
@@ -110,7 +133,16 @@ export const Message: React.FC<MessageProps> = ({ content, role }) => {
 
   return (
     <div className="rounded-lg bg-background p-4 text-foreground">
-      <ReactMarkdown components={components}>{content}</ReactMarkdown>
+      {isStreaming && (
+        <div className="mb-2 animate-pulse text-sm text-muted-foreground">
+          Pandorra is thinking...
+        </div>
+      )}
+      <div className={`${isStreaming ? "animate-fade-in" : ""}`}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+          {content}
+        </ReactMarkdown>
+      </div>
     </div>
   )
 }

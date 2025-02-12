@@ -188,7 +188,15 @@ export default function Page() {
             <div className="min-h-[calc(100vh-204px)] flex-1 p-4">
               {messages.map((message) => (
                 <div key={message.id} className="mb-4">
-                  <Message content={message.content} role={message.role} />
+                  <Message
+                    content={message.content}
+                    role={message.role}
+                    isStreaming={
+                      isStreaming &&
+                      message.role === "assistant" &&
+                      message === messages[messages.length - 1]
+                    }
+                  />
                 </div>
               ))}
               <div ref={messagesEndRef} />

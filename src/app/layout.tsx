@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         translate="no"
         suppressHydrationWarning
-        className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:text-primary`}
+        className={`min-h-screen overflow-y-scroll scroll-auto bg-background antialiased selection:bg-indigo-100 selection:text-primary`}
       >
         <SpeedInsights />
         <Analytics />

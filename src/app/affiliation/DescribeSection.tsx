@@ -10,12 +10,12 @@ export const DescribeSection = () => {
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <p className="text-[64px] font-semibold leading-[68px] text-white">
           {t(`How it`)}
-          <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+          <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
             {t(`Works`)}
           </span>
         </p>
         <div
-          className="rounded-[16px] bg-gradient-to-r from-[#0099FF] to-[#CC00FF] p-[1.5px]"
+          className="mx-2 rounded-[16px] bg-gradient-to-r from-[#0099FF] to-[#CC00FF] p-[1.5px]"
           style={{
             boxShadow: "0px 4px 60px 0px rgba(188, 46, 255, 0.25)",
           }}
@@ -27,7 +27,7 @@ export const DescribeSection = () => {
             }}
           >
             <p
-              className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent"
+              className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent"
               style={{
                 fontStyle: "italic",
               }}
@@ -51,7 +51,7 @@ export const DescribeSection = () => {
             }}
           >
             <p
-              className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent"
+              className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent"
               style={{
                 fontStyle: "italic",
               }}
@@ -70,7 +70,7 @@ export const DescribeSection = () => {
               {number === "3" && (
                 <>
                   {t(`Earn`)}
-                  <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+                  <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
                     {t(`30% Commission`)} -{" "}
                   </span>
                   {t(

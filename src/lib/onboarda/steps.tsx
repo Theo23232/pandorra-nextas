@@ -425,7 +425,7 @@ export const tours: Tour[] = [
           <>Ceci sert à réutiliser le prompt de l&apos;image déjà générée. </>
         ),
         selector: "#tour6-step4",
-        side: "bottom-left",
+        side: "bottom-right",
         showControls: true,
         pointerPadding: 12,
         pointerRadius: 12,

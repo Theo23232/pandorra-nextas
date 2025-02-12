@@ -1,4 +1,3 @@
-// /app/api/publication/comment/route.ts
 import { NextResponse } from "next/server"
 
 import { currentUser } from "@/lib/current-user"

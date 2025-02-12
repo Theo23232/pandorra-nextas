@@ -1,31 +1,44 @@
 // PublicationDialog.tsx
 "use client"
 
-import { Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, X, Zap } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
-import useSWR from 'swr';
-
-import { createComment } from '@/actions/publication.action';
-import { Input } from '@/components/tremor/inputs/input';
-import { Button } from '@/components/tremor/ui/button';
-import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
-} from '@/components/tremor/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import { formatDate } from '@/lib/formatDate';
-import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
-import { models } from '@/lib/leonardo/presets';
-import { fetcher } from '@/lib/utils';
-import { CommentWithAuthor } from '@/types/publicationType';
+  Download,
+  Eraser,
+  Expand,
+  Fullscreen,
+  Loader,
+  SendHorizontal,
+  X,
+  Zap,
+} from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
+import { toast } from "sonner"
+import useSWR from "swr"
 
-import CommentCard from './CommentCard';
-import RelatedPublications from './RelatedPublications';
+import { createComment } from "@/actions/publication.action"
+import { Input } from "@/components/tremor/inputs/input"
+import { Button } from "@/components/tremor/ui/button"
+import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Separator } from "@/components/ui/separator"
+import { formatDate } from "@/lib/formatDate"
+import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
+import { models } from "@/lib/leonardo/presets"
+import { fetcher } from "@/lib/utils"
+import { CommentWithAuthor } from "@/types/publicationType"
+
+import CommentCard from "./CommentCard"
+import RelatedPublications from "./RelatedPublications"
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -49,9 +62,9 @@ export default function PublicationDialog({
   publication,
 }: PublicationDialogProps) {
   const { t } = useTranslation()
-
+  const [isOpen, setIsOpen] = useState(false)
   const { data: comments, mutate } = useSWR<CommentWithAuthor[]>(
-    `/api/publication/comment?publicationId=${publication.id}`,
+    isOpen ? `/api/publication/comment?publicationId=${publication.id}` : null, // Conditional fetch
     fetcher,
   )
 
@@ -109,7 +122,7 @@ export default function PublicationDialog({
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-scroll p-4">
         <DialogTitle className="sr-only">

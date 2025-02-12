@@ -235,6 +235,7 @@ export default function Page() {
             <Button
               className="text-md h-10"
               onClick={handleGenerate}
+              isLoading={isLoading}
               id="tour9-step7"
             >
               {t(`Generate Sound Effects`)}

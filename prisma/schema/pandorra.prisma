@@ -1,174 +1,158 @@
 model Generation {
-    id             String   @id @default(cuid())
-    modelId        String?
-    motion         String?
-    motionModel    String?
-    motionStrength Int?
-    prompt         String?
-    negativePrompt String?
-    imageHeight    Int?
-    imageToVideo   String?
-    imageWidth     Int?
-    inferenceSteps Int?
-    ultra          Boolean?
-    public         Boolean?
-    scheduler      String?
-    sdVersion      String?
-    status         String?
-    presetStyle    String?
-    guidanceScale  Int?
-
-    promptMagic         Boolean?
-    promptMagicVersion  String?
-    promptMagicStrength String?
-    photoReal           Boolean?
-    photoRealStrength   Int?
-    fantasyAvatar       Boolean?
-    generated_images    GeneratedImage[]
-    userId              String
-    user                User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+  id                  String           @id @default(cuid())
+  modelId             String?
+  motion              String?
+  motionModel         String?
+  motionStrength      Int?
+  prompt              String?
+  negativePrompt      String?
+  imageHeight         Int?
+  imageToVideo        String?
+  imageWidth          Int?
+  inferenceSteps      Int?
+  ultra               Boolean?
+  public              Boolean?
+  scheduler           String?
+  sdVersion           String?
+  status              String?
+  presetStyle         String?
+  guidanceScale       Int?
+  promptMagic         Boolean?
+  promptMagicVersion  String?
+  promptMagicStrength String?
+  photoReal           Boolean?
+  photoRealStrength   Int?
+  fantasyAvatar       Boolean?
+  userId              String
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @default(now()) @updatedAt
+  generated_images    GeneratedImage[]
+  user                User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model GeneratedImage {
-    id           String      @id @default(cuid())
-    url          String
-    nsfw         Boolean     @default(false)
-    motionMP4URL String?
-    Generation   Generation? @relation(fields: [generationId], references: [id])
-    generationId String?
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+  id           String      @id @default(cuid())
+  url          String
+  nsfw         Boolean     @default(false)
+  motionMP4URL String?
+  generationId String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now()) @updatedAt
+  Generation   Generation? @relation(fields: [generationId], references: [id])
 }
 
 model UserImage {
-    id            String  @id @default(cuid())
-    userId        String
-    imageId       String
-    imageUrl      String
-    isAIGenerated Boolean @default(false)
-    isVariant     Boolean @default(false)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    VariantOriginal Variant[] @relation("OriginalToVariant")
-    VariantVariant  Variant[] @relation("VariantToOriginal")
+  id              String    @id @default(cuid())
+  userId          String
+  imageId         String
+  imageUrl        String
+  isAIGenerated   Boolean   @default(false)
+  isVariant       Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  VariantOriginal Variant[] @relation("OriginalToVariant")
+  VariantVariant  Variant[] @relation("VariantToOriginal")
 }
 
 model Variant {
-    id         String @id @default(cuid())
-    userId     String
-    originalId String
-    variantId  String
-
-    updatedAt DateTime @updatedAt
-    createdAt DateTime @default(now())
-
-    transformType String
-    original      UserImage @relation("OriginalToVariant", fields: [originalId], references: [id], onDelete: Cascade)
-    variant       UserImage @relation("VariantToOriginal", fields: [variantId], references: [id], onDelete: Cascade)
-    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String    @id @default(cuid())
+  userId        String
+  originalId    String
+  variantId     String
+  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime  @default(now())
+  transformType String
+  original      UserImage @relation("OriginalToVariant", fields: [originalId], references: [id], onDelete: Cascade)
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  variant       UserImage @relation("VariantToOriginal", fields: [variantId], references: [id], onDelete: Cascade)
 }
 
 model Publication {
-    id             String @id @default(cuid())
-    imageUrl       String
-    prompt         String
-    model          String
-    preset         String
-    generationType String
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
-
-    userId   String
-    user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-    comment  Comment[]
-    reaction Reaction[]
+  id             String     @id @default(cuid())
+  imageUrl       String
+  prompt         String
+  model          String
+  preset         String
+  generationType String
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @default(now()) @updatedAt
+  userId         String
+  comment        Comment[]
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reaction       Reaction[]
 }
 
 model PublicationVideo {
-    id       String @id @default(cuid())
-    videoUrl String
-    prompt   String
-    duration Int
-    ratio    String
-    status   String
-
-    createdAt DateTime @default(now())
-
-    userId        String
-    user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-    CommentVideo  CommentVideo[]
-    ReactionVideo ReactionVideo[]
+  id            String          @id @default(cuid())
+  videoUrl      String
+  prompt        String
+  duration      Int
+  ratio         String
+  status        String
+  createdAt     DateTime        @default(now())
+  userId        String
+  CommentVideo  CommentVideo[]
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ReactionVideo ReactionVideo[]
 }
 
 model Comment {
-    id   String   @id @default(cuid())
-    text String
-    date DateTime @default(now())
-
-    userId          String
-    user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-    publicationId   String
-    publication     Publication       @relation(fields: [publicationId], references: [id], onDelete: Cascade)
-    commentReaction CommentReaction[]
+  id              String            @id @default(cuid())
+  text            String
+  date            DateTime          @default(now())
+  userId          String
+  publicationId   String
+  publication     Publication       @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentReaction CommentReaction[]
 }
 
 model CommentVideo {
-    id   String   @id @default(cuid())
-    text String
-    date DateTime @default(now())
-
-    userId               String
-    user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    publicationVideoId   String
-    publicationVideo     PublicationVideo       @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
-    CommentVideoReaction CommentVideoReaction[]
+  id                   String                 @id @default(cuid())
+  text                 String
+  date                 DateTime               @default(now())
+  userId               String
+  publicationVideoId   String
+  publicationVideo     PublicationVideo       @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
+  user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  CommentVideoReaction CommentVideoReaction[]
 }
 
 model CommentReaction {
-    id        String  @id @default(cuid())
-    userId    String
-    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    commentId String
-    comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+  id        String   @id @default(cuid())
+  userId    String
+  commentId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model CommentVideoReaction {
-    id             String       @id @default(cuid())
-    userId         String
-    user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    commentVideoId String
-    commentVideo   CommentVideo @relation(fields: [commentVideoId], references: [id], onDelete: Cascade)
-
-    createdAt DateTime @default(now())
+  id             String       @id @default(cuid())
+  userId         String
+  commentVideoId String
+  createdAt      DateTime     @default(now())
+  commentVideo   CommentVideo @relation(fields: [commentVideoId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Reaction {
-    id            String      @id @default(cuid())
-    userId        String
-    user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-    publicationId String
-    publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
-    createdAt     DateTime    @default(now())
-    updatedAt     DateTime    @default(now()) @updatedAt
+  id            String      @id @default(cuid())
+  userId        String
+  publicationId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now()) @updatedAt
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ReactionVideo {
-    id                 String           @id @default(cuid())
-    userId             String
-    user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-    publicationVideoId String
-    publicationVideo   PublicationVideo @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
-
-    createdAt DateTime @default(now())
+  id                 String           @id @default(cuid())
+  userId             String
+  publicationVideoId String
+  createdAt          DateTime         @default(now())
+  publicationVideo   PublicationVideo @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -1,20 +1,20 @@
 "use client"
 
-import { Download, Edit, Send } from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Download, Edit, Send } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { createPublication } from '@/actions/publication.action';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { useSelectImage } from '@/hooks/use-select-image';
-import { useToast } from '@/hooks/use-toast';
-import { GeneratedImage } from '@prisma/client';
+import { createPublication } from "@/actions/publication.action"
+import ImageSmooth from "@/components/ImageSmooth"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { useSelectImage } from "@/hooks/use-select-image"
+import { useToast } from "@/hooks/use-toast"
+import { GeneratedImage } from "@prisma/client"
 
-import { DirectionAwareHover } from './GeneratedHover';
+import { DirectionAwareHover } from "./GeneratedHover"
 
 interface AllImageProps {
   prompt: string
@@ -156,7 +156,7 @@ export const AIImage = ({
         </DirectionAwareHover>
       </div>
       <DialogContent className="flex max-h-[80vh] max-w-2xl justify-center overflow-hidden border-none bg-transparent p-0 shadow-none">
-        <Image
+        <ImageSmooth
           src={image.url}
           className="max-h-[80vh] w-auto rounded-lg object-contain shadow"
           alt=""

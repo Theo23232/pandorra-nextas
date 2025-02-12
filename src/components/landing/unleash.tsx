@@ -1,19 +1,20 @@
 "use client"
 
-import Link from "next/link"
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/tremor/ui/button"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/tremor/ui/button';
 
 export function Unleash() {
+  const { t } = useTranslation()
   return (
     <>
       <div className="relative mt-14 flex w-full flex-col items-center justify-center overflow-hidden">
         <div className="absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center">
           <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
-            <p className="font-inter text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
-              Unleash Your Creativity <br />
-              Today
+            <p className="font-inter max-w-lg text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
+              {t(`Unleash Your Creativity Today`)}
             </p>
           </Bounce>
 
@@ -23,7 +24,7 @@ export function Unleash() {
                 variant={"gradient"}
                 className="mr-2 flex h-11 items-center justify-center rounded-full px-6 transition-all ease-in-out"
               >
-                Create for free
+                {t(`Create for free`)}
               </Button>
             </Link>
             <Link href={"/pricing"}>
@@ -31,7 +32,7 @@ export function Unleash() {
                 variant="ghost"
                 className="flex h-11 items-center justify-center gap-2 rounded-full bg-slate-600/50 text-white hover:bg-slate-600/60"
               >
-                View pricing
+                {t(`View pricing`)}
               </Button>
             </Link>
           </Bounce>

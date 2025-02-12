@@ -1,38 +1,37 @@
 // Page.tsx
 "use client"
-import * as Flags from "country-flag-icons/react/3x2"
-import { ElevenLabsClient } from "elevenlabs"
-import { useSearchParams } from "next/navigation"
-import { useOnborda } from "onborda"
-import React, { useEffect, useRef, useState } from "react"
-import useSWR, { mutate } from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ElevenLabsClient } from 'elevenlabs';
+import { useSearchParams } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { generateTTS } from "@/actions/elevenlabs.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { NothingYet } from "@/components/NothingYet"
-import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
+import { generateTTS } from '@/actions/elevenlabs.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { NothingYet } from '@/components/NothingYet';
+import { Button } from '@/components/tremor/ui/button';
+import { CardTitle } from '@/components/tremor/ui/card';
+import { Divider } from '@/components/tremor/ui/divider';
 import {
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useUser } from '@/hooks/use-user';
+import { languageOptions } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
+import { fetcher } from '@/lib/utils';
+import { TTS } from '@prisma/client';
+
+import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
+
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useUser } from "@/hooks/use-user"
-import { languageOptions } from "@/lib/elevenlabs/langList"
-import {
-  getVoiceNameById,
-  voicesList as vlist,
-  VoiceDetails,
-} from "@/lib/elevenlabs/voiceList"
-import { fetcher } from "@/lib/utils"
-import { TTS } from "@prisma/client"
-
-import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
-
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
   fr: "FR",
@@ -127,6 +126,7 @@ const textToSpeechExamples: TextToSpeechExample[] = [
   },
 ]
 export default function Page() {
+  const { t } = useTranslation()
   const searchParams = useSearchParams()
   const queryPrompt = searchParams?.get("prompt")
 
@@ -281,9 +281,9 @@ export default function Page() {
     <Button
       variant="outline"
       className="h-10 rounded-md text-sm text-foreground"
-      onClick={() => setPrompt(text)}
+      onClick={() => setPrompt(t(text))}
     >
-      {title}
+      {t(title)}
     </Button>
   )
 
@@ -296,7 +296,7 @@ export default function Page() {
           value={prompt}
           onChange={handleInput}
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
-          placeholder="Describe the sound you want..."
+          placeholder={t(`Describe the sound you want...`)}
         />
         <div className="flex items-center justify-between gap-2 p-4">
           <div className="flex items-center gap-2">
@@ -423,8 +423,8 @@ export default function Page() {
               </SelectContent>
             </Select>
             <Select value={lang} onValueChange={setLang}>
-              <SelectTrigger className="h-10 w-[180px]" id="tour10-step3">
-                <SelectValue placeholder="Select Language" />
+              <SelectTrigger className="h-10 w-[180px]"  id="tour10-step3">
+                <SelectValue placeholder={t(`Select Language`)} />
               </SelectTrigger>
               <SelectContent>
                 {languageOptions.map((item) => {
@@ -452,7 +452,7 @@ export default function Page() {
               onClick={handleGenerate}
               isLoading={isLoading}
             >
-              Generate voice
+              {t(`Generate voice`)}
             </Button>
           </div>
         </div>
@@ -460,7 +460,7 @@ export default function Page() {
 
       <MagicCard className="mt-4 p-4">
         <div className="text-center text-muted-foreground">
-          Or try out an example to get started!
+          {t(`Or try out an example to get started!`)}
         </div>
         <div
           className="mt-4 flex flex-wrap justify-center gap-2"
@@ -505,8 +505,8 @@ export default function Page() {
         </MagicCard>
       ) : (
         <NothingYet
-          subtitle="You voice generation will be displayed here"
-          title="There is no audio yet"
+          subtitle={t(`Your voice generation will be displayed here`)}
+          title={t(`There is no audio yet`)}
         />
       )}
     </div>

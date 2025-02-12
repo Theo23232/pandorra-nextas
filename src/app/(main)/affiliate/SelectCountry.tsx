@@ -1,6 +1,7 @@
 //@ts-ignore
 import countryRegionData from 'country-region-data/dist/data-umd';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
@@ -36,7 +37,7 @@ export function SelectCountry({
   placeholder = "Country",
 }: CountrySelectProps) {
   const [countries, setCountries] = useState<CountryRegion[]>([])
-
+  const { t } = useTranslation()
   useEffect(() => {
     setCountries(
       filterCountries(countryRegionData, priorityOptions, whitelist, blacklist),
@@ -50,12 +51,12 @@ export function SelectCountry({
       }}
     >
       <SelectTrigger className={className}>
-        <SelectValue placeholder={placeholder} />
+        <SelectValue placeholder={t(placeholder)} />
       </SelectTrigger>
       <SelectContent>
         {countries.map(({ countryName, countryShortCode }) => (
           <SelectItem key={countryShortCode} value={countryShortCode}>
-            {countryName}
+            {t(countryName)}
           </SelectItem>
         ))}
       </SelectContent>

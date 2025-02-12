@@ -1,11 +1,13 @@
 "use client"
-import { useRef, useState } from "react"
+import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function Page() {
+  const { t } = useTranslation()
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [prompt, setPrompt] = useState("")
   const charCount = prompt.length
@@ -27,13 +29,13 @@ export default function Page() {
           value={prompt}
           onChange={handleInput}
           className="min-h-[7.5vh] w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
-          placeholder="Describe the sound you want..."
+          placeholder={t(`Describe the video you want...`)}
         />
         <div className="absolute bottom-3 right-3 flex items-center gap-2">
           <div className="text-sm text-muted-foreground">
             {charCount.toLocaleString()} / {maxChars.toLocaleString()}
           </div>
-          <Button className="text-md h-9">Generate Vidéo</Button>
+          <Button className="text-md h-9">{t(`Generate Video`)}</Button>
         </div>
       </MagicCard>
     </div>

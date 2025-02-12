@@ -1,7 +1,7 @@
 enum Plan {
-    Free
-    WeeklyEco
-    StarterMonthly
-    AdvancedMonthly
-    PremiumMonthly
+  Free
+  WeeklyEco
+  StarterMonthly
+  AdvancedMonthly
+  PremiumMonthly
 }

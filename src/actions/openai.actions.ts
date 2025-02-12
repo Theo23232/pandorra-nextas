@@ -3,7 +3,6 @@ import OpenAI from 'openai';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true, // Only for client-side, not recommended for production
 })
 
 export const enhanceImagePrompt = async (prompt: string): Promise<string> => {

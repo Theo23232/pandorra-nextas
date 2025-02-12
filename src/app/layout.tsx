@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
-import "./globals.css"
-import "./outsideStyles.css"
+import './globals.css';
+import './outsideStyles.css';
 
-import NextTopLoader from "nextjs-toploader"
+import NextTopLoader from 'nextjs-toploader';
 
-import { Providers } from "@/context/providers"
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Providers } from '@/context/providers';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: "Pandorra ai",
@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         translate="no"
         suppressHydrationWarning
-        className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:bg-indigo-100 selection:text-primary dark:bg-background`}
+        className={`min-h-screen overflow-y-scroll scroll-auto antialiased selection:text-primary`}
       >
         <SpeedInsights />
         <Analytics />

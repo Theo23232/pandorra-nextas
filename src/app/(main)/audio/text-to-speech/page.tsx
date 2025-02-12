@@ -26,12 +26,6 @@ import { TTS } from '@prisma/client';
 
 import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
   fr: "FR",
@@ -423,7 +417,7 @@ export default function Page() {
               </SelectContent>
             </Select>
             <Select value={lang} onValueChange={setLang}>
-              <SelectTrigger className="h-10 w-[180px]"  id="tour10-step3">
+              <SelectTrigger className="h-10 w-[180px]" id="tour10-step3">
                 <SelectValue placeholder={t(`Select Language`)} />
               </SelectTrigger>
               <SelectContent>

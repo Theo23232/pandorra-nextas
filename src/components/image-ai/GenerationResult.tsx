@@ -4,6 +4,7 @@ import { Check, Copy, CornerLeftUp, Menu, Move, Zap } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { MagicCard } from '@/components/animated/magic-ui/magic-card';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
@@ -28,6 +29,7 @@ export const GenerationResult = ({
   isLoading = false,
   generated,
 }: GenerationResultProps) => {
+  const { t } = useTranslation()
   const model = models.find((m) => m.id === generated?.modelId)
   const [isCopied, setIsCopied] = useState(false)
   const router = useRouter()
@@ -78,12 +80,12 @@ export const GenerationResult = ({
     <div className="flex w-full items-center justify-between pb-4 pt-8">
       <div className="flex items-center gap-2">
         {renderTooltipButton(
-          "Reuse generation option",
+          t(`Reuse generation option`),
           <Button
             variant="outline"
             size="icon"
-            id="tour6-step4"
             onClick={handleReuseGeneration}
+            id="tour6-step4"
           >
             <CornerLeftUp size={20} />
           </Button>,
@@ -102,7 +104,7 @@ export const GenerationResult = ({
             {isCopied ? (
               <>
                 <Check size={16} className="text-green-500" />
-                <span className="text-green-500">Copied</span>
+                <span className="text-green-500">{t(`Copied`)}</span>
               </>
             ) : (
               <Copy size={16} />
@@ -113,7 +115,7 @@ export const GenerationResult = ({
       <div className="flex gap-4">
         <div className="flex gap-4" id="tour6-step6">
           {renderTooltipButton(
-            `Model : ${model?.name ?? ""}`,
+            `${t(`Model`)} : ${model?.name ?? ""}`,
             <div className="Model flex items-center gap-2">
               {model?.generated_image?.url && (
                 <Image
@@ -127,11 +129,11 @@ export const GenerationResult = ({
             </div>,
           )}
           {renderTooltipButton(
-            `Preset style ${generated?.presetStyle ?? ""}`,
+            `${t(`Preset style`)} ${t(generated?.presetStyle || "")}`,
             <Zap size={20} />,
           )}
           {renderTooltipButton(
-            `Resolution : ${generated?.imageWidth} × ${generated?.imageHeight}`,
+            `${t(`Resolution`)} : ${generated?.imageWidth} × ${generated?.imageHeight}`,
             <Move size={20} className="rotate-45" />,
           )}
         </div>

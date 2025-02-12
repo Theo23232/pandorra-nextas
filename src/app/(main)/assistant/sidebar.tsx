@@ -1,28 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ChevronDown, Download, Loader, Plus } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
 
-import * as Flags from "country-flag-icons/react/3x2"
-import { ChevronDown, Download, Loader, Plus } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useState } from "react"
-import useSWR from "swr"
+import { getConversationAudio } from '@/actions/assistant.actions';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Card } from '@/components/tremor/ui/card';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useUser } from '@/hooks/use-user';
+import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
+import { formatTimePassed } from '@/lib/utils';
 
-import { getConversationAudio } from "@/actions/assistant.actions"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Card } from "@/components/tremor/ui/card"
-import { Button } from "@/components/ui/button"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useUser } from "@/hooks/use-user"
-import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
-import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
-import { formatTimePassed } from "@/lib/utils"
-
-import { Conversation } from "./conversation"
+import { Conversation } from './conversation';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -57,6 +53,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ onSelectConversation }: SidebarProps) {
+  const { t } = useTranslation()
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [downloadingId, setDownloadingId] = useState("")
@@ -84,6 +81,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
     setDownloadingId("")
   }
 
+  if (error) return <div>{t(`Failed to load`)}</div>
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
@@ -104,7 +102,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="mb-4 w-full" id="tour7-step1">
-              <Plus className="mr-2 h-4 w-4" /> Create Discussion
+              <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -122,7 +120,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
             className="mb-2 flex w-full items-center justify-between"
             id="tour7-step2"
           >
-            <h3 className="text-lg font-semibold">Agents</h3>
+            <h3 className="text-lg font-semibold">{t(`Agents`)}</h3>
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
           <CollapsibleContent>
@@ -136,7 +134,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
             className="mb-2 flex w-full items-center justify-between"
             id="tour7-step3"
           >
-            <h3 className="text-lg font-semibold">Conversations</h3>
+            <h3 className="text-lg font-semibold">{t(`Conversations`)}</h3>
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
           <CollapsibleContent>
@@ -163,7 +161,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button className="mb-4 w-full" id="tour7-step1">
-            <Plus className="mr-2 h-4 w-4" /> Create Discussion
+            <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
           </Button>
         </DialogTrigger>
         <DialogContent>
@@ -178,7 +176,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
 
       <Collapsible defaultOpen id="tour7-step2">
         <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">
-          <h3 className="text-lg font-semibold">Agents</h3>
+          <h3 className="text-lg font-semibold">{t(`Agents`)}</h3>
           <ChevronDown className="h-4 w-4" />
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -197,7 +195,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
                 />
                 <div>
                   <p className="font-medium">
-                    Agent {getVoiceNameById(agent.voiceId)}
+                    {t(`Agent`)} {getVoiceNameById(agent.voiceId)}
                   </p>
                   <p className="flex items-center gap-2 text-sm text-muted-foreground">
                     <CountryFlag className="mr-1 h-4 w-4" />
@@ -212,7 +210,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
 
       <Collapsible defaultOpen className="mt-4" id="tour7-step3">
         <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">
-          <h3 className="text-lg font-semibold">Conversations</h3>
+          <h3 className="text-lg font-semibold">{t(`Conversations`)}</h3>
           <ChevronDown className="h-4 w-4" />
         </CollapsibleTrigger>
         <CollapsibleContent>

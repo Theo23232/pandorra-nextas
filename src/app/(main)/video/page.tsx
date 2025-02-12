@@ -1,33 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Upload, X } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useRef, useState } from "react"
-import Masonry from "react-masonry-css"
-import useSWR, { mutate } from "swr"
+import { Upload, X } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Masonry from 'react-masonry-css';
+import useSWR, { mutate } from 'swr';
 
-import { enhanceVideoPrompt } from "@/actions/openai.actions"
-import { generateVideoFromImage } from "@/actions/runway.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { NothingYet } from "@/components/NothingYet"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { enhanceVideoPrompt } from '@/actions/openai.actions';
+import { generateVideoFromImage } from '@/actions/runway.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { NothingYet } from '@/components/NothingYet';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { fetcher } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { fetcher } from '@/lib/utils';
 
 import type { Video } from "@prisma/client"
 import type React from "react"
+
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
@@ -35,6 +33,7 @@ const SkeletonLoader = () => (
 )
 
 export default function VideoGenerator() {
+  const { t } = useTranslation()
   const { data: histories } = useSWR<Video[]>("/api/video", fetcher)
   const [image, setImage] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
@@ -64,8 +63,8 @@ export default function VideoGenerator() {
   const handleSubmit = async () => {
     if (!image && !promptText) {
       toast({
-        title: "Error",
-        description: "Please select an image or add text for the prompt",
+        title: t(`Error`),
+        description: t(`Please select an image or add text for the prompt`),
         variant: "error",
       })
       return
@@ -94,8 +93,8 @@ export default function VideoGenerator() {
       mutate("/api/video")
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to generate video",
+        title: t(`Error`),
+        description: t(`Failed to generate video`),
         variant: "error",
       })
     } finally {
@@ -119,8 +118,8 @@ export default function VideoGenerator() {
         setPromptText(enhancedPrompt)
       } catch (error) {
         toast({
-          title: "Error",
-          description: "Prompt enhancement failed",
+          title: t(`Error`),
+          description: t(`Prompt enhancement failed`),
           variant: "error",
         })
       }
@@ -148,18 +147,18 @@ export default function VideoGenerator() {
           value={promptText}
           onChange={handleInput}
           className="mb-4 w-full resize-none overflow-hidden border-0 bg-transparent text-xl shadow-none focus-visible:ring-0"
-          placeholder="Describe the video you want..."
           id="tour8-step1"
+          placeholder={t(`Describe the video you want...`)}
         />
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <Select value={duration} onValueChange={setDuration}>
               <SelectTrigger className="w-[100px]" id="tour8-step2">
-                <SelectValue placeholder="Duration" />
+                <SelectValue placeholder={t(`Duration`)} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="5">5 seconds</SelectItem>
-                <SelectItem value="10">10 seconds</SelectItem>
+                <SelectItem value="5">5 {t(`seconds`)}</SelectItem>
+                <SelectItem value="10">10 {t(`seconds`)}</SelectItem>
               </SelectContent>
             </Select>
             <Select value={ratio} onValueChange={setRatio}>
@@ -167,8 +166,8 @@ export default function VideoGenerator() {
                 <SelectValue placeholder="Aspect Ratio" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1280:768">Landscape</SelectItem>
-                <SelectItem value="768:1280">Portrait</SelectItem>
+                <SelectItem value="1280:768">{t(`Landscape`)}</SelectItem>
+                <SelectItem value="768:1280">{t(`Portrait`)}</SelectItem>
               </SelectContent>
             </Select>
             <div className="" id="tour8-step4">
@@ -177,9 +176,12 @@ export default function VideoGenerator() {
                 className="flex cursor-pointer items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
               >
                 <Upload className="h-5 w-5" />
-                <span>{previewUrl ? "Change image" : "Upload image"}</span>
+                <span>
+                  {previewUrl ? t(`Change image`) : t(`Upload image`)}
+                </span>
               </Label>
               <input
+                id="image-upload"
                 type="file"
                 accept="image/*"
                 className="hidden"
@@ -194,7 +196,7 @@ export default function VideoGenerator() {
             onClick={handleSubmit}
             disabled={loading}
           >
-            {loading ? "Processing..." : "Generate Video"}
+            {loading ? t(`Processing...`) : t(`Generate Video`)}
           </Button>
         </div>
         {previewUrl && (

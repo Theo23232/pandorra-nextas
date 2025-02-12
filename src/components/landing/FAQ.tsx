@@ -2,6 +2,7 @@
 
 import { Minus, Plus } from 'lucide-react';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
     Accordion, AccordionContent, AccordionItem, AccordionTrigger
@@ -25,31 +26,35 @@ const faqItems = [
     },
     {
       question: "How does AI content generation work?",
-      answer: "Details about commission structure and earning potential.",
+      answer:
+        "Your prompt is sent to our servers and processed by our AI model.",
     },
     {
       question: "Do I need technical skills to use Pandorra.ai?",
-      answer: "Information about payment schedules and processes.",
+      answer:
+        "No, Pandorra is designed for a broad audience, so you do not need technical skills.",
     },
   ],
   [
     {
       question: "How do I purchase more credits?",
-      answer: "Details about the earnings dashboard and tracking system.",
+      answer:
+        "You can purchase more credits by clicking the 'Add More Credits' tab and choosing the amount you want.",
     },
     {
       question: "Can I use AI-generated content for commercial purposes?",
-      answer: "Information about referral requirements and earning conditions.",
+      answer: "Yes, you own your generated content.",
     },
     {
       question: "What makes Pandorra.ai different from other AI platforms?",
       answer:
-        "Explanation of policies regarding subscription cancellations and earnings.",
+        "We use the most advanced AI models, and you can access them all on a single platform with just one subscription.",
     },
   ],
 ]
 
 function FAQAccordion() {
+  const { t } = useTranslation()
   const [openItem, setOpenItem] = React.useState<string | undefined>(undefined)
 
   return (
@@ -84,7 +89,7 @@ function FAQAccordion() {
                       <AccordionTrigger className="px-6 py-4 hover:no-underline">
                         <div className="flex w-full items-start justify-between">
                           <span className="pr-4 text-left text-[24px] font-medium text-white">
-                            {item.question}
+                            {t(item.question)}
                           </span>
                           <div className="mt-1 flex-shrink-0">
                             <AccordionIcon isOpen={isOpen} />
@@ -92,7 +97,7 @@ function FAQAccordion() {
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="max-w-[450px] px-3 pb-4 text-start text-slate-300 transition-all duration-300 ease-in-out">
-                        {item.answer}
+                        {t(item.answer)}
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
@@ -107,16 +112,18 @@ function FAQAccordion() {
 }
 
 export default function FAQ() {
+  const { t } = useTranslation()
+
   return (
     <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8">
       <p
         id="FAQ"
         className="text-[64px] font-semibold leading-[68px] text-white"
       >
-        Curious About Pandorra.ai?
+        {t(`Curious About Pandorra.ai?`)}
         <br />
         <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-          We’ve Got You Covered!
+          {t(`We’ve Got You Covered!`)}
         </span>
       </p>
       <div className="relative">

@@ -2,6 +2,7 @@
 
 import { Minus, Plus } from 'lucide-react';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
     Accordion, AccordionContent, AccordionItem, AccordionTrigger
@@ -49,6 +50,7 @@ const faqItems = [
 ]
 
 export default function FAQAccordion() {
+  const { t } = useTranslation()
   const [openItem, setOpenItem] = React.useState<string | undefined>(undefined)
 
   return (
@@ -83,7 +85,7 @@ export default function FAQAccordion() {
                       <AccordionTrigger className="px-6 py-4 hover:no-underline">
                         <div className="flex w-full items-start justify-between">
                           <span className="pr-4 text-left text-[24px] font-medium text-white">
-                            {item.question}
+                            {t(item.question)}
                           </span>
                           <div className="mt-1 flex-shrink-0">
                             <AccordionIcon isOpen={isOpen} />
@@ -91,7 +93,7 @@ export default function FAQAccordion() {
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="max-w-[450px] px-3 pb-4 text-start text-slate-300 transition-all duration-300 ease-in-out">
-                        {item.answer}
+                        {t(item.answer)}
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>

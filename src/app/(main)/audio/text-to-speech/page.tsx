@@ -1,30 +1,38 @@
 // Page.tsx
 "use client"
-import * as Flags from 'country-flag-icons/react/3x2';
-import { ElevenLabsClient } from 'elevenlabs';
-import { useSearchParams } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+import * as Flags from "country-flag-icons/react/3x2"
+import { ElevenLabsClient } from "elevenlabs"
+import { useSearchParams } from "next/navigation"
+import { useOnborda } from "onborda"
+import React, { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { generateTTS } from '@/actions/elevenlabs.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { NothingYet } from '@/components/NothingYet';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { Divider } from '@/components/tremor/ui/divider';
+import { generateTTS } from "@/actions/elevenlabs.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { Divider } from "@/components/tremor/ui/divider"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { useUser } from '@/hooks/use-user';
-import { languageOptions } from '@/lib/elevenlabs/langList';
-import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
-import { fetcher } from '@/lib/utils';
-import { TTS } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { useUser } from "@/hooks/use-user"
+import { languageOptions } from "@/lib/elevenlabs/langList"
+import {
+  getVoiceNameById,
+  voicesList as vlist,
+  VoiceDetails,
+} from "@/lib/elevenlabs/voiceList"
+import { fetcher } from "@/lib/utils"
+import { TTS } from "@prisma/client"
 
-import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -466,7 +474,7 @@ export default function Page() {
         </div>
       </MagicCard>
 
-      {data ? (
+      {!(data?.length === 0) ? (
         <MagicCard className="mt-4 flex flex-col gap-2 p-5">
           {data?.map((audio, index) => {
             const CountryFlag = Flags[languageToCountry[audio.lang] || "GB"]
@@ -498,10 +506,12 @@ export default function Page() {
           })}
         </MagicCard>
       ) : (
-        <NothingYet
-          subtitle={t(`Your voice generation will be displayed here`)}
-          title={t(`There is no audio yet`)}
-        />
+        <div id="tour10-step6" className="mt-4">
+          <NothingYet
+            subtitle={t(`Your voice generation will be displayed here`)}
+            title={t(`There is no audio yet`)}
+          />
+        </div>
       )}
     </div>
   )

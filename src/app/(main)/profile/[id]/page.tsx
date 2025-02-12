@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const searchParams = useSearchParams()
 
   // Exemple pour récupérer une valeur spécifique
-  const userId = searchParams.get("userId")
+  const userId = searchParams ? searchParams.get("userId") : null
 
   const { data: user } = useSWR(`/api/user/search?userId=${userId}`, fetcher)
 

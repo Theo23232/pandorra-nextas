@@ -10,7 +10,7 @@ export default function Program() {
     <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8">
       <p className="text-[64px] font-semibold leading-[68px] text-white">
         {t(`Affiliate Program`)} {""}
-        <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+        <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
           FAQ
         </span>{" "}
       </p>

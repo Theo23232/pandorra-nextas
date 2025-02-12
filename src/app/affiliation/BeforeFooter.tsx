@@ -42,7 +42,7 @@ export default function BeforeFooter() {
           </p>
           <p className="text-center text-[16px] text-white">
             🔗
-            <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
+            <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`Sign up now`)}
             </span>
             {t(`and get your referral link instantly!`)}

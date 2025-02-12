@@ -37,28 +37,42 @@ export async function postMessage(gptConversationId: string, content: string) {
   }))
 
   try {
-    // Appel à l'API OpenAI
-    const response = await openai.chat.completions.create({
-      messages,
+    // Appel à l'API OpenAI avec streaming
+    const stream = await openai.chat.completions.create({
       model: "gpt-4",
+      messages,
+      stream: true, // Activer le streaming
     })
 
-    const assistantMessageContent = response.choices[0]?.message?.content
+    // Retourner un ReadableStream pour le client
+    const readableStream = new ReadableStream({
+      async start(controller) {
+        let assistantMessageContent = ""
 
-    if (assistantMessageContent) {
-      // Enregistrer le message de l'assistant
-      const assistantMessage = await prisma.message.create({
-        data: {
-          content: assistantMessageContent,
-          role: "Pandorra",
-          gptConversationId,
-        },
-      })
+        for await (const chunk of stream) {
+          const chunkContent = chunk.choices[0]?.delta?.content || ""
+          assistantMessageContent += chunkContent
 
-      return { userMessage, assistantMessage }
-    } else {
-      throw new Error("OpenAI did not return a message")
-    }
+          // Envoyer chaque chunk au client
+          controller.enqueue(new TextEncoder().encode(chunkContent))
+        }
+
+        // Enregistrer le message de l'assistant une fois le streaming terminé
+        await prisma.message.create({
+          data: {
+            content: assistantMessageContent,
+            role: "assistant",
+            gptConversationId,
+          },
+        })
+
+        controller.close()
+      },
+    })
+
+    return new Response(readableStream, {
+      headers: { "Content-Type": "text/plain" },
+    })
   } catch (error) {
     console.error("Error contacting OpenAI:", error)
     throw new Error("Error contacting OpenAI")

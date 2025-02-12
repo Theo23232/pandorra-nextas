@@ -14,6 +14,9 @@ export async function GET() {
     const conversations = await prisma.gptConversation.findMany({
       where: { userId: user.id },
       include: { messages: true },
+      orderBy: {
+        createdAt: "desc",
+      },
     })
     return NextResponse.json(conversations)
   } catch (error) {

@@ -35,8 +35,9 @@ export function ConversationList({
   }
 
   return (
-    <MagicCard className="sticky top-20 h-fit max-h-[70vh] w-96 overflow-y-auto border-l bg-card p-4">
-      <Button onClick={createConversation}>
+    <MagicCard className="sticky top-20 h-fit max-h-[70vh] w-64 overflow-y-auto border-l bg-card p-4">
+      {" "}
+      <Button onClick={createConversation} className="w-full">
         <Plus className="mr-2" /> New Conversation
       </Button>
       <div className="mt-4">
@@ -46,7 +47,7 @@ export function ConversationList({
             variant={`${
               selectedConversationId === conversation.id ? "outline" : "ghost"
             }`}
-            className="w-full justify-start"
+            className="w-full justify-start truncate"
             onClick={() => onSelectConversation(conversation.id)}
           >
             {conversation.title}

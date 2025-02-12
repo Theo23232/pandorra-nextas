@@ -1,14 +1,18 @@
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/ui/button"
+"use client"
+import { useTranslation } from 'react-i18next';
+
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/ui/button';
 
 /* eslint-disable @next/next/no-img-element */
 export default function ReasonToJoin() {
+  const { t } = useTranslation()
   return (
     <div className="mt-[272px] flex flex-col items-center justify-center gap-8">
       <Bounce className="text-[64px] font-semibold leading-[68px] text-white">
-        Why Join Our {""}
+        {t(`Why Join Our`)} {""}
         <span className="bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
-          Affiliate Program
+          {t(`Affiliate Program`)}
         </span>{" "}
         ?
       </Bounce>
@@ -68,12 +72,10 @@ export default function ReasonToJoin() {
           </defs>
         </svg>
         <Bounce className="flex w-[730px] flex-col items-start">
-          <p className="mb-[40px] text-white">
-            Turn your influence into income with Pandorra.ai’s Affiliate
-            Program! Earn 30% recurring <br /> commission on every subscription
-            and enjoy limitless earning potential. With real-time <br />{" "}
-            tracking, fast payouts, and a top-tier AI platform, promoting
-            Pandorra.ai has never been <br /> easier.
+          <p className="mb-[40px] max-w-lg text-white">
+            {t(
+              `Turn your influence into income with Pandorra.ai’s Affiliate Program! Earn 30% commission on every subscription and enjoy limitless earning potential. With real-time tracking, fast payouts, and a top-tier AI platform, promoting Pandorra.ai has never been easier.`,
+            )}
           </p>
           <div className="flex flex-col gap-[25px]">
             <div className="flex items-center gap-[10px] text-white">
@@ -100,8 +102,8 @@ export default function ReasonToJoin() {
                 />
               </svg>
               <p className="font-thin">
-                <span className="font-semibold">High Earnings - </span> 30%
-                recurring commussion on every subscription.
+                <span className="font-semibold">{t(`High Earnings`)} - </span>{" "}
+                {t(`30% commission on every subscription.`)}
               </p>
             </div>
             <div className="flex items-center gap-[10px] text-white">
@@ -128,8 +130,10 @@ export default function ReasonToJoin() {
                 />
               </svg>
               <p className="font-thin">
-                <span className="font-semibold">Unlimited Potential - </span> No
-                cap on how much you can earn.
+                <span className="font-semibold">
+                  {t(`Unlimited Potential`)} -{" "}
+                </span>{" "}
+                {t(`No cap on how much you can earn.`)}
               </p>
             </div>
             <div className="flex items-center gap-[10px] text-white">
@@ -156,8 +160,10 @@ export default function ReasonToJoin() {
                 />
               </svg>
               <p className="font-thin">
-                <span className="font-semibold">Easy Tracking - </span>{" "}
-                Real-time dashboard to track clicks, sign-ups, and commissions.
+                <span className="font-semibold">{t(`Easy Tracking`)} - </span>{" "}
+                {t(
+                  `Real-time dashboard to track clicks, sign-ups, and commissions.`,
+                )}
               </p>
             </div>
             <div className="flex items-center gap-[10px] text-white">
@@ -184,8 +190,8 @@ export default function ReasonToJoin() {
                 />
               </svg>
               <p className="font-thin">
-                <span className="font-semibold">Fast Payouts - </span> Get paid
-                quickly and securely.
+                <span className="font-semibold">{t(`Fast Payouts`)} - </span>{" "}
+                {t(`Get paid quickly and securely.`)}
               </p>
             </div>
             <div className="flex items-center gap-[10px] text-white">
@@ -212,8 +218,10 @@ export default function ReasonToJoin() {
                 />
               </svg>
               <p className="font-thin">
-                <span className="font-semibold">Quality AI Platform - </span>{" "}
-                Promote a cutting-edge AI tool that users love.
+                <span className="font-semibold">
+                  {t(`Quality AI Platform`)} -{" "}
+                </span>{" "}
+                {t(`Promote a cutting-edge AI tool that users love.`)}
               </p>
             </div>
           </div>
@@ -228,7 +236,7 @@ export default function ReasonToJoin() {
               "linear-gradient(277deg, #BC2EFF -10.29%, #359CFF 109.44%), #8645FF",
           }}
         >
-          Start earning today! 🚀
+          {t(`Start earning today!`)} 🚀
         </Button>
       </Bounce>
     </div>

@@ -1,24 +1,21 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Mic, MicOff, StopCircle } from "lucide-react"
-import { useCallback, useEffect, useState } from "react"
-import { mutate } from "swr"
+import { motion } from 'framer-motion';
+import { Mic, MicOff, StopCircle } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
 
-import { createAgent, saveConversation } from "@/actions/assistant.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { createAgent, saveConversation } from '@/actions/assistant.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/tremor/inputs/select"
-import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
-import { languageOptions } from "@/lib/elevenlabs/langList"
-import { voicesList } from "@/lib/elevenlabs/voiceList"
-import { useConversation } from "@11labs/react"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/tremor/inputs/select';
+import { Button } from '@/components/tremor/ui/button';
+import { CardTitle } from '@/components/tremor/ui/card';
+import { languageOptions } from '@/lib/elevenlabs/langList';
+import { voicesList } from '@/lib/elevenlabs/voiceList';
+import { useConversation } from '@11labs/react';
 
 interface ConversationProps {
   onClose?: () => void
@@ -33,6 +30,7 @@ export function Conversation({
   preSelectedVoiceId,
   preSelectedLanguage,
 }: ConversationProps) {
+  const { t } = useTranslation()
   const [lang, setLang] = useState(preSelectedLanguage || "en")
   const [agentId, setAgentId] = useState(preSelectedAgentId || "")
   const [voiceId, setVoiceId] = useState(preSelectedVoiceId || voicesList[0].id)
@@ -88,8 +86,8 @@ export function Conversation({
         <AnimatedGradientCircle isSpeaking={conversation.isSpeaking} />
         <CardTitle className="mt-4 font-bold">
           {preSelectedAgentId
-            ? "Continue Conversation"
-            : "Start New Conversation"}
+            ? t(`Continue Conversation`)
+            : t(`Start New Conversation`)}
         </CardTitle>
 
         <Select
@@ -98,7 +96,7 @@ export function Conversation({
           disabled={!!preSelectedVoiceId}
         >
           <SelectTrigger className="h-[50px] w-[300px]" id="tour7-step5">
-            <SelectValue placeholder="Select Voice" />
+            <SelectValue placeholder={t(`Select Voice`)} />
           </SelectTrigger>
           <SelectContent>
             {voicesList.map((item) => (
@@ -115,7 +113,7 @@ export function Conversation({
           disabled={!!preSelectedLanguage}
         >
           <SelectTrigger className="h-[50px] w-[300px]" id="tour7-step6">
-            <SelectValue placeholder="Select Language" />
+            <SelectValue placeholder={t(`Select Language`)} />
           </SelectTrigger>
           <SelectContent>
             {languageOptions.map((item) => (
@@ -133,8 +131,8 @@ export function Conversation({
             isLoading={isLoading}
             id="tour7-step7"
           >
-            <Mic className={`h-4 w-4 ${isLoading ?? "hidden"}`} /> Start
-            Conversation
+            <Mic className={`h-4 w-4 ${isLoading ?? "hidden"}`} />{" "}
+            {t(`Start Conversation`)}
           </Button>
         ) : (
           <Button
@@ -143,8 +141,8 @@ export function Conversation({
             className="w-[300px] gap-2"
             isLoading={isLoading}
           >
-            <StopCircle className={`h-4 w-4 ${isLoading ?? "hidden"}`} /> Stop
-            Conversation
+            <StopCircle className={`h-4 w-4 ${isLoading ?? "hidden"}`} />{" "}
+            {t(`Stop Conversation`)}
           </Button>
         )}
 
@@ -153,12 +151,12 @@ export function Conversation({
             {conversation.isSpeaking ? (
               <>
                 <Mic className="h-4 w-4 text-green-500" />
-                <span>Agent is speaking</span>
+                <span>{t(`Agent is speaking`)}</span>
               </>
             ) : (
               <>
                 <MicOff className="h-4 w-4 text-gray-500" />
-                <span>Agent is listening</span>
+                <span>{t(`Agent is listening`)}</span>
               </>
             )}
           </div>

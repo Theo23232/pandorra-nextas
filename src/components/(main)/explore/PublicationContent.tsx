@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Masonry from 'react-masonry-css';
 import useSWR from 'swr';
 
@@ -13,6 +14,7 @@ import { PublicationVideoWithAuthor, PublicationWithAuthor } from '@/types/publi
 import PubCard from './PubCard';
 
 export const PublicationContent = () => {
+  const { t } = useTranslation()
   const {
     data: publications,
     error,
@@ -67,7 +69,7 @@ export const PublicationContent = () => {
   if (error) {
     return (
       <div className="w-full text-center text-red-500">
-        Error loading publications
+        {t(`Error loading publications`)}
       </div>
     )
   }

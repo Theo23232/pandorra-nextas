@@ -1,30 +1,21 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import * as z from 'zod';
 
-import { editUser } from "@/actions/user.ations"
-import { Input } from "@/components/tremor/inputs/input"
-import { Textarea } from "@/components/tremor/inputs/textarea"
-import { Button } from "@/components/tremor/ui/button"
+import { editUser } from '@/actions/user.ations';
+import { Input } from '@/components/tremor/inputs/input';
+import { Textarea } from '@/components/tremor/inputs/textarea';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/tremor/ui/card"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { zodResolver } from "@hookform/resolvers/zod"
+    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 /**
  * Schema for validating personal information form fields.
@@ -50,6 +41,7 @@ const personalInfoSchema = z.object({
 })
 
 export function PersonalInfoForm() {
+  const { t } = useTranslation()
   const { user, isLoading: isUserLoading } = useUser()
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
@@ -84,17 +76,18 @@ export function PersonalInfoForm() {
     )
       .then(() => {
         toast({
-          title: "Success",
-          description:
-            "Your personal information has been updated successfully.",
+          title: t(`Success`),
+          description: t(
+            `Your personal information has been updated successfully.`,
+          ),
           variant: "success",
           duration: 3000,
         })
       })
       .catch((e) => {
         toast({
-          title: "Error",
-          description: e.message,
+          title: t(`Error`),
+          description: t(e.message),
           variant: "error",
           duration: 3000,
         })
@@ -106,8 +99,10 @@ export function PersonalInfoForm() {
 
   return (
     <Card>
-      <CardTitle>Personal Information</CardTitle>
-      <CardDescription>Update your personal information here.</CardDescription>
+      <CardTitle>{t(`Personal Information`)}</CardTitle>
+      <CardDescription>
+        {t(`Update your personal information here.`)}
+      </CardDescription>
       <CardContent className="p-0">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -116,7 +111,7 @@ export function PersonalInfoForm() {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>{t(`First Name`)}</FormLabel>
                   <FormControl>
                     <Input placeholder="John" {...field} />
                   </FormControl>
@@ -129,7 +124,7 @@ export function PersonalInfoForm() {
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>{t(`Last Name`)}</FormLabel>
                   <FormControl>
                     <Input placeholder="Doe" {...field} />
                   </FormControl>
@@ -142,7 +137,7 @@ export function PersonalInfoForm() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{t(`Username`)}</FormLabel>
                   <FormControl>
                     <Input placeholder="johndoe" {...field} />
                   </FormControl>
@@ -155,7 +150,7 @@ export function PersonalInfoForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>{t(`Description`)}</FormLabel>
                   <FormControl>
                     <Textarea placeholder="Something about you" {...field} />
                   </FormControl>
@@ -165,7 +160,7 @@ export function PersonalInfoForm() {
             />
 
             <Button type="submit" isLoading={isLoading}>
-              Save Changes
+              {t(`Save Changes`)}
             </Button>
           </form>
         </Form>

@@ -1,15 +1,15 @@
-import { editLangange } from "@/actions/user.ations"
+"use client"
+import { useTranslation } from 'react-i18next';
+
+import { editLangange } from '@/actions/user.ations';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/tremor/inputs/select"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/tremor/inputs/select';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
 
 export function EditTheme() {
+  const { t } = useTranslation()
   const { user } = useUser()
   const { toast } = useToast()
   const data = [
@@ -31,16 +31,16 @@ export function EditTheme() {
     await editLangange(value)
       .then(() => {
         toast({
-          title: "Success",
-          description: "Your prefered theme has been updated successfully.",
+          title: t(`success`),
+          description: t(`Your preferred theme has been updated successfully.`),
           variant: "success",
           duration: 3000,
         })
       })
       .catch((e) => {
         toast({
-          title: "Error",
-          description: e.message,
+          title: t(`Error`),
+          description: t(e.message),
           variant: "error",
           duration: 3000,
         })
@@ -58,7 +58,7 @@ export function EditTheme() {
         <SelectContent>
           {data.map((item) => (
             <SelectItem key={item.value} value={item.value}>
-              {item.label}
+              {t(item.label)}
             </SelectItem>
           ))}
         </SelectContent>

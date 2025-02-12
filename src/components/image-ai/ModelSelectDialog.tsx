@@ -1,22 +1,18 @@
 "use client"
 
-import { WandSparkles } from "lucide-react"
-import Image from "next/image"
-import { ReactNode } from "react"
+import { WandSparkles } from 'lucide-react';
+import Image from 'next/image';
+import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Card, CardContent } from "@/components/ui/card"
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Card, CardContent } from '@/components/ui/card';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Model, models } from "@/lib/leonardo/presets"
-import { cn } from "@/lib/utils"
+    Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
+} from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Model, models } from '@/lib/leonardo/presets';
+import { cn } from '@/lib/utils';
 
 export type ModelSelectDialogProps = {
   children: ReactNode
@@ -25,6 +21,7 @@ export type ModelSelectDialogProps = {
 }
 
 export const ModelSelectDialog = (props: ModelSelectDialogProps) => {
+  const { t } = useTranslation()
   const handleModelChange = (model: Model) => {
     props.onChange(model)
   }
@@ -34,11 +31,12 @@ export const ModelSelectDialog = (props: ModelSelectDialogProps) => {
       <DialogContent className="pb-0 sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <WandSparkles /> Models
+            <WandSparkles /> {t(`Models`)}
           </DialogTitle>
           <DialogDescription>
-            Choose one of these models to lead your generation to the style you
-            want
+            {t(
+              `Choose one of these models to lead your generation to the style you want`,
+            )}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="max-h-[60vh] pr-4">
@@ -66,11 +64,11 @@ export const ModelSelectDialog = (props: ModelSelectDialogProps) => {
                           src={model.generated_image.url}
                         />
                       )}
-                      <Tooltip content={model.description}>
+                      <Tooltip content={t(model.description)}>
                         <div className="p-4">
-                          <div className="w-[230px]">{model.name}</div>
+                          <div className="w-[230px]">{t(model.name)}</div>
                           <p className="truncate-2-lines line-clamp-2 w-[230px] text-sm text-muted-foreground">
-                            {model.description}
+                            {t(model.description)}
                           </p>
                         </div>
                       </Tooltip>

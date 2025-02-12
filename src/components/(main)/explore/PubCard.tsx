@@ -1,9 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { useState } from "react"
 
 import { LikePublication } from "@/components/(main)/explore/LikePublication"
+import Bounce from "@/components/animated/uibeats/bounce"
+import ImageSmooth from "@/components/ImageSmooth"
 
 import PubComment from "./PubComment"
 
@@ -29,8 +30,9 @@ export default function PubCard(props: PubCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <div
+    <Bounce
       id="tour4-step1"
+      once={true}
       className="relative mb-4 flex h-fit flex-col overflow-hidden rounded-lg bg-primary/10 shadow-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -55,10 +57,10 @@ export default function PubCard(props: PubCardProps) {
           date: props.createdAt,
         }}
       >
-        <Image
+        <ImageSmooth
           width={400}
           height={700}
-          className="w-full transform object-contain transition-transform duration-500 hover:scale-105 hover:cursor-pointer"
+          className="w-full transform bg-accent object-contain transition-transform duration-500 hover:scale-105 hover:cursor-pointer"
           src={props.imageUrl}
           alt={`Random stock image ${props.index + 1}`}
         />
@@ -72,6 +74,6 @@ export default function PubCard(props: PubCardProps) {
           {props.pubDescription.prompt}
         </p>
       </div>
-    </div>
+    </Bounce>
   )
 }

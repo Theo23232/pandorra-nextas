@@ -1,7 +1,13 @@
-import { NextResponse } from 'next/server';
+// api/conversations/route.ts
+import { NextResponse } from "next/server"
+import { OpenAI } from "openai"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY!,
+})
 
 export async function GET() {
   try {
@@ -20,10 +26,7 @@ export async function GET() {
     })
     return NextResponse.json(conversations)
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: error }, { status: 500 })
   } finally {
     await prisma.$disconnect()
   }
@@ -31,13 +34,26 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const { title } = await req.json()
+    const { firstPrompt } = await req.json()
     const user = await currentUser()
     if (!user)
       return NextResponse.json(
         { error: "You are not authentified" },
         { status: 403 },
       )
+
+    const titleGenerate = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Generate a conversation title based on thsi first prompt. Directly give the title without anything else. And don't add quotes or double quotes. Give a title that fit in maximum 20 chars. Choose a title that correspond to the langage of the prompt, if unknown langage use english",
+        },
+        { role: "user", content: firstPrompt },
+      ],
+    })
+    const title = titleGenerate.choices[0].message.content ?? firstPrompt
 
     const conversation = await prisma.gptConversation.create({
       data: {
@@ -47,10 +63,7 @@ export async function POST(req: Request) {
     })
     return NextResponse.json(conversation)
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: error }, { status: 500 })
   } finally {
     await prisma.$disconnect()
   }

@@ -1,3 +1,5 @@
+//message.tsx
+
 import { Check, Copy } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRef, useState } from "react"

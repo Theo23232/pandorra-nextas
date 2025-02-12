@@ -1,26 +1,41 @@
 "use client"
 import {
-    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, Sparkles, User2, Video
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+  BoomBox,
+  BotMessageSquare,
+  Coins,
+  Crown,
+  Gift,
+  Image,
+  MessageSquare,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Navbar } from '@/components/(main)/authentified-navbar';
-import { Logo } from '@/components/logo';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useIsSidebar } from '@/hooks/use-is-sidebar';
-import { useUser } from '@/hooks/use-user';
-import { cx, focusRing } from '@/lib/utils';
-import { RiHome2Line } from '@remixicon/react';
+import { siteConfig } from "@/app/siteConfig"
+import { Navbar } from "@/components/(main)/authentified-navbar"
+import { Logo } from "@/components/logo"
+import { UserProfileMobile } from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { useUser } from "@/hooks/use-user"
+import { cx, focusRing } from "@/lib/utils"
+import { RiHome2Line } from "@remixicon/react"
 
-import MobileSidebar from './MobileSidebar';
+import MobileSidebar from "./MobileSidebar"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
@@ -38,28 +53,34 @@ const navigation = [
 
 const shortcuts = [
   {
+    name: "Pandorra Chat",
+    href: "/chat",
+    icon: MessageSquare,
+    id: "tour1-step7",
+  },
+  {
     name: "Image AI",
     href: "/image/generation",
     icon: Image,
-    id: "tour1-step7",
+    id: "tour1-step8",
   },
   {
     name: "AI Assistant",
     href: "/assistant",
     icon: BotMessageSquare,
-    id: "tour1-step8",
+    id: "tour1-step9",
   },
   {
     name: "Video generation",
     href: "/video",
     icon: Video,
-    id: "tour1-step9",
+    id: "tour1-step10",
   },
   {
     name: "Audio AI",
     href: "/audio",
     icon: BoomBox,
-    id: "tour1-step10",
+    id: "tour1-step11",
   },
 ] as const
 

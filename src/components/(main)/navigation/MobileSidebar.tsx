@@ -1,18 +1,33 @@
 import {
-    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, Sparkles, User2, Video
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+  BoomBox,
+  BotMessageSquare,
+  Coins,
+  Crown,
+  Gift,
+  Image,
+  MessageSquare,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Logo } from '@/components/logo';
-import { Button } from '@/components/tremor/ui/button';
+import { siteConfig } from "@/app/siteConfig"
+import { Logo } from "@/components/logo"
+import { Button } from "@/components/tremor/ui/button"
 import {
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger
-} from '@/components/tremor/ui/drawer';
-import { cx, focusRing } from '@/lib/utils';
-import { RiHome2Line, RiMenuLine } from '@remixicon/react';
+  Drawer,
+  DrawerBody,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/tremor/ui/drawer"
+import { cx, focusRing } from "@/lib/utils"
+import { RiHome2Line, RiMenuLine } from "@remixicon/react"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },
@@ -28,6 +43,11 @@ const navigation = [
 ] as const
 
 const shortcuts = [
+  {
+    name: "Pandorra Chat",
+    href: "/chat",
+    icon: MessageSquare,
+  },
   {
     name: "Image AI",
     href: "/image/generation",

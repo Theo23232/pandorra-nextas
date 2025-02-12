@@ -76,7 +76,7 @@ export const MoneyTracker = () => {
   }
 
   return (
-    <div className="flex flex-col items-start gap-6">
+    <div className="mx-auto flex flex-col items-start gap-6">
       <div className="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
         <Card
           id="tour13-step1"

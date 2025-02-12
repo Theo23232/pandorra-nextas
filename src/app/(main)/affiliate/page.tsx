@@ -24,7 +24,7 @@ export default function Page() {
     }
   }, [user, startOnborda])
   return (
-    <Card className="w-fit">
+    <Card className="mx-auto w-fit">
       <MoneyTracker />
       <SponsorShareLink />
     </Card>

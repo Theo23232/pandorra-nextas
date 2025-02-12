@@ -1,8 +1,8 @@
-import { randomBytes } from "crypto"
-import { NextResponse } from "next/server"
+import { randomBytes } from 'crypto';
+import { NextResponse } from 'next/server';
 
-import { sendResetEmail } from "@/lib/mail"
-import { prisma } from "@/prisma"
+import { sendResetEmail } from '@/lib/mail';
+import { prisma } from '@/prisma';
 
 export async function POST(req: Request) {
   try {

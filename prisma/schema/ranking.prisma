@@ -1,8 +1,8 @@
 model Rank {
-    id     String @id @default(cuid())
-    userId String
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    rank   Int
-    points Int
-    date   String
+  id     String @id @default(cuid())
+  userId String
+  rank   Int
+  points Int
+  date   String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

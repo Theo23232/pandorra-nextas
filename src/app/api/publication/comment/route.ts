@@ -1,4 +1,3 @@
-// /app/api/publication/comment/route.ts
 import { NextResponse } from "next/server"
 
 import { currentUser } from "@/lib/current-user"
@@ -22,29 +21,34 @@ export async function GET(request: Request) {
   }
 
   try {
-    const comments = await prisma.comment.findMany({
-      where: {
-        publicationId: publicationId,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            image: true,
+    const comments = await prisma.comment
+      .findMany({
+        where: {
+          publicationId: publicationId,
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              username: true,
+              image: true,
+            },
+          },
+          commentReaction: {
+            select: {
+              id: true,
+              userId: true,
+            },
           },
         },
-        commentReaction: {
-          select: {
-            id: true,
-            userId: true,
-          },
+        orderBy: {
+          date: "desc",
         },
-      },
-      orderBy: {
-        date: "desc",
-      },
-    })
+      })
+      .catch((e) => {
+        console.log("comments error ==> ", e)
+        throw new Error(e)
+      })
 
     // Transform the data to include isLiked and reaction count
     const formattedComments = comments.map((comment) => ({

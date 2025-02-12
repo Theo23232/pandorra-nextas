@@ -35,11 +35,8 @@ export async function GET() {
 
     return NextResponse.json(response)
   } catch (error) {
-    console.error("Error generating sound:", error)
-    return NextResponse.json(
-      { error: "Failed to generate sound" },
-      { status: 500 },
-    )
+    console.error("Error generating video:", error)
+    return NextResponse.json({ error: error }, { status: 500 })
   } finally {
     await prisma.$disconnect() // Ferme la connexion après chaque requête
   }

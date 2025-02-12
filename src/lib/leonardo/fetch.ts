@@ -47,7 +47,7 @@ type GeneratedImageVariation = {
   }[]
 }
 
-const API_KEY = process.env.LEONARDO_API_KEY
+const API_KEY = process.env.NEXT_PUBLIC_LEONARDO_API_KEY
 export async function uploadImage(imageFilePath: string): Promise<string> {
   const user = await currentUser()
   if (!user) throw new Error("You are not authenticated")
@@ -82,7 +82,7 @@ export async function uploadImage(imageFilePath: string): Promise<string> {
     const url = `https://cloud.leonardo.ai/api/rest/v1/init-image/${imageId}`
     const headers = {
       accept: "application/json",
-      authorization: "Bearer c730433c-957b-429a-b2d3-d0ac5f128ba8",
+      authorization: `Bearer ${API_KEY}`,
     }
     const imageData = await fetch(url, {
       method: "GET",

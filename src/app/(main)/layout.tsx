@@ -46,7 +46,9 @@ export default function RouteLayout({ children }: RouteLayoutProps) {
       >
         <RegisterAffiliate />
         <Sidebar />
-        <main className={`pr-4 pt-0 ${isSidebar ? "lg:pl-64" : ""}`}>
+        <main
+          className={`pr-4 pt-0 ${isSidebar ? "lg:pl-64" : "lg:pl-[4.5rem]"}`}
+        >
           {children}
         </main>
       </Onborda>

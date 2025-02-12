@@ -22,6 +22,7 @@ import { Navbar } from "@/components/(main)/authentified-navbar"
 import { Logo } from "@/components/logo"
 import { UserProfileMobile } from "@/components/navigation/UserProfile"
 import JetonCounter from "@/components/pandorra/jeton-counter"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -30,9 +31,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
 import { useIsSidebar } from "@/hooks/use-is-sidebar"
 import { useUser } from "@/hooks/use-user"
-import { cx, focusRing } from "@/lib/utils"
+import { cn, cx, focusRing } from "@/lib/utils"
 import { RiHome2Line } from "@remixicon/react"
 
 import MobileSidebar from "./MobileSidebar"
@@ -115,15 +118,60 @@ export function Sidebar() {
       <div className="sticky top-0 z-40 hidden lg:block">
         <Navbar />
       </div>
-      {isSidebar && (
-        <nav className="mt-16 hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
-          <aside className="flex grow flex-col gap-y-6 overflow-y-auto bg-white p-4 pr-0 dark:bg-gray-950">
-            <nav
-              aria-label="core navigation links"
-              className="flex flex-1 flex-col space-y-10"
-            >
-              <ul role="list" className="space-y-0.5">
-                {navigation.map((item) => (
+
+      <nav
+        className={cn(
+          "mt-16 hidden duration-200 transition-width lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col",
+          isSidebar ? "lg:w-60" : "lg:w-14",
+        )}
+      >
+        <ScrollArea className="flex h-screen min-h-screen grow flex-col gap-y-6 bg-white p-4 pr-0 dark:bg-gray-950">
+          <nav
+            aria-label="core navigation links"
+            className="flex flex-1 flex-col space-y-10"
+          >
+            <ul role="list" className="space-y-0.5">
+              {navigation.map((item) => (
+                <li key={item.name} id={item.id}>
+                  <Link
+                    prefetch={true}
+                    href={item.href}
+                    className={cx(
+                      isActive(item.href)
+                        ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
+                        : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                      "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                      focusRing,
+                    )}
+                  >
+                    <>
+                      <item.icon
+                        className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                        aria-hidden="true"
+                      />
+                      {isSidebar ? (
+                        t(item.name)
+                      ) : (
+                        <Tooltip content={t(item.name)} side="right">
+                          <span className="sr-only">{t(item.name)}</span>
+                        </Tooltip>
+                      )}
+                    </>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div>
+              {isSidebar ? (
+                <span className="text-sm font-medium leading-6 text-gray-500">
+                  {t(`AI Assets`)}
+                </span>
+              ) : (
+                <Separator orientation="horizontal" className="mb-8" />
+              )}
+
+              <ul aria-label="shortcuts" role="list" className="space-y-0.5">
+                {shortcuts.map((item) => (
                   <li key={item.name} id={item.id}>
                     <Link
                       prefetch={true}
@@ -136,68 +184,53 @@ export function Sidebar() {
                         focusRing,
                       )}
                     >
-                      <item.icon
-                        className="size-5 shrink-0"
-                        aria-hidden="true"
-                      />
-                      {t(item.name)}
+                      <>
+                        <item.icon
+                          className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                          aria-hidden="true"
+                        />
+                        {isSidebar ? (
+                          t(item.name)
+                        ) : (
+                          <Tooltip content={t(item.name)} side="right">
+                            <span className="sr-only">{t(item.name)}</span>
+                          </Tooltip>
+                        )}
+                      </>
                     </Link>
                   </li>
                 ))}
               </ul>
-              <div>
-                <span className="text-sm font-medium leading-6 text-gray-500">
-                  {t(`AI Assets`)}
-                </span>
-                <ul aria-label="shortcuts" role="list" className="space-y-0.5">
-                  {shortcuts.map((item) => (
-                    <li key={item.name} id={item.id}>
-                      <Link
-                        prefetch={true}
-                        href={item.href}
-                        className={cx(
-                          isActive(item.href)
-                            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
-                            : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
-                          focusRing,
-                        )}
-                      >
-                        <item.icon
-                          className="size-5 shrink-0"
-                          aria-hidden="true"
-                        />
-                        {t(item.name)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </nav>
-            <div className="mt-auto">
-              <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
-                <CardHeader className="space-y-1">
-                  <CardTitle className="text-center text-2xl font-bold">
-                    {t(`Upgrade Plan`)}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center space-y-4">
-                  <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-                    {t(
-                      "Subscribe to a plan features and get full access on all features!",
-                    )}
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Link href={"/pricing"} className="w-full">
-                    <Button className="w-full">{t(`Upgrade Now`)}</Button>
-                  </Link>
-                </CardFooter>
-              </Card>
             </div>
-          </aside>
-        </nav>
-      )}
+          </nav>
+          <div
+            className={cn(
+              "mt-10 min-w-56 transition-opacity duration-200",
+              isSidebar ? "opacity-100" : "opacity-0",
+            )}
+          >
+            <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+              <CardHeader className="space-y-1">
+                <CardTitle className="text-center text-2xl font-bold">
+                  {t(`Upgrade Plan`)}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center space-y-4">
+                <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                  {t(
+                    "Subscribe to a plan features and get full access on all features!",
+                  )}
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href={"/pricing"} className="w-full">
+                  <Button className="w-full">{t(`Upgrade Now`)}</Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </div>
+        </ScrollArea>
+      </nav>
 
       {/* top navbar (xs-lg) */}
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-2 shadow-sm sm:gap-x-6 sm:px-4 lg:hidden dark:border-gray-800 dark:bg-gray-950">

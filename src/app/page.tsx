@@ -39,7 +39,7 @@ export default function RoutePage() {
   }
   if (isError) {
     return (
-      <div className="max-w-screen -z-50 min-h-screen overflow-hidden bg-[#010101] dark">
+      <div className="max-w-screen -z-50 min-h-screen overflow-hidden scroll-smooth bg-[#010101] dark">
         <div
           className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
           style={{

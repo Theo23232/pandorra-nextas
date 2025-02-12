@@ -2,6 +2,7 @@
 import { Loader2, Sparkles } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { getUserGeneration } from '@/actions/generation.action';
 import { enhanceImagePrompt } from '@/actions/openai.actions';
@@ -36,6 +37,7 @@ export type GenerationWithImages = Omit<
 }
 
 export const Main = (props: MainProps) => {
+  const { t } = useTranslation()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
   const queryPrompt = searchParams?.get("prompt")
@@ -112,8 +114,8 @@ export const Main = (props: MainProps) => {
       handlePromptChange(promptEnhanced)
     } catch (error) {
       toast({
-        title: " Error",
-        description: "Prompt enhancement failed",
+        title: t(`Error`),
+        description: t(`Prompt enhancement failed`),
         variant: "error",
         duration: 3000,
       })
@@ -130,11 +132,11 @@ export const Main = (props: MainProps) => {
           ref={textareaRef}
           value={prompt}
           onChange={(e) => handlePromptChange(e.target.value)}
-          placeholder="Type a prompt ..."
+          placeholder={t(`Type a prompt...`)}
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
         />
         <div className="flex items-center justify-end gap-2 p-4">
-          <Tooltip content="Enhance prompt">
+          <Tooltip content={t(`Enhance prompt`)}>
             <div
               id="tour6-step2"
               onClick={enhancePrompt}
@@ -154,15 +156,15 @@ export const Main = (props: MainProps) => {
             className="text-md"
             id="tour6-step3"
           >
-            Generate
+            {t(`Generate`)}
           </Button>
         </div>
       </MagicCard>
 
       {history.length == 0 && isLoaded == true && isLoading == false && (
         <NothingYet
-          subtitle="Your image generation will be displayed here"
-          title="There is no image yet"
+          subtitle={t(`Your image generation will be displayed here`)}
+          title={t(`There is no image yet`)}
         />
       )}
       <div className="flex w-full flex-col-reverse gap-4">

@@ -1,17 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { useUser } from '@/hooks/use-user';
 import { Plan } from '@prisma/client';
 
 export default function JetonCounter() {
+  const { t } = useTranslation()
   const { user } = useUser()
 
   return (
     <div className="flex items-center justify-center gap-3">
-      <Tooltip content={`You have ${user?.jeton} tokens. Click to get more`}>
+      <Tooltip
+        content={`${t("You have")} ${user?.jeton} ${t(`tokens. Click to get more`)}`}
+      >
         <Link
           href={"/pricing"}
           prefetch
@@ -31,7 +35,7 @@ export default function JetonCounter() {
         </Link>
       </Tooltip>
       {user && user?.plan === Plan.Free && (
-        <Tooltip content={`You are in free plan. Click to upgrade`}>
+        <Tooltip content={t(`You are in free plan. Click to upgrade`)}>
           <Link prefetch={true} href={"/pricing"} id="tour3-step3">
             <img src="/assets/upgrade.png" className="h-10 w-auto" />
           </Link>

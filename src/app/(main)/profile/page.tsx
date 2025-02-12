@@ -1,15 +1,17 @@
 "use client"
-import { BadgeCheck } from "lucide-react"
-import { redirect, useSearchParams } from "next/navigation"
-import useSWR from "swr"
+import { BadgeCheck } from 'lucide-react';
+import { redirect, useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
 
-import { PublicationsProfile } from "@/app/(main)/profile/[id]/Publications"
-import { Card } from "@/components/tremor/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@/hooks/use-user"
-import { fetcher } from "@/lib/utils"
+import { PublicationsProfile } from '@/app/(main)/profile/[id]/Publications';
+import { Card } from '@/components/tremor/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useUser } from '@/hooks/use-user';
+import { fetcher } from '@/lib/utils';
 
 export default function ProfilePage() {
+  const { t } = useTranslation()
   const searchParams = useSearchParams()
 
   // Exemple pour récupérer une valeur spécifique
@@ -52,26 +54,26 @@ export default function ProfilePage() {
               </div>
               <p className="text-sm text-muted-foreground">
                 {data.description ||
-                  `User based in ${data.language.toUpperCase()}`}
+                  `${t(`User based in`)} ${data.language.toUpperCase()}`}
               </p>
               <div className="flex gap-4 pt-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <span className="font-semibold text-foreground">
                     {data._count.Generation}
                   </span>
-                  <span>Image generation</span>
+                  <span>{t(`Image generation`)}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="font-semibold text-foreground">
                     {data._count.Video}
                   </span>
-                  <span>Videos</span>
+                  <span>{t(`Videos`)}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="font-semibold text-foreground">
                     {data._count.Publication}
                   </span>
-                  <span>Publications</span>
+                  <span>{t(`Publications`)}</span>
                 </div>
               </div>
             </div>

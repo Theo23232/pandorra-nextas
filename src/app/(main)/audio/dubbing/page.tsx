@@ -3,6 +3,7 @@
 import { ArrowRight, Mic, Pause, Play, StopCircle, Upload } from "lucide-react"
 import { useOnborda } from "onborda"
 import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { Button } from "@/components/ui/button"
@@ -19,6 +20,7 @@ import { useUser } from "@/hooks/use-user"
 import { languageOptions } from "@/lib/elevenlabs/langList"
 
 export default function RouterPage() {
+  const { t } = useTranslation()
   const [isRecording, setIsRecording] = useState(false)
   const [audioURL, setAudioURL] = useState<string | null>(null)
   const [mediaFile, setMediaFile] = useState<File | null>(null)
@@ -151,22 +153,22 @@ export default function RouterPage() {
         <div className="space-y-6">
           <div id="tour12-step1">
             <label className="mb-2 block text-sm font-medium">
-              Project name
+              {t(`Project name`)}
             </label>
-            <Input placeholder="Untitled project" />
+            <Input placeholder={t(`Untitled project`)} />
           </div>
 
           <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-2">
             <div>
               <label className="mb-2 block text-sm font-medium">
-                Source Language*
+                {t(`Source Language`)}*
               </label>
               <Select>
                 <SelectTrigger id="tour12-step2">
                   <SelectValue placeholder="Detect" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="detect">Detect</SelectItem>
+                  <SelectItem value="detect">{t(`Detect`)}</SelectItem>
                   {languageOptions.map((l) => (
                     <SelectItem key={l.code} value={l.code}>
                       {l.label}
@@ -178,11 +180,11 @@ export default function RouterPage() {
             <ArrowRight className="mt-7 h-4 w-4 text-gray-400" />
             <div>
               <label className="mb-2 block text-sm font-medium">
-                Target Languages*
+                {t(`Target Languages`)}*
               </label>
               <Select onValueChange={(value) => setTargetLang(value)}>
                 <SelectTrigger id="tour12-step3">
-                  <SelectValue placeholder="Select languages" />
+                  <SelectValue placeholder={t(`Select languages`)} />
                 </SelectTrigger>
                 <SelectContent>
                   {languageOptions.map((l) => (
@@ -197,7 +199,7 @@ export default function RouterPage() {
 
           <div>
             <label className="mb-2 block text-sm font-medium">
-              Audio or video source*
+              {t(`Audio or video source`)}*
             </label>
 
             <Card className="border-dashed" id="tour12-step4">
@@ -212,10 +214,10 @@ export default function RouterPage() {
                       <Upload className="h-5 w-5" />
                     </div>
                     <p className="mb-1 text-sm font-medium">
-                      Click or drag to upload here
+                      {t(`Click or drag to upload here`)}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Audio or video file, up to 500MB or 45 minutes
+                      {t(`Audio or video file, up to 500MB or 45 minutes`)}
                     </p>
                     <input
                       type="file"
@@ -238,12 +240,12 @@ export default function RouterPage() {
                       {isRecording ? (
                         <>
                           <StopCircle className="mr-2 h-4 w-4" />
-                          Stop Recording
+                          {t(`Stop Recording`)}
                         </>
                       ) : (
                         <>
                           <Mic className="mr-2 h-4 w-4" />
-                          Start Recording
+                          {t(`Start Recording`)}
                         </>
                       )}
                     </Button>
@@ -287,33 +289,25 @@ export default function RouterPage() {
                         setAudioURL(null)
                       }}
                     >
-                      Remove
+                      {t(`Remove`)}
                     </Button>
                   </div>
                 )}
               </CardContent>
             </Card>
-
-            <p className="mt-2 text-xs text-gray-500">
-              Your video will be dubbed in standard resolution and will include
-              a watermark. Only Creator+ plans can change this.{" "}
-              <a href="#" className="text-blue-600 hover:underline">
-                Upgrade your plan
-              </a>
-            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div id="tour12-step5">
               <label className="mb-2 block text-sm font-medium">
-                Number of speakers
+                {t(`Number of speakers`)}
               </label>
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Detect" />
+                  <SelectValue placeholder={t(`Detect`)} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="detect">Detect</SelectItem>
+                  <SelectItem value="detect">{t(`Detect`)}</SelectItem>
                   {[...Array(9)].map((_, i) => (
                     <SelectItem key={i + 1} value={String(i + 1)}>
                       {i + 1}
@@ -324,7 +318,7 @@ export default function RouterPage() {
             </div>
             <div id="tour12-step6">
               <label className="mb-2 block text-sm font-medium">
-                Time range to dub
+                {t(`Time range to dub`)}
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <Input placeholder="hh:mm:ss" />
@@ -339,12 +333,8 @@ export default function RouterPage() {
             onClick={handleCreateDub}
             disabled={!mediaFile || isLoading}
           >
-            {isLoading ? "Converting..." : "Create dub"}
+            {isLoading ? t(`Converting...`) : t(`Create dub`)}
           </Button>
-
-          <p className="text-center text-sm text-gray-500">
-            Credits remaining before this dub: 9,115
-          </p>
         </div>
       </MagicCard>
     </div>

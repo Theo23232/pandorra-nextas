@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Label } from '@/components/tremor/inputs/label';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
@@ -52,6 +53,7 @@ const ratioOptions: RatioName[] = ["2:3", "16:9", "1:1", "4:5", "9:16", "2:1"]
 const sizeOptions: SizeOption[] = ["small", "medium", "large"]
 
 export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
+  const { t } = useTranslation()
   const [activeName, setActiveName] = useState<RatioName>("2:3")
   const [activeSize, setActiveSize] = useState<SizeOption>("medium")
   const searchParams = useSearchParams()
@@ -147,7 +149,7 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
         )}
         onClick={() => handleChange(null, size)}
       >
-        <p className="text-sm capitalize">{size}</p>
+        <p className="text-sm capitalize">{t(size)}</p>
         <p className="text-[8px]">
           {dimensions ? `${dimensions.h} × ${dimensions.w}` : "Unknown"}
         </p>
@@ -161,12 +163,13 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
         <Label className="mb-2">Image dimensions</Label>
         <div className="grid w-full grid-cols-3 flex-wrap gap-2">
           {ratioTooltips.map((e) => (
-            <Tooltip key={e.name} content={e.tooltip}>
+            <Tooltip key={e.name} content={t(e.tooltip)}>
               <RatioButton ratio={e.name as RatioName} />
             </Tooltip>
           ))}
         </div>
       </div>
+
       <div
         className="flex w-full flex-wrap justify-between gap-2"
         id="tour5-step6"

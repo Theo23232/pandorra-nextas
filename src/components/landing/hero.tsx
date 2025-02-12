@@ -1,24 +1,22 @@
 "use client"
 
-import { Sparkles } from "lucide-react"
-import { redirect } from "next/navigation"
-import { useState } from "react"
+import { Sparkles } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
+import Bounce from '@/components/animated/uibeats/bounce';
+import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/nyxb/select"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useUser } from "@/hooks/use-user"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/nyxb/select';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useUser } from '@/hooks/use-user';
+import { cn } from '@/lib/utils';
 
 export function Hero() {
+  const { t } = useTranslation()
   const [prompt, setPrompt] = useState("")
   const [genType, setGenType] = useState("image")
 
@@ -39,12 +37,12 @@ export function Hero() {
         >
           <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 text-neutral-200 transition ease-out hover:text-neutral-400 hover:duration-300 group-hover:scale-105">
             <Sparkles className="mr-2 size-5 transition-transform duration-300 ease-in-out" />
-            Get started for Free!
+            {t(`Get started for Free!`)}
           </AnimatedShinyText>
         </div>
 
         <p className="text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-white">
-          Unlock the Power <br /> of Creativity
+          {t(`Unlock the Power of Creativity`)}
         </p>
         <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">
           <Select
@@ -58,9 +56,9 @@ export function Hero() {
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="image">Image</SelectItem>
-              <SelectItem value="video">Video</SelectItem>
-              <SelectItem value="audio">Audio</SelectItem>
+              <SelectItem value="image">{t(`Image`)}</SelectItem>
+              <SelectItem value="video">{t(`Video`)}</SelectItem>
+              <SelectItem value="audio">{t(`Audio`)}</SelectItem>
             </SelectContent>
           </Select>
           <Input
@@ -74,7 +72,7 @@ export function Hero() {
             onClick={handleGenerate}
             className="hover:shadow-gradient mr-2 flex h-11 rounded-full bg-gradient-to-l from-[#9600ff] to-[#00ccff] px-6 transition-all ease-in-out hover:scale-[1.01] hover:shadow-[0_4px_15px_0] hover:shadow-[#9600ff]/30"
           >
-            <Sparkles fill="white" /> Create for free
+            <Sparkles fill="white" /> {t(`Create for free`)}
           </Button>
         </div>
       </Bounce>

@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-import { Card } from "@/components/tremor/ui/card"
-import { cx, focusRing } from "@/lib/utils"
+import { Card } from '@/components/tremor/ui/card';
+import { cx, focusRing } from '@/lib/utils';
 
 export function Sidebar() {
+  const { t } = useTranslation()
   const pathname = usePathname()
   const isActive = (itemHref: string) => {
     return pathname === itemHref
@@ -26,7 +28,7 @@ export function Sidebar() {
         )}
       >
         <span className="i-cus--pol-consistent-character-video inline-flex size-6 items-center justify-center"></span>
-        Image to video
+        {t(`Image to video`)}
       </Link>
 
       <Link
@@ -41,7 +43,7 @@ export function Sidebar() {
         )}
       >
         <span className="i-cus--pol-text-to-video inline-flex size-6 items-center justify-center"></span>
-        Text to video
+        {t(`Text to video`)}
       </Link>
     </Card>
   )

@@ -384,7 +384,7 @@ export const models: Model[] = [
     id: "45ab2421-87de-44c8-a07c-3b87e3bfdf84",
     name: "Magic Potions",
     description:
-      'A great model for creating incredible semi-realistic magic potions. Try appending "intricately detailed, 3d vray render" to your prompt.',
+      "A great model for creating incredible semi-realistic magic potions. Try appending intricately detailed, 3d vray render to your prompt.",
     nsfw: false,
     featured: false,
     generated_image: {
@@ -456,7 +456,7 @@ export const models: Model[] = [
     id: "7a65f0ab-64a7-4be2-bcf3-64a1cc56f627",
     name: "Isometric Scifi Buildings",
     description:
-      'Great at creating scifi buildings of varying themes. Append the word isometric to your prompt to ensure an isometric view. "3d vray render" also helps steer the generation well. ',
+      "Great at creating scifi buildings of varying themes. Append the word isometric to your prompt to ensure an isometric view. 3d vray render also helps steer the generation well. ",
     nsfw: false,
     featured: true,
     generated_image: {
@@ -468,7 +468,7 @@ export const models: Model[] = [
     id: "50c4f43b-f086-4838-bcac-820406244cec",
     name: "Cute Characters",
     description:
-      'Create cute and charming game characters, perfect for adding some whimsy to your game design. Be sure to include the word "character" in your prompts for best results.',
+      "Create cute and charming game characters, perfect for adding some whimsy to your game design. Be sure to include the word character in your prompts for best results.",
     nsfw: false,
     featured: true,
     generated_image: {
@@ -492,7 +492,7 @@ export const models: Model[] = [
     id: "ab200606-5d09-4e1e-9050-0b05b839e944",
     name: "Isometric Fantasy",
     description:
-      'Create all sorts of isometric fantasy environments. Try appending "3d vray render, isometric" and using a guidance scale of 6. For the negative prompt, try "unclear, harsh, oversaturated, soft, blurry".',
+      "Create all sorts of isometric fantasy environments. Try appending 3d vray render, isometric and using a guidance scale of 6. For the negative prompt, try unclear, harsh, oversaturated, soft, blurry.",
     nsfw: false,
     featured: true,
     generated_image: {
@@ -516,7 +516,7 @@ export const models: Model[] = [
     id: "5fce4543-8e23-4b77-9c3f-202b3f1c211e",
     name: "Crystal Deposits Alternate",
     description:
-      'An alternative crystal deposits model that gives a slightly more realistic feel with its creations. Try using "object" and "3d vray render" in your prompts.',
+      "An alternative crystal deposits model that gives a slightly more realistic feel with its creations. Try using object and 3d vray render in your prompts.",
     nsfw: false,
     featured: false,
     generated_image: {
@@ -528,7 +528,7 @@ export const models: Model[] = [
     id: "756be0a8-38b1-4946-ad62-c0ac832422e3",
     name: "Isometric Asteroid Tiles",
     description:
-      'A model for creating isometric asteroid environment tiles. Try appending "3d vray render, unreal engine, beautiful, intricately detailed, trending on artstation, 8k" to your prompt.',
+      "A model for creating isometric asteroid environment tiles. Try appending 3d vray render, unreal engine, beautiful, intricately detailed, trending on artstation, 8k to your prompt.",
     nsfw: false,
     featured: false,
     generated_image: {

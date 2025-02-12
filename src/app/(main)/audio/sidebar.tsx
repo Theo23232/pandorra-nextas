@@ -1,20 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useOnborda } from "onborda"
-import { useEffect } from "react"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { TextToFX } from "@/components/icons/TextToFX"
-import { TextToSpeech } from "@/components/icons/TextToSpeech"
-import { VoiceDubbing } from "@/components/icons/voice-dubbing"
-import { VoiceChanger } from "@/components/icons/VoiceChanger"
-import { useUser } from "@/hooks/use-user"
-import { cx, focusRing } from "@/lib/utils"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { TextToFX } from '@/components/icons/TextToFX';
+import { TextToSpeech } from '@/components/icons/TextToSpeech';
+import { VoiceDubbing } from '@/components/icons/voice-dubbing';
+import { VoiceChanger } from '@/components/icons/VoiceChanger';
+import { useUser } from '@/hooks/use-user';
+import { cx, focusRing } from '@/lib/utils';
 
 export function Sidebar() {
+  const { t } = useTranslation()
   const pathname = usePathname()
   const { user } = useUser()
   const { startOnborda } = useOnborda()
@@ -49,7 +51,7 @@ export function Sidebar() {
         )}
       >
         <TextToFX aria-hidden="true" />
-        FX Generation
+        {t(`FX Generation`)}
       </Link>
 
       <Link
@@ -65,7 +67,7 @@ export function Sidebar() {
         )}
       >
         <TextToSpeech aria-hidden="true" />
-        Text to speech
+        {t(`Text to speech`)}
       </Link>
       <Link
         id="tour9-step3"
@@ -80,7 +82,7 @@ export function Sidebar() {
         )}
       >
         <VoiceChanger aria-hidden="true" />
-        Voice changer
+        {t(`Voice changer`)}
       </Link>
       <Link
         id="tour9-step4"
@@ -95,7 +97,7 @@ export function Sidebar() {
         )}
       >
         <VoiceDubbing aria-hidden="true" />
-        Dubbing
+        {t(`Dubbing`)}
       </Link>
     </MagicCard>
   )

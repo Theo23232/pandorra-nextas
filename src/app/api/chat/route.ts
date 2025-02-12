@@ -25,7 +25,8 @@ export async function POST(req: Request) {
     })
 
     const messages = conversationHistory.map((msg) => ({
-      role: msg.role === "user" ? "user" : "assistant" as "user" | "assistant",
+      role:
+        msg.role === "user" ? "user" : ("assistant" as "user" | "assistant"),
       content: msg.content,
     }))
 
@@ -50,6 +51,13 @@ export async function POST(req: Request) {
         }
 
         // Enregistrer le message de l'assistant une fois le streaming terminé
+        await prisma.message.create({
+          data: {
+            content: content,
+            role: "user",
+            gptConversationId: conversationId,
+          },
+        })
         await prisma.message.create({
           data: {
             content: assistantMessageContent,

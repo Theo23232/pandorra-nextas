@@ -43,7 +43,7 @@ export const PubVideo = ({
 
   return (
     <div
-      className="relative cursor-pointer overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="relative cursor-pointer overflow-hidden rounded-lg border border-border bg-muted shadow-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

@@ -1,29 +1,35 @@
 model User {
-  id                   String                 @id @default(cuid())
-  firstname            String?
-  lastname             String?
-  fullname             String?
-  image                String
-  tourOnboarding       String[]
-  username             String                 @unique
-  email                String                 @unique
-  language             String                 @default("en")
-  description          String?
-  theme                String                 @default("light")
-  password             String
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  permissions          String[]
-  isEmailVerified      Boolean                @default(false)
-  referreId            String?
-  emailNotification    Boolean                @default(true)
-  pushNotification     Boolean                @default(true)
-  jeton                Int                    @default(150)
-  stripeCustomerId     String?
-  connectStripeId      String?
-  amountAccumulated    String                 @default("0")
-  currentAmount        String                 @default("0")
-  plan                 Plan                   @default(Free)
+  id                String   @id @default(cuid())
+  firstname         String?
+  lastname          String?
+  fullname          String?
+  image             String
+  tourOnboarding    String[]
+  username          String   @unique
+  email             String   @unique
+  language          String   @default("en")
+  description       String?
+  theme             String   @default("light")
+  password          String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  permissions       String[]
+  isEmailVerified   Boolean  @default(false)
+  referreId         String?
+  emailNotification Boolean  @default(true)
+  pushNotification  Boolean  @default(true)
+  jeton             Int      @default(150)
+  stripeCustomerId  String?
+  connectStripeId   String?
+  amountAccumulated String   @default("0")
+  currentAmount     String   @default("0")
+  plan              Plan     @default(Free)
+
+  imageModelIdPreference     String? @default("de7d3faf-762f-48e0-b3b7-9d0ac3a3fcf3")
+  imageSizePreference        String? @default("784×1176")
+  imagePresetStylePreference String? @default("DYNAMIC")
+  imageNumberPreference      String? @default("2")
+
   Agent                Agent[]
   Comment              Comment[]
   CommentReaction      CommentReaction[]

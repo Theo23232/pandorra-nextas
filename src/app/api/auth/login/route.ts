@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { generateToken, verifyPassword } from "@/lib/auth"
-import { getDeviceInfo } from "@/lib/device"
-import { prisma } from "@/prisma"
+import { generateToken, verifyPassword } from '@/lib/auth';
+import { getDeviceInfo } from '@/lib/device';
+import { stripe } from '@/lib/stripe';
+import { prisma } from '@/prisma';
 
 export async function POST(req: Request) {
   try {
@@ -23,6 +24,20 @@ export async function POST(req: Request) {
       )
     }
 
+    if (!user.stripeCustomerId) {
+      const stripeCustomer = await stripe.customers.create({
+        email,
+        name: user.username ?? undefined,
+      })
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          stripeCustomerId: stripeCustomer.id,
+        },
+      })
+    }
     const isValid = await verifyPassword(password, user.password)
     if (!isValid) {
       return NextResponse.json(

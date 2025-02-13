@@ -182,15 +182,23 @@ export const EditUserTourDone = SA(async (user, tourName: string) => {
   })
 })
 
-export const updateUserPreferences = SA(async (user, imageModelIdPreference: string, imageSizePreference: string, imagePresetStylePreference: string,imageNumberPreference: string) => {
-  await prisma.user.update({
-    where: { id: user.id },
-    data: {
-      imageModelIdPreference,
-      imageSizePreference,
-      imagePresetStylePreference,
-      imageNumberPreference
-    },
-  })
-})
-
+export const updateUserPreferences = SA(
+  async (
+    user,
+    imageModelIdPreference: string,
+    imageSizePreference: string,
+    imagePresetStylePreference: string,
+    imageNumberPreference: string,
+  ) => {
+    // await prisma.user.update({
+    //   where: { id: user.id },
+    //   data: {
+    //     imageModelIdPreference,
+    //     imageSizePreference,
+    //     imagePresetStylePreference,
+    //     imageNumberPreference
+    //   },
+    // })
+    console.log(" ==> ", user)
+  },
+)

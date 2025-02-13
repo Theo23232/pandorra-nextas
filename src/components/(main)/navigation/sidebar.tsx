@@ -36,6 +36,7 @@ import { Separator } from "@/components/ui/separator"
 import { useIsSidebar } from "@/hooks/use-is-sidebar"
 import { useUser } from "@/hooks/use-user"
 import { cn, cx, focusRing } from "@/lib/utils"
+import { Plan } from "@prisma/client"
 import { RiHome2Line } from "@remixicon/react"
 
 import MobileSidebar from "./MobileSidebar"
@@ -203,32 +204,34 @@ export function Sidebar() {
               </ul>
             </div>
           </nav>
-          <div
-            className={cn(
-              "mt-10 min-w-56 transition-opacity duration-200",
-              isSidebar ? "opacity-100" : "opacity-0",
-            )}
-          >
-            <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-center text-2xl font-bold">
-                  {t(`Upgrade Plan`)}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col items-center space-y-4">
-                <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-                  {t(
-                    "Subscribe to a plan features and get full access on all features!",
-                  )}
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link href={"/pricing"} className="w-full">
-                  <Button className="w-full">{t(`Upgrade Now`)}</Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          </div>
+          {user && user?.plan === Plan.Free && (
+            <div
+              className={cn(
+                "mt-10 min-w-56 transition-opacity duration-200",
+                isSidebar ? "opacity-100" : "opacity-0",
+              )}
+            >
+              <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                <CardHeader className="space-y-1">
+                  <CardTitle className="text-center text-2xl font-bold">
+                    {t(`Upgrade Plan`)}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center space-y-4">
+                  <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                    {t(
+                      "Subscribe to a plan features and get full access on all features!",
+                    )}
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href={"/pricing"} className="w-full">
+                    <Button className="w-full">{t(`Upgrade Now`)}</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
+          )}
         </ScrollArea>
       </nav>
 

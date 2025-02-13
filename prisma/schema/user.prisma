@@ -25,10 +25,10 @@ model User {
   currentAmount     String   @default("0")
   plan              Plan     @default(Free)
 
-  imageModelIdPreference     String? @default("de7d3faf-762f-48e0-b3b7-9d0ac3a3fcf3")
-  imageSizePreference        String? @default("784×1176")
-  imagePresetStylePreference String? @default("DYNAMIC")
-  imageNumberPreference      String? @default("2")
+  // imageModelIdPreference     String? @default("de7d3faf-762f-48e0-b3b7-9d0ac3a3fcf3")
+  // imageSizePreference        String? @default("784×1176")
+  // imagePresetStylePreference String? @default("DYNAMIC")
+  // imageNumberPreference      String? @default("2")
 
   Agent                Agent[]
   Comment              Comment[]

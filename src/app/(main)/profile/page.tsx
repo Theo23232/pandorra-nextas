@@ -1,21 +1,21 @@
 "use client"
-import { BadgeCheck } from 'lucide-react';
-import { redirect, useSearchParams } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
+import { BadgeCheck } from "lucide-react"
+import { redirect, useSearchParams } from "next/navigation"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
 
-import { PublicationsProfile } from '@/app/(main)/profile/[id]/Publications';
-import { Card } from '@/components/tremor/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
+import { PublicationsProfile } from "@/app/(main)/profile/[id]/Publications"
+import { Card } from "@/components/tremor/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
 
 export default function ProfilePage() {
   const { t } = useTranslation()
   const searchParams = useSearchParams()
 
   // Exemple pour récupérer une valeur spécifique
-  const userId = searchParams.get("userId")
+  const userId = searchParams?.get("userId")
 
   const { user, isError } = useUser()
   const { data } = useSWR(`/api/user/search?userId=${userId}`, fetcher)

@@ -1,12 +1,12 @@
 "use client"
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useRouter, useSearchParams } from "next/navigation"
+import { Suspense, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 function ResetPasswordFormContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const token = searchParams.get("token")
+  const token = searchParams?.get("token")
 
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")

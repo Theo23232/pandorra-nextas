@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "npx prisma migrate deploy && next build",
+    "prod": "npx prisma migrate deploy && next build",
     "generate": "node src/data/generateData.js"
   },
   "dependencies": {

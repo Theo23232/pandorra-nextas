@@ -1,14 +1,14 @@
 "use client"
 
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
-import Link from "next/link"
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import Link from 'next/link';
 
-import { accountSettingSession } from "@/actions/stripeSessions.action"
-import { Logo } from "@/components/logo"
-import { UserProfileMobile } from "@/components/navigation/UserProfile"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { Button } from "@/components/ui/button"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { accountSettingSession } from '@/actions/stripeSessions.action';
+import { Logo } from '@/components/logo';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { Button } from '@/components/ui/button';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
 
 export function Navbar() {
   // const { startOnborda } = useOnborda()
@@ -81,7 +81,7 @@ export function Navbar() {
         <FloatingButton />
       </div>
       <div className="flex items-center gap-1 sm:gap-2">
-        <Button className="" onClick={() => handleCLickButton()}>
+        <Button className="hidden" onClick={() => handleCLickButton()}>
           Stripe
         </Button>
         <JetonCounter />

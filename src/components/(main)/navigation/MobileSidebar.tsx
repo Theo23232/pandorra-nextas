@@ -1,45 +1,24 @@
 import {
-  BoomBox,
-  BotMessageSquare,
-  Coins,
-  Crown,
-  Gift,
-  Image,
-  MessageSquare,
-  Sparkles,
-  User2,
-  Video,
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useTranslation } from "react-i18next"
+    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Sparkles, User2, Video
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Logo } from "@/components/logo"
-import { Button } from "@/components/tremor/ui/button"
+import { siteConfig } from '@/app/siteConfig';
+import { Logo } from '@/components/logo';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/tremor/ui/drawer"
-import { cx, focusRing } from "@/lib/utils"
-import { RiHome2Line, RiMenuLine } from "@remixicon/react"
+    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger
+} from '@/components/tremor/ui/drawer';
+import { cx, focusRing } from '@/lib/utils';
+import { RiHome2Line, RiMenuLine } from '@remixicon/react';
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },
   { name: "Profile", href: "/profile", icon: User2 },
   { name: "Affiliate", href: "/affiliate", icon: Gift },
   { name: "Ranking", href: "/ranking", icon: Crown },
-  { name: "Upgrade plan", href: "/pricing", icon: Sparkles },
-  {
-    name: "Add more tokens",
-    href: "/token",
-    icon: Coins,
-  },
 ] as const
 
 const shortcuts = [
@@ -131,6 +110,37 @@ export default function MobileSidebar() {
                     </DrawerClose>
                   </li>
                 ))}
+                <li>
+                  <DrawerClose asChild>
+                    <div
+                      className={cx(
+                        "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                        "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                        focusRing,
+                      )}
+                    >
+                      <Sparkles
+                        className="size-5 shrink-0"
+                        aria-hidden="true"
+                      />
+                      {t("Upgrade plan")}
+                    </div>
+                  </DrawerClose>
+                </li>
+                <li>
+                  <DrawerClose asChild>
+                    <div
+                      className={cx(
+                        "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                        "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                        focusRing,
+                      )}
+                    >
+                      <Coins className="size-5 shrink-0" aria-hidden="true" />
+                      {t("Add more tokens")}
+                    </div>
+                  </DrawerClose>
+                </li>
               </ul>
               <div>
                 <span className="text-sm font-medium leading-6 text-gray-500 sm:text-xs">

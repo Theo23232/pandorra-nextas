@@ -43,8 +43,8 @@ export const subscriptionSession = async (
         quantity: 1,
       },
     ],
-    success_url: `http://localhost:3000/stripe/success`,
-    cancel_url: `http://localhost:3000/stripe/cancel`,
+    success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
   })
   if (!session.url) {
     throw new Error("Session URL is missing")
@@ -85,8 +85,8 @@ export const payementSession = async (
         quantity: 1,
       },
     ],
-    success_url: `http://localhost:3000/stripe/success`,
-    cancel_url: `http://localhost:3000/stripe/cancel`,
+    success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
   })
   if (!session.url) {
     throw new Error("Session URL is missing")
@@ -109,7 +109,7 @@ export const accountSettingSession = async () => {
 
   const stripeSession = await stripe.billingPortal.sessions.create({
     customer: user.stripeCustomerId ?? "",
-    return_url: "http://localhost:3000/stripe/subscription",
+    return_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
   })
 
   if (!stripeSession.url) {

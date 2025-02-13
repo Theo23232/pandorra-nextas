@@ -90,8 +90,8 @@ export const createLinkOnBoarding = async (accountId: string) => {
   try {
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: "http://localhost:3000/affiliate",
-      return_url: "http://localhost:3000/affiliate",
+      refresh_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}/affiliate`,
+      return_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}/affiliate`,
       type: "account_onboarding",
     })
 
@@ -118,9 +118,9 @@ export const withdrawMoney = async (accountId: string, amount: number) => {
       //   throw new Error('No currency found for this Stripe account');
       // }
 
-      await stripe.payouts.create({
+      await stripe.transfers.create({
         amount: Math.round(amount * 100),
-        currency: "eur",
+        currency: "usd",
         destination: accountId,
       })
 

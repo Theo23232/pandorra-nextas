@@ -1,21 +1,21 @@
 "use client"
-import { Loader2, Sparkles } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Loader2, Sparkles } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { getUserGeneration } from '@/actions/generation.action';
-import { enhanceImagePrompt } from '@/actions/openai.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { GenerationResult } from '@/components/image-ai/GenerationResult';
-import { NothingYet } from '@/components/NothingYet';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Button } from '@/components/tremor/ui/button';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { fetchGenerationResult, generationInsert } from '@/lib/leonardo/fetch';
-import { GeneratedImage, Prisma } from '@prisma/client';
+import { getUserGeneration } from "@/actions/generation.action"
+import { enhanceImagePrompt } from "@/actions/openai.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { GenerationResult } from "@/components/image-ai/GenerationResult"
+import { NothingYet } from "@/components/NothingYet"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Button } from "@/components/tremor/ui/button"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
+import { GeneratedImage, Prisma } from "@prisma/client"
 
 export type MainProps = {
   prompt: string
@@ -65,6 +65,14 @@ export const Main = (props: MainProps) => {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
   }
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }, [prompt])
+
   const generate = () => {
     setIsLoading(true)
     props.onGenerate()

@@ -1,11 +1,11 @@
 "use server"
 
-import { randomBytes } from "crypto"
+import { randomBytes } from 'crypto';
 
-import { hashPassword } from "@/lib/auth"
-import { sendResetEmail } from "@/lib/mail"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
+import { hashPassword } from '@/lib/auth';
+import { sendResetEmail } from '@/lib/mail';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
 
 export const editUser = SA(
   async (
@@ -181,3 +181,16 @@ export const EditUserTourDone = SA(async (user, tourName: string) => {
     },
   })
 })
+
+export const updateUserPreferences = SA(async (user, imageModelIdPreference: string, imageSizePreference: string, imagePresetStylePreference: string,imageNumberPreference: string) => {
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      imageModelIdPreference,
+      imageSizePreference,
+      imagePresetStylePreference,
+      imageNumberPreference
+    },
+  })
+})
+

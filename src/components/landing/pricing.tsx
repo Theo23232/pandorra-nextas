@@ -34,7 +34,7 @@ export const Pricing = () => {
         await subscriptionSession(
           "VisionPro",
           "3000 credits/month",
-          3499,
+          3699,
           "month",
         )
         localStorage.setItem("article", "VisionPro")
@@ -43,7 +43,7 @@ export const Pricing = () => {
         await subscriptionSession(
           "PandorraInfini",
           "8000 credits/month",
-          8999,
+          9199,
           "month",
         )
         localStorage.setItem("article", "PandorraInfini")

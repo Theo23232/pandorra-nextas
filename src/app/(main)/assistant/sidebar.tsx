@@ -82,7 +82,6 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
     setDownloadingId("")
   }
 
-  if (error) return <div>{t(`Failed to load`)}</div>
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
@@ -95,6 +94,7 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
       }
     }
   }, [user, startOnborda])
+  if (error) return <div>{t(`Failed to load`)}</div>
 
   if (error) return <div>Failed to load</div>
   if (!data)

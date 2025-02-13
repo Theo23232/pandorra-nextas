@@ -49,12 +49,36 @@ export default function PubVideoComment({
 
   const [comment, setComment] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDownloading, setIsDownloading] = useState<boolean>(false)
 
   const handlePostComment = async () => {
     if (!comment.trim()) return
     await createCommentVideo(comment, publication.id)
     setComment("")
     mutate()
+  }
+
+  const handleDownload = async () => {
+    setIsDownloading(true)
+    try {
+      const proxyUrl = `/api/proxy?url=${encodeURIComponent(publication.video)}`
+      const response = await fetch(proxyUrl)
+      const blob = await response.blob()
+      const originalFileName = publication.video.split("/").pop() || "video.mp4"
+      const fileName = `Pandorra.ai_${originalFileName}`
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = url
+      link.download = fileName
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error("Erreur lors du téléchargement de la vidéo :", error)
+    } finally {
+      setIsDownloading(false)
+    }
   }
 
   return (
@@ -92,7 +116,9 @@ export default function PubVideoComment({
               <PublicationActions
                 prompt={publication.prompt}
                 isLoading={isLoading}
+                isDownloading={isDownloading}
                 duration={publication.duration}
+                onDownload={handleDownload}
                 ratio={publication.ratio}
               />
               <Separator orientation="horizontal" className="my-6" />
@@ -173,13 +199,20 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
   )
 }
 
-function PublicationActions({ prompt, isLoading, duration, ratio }) {
+function PublicationActions({
+  prompt,
+  isLoading,
+  isDownloading,
+  duration,
+  ratio,
+  onDownload,
+}) {
   const { t } = useTranslation()
   if (isLoading) {
     return (
       <Card>
         <Button className="flex h-8 w-full items-center justify-center gap-2">
-          <Loader className="animate-spin" size={20} /> {t(`Loading`)}
+          <Loader className="animate-spin" size={20} /> {t(`Loading...`)}
         </Button>
       </Card>
     )
@@ -191,8 +224,20 @@ function PublicationActions({ prompt, isLoading, duration, ratio }) {
         <p className="text-lg font-semibold">{t(`Prompt details`)}</p>
         <p>{prompt}</p>
       </div>
-      <Button className="flex h-8 w-full items-center justify-center gap-2">
-        <Download size={20} /> {t(`Download`)}
+      <Button
+        className="flex h-8 w-full items-center justify-center gap-2"
+        onClick={onDownload}
+        disabled={isDownloading}
+      >
+        {isDownloading ? (
+          <>
+            <Loader className="animate-spin" size={20} /> {t(`Loading...`)}
+          </>
+        ) : (
+          <>
+            <Download size={20} /> {t(`Download`)}
+          </>
+        )}
       </Button>
       <div className="flex items-center gap-3">
         <Badge className="flex items-center gap-2">

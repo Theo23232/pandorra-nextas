@@ -142,7 +142,6 @@ export default function VideoGenerator() {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
-      console.log(tourOnboarding)
       if (
         !tourOnboarding.includes("eighthtour") &&
         !tourOnboarding.includes("stop")

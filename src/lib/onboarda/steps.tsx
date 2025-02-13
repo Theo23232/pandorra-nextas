@@ -451,73 +451,73 @@ export const tours: Tour[] = [
         pointerPadding: 12,
         pointerRadius: 12,
       },
-      {
-        icon: <>🔄</>,
-        title: "Réutilisation du texte prompt",
-        content: (
-          <>Ceci sert à réutiliser le prompt de l&apos;image déjà générée.</>
-        ),
-        selector: "#tour6-step4",
-        side: "bottom-left",
-        showControls: true,
-        pointerPadding: 12,
-        pointerRadius: 12,
-      },
-      {
-        icon: <>📋</>,
-        title: "Copier le texte prompt",
-        content: <>Copier le prompt de l&apos;image déjà générée.</>,
-        selector: "#tour6-step5",
-        side: "bottom-right",
-        showControls: true,
-        pointerPadding: 12,
-        pointerRadius: 12,
-      },
-      {
-        icon: <>📑</>,
-        title: "Détails de l'image",
-        content: (
-          <>
-            Ce sont les détails de l&apos;image générée : modèle, style
-            prédéfini, contraste.
-          </>
-        ),
-        selector: "#tour6-step6",
-        side: "bottom-right",
-        showControls: true,
-        pointerPadding: 12,
-        pointerRadius: 12,
-      },
-      {
-        icon: <>🗑️</>,
-        title: "Menu",
-        content: (
-          <>
-            Ceci contient les actions possibles sur l&apos;image générée comme
-            la suppression de l&apos;image.
-          </>
-        ),
-        selector: "#tour6-step7",
-        side: "bottom-right",
-        showControls: true,
-        pointerPadding: 12,
-        pointerRadius: 12,
-      },
-      {
-        icon: <>🖼️</>,
-        title: "Image générée",
-        content: (
-          <>
-            Ici se placent les images que vous avez générées, survolez
-            l&apos;image pour voir les options : télécharger, publier.
-          </>
-        ),
-        selector: "#tour6-step8",
-        side: "bottom-left",
-        showControls: true,
-        pointerPadding: 12,
-        pointerRadius: 12,
-      },
+      // {
+      //   icon: <>🔄</>,
+      //   title: "Réutilisation du texte prompt",
+      //   content: (
+      //     <>Ceci sert à réutiliser le prompt de l&apos;image déjà générée.</>
+      //   ),
+      //   selector: "#tour6-step4",
+      //   side: "bottom-left",
+      //   showControls: true,
+      //   pointerPadding: 12,
+      //   pointerRadius: 12,
+      // },
+      // {
+      //   icon: <>📋</>,
+      //   title: "Copier le texte prompt",
+      //   content: <>Copier le prompt de l&apos;image déjà générée.</>,
+      //   selector: "#tour6-step5",
+      //   side: "bottom-right",
+      //   showControls: true,
+      //   pointerPadding: 12,
+      //   pointerRadius: 12,
+      // },
+      // {
+      //   icon: <>📑</>,
+      //   title: "Détails de l'image",
+      //   content: (
+      //     <>
+      //       Ce sont les détails de l&apos;image générée : modèle, style
+      //       prédéfini, contraste.
+      //     </>
+      //   ),
+      //   selector: "#tour6-step6",
+      //   side: "bottom-right",
+      //   showControls: true,
+      //   pointerPadding: 12,
+      //   pointerRadius: 12,
+      // },
+      // {
+      //   icon: <>🗑️</>,
+      //   title: "Menu",
+      //   content: (
+      //     <>
+      //       Ceci contient les actions possibles sur l&apos;image générée comme
+      //       la suppression de l&apos;image.
+      //     </>
+      //   ),
+      //   selector: "#tour6-step7",
+      //   side: "bottom-right",
+      //   showControls: true,
+      //   pointerPadding: 12,
+      //   pointerRadius: 12,
+      // },
+      // {
+      //   icon: <>🖼️</>,
+      //   title: "Image générée",
+      //   content: (
+      //     <>
+      //       Ici se placent les images que vous avez générées, survolez
+      //       l&apos;image pour voir les options : télécharger, publier.
+      //     </>
+      //   ),
+      //   selector: "#tour6-step8",
+      //   side: "bottom-left",
+      //   showControls: true,
+      //   pointerPadding: 12,
+      //   pointerRadius: 12,
+      // },
     ],
   },
   {
@@ -747,9 +747,9 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
-        icon: <>🎙️</>,
-        title: "Doublage",
-        content: <>La section doublage consiste à créer un doublage audio.</>,
+        icon: <>🎵</>,
+        title: "Audios générés",
+        content: <>Ici c&apos;est la section des générations effectuées.</>,
         selector: "#tour9-step4",
         side: "bottom-left",
         showControls: true,
@@ -805,16 +805,6 @@ export const tours: Tour[] = [
         title: "Exemple de texte",
         content: <>Vous pouvez choisir des exemples de texte.</>,
         selector: "#tour9-step8",
-        side: "bottom-left",
-        showControls: true,
-        pointerPadding: 12,
-        pointerRadius: 12,
-      },
-      {
-        icon: <>🎵</>,
-        title: "Audios générés",
-        content: <>Ici c&apos;est la section des générations effectuées.</>,
-        selector: "#tour9-step9",
         side: "bottom-left",
         showControls: true,
         pointerPadding: 12,

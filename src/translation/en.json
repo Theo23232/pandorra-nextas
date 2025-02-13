@@ -546,5 +546,15 @@
   "Failed to generate video:": "Failed to generate video:",
   "Unknown error": "Unknown error",
   "AI-generated images": "AI-generated images",
-  "You are in free plan. Click to upgrade": "You are in free plan. Click to upgrade"
+  "You are in free plan. Click to upgrade": "You are in free plan. Click to upgrade",
+  "No image selected for upload": "No image selected for upload",
+  "Your profile picture is up to date now!": "Your profile picture is up to date now!",
+  "If you don't provide a profile picture, we'll generate a unique image for you.": "If you don't provide a profile picture, we'll generate a unique image for you.",
+  "Remove profile picture": "Remove profile picture",
+  "Your profile picture will be set to this one": "Your profile picture will be set to this one",
+  "Change": "Change",
+  "Update your profile picture": "Update your profile picture",
+  "Select another image": "Select another image",
+  "Click to select": "Click to select",
+  "Save": "Save"
 }

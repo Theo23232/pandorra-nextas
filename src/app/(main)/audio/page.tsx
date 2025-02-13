@@ -276,7 +276,7 @@ export default function Page() {
       {!(data?.length === 0) ? (
         <MagicCard className="mt-4 p-4">
           {data?.map((audio) => (
-            <div className="" key={audio.id} id="tour9-step9">
+            <div className="" key={audio.id} id="tour9-step4">
               <CardTitle>{audio.prompt}</CardTitle>
               <AudioPlayer
                 audioUrl={audio.url}
@@ -287,7 +287,7 @@ export default function Page() {
           ))}
         </MagicCard>
       ) : (
-        <div className="" id="tour9-step9">
+        <div className="" id="tour9-step4">
           <NothingYet
             className="mt-4"
             subtitle={t(`Your FX generation will be displayed here`)}

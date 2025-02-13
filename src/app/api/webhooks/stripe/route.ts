@@ -1,9 +1,12 @@
 "use server"
-import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { NextRequest, NextResponse } from "next/server"
+import Stripe from "stripe"
 
-import { findUserFromCustomerId, increaseReferrerBalance } from '@/actions/stripe.actions';
-import { prisma } from '@/prisma';
+import {
+  findUserFromCustomerId,
+  increaseReferrerBalance,
+} from "@/actions/stripe.actions"
+import { prisma } from "@/prisma"
 
 export const POST = async (req: NextRequest) => {
   const body = (await req.json()) as Stripe.Event
@@ -80,12 +83,12 @@ export const POST = async (req: NextRequest) => {
           case 3699:
             newPlan = "VisionPro"
             jetonsToAdd = 3000
-            referrerGain = parseFloat(((34.99 * 30) / 100).toFixed(2))
+            referrerGain = parseFloat(((36.99 * 30) / 100).toFixed(2))
             break
           case 9199:
             newPlan = "PandorraInfini"
             jetonsToAdd = 8000
-            referrerGain = parseFloat(((89.99 * 30) / 100).toFixed(2))
+            referrerGain = parseFloat(((91.99 * 30) / 100).toFixed(2))
             break
           case 14289:
             newPlan = "CreatorPackYear"
@@ -178,6 +181,16 @@ export const POST = async (req: NextRequest) => {
     case "transfer.created":
       const transferCreated = body.data.object as Stripe.Transfer
       console.log("Transfer created: ", transferCreated)
+      break
+
+    case "payout.created":
+      const payoutCreated = body.data.object as Stripe.Payout
+      break
+
+    case "payout.failed":
+      const payoutFailed = body.data.object as Stripe.Payout
+      console.log("Payout échoué:", payoutFailed)
+
       break
 
     default: {

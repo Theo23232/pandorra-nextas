@@ -1,17 +1,17 @@
 "use client"
-import { useOnborda } from "onborda"
-import { useEffect, useState } from "react"
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
 
-import { updateUserPreferences } from "@/actions/user.ations"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { useUser } from "@/hooks/use-user"
-import { leofetch } from "@/lib/leonardo/fetch"
-import { Model, models } from "@/lib/leonardo/presets"
+// import { updateUserPreferences } from "@/actions/user.ations"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useSelectImage } from '@/hooks/use-select-image';
+import { useUser } from '@/hooks/use-user';
+import { leofetch } from '@/lib/leonardo/fetch';
+import { Model, models } from '@/lib/leonardo/presets';
 
-import { Main } from "./Main"
-import { ImageGenerationSidebar } from "./sidebar"
+import { Main } from './Main';
+import { ImageGenerationSidebar } from './sidebar';
 
 export default function RoutePage() {
   //en fait c'est un ID
@@ -45,12 +45,12 @@ export default function RoutePage() {
   const generate = async () => {
     const contrast = state.contrast
 
-    await updateUserPreferences(
-      state.activeModel.id,
-      `${state.height}×${state.width}`,
-      state.presetStyle,
-      state.count.toString(),
-    )
+    // await updateUserPreferences(
+    //   state.activeModel.id,
+    //   `${state.height}×${state.width}`,
+    //   state.presetStyle,
+    //   state.count.toString(),
+    // )
     const data = {
       alchemy:
         state.activeModel.id == "b2614463-296c-462a-9586-aafdb8f00e36"

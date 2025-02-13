@@ -1,46 +1,32 @@
 "use client"
 
-import { motion } from 'framer-motion';
-import { Mic, MicOff, StopCircle } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { mutate } from 'swr';
+import { motion } from "framer-motion"
+import { Mic, MicOff, StopCircle } from "lucide-react"
+import { useCallback, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { mutate } from "swr"
 
-import { createAgent, saveConversation } from '@/actions/assistant.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { createAgent, saveConversation } from "@/actions/assistant.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/tremor/inputs/select';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { languageOptions } from '@/lib/elevenlabs/langList';
-import { voicesList } from '@/lib/elevenlabs/voiceList';
-import { useConversation } from '@11labs/react';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/tremor/inputs/select"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { languageOptions } from "@/lib/elevenlabs/langList"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { useConversation } from "@11labs/react"
 
-interface ConversationProps {
-  onClose?: () => void
-  preSelectedAgentId?: string
-  preSelectedVoiceId?: string
-  preSelectedLanguage?: string
-}
-
-export function Conversation({
-  onClose,
-  preSelectedAgentId,
-  preSelectedVoiceId,
-  preSelectedLanguage,
-}: ConversationProps) {
+export function Conversation() {
   const { t } = useTranslation()
-  const [lang, setLang] = useState(preSelectedLanguage || "en")
-  const [agentId, setAgentId] = useState(preSelectedAgentId || "")
-  const [voiceId, setVoiceId] = useState(preSelectedVoiceId || voicesList[0].id)
+  const [lang, setLang] = useState("en")
+  const [agentId, setAgentId] = useState("")
+  const [voiceId, setVoiceId] = useState(voicesList[0].id)
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    if (preSelectedAgentId) setAgentId(preSelectedAgentId)
-    if (preSelectedVoiceId) setVoiceId(preSelectedVoiceId)
-    if (preSelectedLanguage) setLang(preSelectedLanguage)
-  }, [preSelectedAgentId, preSelectedVoiceId, preSelectedLanguage])
 
   const conversation = useConversation({
     onConnect: () => console.log("Connected"),
@@ -53,13 +39,9 @@ export function Conversation({
     setIsLoading(true)
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true })
-      if (!agentId) {
-        const agent = await createAgent({ language: lang, voiceId })
-        setAgentId(agent.id)
-        await conversation.startSession({ agentId: agent.id })
-      } else {
-        await conversation.startSession({ agentId })
-      }
+      const agent = await createAgent({ language: lang, voiceId })
+      setAgentId(agent.id)
+      await conversation.startSession({ agentId: agent.id })
     } catch (error) {
       console.error("Failed to start conversation:", error)
     } finally {
@@ -74,8 +56,7 @@ export function Conversation({
     await saveConversation(agentId)
     mutate("/api/assistant")
     setIsLoading(false)
-    if (onClose) onClose()
-  }, [conversation, agentId, onClose])
+  }, [conversation, agentId])
 
   return (
     <MagicCard
@@ -85,16 +66,10 @@ export function Conversation({
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <AnimatedGradientCircle isSpeaking={conversation.isSpeaking} />
         <CardTitle className="mt-4 font-bold">
-          {preSelectedAgentId
-            ? t(`Continue Conversation`)
-            : t(`Start New Conversation`)}
+          {t(`Start New Conversation`)}
         </CardTitle>
 
-        <Select
-          value={voiceId}
-          onValueChange={setVoiceId}
-          disabled={!!preSelectedVoiceId}
-        >
+        <Select value={voiceId} onValueChange={setVoiceId}>
           <SelectTrigger className="h-[50px] w-[300px]" id="tour7-step5">
             <SelectValue placeholder={t(`Select Voice`)} />
           </SelectTrigger>
@@ -107,11 +82,7 @@ export function Conversation({
           </SelectContent>
         </Select>
 
-        <Select
-          value={lang}
-          onValueChange={setLang}
-          disabled={!!preSelectedLanguage}
-        >
+        <Select value={lang} onValueChange={setLang}>
           <SelectTrigger className="h-[50px] w-[300px]" id="tour7-step6">
             <SelectValue placeholder={t(`Select Language`)} />
           </SelectTrigger>
@@ -131,7 +102,7 @@ export function Conversation({
             isLoading={isLoading}
             id="tour7-step7"
           >
-            <Mic className={`h-4 w-4 ${isLoading ?? "hidden"}`} />{" "}
+            <Mic className={`h-4 w-4 ${isLoading && "hidden"}`} />{" "}
             {t(`Start Conversation`)}
           </Button>
         ) : (
@@ -141,7 +112,7 @@ export function Conversation({
             className="w-[300px] gap-2"
             isLoading={isLoading}
           >
-            <StopCircle className={`h-4 w-4 ${isLoading ?? "hidden"}`} />{" "}
+            <StopCircle className={`h-4 w-4 ${isLoading && "hidden"}`} />{" "}
             {t(`Stop Conversation`)}
           </Button>
         )}

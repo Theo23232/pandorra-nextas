@@ -4,8 +4,8 @@ import { useState } from "react"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-import { Conversation } from "./conversation"
 import { ConversationDetails } from "./conversation-details"
+import { Conversation } from "./mainConversation"
 import { Sidebar } from "./sidebar"
 
 export default function Home() {
@@ -21,12 +21,7 @@ export default function Home() {
         {selectedConversation ? (
           <ConversationDetails conversationId={selectedConversation} />
         ) : (
-          <Conversation
-            onClose={undefined}
-            preSelectedAgentId={undefined}
-            preSelectedVoiceId={undefined}
-            preSelectedLanguage={undefined}
-          />
+          <Conversation />
         )}
       </ScrollArea>
     </div>

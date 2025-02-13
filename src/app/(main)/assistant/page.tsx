@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from 'react';
+import { useState } from "react"
 
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea } from "@/components/ui/scroll-area"
 
-import { Conversation } from './conversation';
-import { ConversationDetails } from './conversation-details';
-import { Sidebar } from './sidebar';
+import { ConversationDetails } from "./conversation-details"
+import { Conversation } from "./mainConversation"
+import { Sidebar } from "./sidebar"
 
 export default function Home() {
   const [selectedConversation, setSelectedConversation] = useState<
@@ -21,7 +21,7 @@ export default function Home() {
         {selectedConversation ? (
           <ConversationDetails conversationId={selectedConversation} />
         ) : (
-          <Conversation onClose={undefined} />
+          <Conversation />
         )}
       </ScrollArea>
     </div>

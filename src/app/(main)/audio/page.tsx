@@ -1,29 +1,46 @@
 "use client"
-import { ElevenLabsClient } from 'elevenlabs';
-import { Building2, Car, Cat, Gamepad2, Mic2, Music, Settings2, Waves, Wind } from 'lucide-react';
-import React, { useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
-
-import { generateFX } from '@/actions/elevenlabs.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { InputNumber } from '@/components/input-number';
-import { NothingYet } from '@/components/NothingYet';
-import { Label } from '@/components/tremor/inputs/label';
-import { Slider } from '@/components/tremor/inputs/slider';
-import { Switch } from '@/components/tremor/inputs/switch';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { Divider } from '@/components/tremor/ui/divider';
+import { ElevenLabsClient } from "elevenlabs"
 import {
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle,
-    DrawerTrigger
-} from '@/components/tremor/ui/drawer';
-import { Textarea } from '@/components/ui/textarea';
-import { fetcher } from '@/lib/utils';
-import { FX } from '@prisma/client';
+  Building2,
+  Car,
+  Cat,
+  Gamepad2,
+  Mic2,
+  Music,
+  Settings2,
+  Waves,
+  Wind,
+} from "lucide-react"
+import React, { useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { AudioPlayer } from './audio-player'; // Assurez-vous du bon chemin d'importation
+import { generateFX } from "@/actions/elevenlabs.actions"
+import { translateToEnglish } from "@/actions/openai.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { InputNumber } from "@/components/input-number"
+import { NothingYet } from "@/components/NothingYet"
+import { Label } from "@/components/tremor/inputs/label"
+import { Slider } from "@/components/tremor/inputs/slider"
+import { Switch } from "@/components/tremor/inputs/switch"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { Divider } from "@/components/tremor/ui/divider"
+import {
+  Drawer,
+  DrawerBody,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/tremor/ui/drawer"
+import { Textarea } from "@/components/ui/textarea"
+import { fetcher } from "@/lib/utils"
+import { FX } from "@prisma/client"
+
+import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'importation
 
 export default function Page() {
   const { t } = useTranslation()
@@ -40,25 +57,27 @@ export default function Page() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleGenerate = async () => {
+    if (!prompt) return
     try {
       setIsLoading(true)
       const client = new ElevenLabsClient({
         apiKey: process.env.NEXT_PUBLIC_XI_API_KEY,
       })
-
+      const correctedPrompt = await translateToEnglish(prompt)
       let option: any
 
       if (isAuto) {
         option = {
-          text: prompt,
+          text: correctedPrompt,
         }
       } else {
         option = {
-          text: prompt,
+          text: correctedPrompt,
           duration_seconds: durationSeconds,
           prompt_influence: influence / 100,
         }
       }
+
       const response = await client.textToSoundEffects.convert(option)
 
       const chunks: Uint8Array[] = []

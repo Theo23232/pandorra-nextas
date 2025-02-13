@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { getUserGeneration } from "@/actions/generation.action"
 import { enhanceImagePrompt } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
 import { GenerationResult } from "@/components/image-ai/GenerationResult"
 import { NothingYet } from "@/components/NothingYet"
 import { Skeleton } from "@/components/nyxb/skeleton"
@@ -133,7 +134,7 @@ export const Main = (props: MainProps) => {
   }
 
   return (
-    <div className="flex flex-col justify-center">
+    <Bounce className="flex flex-col justify-center">
       <MagicCard className="mb-4 w-full">
         <Textarea
           id="tour6-step1"
@@ -177,20 +178,22 @@ export const Main = (props: MainProps) => {
       )}
       <div className="flex w-full flex-col-reverse gap-4">
         {history.map((h) => (
-          <GenerationResult generated={h} key={h.id} />
+          <Bounce once className="h-fit w-full">
+            <GenerationResult generated={h} key={h.id} />
+          </Bounce>
         ))}
         {isLoading && <GenerationSkeleton />}
       </div>
       {!isLoaded && (
         <>
-          <div className="flex w-full flex-col-reverse gap-4">
+          <Bounce className="flex w-full flex-col-reverse gap-4">
             <GenerationSkeleton />
             <GenerationSkeleton />
             <GenerationSkeleton />
-          </div>
+          </Bounce>
         </>
       )}
-    </div>
+    </Bounce>
   )
 }
 

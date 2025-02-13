@@ -72,3 +72,32 @@ export const enhanceVideoPrompt = async (prompt: string): Promise<string> => {
     throw new Error("Prompt enhancement failed")
   }
 }
+
+export const translateToEnglish = async (prompt: string): Promise<string> => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You will translate everything in english. If the text is already in english the correct the text. Jest send the translated text or the corrected text. Do not add quotes or double quotes",
+        },
+        {
+          role: "user",
+          content: `${prompt}`,
+        },
+      ],
+    })
+
+    const enhancedPrompt = response.choices[0].message.content
+    if (enhancedPrompt) {
+      return enhancedPrompt
+    } else {
+      return prompt
+    }
+  } catch (error) {
+    console.error("Prompt enhancement failed:", error)
+    return prompt
+  }
+}

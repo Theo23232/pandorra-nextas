@@ -2,6 +2,7 @@
 import { useState } from "react"
 
 import { updateUserPreferences } from "@/actions/user.ations"
+import Bounce from "@/components/animated/uibeats/bounce"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useSelectImage } from "@/hooks/use-select-image"
 import { leofetch } from "@/lib/leonardo/fetch"
@@ -83,7 +84,7 @@ export default function RoutePage() {
   }
 
   return (
-    <div className="flex pt-4">
+    <Bounce className="flex pt-4">
       <ImageGenerationSidebar
         onModelChange={(model) => handleStateChange("activeModel", model)}
         onPresetStyleChange={(value) => handleStateChange("presetStyle", value)}
@@ -110,6 +111,6 @@ export default function RoutePage() {
           id={state.id}
         />
       </ScrollArea>
-    </div>
+    </Bounce>
   )
 }

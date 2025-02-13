@@ -1,21 +1,25 @@
 "use client"
 
-import { motion } from 'framer-motion';
-import { Mic, MicOff, StopCircle } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { mutate } from 'swr';
+import { motion } from "framer-motion"
+import { Mic, MicOff, StopCircle } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { mutate } from "swr"
 
-import { createAgent, saveConversation } from '@/actions/assistant.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { createAgent, saveConversation } from "@/actions/assistant.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/tremor/inputs/select';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { languageOptions } from '@/lib/elevenlabs/langList';
-import { voicesList } from '@/lib/elevenlabs/voiceList';
-import { useConversation } from '@11labs/react';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/tremor/inputs/select"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { languageOptions } from "@/lib/elevenlabs/langList"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { useConversation } from "@11labs/react"
 
 interface ConversationProps {
   onClose?: () => void
@@ -133,7 +137,7 @@ export function Conversation({
             isLoading={isLoading}
             id="tour7-step7"
           >
-            <Mic className={`h-4 w-4 ${isLoading ?? "hidden"}`} />{" "}
+            <Mic className={`h-4 w-4 ${isLoading && "hidden"}`} />{" "}
             {t(`Start Conversation`)}
           </Button>
         ) : (
@@ -143,7 +147,7 @@ export function Conversation({
             className="w-[300px] gap-2"
             isLoading={isLoading}
           >
-            <StopCircle className={`h-4 w-4 ${isLoading ?? "hidden"}`} />{" "}
+            <StopCircle className={`h-4 w-4 ${isLoading && "hidden"}`} />{" "}
             {t(`Stop Conversation`)}
           </Button>
         )}

@@ -15,11 +15,11 @@ export const TokenPrice = () => {
         localStorage.setItem("article", "1000Tokens")
         break
       case "3000Tokens":
-        await payementSession("3000 Crédits", "Achat de 3000 jetons", 3499)
+        await payementSession("3000 Crédits", "Achat de 3000 jetons", 3699)
         localStorage.setItem("article", "3000Tokens")
         break
       case "8000Tokens":
-        await payementSession("8000 Tokens", "Achat de 8000 jetons", 8999)
+        await payementSession("8000 Tokens", "Achat de 8000 jetons", 9199)
         localStorage.setItem("article", "8000Tokens")
         break
       default:

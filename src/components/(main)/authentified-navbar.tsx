@@ -1,19 +1,25 @@
 "use client"
 
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
-import Link from "next/link"
-import { useOnborda } from "onborda"
-import { useEffect } from "react"
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import Link from 'next/link';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
 
-import { Logo } from "@/components/logo"
-import { UserProfileMobile } from "@/components/navigation/UserProfile"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
-import { useUser } from "@/hooks/use-user"
+import { accountSettingSession } from '@/actions/stripeSessions.action';
+import { Logo } from '@/components/logo';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { Button } from '@/components/ui/button';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
+import { useUser } from '@/hooks/use-user';
 
 export function Navbar() {
   const { startOnborda } = useOnborda()
   const { user } = useUser()
+
+  const handleCLickButton = async () => {
+    await accountSettingSession()
+  }
 
   useEffect(() => {
     if (user) {
@@ -78,6 +84,9 @@ export function Navbar() {
         <FloatingButton />
       </div>
       <div className="flex items-center gap-1 sm:gap-2">
+        <Button className="" onClick={() => handleCLickButton()}>
+          Stripe
+        </Button>
         <JetonCounter />
         <UserProfileMobile />
       </div>

@@ -26,11 +26,11 @@ export const POST = async (req: NextRequest) => {
           case 1299: // 12,99€
             jetonsToAdd = 1000
             break
-          case 3499: // 34,99€
-            jetonsToAdd = 3499
+          case 3699: // 36,99€
+            jetonsToAdd = 3699
             break
-          case 8999: // 89,99€
-            jetonsToAdd = 8999
+          case 9199: // 91,99€
+            jetonsToAdd = 9199
             break
           default:
             console.warn("Unrecognized total amount:", totalAmount)
@@ -77,12 +77,12 @@ export const POST = async (req: NextRequest) => {
             jetonsToAdd = 1000
             referrerGain = parseFloat(((12.99 * 30) / 100).toFixed(2))
             break
-          case 3499:
+          case 3699:
             newPlan = "VisionPro"
             jetonsToAdd = 3000
             referrerGain = parseFloat(((34.99 * 30) / 100).toFixed(2))
             break
-          case 8999:
+          case 9199:
             newPlan = "PandorraInfini"
             jetonsToAdd = 8000
             referrerGain = parseFloat(((89.99 * 30) / 100).toFixed(2))

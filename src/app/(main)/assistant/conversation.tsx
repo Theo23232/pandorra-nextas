@@ -57,8 +57,10 @@ export function Conversation({
         const agent = await createAgent({ language: lang, voiceId })
         setAgentId(agent.id)
         await conversation.startSession({ agentId: agent.id })
+        alert(`sSelected agent: ${agent.id}`)
       } else {
         await conversation.startSession({ agentId })
+        setAgentId("")
       }
     } catch (error) {
       console.error("Failed to start conversation:", error)

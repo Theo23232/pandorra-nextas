@@ -1,20 +1,20 @@
 "use client"
 
-import { Download, Edit, Send } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Download, Edit, Loader, Send } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { createPublication } from "@/actions/publication.action"
-import ImageSmooth from "@/components/ImageSmooth"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { useToast } from "@/hooks/use-toast"
-import { GeneratedImage } from "@prisma/client"
+import { createPublication } from '@/actions/publication.action';
+import ImageSmooth from '@/components/ImageSmooth';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useSelectImage } from '@/hooks/use-select-image';
+import { useToast } from '@/hooks/use-toast';
+import { GeneratedImage } from '@prisma/client';
 
-import { DirectionAwareHover } from "./GeneratedHover"
+import { DirectionAwareHover } from './GeneratedHover';
 
 interface AllImageProps {
   prompt: string
@@ -34,6 +34,7 @@ export const AIImage = ({
   const { t } = useTranslation()
   const { toast } = useToast()
   const [isOpen, setIsOpen] = useState(false)
+  const [isDownloading, setIsDownloading] = useState(false)
   const router = useRouter()
   const { selectImage } = useSelectImage()
 
@@ -78,10 +79,16 @@ export const AIImage = ({
   }
 
   const handleDownload = async () => {
+    setIsDownloading(true)
     try {
-      const response = await fetch(image.url)
+      const proxyUrl = `/api/proxy?url=${encodeURIComponent(image.url)}`
+      const response = await fetch(proxyUrl)
       const blob = await response.blob()
-      const fileName = image.url.split("/").pop() || "image.png"
+      const originalFileName = image.url.split("/").pop() || "image.png"
+      const fileName = originalFileName.replace(
+        "Leonardo_Phoenix_10",
+        "Pandorra.ai",
+      )
       const url = URL.createObjectURL(blob)
       const link = document.createElement("a")
       link.href = url
@@ -92,6 +99,8 @@ export const AIImage = ({
       URL.revokeObjectURL(url)
     } catch (error) {
       console.error("Erreur lors du téléchargement de l'image :", error)
+    } finally {
+      setIsDownloading(false)
     }
   }
 
@@ -117,8 +126,13 @@ export const AIImage = ({
                     e.stopPropagation()
                     handleDownload()
                   }}
+                  disabled={isDownloading}
                 >
-                  <Download />
+                  {isDownloading ? (
+                    <Loader className="animate-spin" size={20} />
+                  ) : (
+                    <Download />
+                  )}
                 </Button>
               </Tooltip>
             </DialogTrigger>

@@ -568,7 +568,7 @@ const SidebarMenuButton = React.forwardRef<
     const Comp = asChild ? Slot : "button"
     const { isMobile, state } = useSidebar()
     const pathname = usePathname()
-    const isCurrentPath = url ? pathname.startsWith(url) : false
+    const isCurrentPath = url ? pathname?.startsWith(url) : false
 
     const button = (
       <Comp

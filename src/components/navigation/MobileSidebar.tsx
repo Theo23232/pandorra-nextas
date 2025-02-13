@@ -58,9 +58,9 @@ export default function MobileSidebar() {
   const pathname = usePathname()
   const isActive = (itemHref: string) => {
     if (itemHref === siteConfig.baseLinks.settings) {
-      return pathname.startsWith("/settings")
+      return pathname?.startsWith("/settings")
     }
-    return pathname === itemHref || pathname.startsWith(itemHref)
+    return pathname === itemHref || pathname?.startsWith(itemHref)
   }
   return (
     <>
@@ -120,7 +120,8 @@ export default function MobileSidebar() {
                       <Link
                         href={item.href}
                         className={cx(
-                          pathname === item.href || pathname.includes(item.href)
+                          pathname === item.href ||
+                            pathname?.includes(item.href)
                             ? "text-primary dark:text-primary"
                             : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                           "flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 sm:text-sm hover:dark:bg-gray-900",

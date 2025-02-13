@@ -1,20 +1,20 @@
 "use client"
 
-import { Check, Copy, CornerLeftUp, Menu, Move, Zap } from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Check, Copy, CornerLeftUp, Menu, Move, Zap } from "lucide-react"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { models } from '@/lib/leonardo/presets';
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import { CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
+import { models } from "@/lib/leonardo/presets"
 
-import { AIImage } from './AIImage';
-import { GenerationOption } from './GenerationOption';
+import { AIImage } from "./AIImage"
+import { GenerationOption } from "./GenerationOption"
 
 import type { GenerationWithImages } from "@/types/pandorra"
 
@@ -90,9 +90,11 @@ export const GenerationResult = ({
             <CornerLeftUp size={20} />
           </Button>,
         )}
-        <p className="truncate-1-lines line-clamp-1 max-w-[300px] text-lg">
-          {generated?.prompt}
-        </p>
+        <Tooltip className="max-w-lg" content={generated?.prompt || ""}>
+          <p className="truncate-1-lines line-clamp-1 max-w-[300px] text-lg">
+            {generated?.prompt}
+          </p>
+        </Tooltip>
         <Tooltip content={isCopied ? "Copied!" : "Copy prompt"}>
           <Button
             variant="ghost"

@@ -152,7 +152,7 @@ export default function Page() {
 
   return (
     <div className="flex pt-4">
-      <div className="sticky top-20 h-fit max-h-[calc(100vh-80px)] w-80 border-l bg-card">
+      <Bounce className="sticky top-20 h-fit max-h-[calc(100vh-80px)] w-80 border-l bg-card">
         <Button
           onClick={() => {
             setConversationId("")
@@ -163,7 +163,7 @@ export default function Page() {
         </Button>
         <ScrollArea className="h-[80vh]">
           {conversations ? (
-            <div className="mt-4">
+            <Bounce className="mt-4">
               {conversations?.map((conversation) => (
                 <Button
                   key={conversation.id}
@@ -176,12 +176,12 @@ export default function Page() {
                   {conversation.title}
                 </Button>
               ))}
-            </div>
+            </Bounce>
           ) : (
             <></>
           )}
         </ScrollArea>
-      </div>
+      </Bounce>
       <Bounce className="mx-auto flex h-full w-full max-w-3xl flex-col">
         {conversationId ? (
           <>

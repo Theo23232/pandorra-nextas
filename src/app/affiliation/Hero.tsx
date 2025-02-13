@@ -1,9 +1,9 @@
 "use client"
-import { Clipboard } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import { Clipboard } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/ui/button"
 
 /* eslint-disable @next/next/no-img-element */
 export const Hero = () => {
@@ -71,7 +71,7 @@ export const Hero = () => {
               {t(`Join Our Affiliate Program!`)}
             </span>
           </p>
-          <p className="w-full max-w-[750px] text-center text-[16px] font-normal leading-normal text-[#FDFDFD]">
+          <p className="w-full max-w-3xl text-center text-[16px] font-normal leading-normal text-[#FDFDFD]">
             {t(`Share Pandorra.ai with your audience and earn`)}
             <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`30% commission on every subscription`)}

@@ -1,10 +1,15 @@
 "use client"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next"
 
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Button } from '@/components/ui/button';
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Button } from "@/components/ui/button"
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -22,7 +27,7 @@ export const Pricing = () => {
           Pandorra.ai
         </span>
       </Bounce>
-      <Bounce className="my-6 max-w-[800px] text-center font-medium leading-normal text-neutral-400">
+      <Bounce className="my-6 max-w-3xl text-center font-medium leading-normal text-neutral-400">
         {t(
           `Choose the plan that fits your creative needs and experience AI-powered content generation like never before. Whether you're just exploring or need professional-grade tools, we have the right plan for you`,
         )}

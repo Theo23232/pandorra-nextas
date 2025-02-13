@@ -1,19 +1,23 @@
 "use client"
 
-import { Sparkles } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Sparkles } from "lucide-react"
+import { redirect } from "next/navigation"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
+import Bounce from "@/components/animated/uibeats/bounce"
+import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/nyxb/select';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useUser } from '@/hooks/use-user';
-import { cn } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/nyxb/select"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useUser } from "@/hooks/use-user"
+import { cn } from "@/lib/utils"
 
 export function Hero() {
   const { t } = useTranslation()
@@ -41,7 +45,7 @@ export function Hero() {
           </AnimatedShinyText>
         </div>
 
-        <p className="text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-white">
+        <p className="max-w-3xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-white">
           {t(`Unlock the Power of Creativity`)}
         </p>
         <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">

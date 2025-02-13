@@ -1,3 +1,4 @@
+// /api/publication/video
 "use server"
 
 import { NextResponse } from "next/server"

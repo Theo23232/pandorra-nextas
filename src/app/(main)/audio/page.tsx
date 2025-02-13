@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next"
 import useSWR, { mutate } from "swr"
 
 import { generateFX } from "@/actions/elevenlabs.actions"
+import { translateToEnglish } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { InputNumber } from "@/components/input-number"
 import { NothingYet } from "@/components/NothingYet"
@@ -56,25 +57,27 @@ export default function Page() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleGenerate = async () => {
+    if (!prompt) return
     try {
       setIsLoading(true)
       const client = new ElevenLabsClient({
         apiKey: process.env.NEXT_PUBLIC_XI_API_KEY,
       })
-
+      const correctedPrompt = await translateToEnglish(prompt)
       let option: any
 
       if (isAuto) {
         option = {
-          text: prompt,
+          text: correctedPrompt,
         }
       } else {
         option = {
-          text: prompt,
+          text: correctedPrompt,
           duration_seconds: durationSeconds,
           prompt_influence: influence / 100,
         }
       }
+
       const response = await client.textToSoundEffects.convert(option)
 
       const chunks: Uint8Array[] = []

@@ -1,0 +1,28 @@
+hebdo 3 video 5s, 1 video 10s,  10 minutes voix
+petit 10 video, 5s 5video 10s
+moyen 30 video 5s, 15 video 10s
+grand 100 video, 5s 50 video 10s
+
+400  credits (4.99)  :  10 videos 5s 2.5$   , 5 videos 10s 2.5$     ,80 images 1.7$     ,  audio 40 credits/min 10 minutes 2.2$
+1000 credits (12.99) :  25 videos 5s 6.25$  , 12 videos 10s 6$      ,200 images 3.92$   ,  audio 40 credits/min 25 minutes 5.5$
+3000 credits (36.99) :  75 videos 5s 18.75$ , 37 videos 10s 18.5$   ,600 images 11.76$  ,  audio 40 credits/min 75 minutes 16.5$
+8000 credits (91.99) :  200 videos 5s 50$   , 100 videos 10s 50$    ,1600 images 31.36$ ,  audio 40 credits/min 200 minutes 44$
+
+
+Vidéos (5s) : 10 vidéos × 40 crédits = 250 crédits.
+Vidéos (10s) : 5 vidéos × 80 crédits = 250 crédits.
+
+Répartition ajustée pour 1000 crédits :
+Vidéos (5s)  : 10 vidéos × 25 crédits = 250 crédits.  1.7$
+Vidéos (10s) : 5 vidéos × 25 crédits = 250 crédits.   2.5$
+Images       : 80 images × 5 crédits = 400 crédits.   2.5$
+Audio       : 2,5 minutes × 40 crédits = 100 crédits. 2.55$
+
+
+Pour 400 crédits :
+
+Images       : 40 images × 5 crédits = 200 crédits.
+Vidéos (5s)  : 5 vidéos × 25 crédits = 125 crédits.
+Vidéos (10s) : 1 vidéo × 50 crédits = 50 crédits.
+Audio        : 0,625 minute × 40 crédits = 25 crédits.
+Total        : 200 + 125 + 50 + 25 = 400 crédits.

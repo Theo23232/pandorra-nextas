@@ -1,24 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import * as Flags from 'country-flag-icons/react/3x2';
-import { ChevronDown, Download, Loader, Plus } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
+import * as Flags from "country-flag-icons/react/3x2"
+import { ChevronDown, Download, Loader, Plus } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
 
-import { getConversationAudio } from '@/actions/assistant.actions';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Card } from '@/components/tremor/ui/card';
-import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { useUser } from '@/hooks/use-user';
-import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
-import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
-import { formatTimePassed } from '@/lib/utils';
-
-import { Conversation } from './conversation';
+import { getConversationAudio } from "@/actions/assistant.actions"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Card } from "@/components/tremor/ui/card"
+import { Button } from "@/components/ui/button"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { useUser } from "@/hooks/use-user"
+import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
+import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
+import { formatTimePassed } from "@/lib/utils"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -99,21 +100,9 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   if (!data)
     return (
       <Card className="h-fit max-h-[80vh] w-96 border-l bg-background p-4">
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="mb-4 w-full" id="tour7-step1">
-              <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <Conversation
-              onClose={() => setIsDialogOpen(false)}
-              preSelectedAgentId={selectedAgent?.id}
-              preSelectedVoiceId={selectedAgent?.voiceId}
-              preSelectedLanguage={selectedAgent?.language}
-            />
-          </DialogContent>
-        </Dialog>
+        <Button className="mb-4 w-full" id="tour7-step1">
+          <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
+        </Button>
 
         <Collapsible defaultOpen>
           <CollapsibleTrigger
@@ -158,21 +147,13 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
 
   return (
     <Card className="sticky top-20 h-fit max-h-[70vh] w-96 overflow-y-auto border-l bg-background p-4">
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button className="mb-4 w-full" id="tour7-step1">
-            <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <Conversation
-            onClose={() => setIsDialogOpen(false)}
-            preSelectedAgentId={selectedAgent?.id}
-            preSelectedVoiceId={selectedAgent?.voiceId}
-            preSelectedLanguage={selectedAgent?.language}
-          />
-        </DialogContent>
-      </Dialog>
+      <Button
+        className="mb-4 w-full"
+        id="tour7-step1"
+        onClick={() => onSelectConversation("")}
+      >
+        <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
+      </Button>
 
       <Collapsible defaultOpen id="tour7-step2">
         <CollapsibleTrigger className="mb-2 flex w-full items-center justify-between">

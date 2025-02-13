@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Upload, X } from "lucide-react"
+import { Loader2, Sparkles, Upload, X } from "lucide-react"
 import { useOnborda } from "onborda"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -11,7 +11,9 @@ import useSWR, { mutate } from "swr"
 import { enhanceVideoPrompt } from "@/actions/openai.actions"
 import { generateVideoFromImage } from "@/actions/runway.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
 import { NothingYet } from "@/components/NothingYet"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -29,7 +31,6 @@ import { fetcher } from "@/lib/utils"
 
 import type { Video } from "@prisma/client"
 import type React from "react"
-
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
@@ -50,6 +51,7 @@ export default function VideoGenerator() {
   const { toast } = useToast()
   const { user } = useUser()
   const { startOnborda } = useOnborda()
+  const [isEnhancing, setIsEnhancing] = useState(false)
 
   const handleImageChange = (file: File | null) => {
     if (file && file.type.startsWith("image/")) {
@@ -114,6 +116,13 @@ export default function VideoGenerator() {
     }
   }
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }, [promptText])
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       handleImageChange(e.target.files[0])
@@ -143,8 +152,25 @@ export default function VideoGenerator() {
     }
   }, [user, startOnborda])
 
+  const enhancePrompt = async () => {
+    setIsEnhancing(true)
+    try {
+      const promptEnhanced = await enhanceVideoPrompt(promptText)
+      setPromptText(promptEnhanced)
+    } catch (error) {
+      toast({
+        title: t(`Error`),
+        description: t(`Prompt enhancement failed`),
+        variant: "error",
+        duration: 3000,
+      })
+    } finally {
+      setIsEnhancing(false)
+    }
+  }
+
   return (
-    <div className="flex w-full flex-col gap-8">
+    <Bounce className="flex w-full flex-col gap-8">
       <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-6 shadow-lg">
         <Textarea
           ref={textareaRef}
@@ -154,7 +180,7 @@ export default function VideoGenerator() {
           id="tour8-step1"
           placeholder={t(`Describe the video you want...`)}
         />
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <Bounce className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <Select value={duration} onValueChange={setDuration}>
               <SelectTrigger className="w-[100px]" id="tour8-step2">
@@ -194,17 +220,32 @@ export default function VideoGenerator() {
               />
             </div>
           </div>
-          <Button
-            id="tour8-step5"
-            className="px-6 py-2 text-white transition-all"
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? t(`Processing...`) : t(`Generate Video`)}
-          </Button>
-        </div>
+          <div className="flex items-center justify-end gap-2 p-4">
+            <Tooltip content={t(`Enhance prompt`)}>
+              <div
+                id="tour6-step2"
+                onClick={enhancePrompt}
+                className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"
+              >
+                {isEnhancing ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <Sparkles size={20} />
+                )}
+              </div>
+            </Tooltip>
+            <Button
+              id="tour8-step5"
+              className="px-6 py-2 text-white transition-all"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? t(`Processing...`) : t(`Generate Video`)}
+            </Button>
+          </div>
+        </Bounce>
         {previewUrl && (
-          <div className="relative mt-6">
+          <Bounce className="relative mt-6">
             <img
               src={previewUrl || "/placeholder.svg"}
               alt="Uploaded image preview"
@@ -216,7 +257,7 @@ export default function VideoGenerator() {
             >
               <X className="h-4 w-4" />
             </button>
-          </div>
+          </Bounce>
         )}
       </MagicCard>
 
@@ -252,6 +293,6 @@ export default function VideoGenerator() {
           />
         </div>
       )}
-    </div>
+    </Bounce>
   )
 }

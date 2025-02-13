@@ -89,27 +89,6 @@ export const PublicationContent = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [loadMore, isReachingEnd, isLoadingMore])
 
-  if (isLoadingInitial) {
-    return (
-      <div className="mt-8">
-        <Masonry
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-          breakpointCols={{
-            default: 5,
-            1440: 3,
-            1200: 2,
-            700: 1,
-          }}
-        >
-          {Array.from({ length: 10 }).map((_, id) => (
-            <Skeleton key={id} className="h-[40vh]" />
-          ))}
-        </Masonry>
-      </div>
-    )
-  }
-
   if (error) {
     return (
       <div className="w-full text-center text-red-500">

@@ -62,7 +62,8 @@ export const MoneyTracker = () => {
       const accountId = user?.connectStripeId
       if (accountId) {
         await withdrawMoney(accountId, numericValue).then(() => {
-          window.location.reload()
+          alert(numericValue)
+          // window.location.reload()
         })
       }
       setError(null)
@@ -90,7 +91,7 @@ export const MoneyTracker = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="text-2xl font-bold text-white">$ {accumulated}</div>
+            <div className="text-2xl font-bold text-white">€ {accumulated}</div>
             <p className="text-xs text-muted-foreground text-white">
               {t(`Lifetime savings`)}
             </p>
@@ -104,7 +105,7 @@ export const MoneyTracker = () => {
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold text-white">
-              $ {currentTotal}
+              € {currentTotal}
             </div>
             <p className="text-xs text-muted-foreground text-white">
               {t(`Available balance`)}
@@ -159,12 +160,12 @@ export const MoneyTracker = () => {
             </CardContent>
           </Card>
         ) : (
-          <Card className="pointer-events-none w-full opacity-100">
+          <Card className="w-full opacity-100">
             <CardHeader>
               <CardTitle>{t(`Withdraw funds`)}</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="z-40 space-y-4">
                 <div className="flex space-x-2">
                   <Input
                     type="text"

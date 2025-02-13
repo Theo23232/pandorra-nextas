@@ -90,8 +90,8 @@ export const createLinkOnBoarding = async (accountId: string) => {
   try {
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: "http://localhost:3000/dash/referrals",
-      return_url: "http://localhost:3000/dash/referrals",
+      refresh_url: "http://localhost:3000/affiliate",
+      return_url: "http://localhost:3000/affiliate",
       type: "account_onboarding",
     })
 
@@ -118,9 +118,9 @@ export const withdrawMoney = async (accountId: string, amount: number) => {
       //   throw new Error('No currency found for this Stripe account');
       // }
 
-      await stripe.transfers.create({
+      await stripe.payouts.create({
         amount: Math.round(amount * 100),
-        currency: "usd",
+        currency: "eur",
         destination: accountId,
       })
 

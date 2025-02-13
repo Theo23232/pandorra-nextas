@@ -546,5 +546,15 @@
   "Failed to generate video:": "Échec de la génération de la vidéo :",
   "Unknown error": "Erreur inconnue",
   "AI-generated images": "images créé par IA",
-  "You are in free plan. Click to upgrade": "Vous êtes sur un plan gratuit. Cliquez pour mettre à niveau"
+  "You are in free plan. Click to upgrade": "Vous êtes sur un plan gratuit. Cliquez pour mettre à niveau",
+  "No image selected for upload": "Aucune image sélectionnée pour le téléchargement",
+  "Your profile picture is up to date now!": "Votre photo de profil est maintenant à jour !",
+  "If you don't provide a profile picture, we'll generate a unique image for you.": "Si vous ne fournissez pas de photo de profil, nous générerons une image unique pour vous.",
+  "Remove profile picture": "Supprimer la photo de profil",
+  "Your profile picture will be set to this one": "Votre photo de profil sera définie sur celle-ci",
+  "Change": "Modifier",
+  "Update your profile picture": "Mettre à jour votre photo de profil",
+  "Select another image": "Sélectionner une autre image",
+  "Click to select": "Cliquez pour sélectionner",
+  "Save": "Enregistrer"
 }

@@ -1,44 +1,31 @@
 // PublicationDialog.tsx
 "use client"
 
-import {
-  Download,
-  Eraser,
-  Expand,
-  Fullscreen,
-  Loader,
-  SendHorizontal,
-  X,
-  Zap,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import React, { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { toast } from "sonner"
-import useSWR from "swr"
+import { Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, X, Zap } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import useSWR from 'swr';
 
-import { createComment } from "@/actions/publication.action"
-import { Input } from "@/components/tremor/inputs/input"
-import { Button } from "@/components/tremor/ui/button"
-import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import { createComment } from '@/actions/publication.action';
+import { Input } from '@/components/tremor/inputs/input';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/formatDate"
-import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
-import { models } from "@/lib/leonardo/presets"
-import { fetcher } from "@/lib/utils"
-import { CommentWithAuthor } from "@/types/publicationType"
+    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import { formatDate } from '@/lib/formatDate';
+import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
+import { models } from '@/lib/leonardo/presets';
+import { fetcher } from '@/lib/utils';
+import { CommentWithAuthor } from '@/types/publicationType';
 
-import CommentCard from "./CommentCard"
-import RelatedPublications from "./RelatedPublications"
+import CommentCard from './CommentCard';
+import RelatedPublications from './RelatedPublications';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -70,6 +57,7 @@ export default function PublicationDialog({
 
   const [comment, setComment] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDownloading, setIsDownloading] = useState<boolean>(false)
   const model = models.find((m) => m.name === publication.description.model)
 
   const handlePostComment = async () => {
@@ -104,10 +92,16 @@ export default function PublicationDialog({
   }
 
   const handleDownload = async () => {
+    setIsDownloading(true)
     try {
-      const response = await fetch(publication.image)
+      const proxyUrl = `/api/proxy?url=${encodeURIComponent(publication.image)}`
+      const response = await fetch(proxyUrl)
       const blob = await response.blob()
-      const fileName = publication.image.split("/").pop() || "image.png"
+      const originalFileName = publication.image.split("/").pop() || "image.png"
+      const fileName = originalFileName.replace(
+        "Leonardo_Phoenix_10",
+        "Pandorra.ai",
+      )
       const url = URL.createObjectURL(blob)
       const link = document.createElement("a")
       link.href = url
@@ -118,6 +112,8 @@ export default function PublicationDialog({
       URL.revokeObjectURL(url)
     } catch (error) {
       toast.error("Error downloading image")
+    } finally {
+      setIsDownloading(false)
     }
   }
 
@@ -161,6 +157,7 @@ export default function PublicationDialog({
                 description={publication.description}
                 image={publication.image}
                 isLoading={isLoading}
+                isDownloading={isDownloading}
                 model={model}
                 onDownload={handleDownload}
                 onImageAction={handleImageAction}
@@ -222,6 +219,7 @@ function PublicationActions({
   description,
   image,
   isLoading,
+  isDownloading,
   model,
   onDownload,
   onImageAction,
@@ -231,7 +229,7 @@ function PublicationActions({
     return (
       <Card>
         <Button className="flex h-8 w-full items-center justify-center gap-2">
-          <Loader className="animate-spin" size={20} /> {t(`Loading`)}
+          <Loader className="animate-spin" size={20} /> {t(`Loading...`)}
         </Button>
       </Card>
     )
@@ -246,8 +244,17 @@ function PublicationActions({
         <Button
           className="flex h-8 w-full items-center justify-center gap-2"
           onClick={onDownload}
+          disabled={isDownloading}
         >
-          <Download size={20} /> {t(`Download`)}
+          {isDownloading ? (
+            <>
+              <Loader className="animate-spin" size={20} /> {t(`Loading...`)}
+            </>
+          ) : (
+            <>
+              <Download size={20} /> {t(`Download`)}
+            </>
+          )}
         </Button>
 
         <div className="flex items-center justify-center gap-2">

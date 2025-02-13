@@ -1,13 +1,16 @@
 "use client"
 
-import { Minus, Plus } from 'lucide-react';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Minus, Plus } from "lucide-react"
+import * as React from "react"
+import { useTranslation } from "react-i18next"
 
 import {
-    Accordion, AccordionContent, AccordionItem, AccordionTrigger
-} from '@/components/affiliation/Accordion';
-import Bounce from '@/components/animated/uibeats/bounce';
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/affiliation/Accordion"
+import Bounce from "@/components/animated/uibeats/bounce"
 
 const AccordionIcon = ({ isOpen }: { isOpen: boolean }) => {
   return isOpen ? (
@@ -120,10 +123,9 @@ export default function FAQ() {
     <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8">
       <p
         id="FAQ"
-        className="text-[64px] font-semibold leading-[68px] text-white"
+        className="max-w-3xl text-center text-[64px] font-semibold leading-[68px] text-white"
       >
         {t(`Curious About Pandorra.ai?`)}
-        <br />
         <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
           {t(`We’ve Got You Covered!`)}
         </span>

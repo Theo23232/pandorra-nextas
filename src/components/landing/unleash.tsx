@@ -1,10 +1,10 @@
 "use client"
 
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import Link from "next/link"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/tremor/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/tremor/ui/button"
 
 export function Unleash() {
   const { t } = useTranslation()
@@ -46,7 +46,7 @@ export function Unleash() {
           playsInline
           className="left-0 top-0 max-h-[70vh] w-full object-cover"
         ></video>
-        {/* <div className="pointer-events-none absolute inset-x-0 top-0 h-3/4 bg-gradient-to-b from-[#010101]"></div> */}
+        <div className="absolute h-full w-full bg-black/30"></div>
         {/* <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#010101]"></div> */}
       </div>
     </>

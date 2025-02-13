@@ -1,7 +1,10 @@
 enum Plan {
   Free
-  WeeklyEco
-  StarterMonthly
-  AdvancedMonthly
-  PremiumMonthly
+  Hebdomadaire
+  CreatorPack
+  VisionPro
+  PandorraInfini
+  CreatorPackYear
+  VisionProYear
+  PandorraInfiniYear
 }

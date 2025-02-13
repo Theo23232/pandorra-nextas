@@ -1,12 +1,31 @@
 "use client"
 import { useTranslation } from 'react-i18next';
 
+import { payementSession } from '@/actions/stripeSessions.action';
 import Bounce from '@/components/animated/uibeats/bounce';
 import { Check } from '@/components/icons/check';
 import { Button } from '@/components/ui/button';
 
 export const TokenPrice = () => {
   const { t } = useTranslation()
+  const handleButtonClick = async (payementType: string) => {
+    switch (payementType) {
+      case "1000Tokens":
+        await payementSession("1000 Crédits", "Achat de 1000 jetons", 1299)
+        localStorage.setItem("article", "1000Tokens")
+        break
+      case "3000Tokens":
+        await payementSession("3000 Crédits", "Achat de 3000 jetons", 3499)
+        localStorage.setItem("article", "3000Tokens")
+        break
+      case "8000Tokens":
+        await payementSession("8000 Tokens", "Achat de 8000 jetons", 8999)
+        localStorage.setItem("article", "8000Tokens")
+        break
+      default:
+        break
+    }
+  }
   return (
     <div
       id="pricing"
@@ -75,6 +94,7 @@ export const TokenPrice = () => {
               <Button
                 variant={"ghost"}
                 className="mt-auto w-full bg-white hover:bg-white/80"
+                onClick={() => handleButtonClick("1000Tokens")}
               >
                 <p className="gdt">{t(`Add credits`)}</p>
               </Button>
@@ -139,7 +159,11 @@ export const TokenPrice = () => {
                   <p className="text-[36px] font-bold">34.99</p>
                   <p className="ml-2 pt-2 font-light"></p>
                 </div>
-                <Button variant={"gradient"} className="mt-auto w-full">
+                <Button
+                  variant={"gradient"}
+                  className="mt-auto w-full"
+                  onClick={() => handleButtonClick("3000Tokens")}
+                >
                   <p className="">{t(`Add credits`)}</p>
                 </Button>
               </div>
@@ -197,6 +221,7 @@ export const TokenPrice = () => {
               <Button
                 variant={"ghost"}
                 className="mt-auto w-full bg-white hover:bg-white/80"
+                onClick={() => handleButtonClick("8000Tokens")}
               >
                 <p className="gdt">{t(`Add credits`)}</p>
               </Button>

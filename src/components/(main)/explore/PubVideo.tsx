@@ -4,6 +4,7 @@ import { useRef, useState } from "react"
 
 import { LikePublicationVideo } from "@/components/(main)/explore/LikePublicationVideo"
 import PubVideoComment from "@/components/(main)/explore/PubVideoComment"
+import Bounce from "@/components/animated/uibeats/bounce"
 
 interface PubVideoProps {
   status: string
@@ -42,7 +43,7 @@ export const PubVideo = ({
   const videoRef = useRef<HTMLVideoElement>(null)
 
   return (
-    <div
+    <Bounce
       className="relative cursor-pointer overflow-hidden rounded-lg border border-border bg-muted shadow-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -95,6 +96,6 @@ export const PubVideo = ({
           {videoPrompt}
         </p>
       </div>
-    </div>
+    </Bounce>
   )
 }

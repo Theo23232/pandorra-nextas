@@ -1,5 +1,5 @@
-import { compare, hash } from 'bcryptjs';
-import { sign, verify } from 'jsonwebtoken';
+import { compare, hash } from "bcryptjs"
+import { sign, verify } from "jsonwebtoken"
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"
 
@@ -12,7 +12,7 @@ export async function verifyPassword(password: string, hashedPassword: string) {
 }
 
 export function generateToken(userId: string) {
-  return sign({ userId }, JWT_SECRET, { expiresIn: "7d" })
+  return sign({ userId }, JWT_SECRET, { expiresIn: "30d" })
 }
 
 export function verifyToken(token: string) {

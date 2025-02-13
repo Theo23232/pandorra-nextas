@@ -1,19 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { TextToFX } from '@/components/icons/TextToFX';
-import { TextToSpeech } from '@/components/icons/TextToSpeech';
-import { VoiceDubbing } from '@/components/icons/voice-dubbing';
-import { VoiceChanger } from '@/components/icons/VoiceChanger';
-import { useUser } from '@/hooks/use-user';
-import { cx, focusRing } from '@/lib/utils';
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { TextToFX } from "@/components/icons/TextToFX"
+import { TextToSpeech } from "@/components/icons/TextToSpeech"
+import { VoiceChanger } from "@/components/icons/VoiceChanger"
+import { useUser } from "@/hooks/use-user"
+import { cx, focusRing } from "@/lib/utils"
 
 export function Sidebar() {
   const { t } = useTranslation()
@@ -84,7 +83,7 @@ export function Sidebar() {
         <VoiceChanger aria-hidden="true" />
         {t(`Voice changer`)}
       </Link>
-      <Link
+      {/* <Link
         id="tour9-step4"
         prefetch={true}
         href={"/audio/dubbing"}
@@ -98,7 +97,7 @@ export function Sidebar() {
       >
         <VoiceDubbing aria-hidden="true" />
         {t(`Dubbing`)}
-      </Link>
+      </Link> */}
     </MagicCard>
   )
 }

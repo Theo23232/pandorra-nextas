@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 import { cn } from "@/lib/utils"
+import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
@@ -13,7 +13,7 @@ const Avatar = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
+      className,
     )}
     {...props}
   />
@@ -40,11 +40,41 @@ const AvatarFallback = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className
+      className,
     )}
     {...props}
   />
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
-export { Avatar, AvatarImage, AvatarFallback }
+interface ProfileAvatarProps {
+  image: string
+  className?: string
+  profileType?: string
+  isRingHidden?: boolean
+  email: string
+  name: string
+  lastAction?: Date | null
+}
+
+const Profile = (props: ProfileAvatarProps) => {
+  return (
+    <div className="relative inline-block">
+      <Avatar
+        className={cn("size-6 object-cover ring-muted/50", props.className)}
+      >
+        <AvatarFallback>
+          {props.name[0]}
+          {props.name[1]}
+        </AvatarFallback>
+        <AvatarImage
+          src={props.image}
+          alt={`${props.email}`}
+          className="object-cover"
+        />
+      </Avatar>
+    </div>
+  )
+}
+
+export { Avatar, AvatarFallback, AvatarImage, Profile }

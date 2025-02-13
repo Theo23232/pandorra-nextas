@@ -1,6 +1,5 @@
 "use client"
 import confetti from "canvas-confetti"
-import { XIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useOnborda } from "onborda"
 import React from "react"
@@ -53,7 +52,7 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         break
       case "fourthtour":
         EditUserTourDone("fourthtour")
-        router.push("/image/generation")
+        // router.push("/image/generation")
         break
       case "fifthtour":
         EditUserTourDone("fifthtour")
@@ -61,39 +60,38 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         break
       case "sixthtour":
         EditUserTourDone("sixthtour")
-        router.push("/assistant")
+        // router.push("/assistant")
         break
       case "seventhtour":
         EditUserTourDone("seventhtour")
-        router.push("/video")
+        // router.push("/video")
         break
       case "eighthtour":
         EditUserTourDone("eighthtour")
-        router.push("/audio")
+        // router.push("/audio")
         break
       case "ninthtour":
         EditUserTourDone("ninthtour")
-        router.push("/audio/text-to-speech")
+        // router.push("/audio/text-to-speech")
         break
       case "tenthtour":
         EditUserTourDone("tenthtour")
-        router.push("/audio/voice-changer")
+        // router.push("/audio/voice-changer")
         break
       case "eleventhtour":
         EditUserTourDone("eleventhtour")
-        router.push("/audio/dubbing")
+        // router.push("/audio/dubbing")
         break
       case "eleventhtour":
         EditUserTourDone("eleventhtour")
-        router.push("/audio/dubbing")
+        // router.push("/audio/dubbing")
         break
       case "twelfthtour":
         EditUserTourDone("twelfthtour")
-        router.push("/affiliate")
+        // router.push("/affiliate")
         break
       case "thirteenthtour":
         EditUserTourDone("thirteenthtour")
-        EditUserTourDone("stop")
         break
       default:
         break
@@ -112,7 +110,7 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
               {currentStep + 1} of {totalSteps}
             </CardDescription>
           </div>
-          <Button
+          {/* <Button
             variant="ghost"
             size="icon"
             onClick={() => {
@@ -121,7 +119,7 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
             }}
           >
             <XIcon size={16} />
-          </Button>
+          </Button> */}
         </div>
       </CardHeader>
       <CardContent className="w-full">{step.content}</CardContent>

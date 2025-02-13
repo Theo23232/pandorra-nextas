@@ -202,7 +202,7 @@ export default function VideoGenerator() {
             <div className="" id="tour8-step4">
               <Label
                 htmlFor="image-upload"
-                className="flex cursor-pointer items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+                className="flex cursor-pointer items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground shadow-sm transition-colors hover:bg-accent/50"
               >
                 <Upload className="h-5 w-5" />
                 <span>

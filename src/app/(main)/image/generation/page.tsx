@@ -1,10 +1,12 @@
 "use client"
-import { useState } from "react"
+import { useOnborda } from "onborda"
+import { useEffect, useState } from "react"
 
 import { updateUserPreferences } from "@/actions/user.ations"
 import Bounce from "@/components/animated/uibeats/bounce"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useSelectImage } from "@/hooks/use-select-image"
+import { useUser } from "@/hooks/use-user"
 import { leofetch } from "@/lib/leonardo/fetch"
 import { Model, models } from "@/lib/leonardo/presets"
 
@@ -14,7 +16,8 @@ import { ImageGenerationSidebar } from "./sidebar"
 export default function RoutePage() {
   //en fait c'est un ID
   const { imageUrl } = useSelectImage()
-
+  const { user } = useUser()
+  const { startOnborda } = useOnborda()
   type State = {
     prompt: string
     activeModel: Model
@@ -82,6 +85,18 @@ export default function RoutePage() {
       [key]: value,
     }))
   }
+
+  useEffect(() => {
+    if (user) {
+      const tourOnboarding = user.tourOnboarding
+      if (
+        !tourOnboarding.includes("fifthtour") &&
+        !tourOnboarding.includes("stop")
+      ) {
+        startOnborda("fifthtour")
+      }
+    }
+  }, [user, startOnborda])
 
   return (
     <Bounce className="flex pt-4">

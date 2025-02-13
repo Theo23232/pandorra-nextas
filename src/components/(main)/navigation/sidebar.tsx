@@ -142,10 +142,10 @@ export function Sidebar() {
                 </li>
               ))}
               <UpgradePlanDialog>
-                <li id="tour1-step5">
+                <li id="tour1-step5" className="w-full cursor-pointer">
                   <div
                     className={cx(
-                      "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                      "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                       "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                       focusRing,
                     )}
@@ -156,10 +156,10 @@ export function Sidebar() {
                 </li>
               </UpgradePlanDialog>
               <AddTokenDialog>
-                <li id="tour1-step6" className="cursor-pointer">
+                <li id="tour1-step6" className="w-full cursor-pointer">
                   <div
                     className={cx(
-                      "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                      "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                       "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                       focusRing,
                     )}

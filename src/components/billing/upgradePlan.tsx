@@ -89,7 +89,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
 
   return (
     <Dialog>
-      <DialogTrigger>{props.children}</DialogTrigger>
+      <DialogTrigger className="w-full">{props.children}</DialogTrigger>
       <DialogContent className="max-h-[90vh] max-w-[1700px] overflow-x-hidden rounded-xl bg-background">
         <div
           id="pricing"

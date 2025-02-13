@@ -1,23 +1,23 @@
 "use client"
-import { MoveRight } from 'lucide-react';
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { MoveRight } from "lucide-react"
+import Link from "next/link"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/tremor/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/tremor/ui/button"
 
 export const UnlockPower = () => {
   const { t } = useTranslation()
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
-        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
-          {t(`Unlock the Power of AI with`)} <br />{" "}
-          <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
+        <Bounce className="font-inter max-w-3xl text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
+          {t(`Unlock the Power of AI with`)}
+          <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-4 text-transparent">
             {t(`Text to Video`)}
           </span>
         </Bounce>
-        <Bounce className="my-6 text-center font-medium leading-normal text-neutral-400">
+        <Bounce className="my-6 max-w-3xl text-center font-medium leading-normal text-neutral-400">
           {t(
             `Convert simple text prompts into engaging AI-generated videos. Bring stories, ads, and concepts to life in seconds.`,
           )}
@@ -54,7 +54,7 @@ export const UnlockPower = () => {
             {t(`Generation Platform`)}
           </span>
         </Bounce>
-        <Bounce className="my-6 text-center font-medium leading-normal text-neutral-400">
+        <Bounce className="my-6 max-w-3xl text-center font-medium leading-normal text-neutral-400">
           🚀{" "}
           {t(
             `Revolutionize Your Creativity with AI - Pandorra.ai empowers creators with cutting-edge AI models, making video, image, text, and voice generation seamless and powerful.`,

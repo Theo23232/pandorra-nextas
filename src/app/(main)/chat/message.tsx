@@ -6,6 +6,8 @@ import SyntaxHighlighter from "react-syntax-highlighter"
 import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism"
 import remarkGfm from "remark-gfm"
 
+import Bounce from "@/components/animated/uibeats/bounce"
+
 export type MessageProps = {
   content: string
   role: string
@@ -30,9 +32,9 @@ export const Message: React.FC<MessageProps> = ({
 
   if (role === "user") {
     return (
-      <div className="relative ml-auto w-fit max-w-xl rounded-3xl bg-muted px-5 py-2.5">
+      <Bounce className="relative ml-auto w-fit max-w-xl rounded-3xl bg-muted px-5 py-2.5">
         <div className="whitespace-pre-wrap">{content}</div>
-      </div>
+      </Bounce>
     )
   }
 
@@ -69,7 +71,7 @@ export const Message: React.FC<MessageProps> = ({
           SyntaxHighlighter as unknown as React.ComponentType<any>
 
         return (
-          <div className="group relative">
+          <Bounce className="group relative">
             <div className="absolute right-2 top-2 z-10">
               <button
                 onClick={() => handleCopy(code, codeId)}
@@ -97,7 +99,7 @@ export const Message: React.FC<MessageProps> = ({
             >
               {code}
             </SyntaxHighlighterComponent>
-          </div>
+          </Bounce>
         )
       }
 
@@ -132,7 +134,7 @@ export const Message: React.FC<MessageProps> = ({
   }
 
   return (
-    <div className="rounded-lg bg-background p-4 text-foreground">
+    <Bounce className="rounded-lg bg-background p-4 text-foreground">
       {isStreaming && (
         <div className="mb-2 animate-pulse text-sm text-muted-foreground">
           Pandorra is thinking...
@@ -143,7 +145,7 @@ export const Message: React.FC<MessageProps> = ({
           {content}
         </ReactMarkdown>
       </div>
-    </div>
+    </Bounce>
   )
 }
 

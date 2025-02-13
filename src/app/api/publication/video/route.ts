@@ -1,10 +1,10 @@
 // /api/publication/video
 "use server"
 
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 export const GET = async () => {
   const user = await currentUser()
@@ -43,8 +43,6 @@ export const GET = async () => {
       reactionVideoCount: publicationVideo.ReactionVideo.length,
       commentVideoCount: publicationVideo.CommentVideo.length,
     }))
-
-    console.log(response)
 
     return NextResponse.json(response, { status: 200 })
   } catch (error) {

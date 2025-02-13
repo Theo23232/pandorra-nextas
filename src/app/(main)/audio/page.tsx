@@ -274,7 +274,7 @@ export default function Page() {
       </MagicCard>
 
       {!(data?.length === 0) ? (
-        <MagicCard className="mt-4 bg-red-500 p-4">
+        <MagicCard className="mt-4 p-4">
           {data?.map((audio) => (
             <div className="" key={audio.id} id="tour9-step9">
               <CardTitle>{audio.prompt}</CardTitle>

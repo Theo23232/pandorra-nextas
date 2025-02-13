@@ -1,6 +1,6 @@
 "use client"
 
-import { AlertCircle, Download, Send } from "lucide-react"
+import { AlertCircle, Download, Loader, Send } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -34,6 +34,7 @@ export const VideoDisplayCard = ({
 }: VideoDisplayCardProps) => {
   const { t } = useTranslation()
   const [isHovered, setIsHovered] = useState(false)
+  const [isDownloading, setIsDownloading] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { toast } = useToast()
 
@@ -97,6 +98,30 @@ export const VideoDisplayCard = ({
       console.error("Erreur lors de la publication de la vidéo :", error)
     }
   }
+
+  const handleDownload = async () => {
+    setIsDownloading(true)
+    try {
+      const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`
+      const response = await fetch(proxyUrl)
+      const blob = await response.blob()
+      const originalFileName = url.split("/").pop() || "video.mp4"
+      const fileName = `Pandorra.ai_${originalFileName}`
+      const downloadUrl = URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = downloadUrl
+      link.download = fileName
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(downloadUrl)
+    } catch (error) {
+      console.error("Erreur lors du téléchargement de la vidéo :", error)
+    } finally {
+      setIsDownloading(false)
+    }
+  }
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -117,10 +142,15 @@ export const VideoDisplayCard = ({
                   className="z-40 size-10 rounded-full p-2"
                   onClick={(e) => {
                     e.stopPropagation()
-                    //   handleDownload()
+                    handleDownload()
                   }}
+                  disabled={isDownloading}
                 >
-                  <Download />
+                  {isDownloading ? (
+                    <Loader className="animate-spin" size={20} />
+                  ) : (
+                    <Download />
+                  )}
                 </Button>
               </Tooltip>
               <Tooltip content={t(`Post`)}>

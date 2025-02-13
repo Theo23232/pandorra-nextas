@@ -1,11 +1,11 @@
 "use server"
-import fetch from "node-fetch" // Add this line to import fetch
+import fetch from 'node-fetch'; // Add this line to import fetch
 
-import { currentUser } from "@/lib/current-user"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
-import { Video } from "@prisma/client"
-import RunwayML from "@runwayml/sdk"
+import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { Video } from '@prisma/client';
+import RunwayML from '@runwayml/sdk';
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env
@@ -99,7 +99,6 @@ export const videoVerifyTask = SA(
     if (task.status === "SUCCEEDED") {
       try {
         const downloadData = await downloadVideo(task.output![0])
-        console.log("here", downloadData)
 
         video = await prisma.video.update({
           where: {

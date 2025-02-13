@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from 'next/server';
 
-import { generateToken, hashPassword } from "@/lib/auth"
-import { getDeviceInfo } from "@/lib/device"
-import { prisma } from "@/prisma"
+import { generateToken, hashPassword } from '@/lib/auth';
+import { getDeviceInfo } from '@/lib/device';
+import { stripe } from '@/lib/stripe';
+import { prisma } from '@/prisma';
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,12 +54,18 @@ export async function POST(req: NextRequest) {
     }
 
     const hashedPassword = await hashPassword(password)
+    const stripeCustomer = await stripe.customers.create({
+      email,
+      name: username ?? undefined,
+    })
+
     const user = await prisma.user.create({
       data: {
         email,
         username,
         password: hashedPassword,
         image: `https://api.dicebear.com/9.x/bottts/svg?seed=${email}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,transparent`,
+        stripeCustomerId: stripeCustomer.id,
       },
     })
 

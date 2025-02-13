@@ -1,18 +1,85 @@
 "use client"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import { Button } from "@/components/ui/button"
+import { subscriptionSession } from '@/actions/stripeSessions.action';
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Button } from '@/components/ui/button';
 
 export const Pricing = () => {
   const { t } = useTranslation()
+
+  const handleButtonClick = async (subscriptionType: string) => {
+    switch (subscriptionType) {
+      case "Hebdomadaire":
+        await subscriptionSession(
+          "Hebdomadaire",
+          "400 credits/week",
+          499,
+          "week",
+        )
+        localStorage.setItem("article", "Hebdomadaire")
+        break
+      case "CreatorPack":
+        await subscriptionSession(
+          "CreatorPack",
+          "1000 credits/month",
+          1299,
+          "month",
+        )
+        localStorage.setItem("article", "CreatorPack")
+        break
+      case "VisionPro":
+        await subscriptionSession(
+          "VisionPro",
+          "3000 credits/month",
+          3499,
+          "month",
+        )
+        localStorage.setItem("article", "VisionPro")
+        break
+      case "PandorraInfini":
+        await subscriptionSession(
+          "PandorraInfini",
+          "8000 credits/month",
+          8999,
+          "month",
+        )
+        localStorage.setItem("article", "PandorraInfini")
+        break
+      case "CreatorPackYear":
+        await subscriptionSession(
+          "CreatorPack",
+          "1000 credits/month for 1 year",
+          14289,
+          "year",
+        )
+        localStorage.setItem("article", "CreatorPackYear")
+        break
+
+      case "VisionProYear":
+        await subscriptionSession(
+          "VisionPro",
+          "3000 credits/month for 1 year",
+          38499,
+          "year",
+        )
+        localStorage.setItem("article", "VisionProYear")
+        break
+      case "PandorraInfiniYear":
+        await subscriptionSession(
+          "PandorraInfini",
+          "8000 credits/month",
+          98989,
+          "year",
+        )
+        localStorage.setItem("article", "PandorraInfiniYear")
+        break
+      default:
+        break
+    }
+  }
 
   return (
     <div
@@ -133,7 +200,11 @@ export const Pricing = () => {
                     <p className="text-[36px] font-bold">4.99</p>
                     <p className="ml-2 pt-2 font-light">/ {t(`week`)}</p>
                   </div>
-                  <Button variant={"gradient"} className="w-full">
+                  <Button
+                    variant={"gradient"}
+                    className="w-full"
+                    onClick={() => handleButtonClick("Hebdomadaire")}
+                  >
                     <p className="">{t(`Choose`)}</p>
                   </Button>
                 </div>
@@ -209,6 +280,7 @@ export const Pricing = () => {
                 <Button
                   variant={"ghost"}
                   className="w-full bg-white hover:bg-white/80"
+                  onClick={() => handleButtonClick("CreatorPack")}
                 >
                   <p className="gdt">{t(`Choose`)}</p>
                 </Button>
@@ -286,7 +358,11 @@ export const Pricing = () => {
                     <p className="text-[36px] font-bold">34.99</p>
                     <p className="ml-2 pt-2 font-light">/ {t(`month`)}</p>
                   </div>
-                  <Button variant={"gradient"} className="w-full">
+                  <Button
+                    variant={"gradient"}
+                    className="w-full"
+                    onClick={() => handleButtonClick("VisionPro")}
+                  >
                     <p className="">{t(`Choose`)}</p>
                   </Button>
                 </div>
@@ -360,6 +436,7 @@ export const Pricing = () => {
                 <Button
                   variant={"ghost"}
                   className="w-full bg-white hover:bg-white/80"
+                  onClick={() => handleButtonClick("PandorraInfini")}
                 >
                   <p className="gdt">{t(`Choose`)}</p>
                 </Button>
@@ -439,6 +516,7 @@ export const Pricing = () => {
                 <Button
                   variant={"ghost"}
                   className="w-full bg-white hover:bg-white/80"
+                  onClick={() => handleButtonClick("CreatorPackYear")}
                 >
                   <p className="gdt">{t(`Choose`)}</p>
                 </Button>
@@ -516,7 +594,11 @@ export const Pricing = () => {
                     <p className="text-[36px] font-bold">288.99</p>
                     <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
                   </div>
-                  <Button variant={"gradient"} className="w-full">
+                  <Button
+                    variant={"gradient"}
+                    className="w-full"
+                    onClick={() => handleButtonClick("VisionProYear")}
+                  >
                     <p className="">{t(`Choose`)}</p>
                   </Button>
                 </div>
@@ -590,6 +672,7 @@ export const Pricing = () => {
                 <Button
                   variant={"ghost"}
                   className="w-full bg-white hover:bg-white/80"
+                  onClick={() => handleButtonClick("PandorraInfiniYear")}
                 >
                   <p className="gdt">{t(`Choose`)}</p>
                 </Button>

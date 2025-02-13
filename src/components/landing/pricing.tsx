@@ -1,11 +1,16 @@
 "use client"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next"
 
-import { subscriptionSession } from '@/actions/stripeSessions.action';
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Button } from '@/components/ui/button';
+import { subscriptionSession } from "@/actions/stripeSessions.action"
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Button } from "@/components/ui/button"
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -104,15 +109,13 @@ export const Pricing = () => {
           <Tabs className="mb-32 text-white">
             <Tab value={"small"}>{t(`Small`)}</Tab>
             <Tab value={"monthly"}>{t(`Monthly`)}</Tab>
-            <Tab value={"Annually"} className="flex gap-2">
-              {t(`Annually`)} <img src="/save-27.png" className="h-6" />
-            </Tab>
+            <Tab value={"Annually"}>{t(`Annually`)}</Tab>
           </Tabs>
           <TabPanel
             value={"small"}
             className="relative flex justify-between gap-4"
           >
-            <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
+            <div className="flex min-h-[522px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
               <div className="">
                 <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
                   {t(`Free`)}
@@ -141,7 +144,7 @@ export const Pricing = () => {
                 </div>
               </div>
             </div>
-            <div className="flex min-h-[400px] w-[350px] items-center justify-center rounded-[24px] bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]">
+            <div className="flex min-h-[522px] w-[350px] items-center justify-center rounded-[24px] bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]">
               <div className="flex h-full w-full shrink-0 flex-col items-start gap-[32px] rounded-[24px] bg-[#39517e77] p-[25px_32px]">
                 <div className="">
                   <div className="flex items-center justify-between">
@@ -202,7 +205,7 @@ export const Pricing = () => {
                   </div>
                   <Button
                     variant={"gradient"}
-                    className="w-full"
+                    className="mt-auto w-full"
                     onClick={() => handleButtonClick("Hebdomadaire")}
                   >
                     <p className="">{t(`Choose`)}</p>
@@ -355,7 +358,7 @@ export const Pricing = () => {
                   </div>
                   <div className="mb-8 flex items-center text-white">
                     <p className="pt-2 text-[24px]">€</p>
-                    <p className="text-[36px] font-bold">34.99</p>
+                    <p className="text-[36px] font-bold">36.99</p>
                     <p className="ml-2 pt-2 font-light">/ {t(`month`)}</p>
                   </div>
                   <Button
@@ -388,7 +391,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        62
+                        200
                       </span>{" "}
                       {t(`videos`)}
                     </p>
@@ -398,7 +401,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        32
+                        100
                       </span>{" "}
                       {t(`videos`)}
                     </p>
@@ -408,7 +411,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Images`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        125
+                        1600
                       </span>{" "}
                       {t(`AI-generated images`)}
                     </p>
@@ -421,7 +424,7 @@ export const Pricing = () => {
                     <p>
                       {t(`AI Voice`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        125
+                        200
                       </span>{" "}
                       {t(`minutes`)}
                     </p>
@@ -430,7 +433,7 @@ export const Pricing = () => {
 
                 <div className="mb-8 flex items-center text-white">
                   <p className="pt-2 text-[24px]">€</p>
-                  <p className="text-[36px] font-bold">89.99</p>
+                  <p className="text-[36px] font-bold">91.99</p>
                   <p className="ml-2 pt-2 font-light">/ {t(`month`)}</p>
                 </div>
                 <Button
@@ -468,7 +471,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        62
+                        25
                       </span>{" "}
                       {t(`videos`)}
                     </p>
@@ -478,7 +481,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        32
+                        12
                       </span>{" "}
                       {t(`videos`)}
                     </p>
@@ -488,7 +491,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Images`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        125
+                        80
                       </span>{" "}
                       {t(`AI-generated images`)}
                     </p>
@@ -501,7 +504,7 @@ export const Pricing = () => {
                     <p>
                       {t(`AI Voice`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        125
+                        25
                       </span>{" "}
                       {t(`minutes`)}
                     </p>
@@ -510,7 +513,7 @@ export const Pricing = () => {
 
                 <div className="mb-8 flex items-center text-white">
                   <p className="pt-2 text-[24px]">€</p>
-                  <p className="text-[36px] font-bold">113.99</p>
+                  <p className="text-[36px] font-bold">142.99</p>
                   <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
                 </div>
                 <Button
@@ -549,7 +552,7 @@ export const Pricing = () => {
                       <p>
                         {t(`Short Video`)} (5 sec):{" "}
                         <span className="font-italic mx-1 font-extrabold">
-                          62
+                          75
                         </span>{" "}
                         {t(`videos`)}
                       </p>
@@ -559,7 +562,7 @@ export const Pricing = () => {
                       <p>
                         {t(`Medium Video`)} (10 sec):{" "}
                         <span className="font-italic mx-1 font-extrabold">
-                          32
+                          37
                         </span>{" "}
                         {t(`videos`)}
                       </p>
@@ -569,7 +572,7 @@ export const Pricing = () => {
                       <p>
                         {t(`Images`)}:{" "}
                         <span className="font-italic mx-1 font-extrabold">
-                          125
+                          600
                         </span>{" "}
                         {t(`AI-generated images`)}
                       </p>
@@ -583,7 +586,7 @@ export const Pricing = () => {
                       <p>
                         {t(`AI Voice`)}:{" "}
                         <span className="font-italic mx-1 font-extrabold">
-                          125
+                          75
                         </span>{" "}
                         {t(`minutes`)}
                       </p>
@@ -591,7 +594,7 @@ export const Pricing = () => {
                   </div>
                   <div className="mb-8 flex items-center text-white">
                     <p className="pt-2 text-[24px]">€</p>
-                    <p className="text-[36px] font-bold">288.99</p>
+                    <p className="text-[36px] font-bold">406.99</p>
                     <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
                   </div>
                   <Button
@@ -624,7 +627,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        62
+                        200
                       </span>{" "}
                       {t(`videos`)}
                     </p>
@@ -634,7 +637,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        32
+                        100
                       </span>{" "}
                       {t(`videos`)}
                     </p>
@@ -644,7 +647,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Images`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        125
+                        1600
                       </span>{" "}
                       {t(`AI-generated images`)}
                     </p>
@@ -657,7 +660,7 @@ export const Pricing = () => {
                     <p>
                       {t(`AI Voice`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        125
+                        200
                       </span>{" "}
                       {t(`minutes`)}
                     </p>
@@ -666,7 +669,7 @@ export const Pricing = () => {
 
                 <div className="mb-8 flex items-center text-white">
                   <p className="pt-2 text-[24px]">€</p>
-                  <p className="text-[36px] font-bold">788.99</p>
+                  <p className="text-[36px] font-bold">1011.99</p>
                   <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
                 </div>
                 <Button

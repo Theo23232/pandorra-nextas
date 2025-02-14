@@ -1,8 +1,8 @@
 "use server"
 
-import { currentUser } from "@/lib/current-user"
-import { stripe } from "@/lib/stripe"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { stripe } from '@/lib/stripe';
+import { prisma } from '@/prisma';
 
 export const createProductPayement = async (
   name: string,

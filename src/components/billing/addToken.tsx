@@ -9,6 +9,8 @@ import Bounce from '@/components/animated/uibeats/bounce';
 import { Check } from '@/components/icons/check';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
 
 export type addTokenProps = {
   children: ReactNode
@@ -16,7 +18,18 @@ export type addTokenProps = {
 
 export const AddTokenDialog = (props: addTokenProps) => {
   const { t } = useTranslation()
+  const { toast } = useToast()
+  const { user } = useUser()
+
   const handleButtonClick = async (payementType: string) => {
+    if (user?.plan === "Free") {
+      toast({
+        title: t("Purchase not allowed"),
+        description: t("Free users are not allowed to purchase credits."),
+        variant: "error",
+      })
+      return
+    }
     switch (payementType) {
       case "1000Tokens":
         await payementSession("1000 Crédits", "Achat de 1000 jetons", 1299)

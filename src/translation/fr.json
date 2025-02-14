@@ -556,5 +556,7 @@
   "Update your profile picture": "Mettre à jour votre photo de profil",
   "Select another image": "Sélectionner une autre image",
   "Click to select": "Cliquez pour sélectionner",
-  "Save": "Enregistrer"
+  "Save": "Enregistrer",
+  "Purchase not allowed": "Achat non autorisé",
+  "Free users are not allowed to purchase credits.": "Les utilisateurs gratuits ne sont pas autorisés à acheter des crédits."
 }

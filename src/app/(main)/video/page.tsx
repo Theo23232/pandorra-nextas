@@ -1,35 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader2, Sparkles, Upload, X } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import Masonry from "react-masonry-css"
-import useSWR, { mutate } from "swr"
+import { Loader2, Sparkles, Upload, X } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Masonry from 'react-masonry-css';
+import useSWR, { mutate } from 'swr';
 
-import { verifyCredit } from "@/actions/credits.actions"
-import { enhanceVideoPrompt } from "@/actions/openai.actions"
-import { generateVideoFromImage } from "@/actions/runway.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { NothingYet } from "@/components/NothingYet"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { verifyCredit } from '@/actions/credits.actions';
+import { enhanceVideoPrompt } from '@/actions/openai.actions';
+import { generateVideoFromImage } from '@/actions/runway.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { NothingYet } from '@/components/NothingYet';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { fetcher } from "@/lib/utils"
-import { Plan, Video } from "@prisma/client"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { fetcher } from '@/lib/utils';
+import { Plan, Video } from '@prisma/client';
 
 import type React from "react"
 const SkeletonLoader = () => (
@@ -45,7 +41,7 @@ export default function VideoGenerator() {
   const [loading, setLoading] = useState(false)
   const [promptText, setPromptText] = useState("")
   const [duration, setDuration] = useState("5")
-  const [ratio, setRatio] = useState("1280:768")
+  const [ratio, setRatio] = useState("768:1280")
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -107,7 +103,7 @@ export default function VideoGenerator() {
           reader.readAsDataURL(image)
           reader.onload = () => resolve(reader.result as string)
         })
-      : "https://pandorra.ai/assets/fond.png"
+      : "https://test.pandorra.ai/assets/fond.png"
 
     try {
       const videoDuration = duration === "5" ? 5 : 10
@@ -149,16 +145,6 @@ export default function VideoGenerator() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       handleImageChange(e.target.files[0])
-      try {
-        const enhancedPrompt = await enhanceVideoPrompt(promptText)
-        setPromptText(enhancedPrompt)
-      } catch (error) {
-        toast({
-          title: t(`Error`),
-          description: t(`Prompt enhancement failed`),
-          variant: "error",
-        })
-      }
     }
   }
 

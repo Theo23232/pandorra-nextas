@@ -1,11 +1,12 @@
 "use server"
-import fetch from 'node-fetch'; // Add this line to import fetch
+import fetch from "node-fetch" // Add this line to import fetch
 
-import { currentUser } from '@/lib/current-user';
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
-import { Video } from '@prisma/client';
-import RunwayML from '@runwayml/sdk';
+import { reduceCredit } from "@/actions/credits.actions"
+import { currentUser } from "@/lib/current-user"
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
+import { Video } from "@prisma/client"
+import RunwayML from "@runwayml/sdk"
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env
@@ -109,6 +110,8 @@ export const videoVerifyTask = SA(
             url: `${API_BASE_URL}/${downloadData.videoUrl}`,
           },
         })
+        const duration = video.duration
+        await reduceCredit(duration == 5 ? 40 : 80)
       } catch (downloadError) {
         console.error(
           "Erreur lors du téléchargement de la vidéo:",

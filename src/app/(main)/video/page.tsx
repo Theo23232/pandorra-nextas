@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import Masonry from "react-masonry-css"
 import useSWR, { mutate } from "swr"
 
+import { verifyCredit } from "@/actions/credits.actions"
 import { enhanceVideoPrompt } from "@/actions/openai.actions"
 import { generateVideoFromImage } from "@/actions/runway.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
@@ -28,8 +29,8 @@ import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from "@/hooks/use-user"
 import { fetcher } from "@/lib/utils"
+import { Plan, Video } from "@prisma/client"
 
-import type { Video } from "@prisma/client"
 import type React from "react"
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
@@ -77,6 +78,27 @@ export default function VideoGenerator() {
     }
 
     setLoading(true)
+    if (user?.plan == Plan.Free) {
+      toast({
+        title: t(`Error`),
+        description: t(
+          `Free plan user cannot generate videos. Please subscribe to use this feature`,
+        ),
+        variant: "error",
+      })
+      setLoading(false)
+      return
+    }
+
+    const isEnoughtToken = await verifyCredit(duration == "5" ? 40 : 80)
+    if (!isEnoughtToken) {
+      toast({
+        title: t(`Error`),
+        description: t(`You do not have enought token for this generation`),
+        variant: "error",
+      })
+      setLoading(false)
+    }
 
     const base64Image = image
       ? await new Promise<string>((resolve) => {

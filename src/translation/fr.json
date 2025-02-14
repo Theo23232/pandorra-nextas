@@ -556,5 +556,7 @@
   "Update your profile picture": "Mettre à jour votre photo de profil",
   "Select another image": "Sélectionner une autre image",
   "Click to select": "Cliquez pour sélectionner",
-  "Save": "Enregistrer"
+  "Save": "Enregistrer",
+  "Free plan user cannot generate videos. Please subscribe to use this feature": "Les utilisateurs du plan gratuit ne peuvent pas générer de vidéos. Abonnez-vous pour utiliser cette fonctionnalité.",
+  "You do not have enought token for this generation": "Vous n'avez pas assez de jetons pour cette génération."
 }

@@ -556,5 +556,7 @@
   "Update your profile picture": "Update your profile picture",
   "Select another image": "Select another image",
   "Click to select": "Click to select",
-  "Save": "Save"
+  "Save": "Save",
+  "Free plan user cannot generate videos. Please subscribe to use this feature": "Free plan user cannot generate videos. Please subscribe to use this feature",
+  "You do not have enought token for this generation": "You do not have enought token for this generation"
 }

@@ -558,5 +558,7 @@
   "Click to select": "Cliquez pour sélectionner",
   "Save": "Enregistrer",
   "Purchase not allowed": "Achat non autorisé",
-  "Free users are not allowed to purchase credits.": "Les utilisateurs gratuits ne sont pas autorisés à acheter des crédits."
+  "Free users are not allowed to purchase credits.": "Les utilisateurs gratuits ne sont pas autorisés à acheter des crédits.",
+  "Free plan user cannot generate videos. Please subscribe to use this feature": "Les utilisateurs du plan gratuit ne peuvent pas générer de vidéos. Abonnez-vous pour utiliser cette fonctionnalité.",
+  "You do not have enought token for this generation": "Vous n'avez pas assez de jetons pour cette génération."
 }

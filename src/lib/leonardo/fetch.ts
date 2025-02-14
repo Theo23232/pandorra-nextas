@@ -4,6 +4,7 @@ import axios from "axios"
 import fs from "fs"
 import path from "path"
 
+import { reduceCredit } from "@/actions/credits.actions"
 import { currentUser } from "@/lib/current-user"
 import { prisma } from "@/prisma"
 import { GenerationWithImages } from "@/types/pandorra"
@@ -162,6 +163,7 @@ export const generationInsert = async (
     const response = result.generations_by_pk as GenerationWithImages
 
     if (response.generated_images.length) {
+      await reduceCredit(response.generated_images.length * 5)
       await prisma.generation.create({
         data: {
           id: response.id,

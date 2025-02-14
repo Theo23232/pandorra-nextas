@@ -166,6 +166,7 @@ export const Main = (props: MainProps) => {
             id="tour6-step3"
           >
             {t(`Generate`)}
+            <p>( {props.count * 5} credits)</p>
           </Button>
         </div>
       </MagicCard>

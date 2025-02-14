@@ -190,15 +190,14 @@ export const updateUserPreferences = SA(
     imagePresetStylePreference: string,
     imageNumberPreference: string,
   ) => {
-    // await prisma.user.update({
-    //   where: { id: user.id },
-    //   data: {
-    //     imageModelIdPreference,
-    //     imageSizePreference,
-    //     imagePresetStylePreference,
-    //     imageNumberPreference
-    //   },
-    // })
-    console.log(" ==> ", user)
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        imageModelIdPreference,
+        imageSizePreference,
+        imagePresetStylePreference,
+        imageNumberPreference
+      },
+    })
   },
 )

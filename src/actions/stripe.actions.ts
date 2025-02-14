@@ -120,7 +120,7 @@ export const withdrawMoney = async (accountId: string, amount: number) => {
 
       await stripe.transfers.create({
         amount: Math.round(amount * 100),
-        currency: "usd",
+        currency: "eur",
         destination: accountId,
       })
 

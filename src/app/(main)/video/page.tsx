@@ -98,6 +98,7 @@ export default function VideoGenerator() {
         variant: "error",
       })
       setLoading(false)
+      return
     }
 
     const base64Image = image
@@ -262,6 +263,7 @@ export default function VideoGenerator() {
               disabled={loading}
             >
               {loading ? t(`Processing...`) : t(`Generate Video`)}
+              <p>( {duration == "5" ? "40" : "80"} credits)</p>
             </Button>
           </div>
         </Bounce>

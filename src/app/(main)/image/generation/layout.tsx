@@ -1,9 +1,9 @@
 "use client"
 
-import { useSearchParams } from 'next/navigation';
-import { ReactNode } from 'react';
+import { redirect, useSearchParams } from "next/navigation"
+import { ReactNode } from "react"
 
-import { useUser } from '@/hooks/use-user';
+import { useUser } from "@/hooks/use-user"
 
 export default function RouteLayout({ children }: { children: ReactNode }) {
   const { user } = useUser()
@@ -12,15 +12,18 @@ export default function RouteLayout({ children }: { children: ReactNode }) {
   const queryModelId = searchParams?.get("modelId")
   const queryImageSize = searchParams?.get("imageSize")
 
-  // if (user) {
-  //   const presetStyle = user.imagePresetStylePreference
-  //   const modelId = user.imageModelIdPreference
-  //   const imageSize = user.imageSizePreference
-  //   if (!queryImageSize) {
-  //     return redirect(
-  //       `/image/generation?imageSize=${imageSize}&modelId=${modelId}&presetStyle=${presetStyle}`,
-  //     )
-  //   }
-  // }
+  if (!queryPresetStyle && !queryModelId && !queryImageSize) {
+    if (user) {
+      const presetStyle = user.imagePresetStylePreference
+      const modelId = user.imageModelIdPreference
+      const imageSize = user.imageSizePreference
+      if (imageSize && modelId && presetStyle) {
+        return redirect(
+          `/image/generation?imageSize=${imageSize}&modelId=${modelId}&presetStyle=${presetStyle}`,
+        )
+      }
+    }
+  }
+
   return <>{children}</>
 }

@@ -22,7 +22,6 @@ export const POST = async (req: NextRequest) => {
 
       const totalAmount = session.amount_total
       let jetonsToAdd = 0
-      let newPlan = user.plan
 
       if (!session.subscription) {
         switch (totalAmount) {
@@ -48,7 +47,12 @@ export const POST = async (req: NextRequest) => {
           jeton: {
             increment: jetonsToAdd,
           },
-          plan: newPlan,
+        },
+      })
+      await prisma.buyToken.create({
+        data: {
+          userId: user.id,
+          amount: jetonsToAdd,
         },
       })
       console.log("Checkout session completed", session)
@@ -130,6 +134,12 @@ export const POST = async (req: NextRequest) => {
           jeton: {
             increment: jetonsToAdd,
           },
+          plan: newPlan,
+        },
+      })
+      await prisma.subscribe.create({
+        data: {
+          userId: user.id,
           plan: newPlan,
         },
       })

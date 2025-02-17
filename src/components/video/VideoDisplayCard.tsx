@@ -124,7 +124,7 @@ export const VideoDisplayCard = ({
     <Dialog>
       <DialogTrigger>
         <Bounce
-          className="relative cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
+          className="relative w-full cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -184,7 +184,7 @@ export const VideoDisplayCard = ({
               controls={false}
             />
           )}
-          {status === "Painting" && (
+          {status === "Pending" && (
             <div className="h-[400px] w-[250px]">
               <Skeleton className="h-full w-full" />
             </div>

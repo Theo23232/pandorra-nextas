@@ -560,5 +560,9 @@
   "Purchase not allowed": "Purchase not allowed",
   "Free users are not allowed to purchase credits.": "Free users are not allowed to purchase credits.",
   "Free plan user cannot generate videos. Please subscribe to use this feature": "Free plan user cannot generate videos. Please subscribe to use this feature",
-  "You do not have enought token for this generation": "You do not have enought token for this generation"
+  "You do not have enought token for this generation": "You do not have enought token for this generation",
+  "Choose one of these models to lead your generation to the style you want": "Choose one of these models to lead your generation to the style you want",
+  "small": "small",
+  "medium": "medium",
+  "large": "large"
 }

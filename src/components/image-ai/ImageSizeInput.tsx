@@ -1,13 +1,13 @@
 "use client"
 
-import { useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { Label } from '@/components/tremor/inputs/label';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { ratioList } from '@/lib/ratioList';
-import { cn } from '@/lib/utils';
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Label } from "@/components/ui/label"
+import { ratioList } from "@/lib/ratioList"
+import { cn } from "@/lib/utils"
 
 export type ImageSizeProps = {
   onChange: (width: number, height: number) => void

@@ -212,7 +212,7 @@ export const PublicationsProfile = (props: PublicationsProps) => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
+            default: 4,
             1440: 3,
             1200: 2,
             700: 1,
@@ -245,7 +245,7 @@ export const PublicationsProfile = (props: PublicationsProps) => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
+            default: 4,
             1440: 3,
             1200: 2,
             700: 1,

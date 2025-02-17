@@ -179,7 +179,7 @@ export const Main = (props: MainProps) => {
       )}
       <div className="flex w-full flex-col-reverse gap-4">
         {history.map((h) => (
-          <Bounce once className="h-fit w-full">
+          <Bounce key={h.id} once className="h-fit w-full">
             <GenerationResult generated={h} key={h.id} />
           </Bounce>
         ))}

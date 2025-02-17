@@ -1,25 +1,31 @@
 "use client"
-import { AlertCircle, Mic, Upload } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+import { AlertCircle, Mic, Upload } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { generateVoiceChange } from '@/actions/elevenlabs.actions';
-import { AudioPlayer } from '@/app/(main)/audio/audio-player';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { NothingYet } from '@/components/NothingYet';
-import { Divider } from '@/components/tremor/ui/divider';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { reduceCredit, verifyCredit } from "@/actions/credits.actions"
+import { generateVoiceChange } from "@/actions/elevenlabs.actions"
+import { AudioPlayer } from "@/app/(main)/audio/audio-player"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Divider } from "@/components/tremor/ui/divider"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { useAudioRecorder } from '@/hooks/use-audio-recorder';
-import { useAudioUploader } from '@/hooks/use-audio-uploader';
-import { useUser } from '@/hooks/use-user';
-import { voicesList } from '@/lib/elevenlabs/voiceList';
-import { fetcher, formatTimePassed } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useAudioRecorder } from "@/hooks/use-audio-recorder"
+import { useAudioUploader } from "@/hooks/use-audio-uploader"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { fetcher, formatTimePassed } from "@/lib/utils"
 
 import type { VoiceChange } from "@prisma/client"
 import type React from "react"
@@ -34,6 +40,7 @@ const SpeechToSpeechConverter: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const { user } = useUser()
   const { startOnborda } = useOnborda()
+  const { toast } = useToast()
 
   const { isRecording, startRecording, stopRecording } = useAudioRecorder({
     onRecordingComplete: handleAudioConversion,
@@ -44,8 +51,40 @@ const SpeechToSpeechConverter: React.FC = () => {
       onFileSelected: handleAudioConversion,
     })
 
+  async function getAudioDuration(audioFile: Blob): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const audioUrl = URL.createObjectURL(audioFile)
+      const audio = new Audio(audioUrl)
+
+      audio.onloadedmetadata = () => {
+        resolve(audio.duration) // Durée en secondes
+      }
+
+      audio.onerror = () => {
+        reject(new Error("Impossible de récupérer la durée de l'audio"))
+      }
+    })
+  }
+
+  const handleToken = async (audioFile: Blob) => {
+    const duration = await getAudioDuration(audioFile)
+
+    const isEnoughtToken = await verifyCredit(duration)
+    if (!isEnoughtToken) {
+      toast({
+        title: t(`Error`),
+        description: t(`You do not have enought token for this generation`),
+        variant: "error",
+      })
+      setIsLoading(false)
+      throw new Error("")
+    }
+    await reduceCredit(duration)
+  }
+
   async function handleAudioConversion(audioFile: Blob) {
     setIsLoading(true)
+    await handleToken(audioFile)
     setError(null)
     const formData = new FormData()
     formData.append("audio", audioFile, "recording.webm")
@@ -71,6 +110,7 @@ const SpeechToSpeechConverter: React.FC = () => {
       const url = URL.createObjectURL(blob)
       await generateVoiceChange(url, voiceId)
       mutate("/api/audio/voice-change")
+      mutate("/api/auth/session")
     } catch (error) {
       console.error("Conversion error", error)
       setError("An error occurred during voice conversion. Please try again.")
@@ -112,7 +152,7 @@ const SpeechToSpeechConverter: React.FC = () => {
           <Button
             id="tour11-step2"
             onClick={isRecording ? stopRecording : startRecording}
-            variant={!isRecording ? "default" : "destructive"}
+            variant={!isRecording ? "magic" : "destructive"}
             disabled={isLoading}
             className="h-[50px]"
           >

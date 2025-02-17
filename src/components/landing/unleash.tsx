@@ -13,7 +13,7 @@ export function Unleash() {
       <div className="relative mt-14 flex w-full flex-col items-center justify-center overflow-hidden">
         <div className="absolute left-1/2 top-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center">
           <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
-            <p className="font-inter max-w-lg text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
+            <p className="font-inter max-w-xl text-center text-[64px] font-semibold leading-[68px] tracking-[-2.5px] text-[#FDFDFD]">
               {t(`Unleash Your Creativity Today`)}
             </p>
           </Bounce>

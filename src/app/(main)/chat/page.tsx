@@ -1,20 +1,20 @@
 "use client"
 
-import axios from 'axios';
-import { Plus, Send, StopCircle } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+import axios from "axios"
+import { Plus, Send, StopCircle } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/tremor/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Textarea } from '@/components/ui/textarea';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/tremor/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Textarea } from "@/components/ui/textarea"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
 
-import { Message } from './message';
+import { Message } from "./message"
 
 export default function Page() {
   const [conversationId, setConversationId] = useState("")
@@ -158,11 +158,11 @@ export default function Page() {
           }}
           className="w-full"
         >
-          <Plus className="mr-2" /> New Conversation
+          <Plus className="mr-2" /> {t(`Start Conversation`)}
         </Button>
         <ScrollArea className="h-[80vh]">
           {conversations ? (
-            <Bounce className="mt-4">
+            <Bounce className="mt-4 pr-4">
               {conversations?.map((conversation) => (
                 <Button
                   key={conversation.id}

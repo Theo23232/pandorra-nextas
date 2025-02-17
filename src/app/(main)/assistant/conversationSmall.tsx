@@ -79,6 +79,8 @@ export function Conversation({
     await conversation.endSession()
     await saveConversation(agentId)
     mutate("/api/assistant")
+    mutate("/api/auth/session")
+
     setIsLoading(false)
     if (onClose) onClose()
   }, [conversation, agentId, onClose])

@@ -55,7 +55,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
   return (
     <Dialog>
       <DialogTrigger className="w-full">{props.children}</DialogTrigger>
-      <DialogContent className="relative max-h-[90vh] max-w-[1700px] overflow-x-hidden rounded-xl bg-background">
+      <DialogContent className="relative max-h-[90vh] max-w-[1700px] overflow-x-hidden rounded-xl bg-background dark">
         <div
           id="pricing"
           className="relative my-8 flex flex-col items-center justify-center"
@@ -83,7 +83,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                       <Check className="mr-3" />{" "}
                       <p>
                         {t(`Short Video`)} (5 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           8
                         </span>{" "}
                         {t(`videos`)}
@@ -93,7 +93,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                       <Check className="mr-3" />{" "}
                       <p>
                         {t(`Medium Video`)} (10 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           2
                         </span>{" "}
                         {t(`videos`)}
@@ -102,7 +102,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" /> {t(`Images`)}:{" "}
                       <p>
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           80
                         </span>{" "}
                         {t(`AI-generated images`)}
@@ -114,7 +114,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                     </div>
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                      <p className="font-italic mx-1 font-extrabold">3</p>{" "}
+                      <p className="font-italic mx-0.5 font-extrabold">3</p>{" "}
                       {t(`minutes`)}
                     </div>
                   </div>
@@ -146,7 +146,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             62
                           </span>{" "}
                           {t(`videos`)}
@@ -156,7 +156,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             32
                           </span>{" "}
                           {t(`videos`)}
@@ -167,7 +167,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
 
                         <p>
                           {t(`Images`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             125
                           </span>{" "}
                           {t(`AI-generated images`)}
@@ -181,7 +181,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             125
                           </span>{" "}
                           {t(`minutes`)}
@@ -213,7 +213,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Short Video`)} (5 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           175
                         </span>{" "}
                         {t(`videos`)}
@@ -223,7 +223,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Medium Video`)} (10 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           87
                         </span>{" "}
                         {t(`videos`)}
@@ -234,7 +234,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                       <p>
                         {" "}
                         {t(`Images`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           350
                         </span>{" "}
                         {t(`AI-generated images`)}
@@ -248,7 +248,7 @@ export const AddTokenDialog = (props: addTokenProps) => {
                       <Check className="mr-3" />
                       <p>
                         {t(`AI Voice`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           350
                         </span>{" "}
                         {t(`minutes`)}
@@ -274,7 +274,10 @@ export const AddTokenDialog = (props: addTokenProps) => {
           </div>
         </div>
         <DialogClose>
-          <Button variant={"ghost"} className="absolute right-4 top-4">
+          <Button
+            variant={"ghost"}
+            className="absolute right-4 top-4 text-white"
+          >
             {" "}
             <X />
           </Button>

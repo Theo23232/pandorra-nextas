@@ -1,32 +1,46 @@
 "use client"
 import {
-    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Sparkles, User2, Video
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+  BoomBox,
+  BotMessageSquare,
+  Coins,
+  Crown,
+  Gift,
+  Image,
+  MessageSquare,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Navbar } from '@/components/(main)/authentified-navbar';
-import { AddTokenDialog } from '@/components/billing/addToken';
-import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
-import { Logo } from '@/components/logo';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { useIsSidebar } from '@/hooks/use-is-sidebar';
-import { useUser } from '@/hooks/use-user';
-import { cn, cx, focusRing } from '@/lib/utils';
-import { Plan } from '@prisma/client';
-import { RiHome2Line } from '@remixicon/react';
+import { siteConfig } from "@/app/siteConfig"
+import { Navbar } from "@/components/(main)/authentified-navbar"
+import { AddTokenDialog } from "@/components/billing/addToken"
+import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
+import { Logo } from "@/components/logo"
+import { UserProfileMobile } from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { useUser } from "@/hooks/use-user"
+import { cn, cx, focusRing } from "@/lib/utils"
+import { RiHome2Line } from "@remixicon/react"
 
-import MobileSidebar from './MobileSidebar';
+import MobileSidebar from "./MobileSidebar"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
@@ -106,7 +120,7 @@ export function Sidebar() {
           isSidebar ? "lg:w-60" : "lg:w-14",
         )}
       >
-        <ScrollArea className="flex h-screen min-h-screen grow flex-col gap-y-6 bg-white p-4 pr-0 dark:bg-gray-950">
+        <ScrollArea className="flex h-screen min-h-screen grow flex-col gap-y-6 p-2 pr-0 dark:bg-gray-950">
           <nav
             aria-label="core navigation links"
             className="flex flex-1 flex-col space-y-10"
@@ -231,34 +245,46 @@ export function Sidebar() {
               </ul>
             </div>
           </nav>
-          {user && user?.plan === Plan.Free && (
-            <div
-              className={cn(
-                "mt-10 min-w-56 transition-opacity duration-200",
-                isSidebar ? "opacity-100" : "opacity-0",
-              )}
-            >
-              <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
-                <CardHeader className="space-y-1">
-                  <CardTitle className="text-center text-2xl font-bold">
-                    {t(`Upgrade Plan`)}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center space-y-4">
-                  <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-                    {t(
-                      "Subscribe to a plan features and get full access on all features!",
-                    )}
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Link href={"/pricing"} className="w-full">
-                    <Button className="w-full">{t(`Upgrade Now`)}</Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            </div>
-          )}
+          <div
+            className={cn(
+              "mt-10 min-w-56 transition-opacity duration-200",
+              isSidebar ? "opacity-100" : "opacity-0",
+            )}
+          >
+            <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+              <CardHeader className="space-y-1">
+                <CardTitle className="text-center text-2xl font-bold">
+                  {user?.plan === "Free"
+                    ? t("Free")
+                    : user?.plan === "Hebdomadaire"
+                      ? t("Weekly")
+                      : user?.plan === "CreatorPack"
+                        ? t("CreatorPack")
+                        : user?.plan === "VisionPro"
+                          ? t("VisionPro")
+                          : user?.plan === "PandorraInfini"
+                            ? t("PandorraInfini")
+                            : user?.plan === "CreatorPackYear"
+                              ? t("CreatorPackYear")
+                              : user?.plan === "VisionProYear"
+                                ? t("VisionProYear")
+                                : t("PandorraInfiniYear")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center space-y-4">
+                <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                  {t(
+                    "Subscribe to a plan features and get full access on all features!",
+                  )}
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href={"/pricing"} className="w-full">
+                  <Button className="w-full">{t(`Upgrade Now`)}</Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </div>
         </ScrollArea>
       </nav>
 

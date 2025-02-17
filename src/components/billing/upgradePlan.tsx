@@ -66,7 +66,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
         break
       case "CreatorPackYear":
         await subscriptionSession(
-          "CreatorPack",
+          "CreatorPackYear",
           "1000 credits/month for 1 year",
           14289,
           "year",
@@ -76,7 +76,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
 
       case "VisionProYear":
         await subscriptionSession(
-          "VisionPro",
+          "VisionProYear",
           "3000 credits/month for 1 year",
           38499,
           "year",
@@ -85,9 +85,9 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
         break
       case "PandorraInfiniYear":
         await subscriptionSession(
-          "PandorraInfini",
+          "PandorraInfiniYear",
           "8000 credits/month",
-          98989,
+          0,
           "year",
         )
         localStorage.setItem("article", "PandorraInfiniYear")

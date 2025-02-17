@@ -53,8 +53,7 @@ export default function ProfilePage() {
                 )}
               </div>
               <p className="text-sm text-muted-foreground">
-                {data.description ||
-                  `${t(`User based in`)} ${data.language.toUpperCase()}`}
+                {data.description}
               </p>
               <div className="flex gap-4 pt-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">

@@ -3,7 +3,6 @@ import { useOnborda } from "onborda"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { verifyCredit } from "@/actions/credits.actions"
 import { updateUserPreferences } from "@/actions/user.ations"
 import Bounce from "@/components/animated/uibeats/bounce"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -57,16 +56,6 @@ export default function RoutePage() {
       state.presetStyle,
       state.count.toString(),
     )
-
-    const isEnoughtToken = await verifyCredit(state.count * 5)
-    if (!isEnoughtToken) {
-      toast({
-        title: t(`Error`),
-        description: t(`You do not have enought token for this generation`),
-        variant: "error",
-      })
-      return
-    }
 
     const data = {
       alchemy:

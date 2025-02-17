@@ -15,6 +15,7 @@ import React, { useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import useSWR, { mutate } from "swr"
 
+import { reduceCredit, verifyCredit } from "@/actions/credits.actions"
 import { generateFX } from "@/actions/elevenlabs.actions"
 import { translateToEnglish } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
@@ -37,6 +38,8 @@ import {
   DrawerTrigger,
 } from "@/components/tremor/ui/drawer"
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
 import { fetcher } from "@/lib/utils"
 import { FX } from "@prisma/client"
 
@@ -44,6 +47,7 @@ import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'imp
 
 export default function Page() {
   const { t } = useTranslation()
+  const { mutate: refreshUser } = useUser()
   const { data } = useSWR<FX[]>("/api/audio/generated-fx", fetcher)
   const [prompt, setPrompt] = useState("")
   const [durationSeconds, setDurationSeconds] = useState(8)
@@ -51,10 +55,25 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false)
   const [influence, setInfluence] = useState(30)
   const charCount = prompt.length
+  const { toast } = useToast()
   const maxChars = 9680
 
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
+  const handleToken = async (duration: number) => {
+    const isEnoughtToken = await verifyCredit(duration)
+    if (!isEnoughtToken) {
+      toast({
+        title: t(`Error`),
+        description: t(`You do not have enought token for this generation`),
+        variant: "error",
+      })
+      setIsLoading(false)
+      throw new Error("")
+    }
+    await reduceCredit(duration)
+  }
 
   const handleGenerate = async () => {
     if (!prompt) return
@@ -70,14 +89,15 @@ export default function Page() {
         option = {
           text: correctedPrompt,
         }
+        await handleToken(8)
       } else {
         option = {
           text: correctedPrompt,
           duration_seconds: durationSeconds,
           prompt_influence: influence / 100,
         }
+        await handleToken(durationSeconds)
       }
-
       const response = await client.textToSoundEffects.convert(option)
 
       const chunks: Uint8Array[] = []
@@ -90,6 +110,7 @@ export default function Page() {
       setAudioUrl(url)
       await generateFX(prompt, url)
       mutate("/api/audio/generated-fx")
+      mutate("/api/auth/session")
     } catch (error) {
       console.error("Erreur lors de la génération de l'audio :", error)
     } finally {
@@ -241,7 +262,8 @@ export default function Page() {
               isLoading={isLoading}
               id="tour9-step7"
             >
-              {t(`Generate Sound Effects`)}
+              {t(`Generate Sound Effects`)} ( {isAuto ? 8 : durationSeconds}{" "}
+              credits)
             </Button>
           </div>
         </div>

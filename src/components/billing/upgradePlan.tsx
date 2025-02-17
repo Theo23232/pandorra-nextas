@@ -1,14 +1,24 @@
 "use client"
-import { X } from 'lucide-react';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import { X } from "lucide-react"
+import { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
-import { subscriptionSession } from '@/actions/stripeSessions.action';
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { subscriptionSession } from "@/actions/stripeSessions.action"
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Button } from "@/components/ui/button"
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -90,7 +100,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
   return (
     <Dialog>
       <DialogTrigger className="w-full">{props.children}</DialogTrigger>
-      <DialogContent className="max-h-[90vh] max-w-[1700px] overflow-x-hidden rounded-xl bg-background">
+      <DialogContent className="max-h-[90vh] max-w-[1700px] overflow-x-hidden rounded-xl bg-background dark">
         <div
           id="pricing"
           className="relative my-8 flex flex-col items-center justify-center"
@@ -99,7 +109,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
           <div className="absolute bottom-32 left-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(204,0,255,0.4)] blur-[112px]"></div>
           <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
             <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
-              Upgrade plan
+              {t(`Upgrade plan`)}
             </span>
           </Bounce>
           <Bounce className="my-6 max-w-3xl text-center font-medium leading-normal text-neutral-400">
@@ -127,7 +137,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                     <div className="mb-6 mt-8 flex flex-col gap-3">
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" /> {t(`Images`)}:{" "}
-                        <p className="font-italic mx-1 font-extrabold">125</p>{" "}
+                        <p className="font-italic mx-0.5 font-extrabold">125</p>{" "}
                         {t(`AI-generated images`)}
                       </div>
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -136,7 +146,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                       </div>
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                        <p className="font-italic mx-1 font-extrabold">125</p>{" "}
+                        <p className="font-italic mx-0.5 font-extrabold">125</p>{" "}
                         {t(`minutes`)}
                       </div>
                     </div>
@@ -161,7 +171,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Short Video`)} (5 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               10
                             </span>{" "}
                             {t(`videos`)}
@@ -171,7 +181,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Medium Video`)} (10 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               5
                             </span>{" "}
                             {t(`videos`)}
@@ -181,7 +191,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Images`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               80
                             </span>{" "}
                             {t(`AI-generated images`)}
@@ -195,7 +205,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`AI Voice`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               10
                             </span>{" "}
                             {t(`minutes`)}
@@ -232,7 +242,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" />
                         <p>
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             1000
                           </span>{" "}
                           {t(`Credits`)}
@@ -243,7 +253,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <p>
                           {" "}
                           {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             25
                           </span>{" "}
                           {t(`videos`)}
@@ -253,7 +263,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             12
                           </span>{" "}
                           {t(`videos`)}
@@ -261,7 +271,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                       </div>
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" /> {t(`Images`)}:{" "}
-                        <p className="font-italic mx-1 font-extrabold">200</p>{" "}
+                        <p className="font-italic mx-0.5 font-extrabold">200</p>{" "}
                         {t(`AI-generated images`)}
                       </div>
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -272,7 +282,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             25
                           </span>{" "}
                           {t(`minutes`)}
@@ -310,7 +320,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                           <Check className="mr-3" />
                           <p>
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               3000
                             </span>{" "}
                             {t(`Credits`)}
@@ -320,7 +330,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Short Video`)} (5 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               75
                             </span>{" "}
                             {t(`videos`)}
@@ -330,7 +340,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Medium Video`)} (10 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               37
                             </span>{" "}
                             {t(`videos`)}
@@ -340,7 +350,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Images`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               600
                             </span>{" "}
                             {t(`AI-generated images`)}
@@ -354,7 +364,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`AI Voice`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               75
                             </span>{" "}
                             {t(`minutes`)}
@@ -385,7 +395,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" />
                         <p>
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             8000
                           </span>{" "}
                           {t(`Credits`)}
@@ -395,7 +405,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             200
                           </span>{" "}
                           {t(`videos`)}
@@ -405,7 +415,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             100
                           </span>{" "}
                           {t(`videos`)}
@@ -415,7 +425,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Images`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             1600
                           </span>{" "}
                           {t(`AI-generated images`)}
@@ -429,7 +439,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             200
                           </span>{" "}
                           {t(`minutes`)}
@@ -466,7 +476,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" />
                         <p>
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             1000
                           </span>{" "}
                           {t(`Credits`)}
@@ -476,7 +486,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             25
                           </span>{" "}
                           {t(`videos`)}
@@ -486,7 +496,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             12
                           </span>{" "}
                           {t(`videos`)}
@@ -496,7 +506,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Images`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             80
                           </span>{" "}
                           {t(`AI-generated images`)}
@@ -510,7 +520,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             25
                           </span>{" "}
                           {t(`minutes`)}
@@ -548,7 +558,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                           <Check className="mr-3" />
                           <p>
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               3000
                             </span>{" "}
                             {t(`Credits`)}
@@ -558,7 +568,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />{" "}
                           <p>
                             {t(`Short Video`)} (5 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               75
                             </span>{" "}
                             {t(`videos`)}
@@ -568,7 +578,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Medium Video`)} (10 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               37
                             </span>{" "}
                             {t(`videos`)}
@@ -578,7 +588,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`Images`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               600
                             </span>{" "}
                             {t(`AI-generated images`)}
@@ -592,7 +602,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                           <Check className="mr-3" />
                           <p>
                             {t(`AI Voice`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
+                            <span className="font-italic mx-0.5 font-extrabold">
                               75
                             </span>{" "}
                             {t(`minutes`)}
@@ -623,7 +633,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                         <Check className="mr-3" />
                         <p>
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             8000
                           </span>{" "}
                           {t(`Credits`)}
@@ -633,7 +643,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             200
                           </span>{" "}
                           {t(`videos`)}
@@ -643,7 +653,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             100
                           </span>{" "}
                           {t(`videos`)}
@@ -653,7 +663,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`Images`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             1600
                           </span>{" "}
                           {t(`AI-generated images`)}
@@ -667,7 +677,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <Check className="mr-3" />
                         <p>
                           {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-1 font-extrabold">
+                          <span className="font-italic mx-0.5 font-extrabold">
                             200
                           </span>{" "}
                           {t(`minutes`)}
@@ -694,7 +704,10 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
           </div>
         </div>
         <DialogClose>
-          <Button variant={"ghost"} className="absolute right-4 top-4">
+          <Button
+            variant={"ghost"}
+            className="absolute right-4 top-4 text-white"
+          >
             {" "}
             <X />
           </Button>

@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 export async function GET(request: Request) {
   const user = await currentUser()
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
         },
       })
       .catch((e) => {
-        console.log("comments error ==> ", e)
+        console.log(e)
         throw new Error(e)
       })
 

@@ -1,23 +1,19 @@
 "use client"
 
-import { ArrowRight, Mic, Pause, Play, StopCircle, Upload } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { ArrowRight, Mic, Pause, Play, StopCircle, Upload } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { useUser } from "@/hooks/use-user"
-import { languageOptions } from "@/lib/elevenlabs/langList"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { useUser } from '@/hooks/use-user';
+import { languageOptions } from '@/lib/elevenlabs/langList';
 
 export default function RouterPage() {
   const { t } = useTranslation()
@@ -137,7 +133,6 @@ export default function RouterPage() {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
-      console.log(tourOnboarding)
       if (
         !tourOnboarding.includes("twelfthtour") &&
         !tourOnboarding.includes("stop")

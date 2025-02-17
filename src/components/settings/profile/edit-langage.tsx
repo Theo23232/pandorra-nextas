@@ -10,7 +10,7 @@ import { useUser } from '@/hooks/use-user';
 
 export function EditLangage() {
   const { t } = useTranslation()
-  const { user } = useUser()
+  const { user, mutate } = useUser()
   const { toast } = useToast()
   const data = [
     {
@@ -19,21 +19,22 @@ export function EditLangage() {
     },
     {
       value: "fr",
-      label: "French",
+      label: "Français",
     },
     {
       value: "es",
-      label: "Spanish",
+      label: "Español",
     },
     {
       value: "it",
-      label: "Italian",
+      label: "Italiano",
     },
   ]
 
   const handleEdit = async (value: string) => {
     await editLangange(value)
       .then(() => {
+        mutate()
         toast({
           title: t(`Success`),
           description: t(
@@ -42,6 +43,7 @@ export function EditLangage() {
           variant: "success",
           duration: 3000,
         })
+        window.location.reload()
       })
       .catch((e) => {
         toast({

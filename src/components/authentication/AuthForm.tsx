@@ -1,18 +1,18 @@
 "use client"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { z } from "zod"
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 
-import { Input } from "@/components/tremor/inputs/input"
-import { Label } from "@/components/tremor/inputs/label"
-import { Button } from "@/components/tremor/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useToast } from "@/hooks/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { Input } from '@/components/tremor/inputs/input';
+import { Label } from '@/components/tremor/inputs/label';
+import { Button } from '@/components/tremor/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required"),
@@ -166,14 +166,13 @@ export default function AuthForm() {
         <GoogleAuth /> */}
         <p className="text-tremor-label text-tremor-content dark:text-dark-tremor-content mt-4 text-white">
           {t(`By signing in, you agree to our`)}
-          <a href="#" className="underline underline-offset-4">
+          <Link href="/terms" className="mx-1 underline underline-offset-4">
             {t(`terms of service`)}
-          </a>{" "}
+          </Link>{" "}
           {t(`and`)}{" "}
-          <a href="#" className="underline underline-offset-4">
+          <Link href="/privacy" className="mx-1 underline underline-offset-4">
             {t(`privacy policy`)}
-          </a>
-          .
+          </Link>
         </p>
       </div>
     </ScrollArea>

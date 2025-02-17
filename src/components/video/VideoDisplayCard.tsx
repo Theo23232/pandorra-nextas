@@ -1,17 +1,17 @@
 "use client"
 
-import { AlertCircle, Download, Loader, Send } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { AlertCircle, Download, Loader, Send } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { createPublicationVideo } from "@/actions/pubVideo.actions"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useToast } from "@/hooks/use-toast"
+import { createPublicationVideo } from '@/actions/pubVideo.actions';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 
 interface VideoDisplayCardProps {
   id: string
@@ -60,8 +60,6 @@ export const VideoDisplayCard = ({
     status: string,
   ) => {
     try {
-      console.log("here")
-
       const loadingToast = toast({
         title: t(`Loading`),
         description: t(`Your video is being published`),

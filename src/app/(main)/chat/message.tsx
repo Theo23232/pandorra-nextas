@@ -1,12 +1,12 @@
-import { Check, Copy } from "lucide-react"
-import { useTheme } from "next-themes"
-import { useState } from "react"
-import ReactMarkdown, { Components } from "react-markdown"
-import SyntaxHighlighter from "react-syntax-highlighter"
-import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism"
-import remarkGfm from "remark-gfm"
+import { Check, Copy } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useState } from 'react';
+import ReactMarkdown, { Components } from 'react-markdown';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 
-import Bounce from "@/components/animated/uibeats/bounce"
+import Bounce from '@/components/animated/uibeats/bounce';
 
 export type MessageProps = {
   content: string
@@ -71,7 +71,7 @@ export const Message: React.FC<MessageProps> = ({
           SyntaxHighlighter as unknown as React.ComponentType<any>
 
         return (
-          <Bounce className="group relative">
+          <div className="group relative">
             <div className="absolute right-2 top-2 z-10">
               <button
                 onClick={() => handleCopy(code, codeId)}
@@ -99,7 +99,7 @@ export const Message: React.FC<MessageProps> = ({
             >
               {code}
             </SyntaxHighlighterComponent>
-          </Bounce>
+          </div>
         )
       }
 

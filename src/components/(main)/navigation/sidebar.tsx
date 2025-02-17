@@ -150,8 +150,17 @@ export function Sidebar() {
                       focusRing,
                     )}
                   >
-                    <Sparkles className="size-5 shrink-0" aria-hidden="true" />
-                    {t("Upgrade plan")}
+                    <Sparkles
+                      className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                      aria-hidden="true"
+                    />
+                    {isSidebar ? (
+                      t("Upgrade plan")
+                    ) : (
+                      <Tooltip content={t("Upgrade plan")} side="right">
+                        <span className="sr-only">{t("Upgrade plan")}</span>
+                      </Tooltip>
+                    )}
                   </div>
                 </li>
               </UpgradePlanDialog>
@@ -164,8 +173,18 @@ export function Sidebar() {
                       focusRing,
                     )}
                   >
-                    <Coins className="size-5 shrink-0" aria-hidden="true" />
-                    {t("Add more tokens")}
+                    <Coins
+                      className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                      aria-hidden="true"
+                    />
+
+                    {isSidebar ? (
+                      t("Add more tokens")
+                    ) : (
+                      <Tooltip content={t("Add more tokens")} side="right">
+                        <span className="sr-only">{t("Add more tokens")}</span>
+                      </Tooltip>
+                    )}
                   </div>
                 </li>
               </AddTokenDialog>

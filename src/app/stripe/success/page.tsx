@@ -17,7 +17,6 @@ export default function SuccessPage() {
     const order = localStorage.getItem("article")
     if (order) {
       const details = OrderDetails.find((item) => item.identity === order)
-      console.log(details)
 
       setOrderDetails(details)
       localStorage.removeItem("article")

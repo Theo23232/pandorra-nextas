@@ -1,18 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useOnborda } from "onborda"
-import { useEffect } from "react"
-import { useTranslation } from "react-i18next"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { TextToFX } from "@/components/icons/TextToFX"
-import { TextToSpeech } from "@/components/icons/TextToSpeech"
-import { VoiceChanger } from "@/components/icons/VoiceChanger"
-import { useUser } from "@/hooks/use-user"
-import { cx, focusRing } from "@/lib/utils"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { TextToFX } from '@/components/icons/TextToFX';
+import { TextToSpeech } from '@/components/icons/TextToSpeech';
+import { VoiceChanger } from '@/components/icons/VoiceChanger';
+import { useUser } from '@/hooks/use-user';
+import { cx, focusRing } from '@/lib/utils';
 
 export function Sidebar() {
   const { t } = useTranslation()
@@ -26,7 +26,6 @@ export function Sidebar() {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
-      console.log(tourOnboarding)
       if (
         !tourOnboarding.includes("ninthtour") &&
         !tourOnboarding.includes("stop")

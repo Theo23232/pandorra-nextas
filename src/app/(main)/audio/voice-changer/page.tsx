@@ -1,29 +1,25 @@
 "use client"
-import { AlertCircle, Mic, Upload } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR, { mutate } from "swr"
+import { AlertCircle, Mic, Upload } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { generateVoiceChange } from "@/actions/elevenlabs.actions"
-import { AudioPlayer } from "@/app/(main)/audio/audio-player"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { NothingYet } from "@/components/NothingYet"
-import { Divider } from "@/components/tremor/ui/divider"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { generateVoiceChange } from '@/actions/elevenlabs.actions';
+import { AudioPlayer } from '@/app/(main)/audio/audio-player';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { NothingYet } from '@/components/NothingYet';
+import { Divider } from '@/components/tremor/ui/divider';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { useAudioRecorder } from "@/hooks/use-audio-recorder"
-import { useAudioUploader } from "@/hooks/use-audio-uploader"
-import { useUser } from "@/hooks/use-user"
-import { voicesList } from "@/lib/elevenlabs/voiceList"
-import { fetcher, formatTimePassed } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { useAudioRecorder } from '@/hooks/use-audio-recorder';
+import { useAudioUploader } from '@/hooks/use-audio-uploader';
+import { useUser } from '@/hooks/use-user';
+import { voicesList } from '@/lib/elevenlabs/voiceList';
+import { fetcher, formatTimePassed } from '@/lib/utils';
 
 import type { VoiceChange } from "@prisma/client"
 import type React from "react"
@@ -86,7 +82,6 @@ const SpeechToSpeechConverter: React.FC = () => {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
-      console.log(tourOnboarding)
       if (
         !tourOnboarding.includes("eleventhtour") &&
         !tourOnboarding.includes("stop")

@@ -1,10 +1,10 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState } from 'react';
 
-import { LikePublicationVideo } from "@/components/(main)/explore/LikePublicationVideo"
-import PubVideoComment from "@/components/(main)/explore/PubVideoComment"
-import Bounce from "@/components/animated/uibeats/bounce"
+import { LikePublicationVideo } from '@/components/(main)/explore/LikePublicationVideo';
+import PubVideoComment from '@/components/(main)/explore/PubVideoComment';
+import Bounce from '@/components/animated/uibeats/bounce';
 
 interface PubVideoProps {
   status: string
@@ -49,7 +49,7 @@ export const PubVideo = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`absolute left-0 right-0 top-0 z-40 flex gap-3 bg-gradient-to-b from-black/80 to-transparent p-5 transition-opacity duration-300 ${
+        className={`absolute left-0 right-0 top-0 z-40 flex gap-3 p-5 transition-opacity duration-300 ${
           isHovered ? "opacity-100" : "z-40 opacity-0"
         }`}
       >

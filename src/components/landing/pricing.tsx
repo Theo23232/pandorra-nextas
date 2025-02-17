@@ -1,11 +1,16 @@
 "use client"
-import { redirect } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { redirect } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Button } from '@/components/ui/button';
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Button } from "@/components/ui/button"
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -54,7 +59,7 @@ export const Pricing = () => {
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="font-italic mx-1 font-extrabold">125</p>{" "}
+                    <p className="font-italic mx-0.5 font-extrabold">125</p>{" "}
                     {t(`AI-generated images`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -62,7 +67,7 @@ export const Pricing = () => {
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                    <p className="font-italic mx-1 font-extrabold">125</p>{" "}
+                    <p className="font-italic mx-0.5 font-extrabold">125</p>{" "}
                     {t(`minutes`)}
                   </div>
                 </div>
@@ -87,7 +92,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Short Video`)} (5 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           10
                         </span>{" "}
                         {t(`videos`)}
@@ -97,7 +102,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Medium Video`)} (10 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           5
                         </span>{" "}
                         {t(`videos`)}
@@ -107,7 +112,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Images`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           80
                         </span>{" "}
                         {t(`AI-generated images`)}
@@ -121,7 +126,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`AI Voice`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           10
                         </span>{" "}
                         {t(`minutes`)}
@@ -158,7 +163,7 @@ export const Pricing = () => {
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
                     <p>
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         1000
                       </span>{" "}
                       {t(`Credits`)}
@@ -169,7 +174,7 @@ export const Pricing = () => {
                     <p>
                       {" "}
                       {t(`Short Video`)} (5 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         25
                       </span>{" "}
                       {t(`videos`)}
@@ -179,7 +184,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         12
                       </span>{" "}
                       {t(`videos`)}
@@ -187,7 +192,7 @@ export const Pricing = () => {
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" /> {t(`Images`)}:{" "}
-                    <p className="font-italic mx-1 font-extrabold">200</p>{" "}
+                    <p className="font-italic mx-0.5 font-extrabold">200</p>{" "}
                     {t(`AI-generated images`)}
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -197,7 +202,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`AI Voice`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         25
                       </span>{" "}
                       {t(`minutes`)}
@@ -235,7 +240,7 @@ export const Pricing = () => {
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />
                       <p>
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           3000
                         </span>{" "}
                         {t(`Credits`)}
@@ -245,7 +250,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Short Video`)} (5 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           75
                         </span>{" "}
                         {t(`videos`)}
@@ -255,7 +260,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Medium Video`)} (10 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           37
                         </span>{" "}
                         {t(`videos`)}
@@ -265,7 +270,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Images`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           600
                         </span>{" "}
                         {t(`AI-generated images`)}
@@ -279,7 +284,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`AI Voice`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           75
                         </span>{" "}
                         {t(`minutes`)}
@@ -310,7 +315,7 @@ export const Pricing = () => {
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
                     <p>
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         8000
                       </span>{" "}
                       {t(`Credits`)}
@@ -320,7 +325,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         200
                       </span>{" "}
                       {t(`videos`)}
@@ -330,7 +335,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         100
                       </span>{" "}
                       {t(`videos`)}
@@ -340,7 +345,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Images`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         1600
                       </span>{" "}
                       {t(`AI-generated images`)}
@@ -353,7 +358,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`AI Voice`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         200
                       </span>{" "}
                       {t(`minutes`)}
@@ -390,7 +395,7 @@ export const Pricing = () => {
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
                     <p>
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         1000
                       </span>{" "}
                       {t(`Credits`)}
@@ -400,7 +405,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         25
                       </span>{" "}
                       {t(`videos`)}
@@ -410,7 +415,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         12
                       </span>{" "}
                       {t(`videos`)}
@@ -420,7 +425,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Images`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         80
                       </span>{" "}
                       {t(`AI-generated images`)}
@@ -433,7 +438,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`AI Voice`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         25
                       </span>{" "}
                       {t(`minutes`)}
@@ -471,7 +476,7 @@ export const Pricing = () => {
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />
                       <p>
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           3000
                         </span>{" "}
                         {t(`Credits`)}
@@ -481,7 +486,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />{" "}
                       <p>
                         {t(`Short Video`)} (5 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           75
                         </span>{" "}
                         {t(`videos`)}
@@ -491,7 +496,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Medium Video`)} (10 sec):{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           37
                         </span>{" "}
                         {t(`videos`)}
@@ -501,7 +506,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`Images`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           600
                         </span>{" "}
                         {t(`AI-generated images`)}
@@ -515,7 +520,7 @@ export const Pricing = () => {
                       <Check className="mr-3" />
                       <p>
                         {t(`AI Voice`)}:{" "}
-                        <span className="font-italic mx-1 font-extrabold">
+                        <span className="font-italic mx-0.5 font-extrabold">
                           75
                         </span>{" "}
                         {t(`minutes`)}
@@ -546,7 +551,7 @@ export const Pricing = () => {
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
                     <p>
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         8000
                       </span>{" "}
                       {t(`Credits`)}
@@ -556,7 +561,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         200
                       </span>{" "}
                       {t(`videos`)}
@@ -566,7 +571,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         100
                       </span>{" "}
                       {t(`videos`)}
@@ -576,7 +581,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Images`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         1600
                       </span>{" "}
                       {t(`AI-generated images`)}
@@ -589,7 +594,7 @@ export const Pricing = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`AI Voice`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         200
                       </span>{" "}
                       {t(`minutes`)}

@@ -1,10 +1,10 @@
 "use client"
-import { redirect } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { redirect } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Button } from '@/components/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Button } from "@/components/ui/button"
 
 export const TokenPrice = () => {
   const { t } = useTranslation()
@@ -42,7 +42,7 @@ export const TokenPrice = () => {
                   <Check className="mr-3" />{" "}
                   <p>
                     {t(`Short Video`)} (5 sec):{" "}
-                    <span className="font-italic mx-1 font-extrabold">8</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">8</span>{" "}
                     {t(`videos`)}
                   </p>
                 </div>
@@ -50,14 +50,16 @@ export const TokenPrice = () => {
                   <Check className="mr-3" />{" "}
                   <p>
                     {t(`Medium Video`)} (10 sec):{" "}
-                    <span className="font-italic mx-1 font-extrabold">2</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">2</span>{" "}
                     {t(`videos`)}
                   </p>
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                   <Check className="mr-3" /> {t(`Images`)}:{" "}
                   <p>
-                    <span className="font-italic mx-1 font-extrabold">80</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      80
+                    </span>{" "}
                     {t(`AI-generated images`)}
                   </p>
                 </div>
@@ -66,7 +68,7 @@ export const TokenPrice = () => {
                 </div>
                 <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                   <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
-                  <p className="font-italic mx-1 font-extrabold">3</p>{" "}
+                  <p className="font-italic mx-0.5 font-extrabold">3</p>{" "}
                   {t(`minutes`)}
                 </div>
               </div>
@@ -98,7 +100,7 @@ export const TokenPrice = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Short Video`)} (5 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         62
                       </span>{" "}
                       {t(`videos`)}
@@ -108,7 +110,7 @@ export const TokenPrice = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`Medium Video`)} (10 sec):{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         32
                       </span>{" "}
                       {t(`videos`)}
@@ -119,7 +121,7 @@ export const TokenPrice = () => {
 
                     <p>
                       {t(`Images`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         125
                       </span>{" "}
                       {t(`AI-generated images`)}
@@ -132,7 +134,7 @@ export const TokenPrice = () => {
                     <Check className="mr-3" />
                     <p>
                       {t(`AI Voice`)}:{" "}
-                      <span className="font-italic mx-1 font-extrabold">
+                      <span className="font-italic mx-0.5 font-extrabold">
                         125
                       </span>{" "}
                       {t(`minutes`)}
@@ -164,7 +166,9 @@ export const TokenPrice = () => {
                   <Check className="mr-3" />
                   <p>
                     {t(`Short Video`)} (5 sec):{" "}
-                    <span className="font-italic mx-1 font-extrabold">175</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      175
+                    </span>{" "}
                     {t(`videos`)}
                   </p>
                 </div>
@@ -172,7 +176,9 @@ export const TokenPrice = () => {
                   <Check className="mr-3" />
                   <p>
                     {t(`Medium Video`)} (10 sec):{" "}
-                    <span className="font-italic mx-1 font-extrabold">87</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      87
+                    </span>{" "}
                     {t(`videos`)}
                   </p>
                 </div>
@@ -181,7 +187,9 @@ export const TokenPrice = () => {
                   <p>
                     {" "}
                     {t(`Images`)}:{" "}
-                    <span className="font-italic mx-1 font-extrabold">350</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      350
+                    </span>{" "}
                     {t(`AI-generated images`)}
                   </p>
                 </div>
@@ -192,7 +200,9 @@ export const TokenPrice = () => {
                   <Check className="mr-3" />
                   <p>
                     {t(`AI Voice`)}:{" "}
-                    <span className="font-italic mx-1 font-extrabold">350</span>{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      350
+                    </span>{" "}
                     {t(`minutes`)}
                   </p>
                 </div>

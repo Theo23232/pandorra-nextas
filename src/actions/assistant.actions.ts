@@ -1,8 +1,9 @@
 "use server"
 
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
-import { Agent } from '@prisma/client';
+import { reduceCredit } from "@/actions/credits.actions"
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
+import { Agent } from "@prisma/client"
 
 interface AgentOption {
   language: string
@@ -194,7 +195,7 @@ export const saveConversation = SA(async (user, agentId) => {
           cost: transcriptBody.metadata.cost,
         },
       })
-
+      await reduceCredit(conversation.call_duration_secs)
       // Use for...of to ensure sequential processing
       for (const transcript of transcriptBody.transcript) {
         await prisma.transcript.create({

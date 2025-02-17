@@ -10,7 +10,9 @@ export const verifyCredit = SA(
   },
 )
 export const reduceCredit = SA(async (user, credit: number) => {
-  const creditRemain = user.jeton - credit
+  let creditRemain = user.jeton - credit
+
+  if (creditRemain < 0) creditRemain = 0
   await prisma.user.update({
     where: {
       id: user.id,

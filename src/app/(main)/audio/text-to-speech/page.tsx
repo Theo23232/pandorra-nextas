@@ -1,30 +1,40 @@
 // Page.tsx
 "use client"
-import * as Flags from 'country-flag-icons/react/3x2';
-import { ElevenLabsClient } from 'elevenlabs';
-import { useSearchParams } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+import * as Flags from "country-flag-icons/react/3x2"
+import { ElevenLabsClient } from "elevenlabs"
+import { useSearchParams } from "next/navigation"
+import { useOnborda } from "onborda"
+import React, { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { generateTTS } from '@/actions/elevenlabs.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { NothingYet } from '@/components/NothingYet';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { Divider } from '@/components/tremor/ui/divider';
+import { reduceCredit, verifyCredit } from "@/actions/credits.actions"
+import { generateTTS } from "@/actions/elevenlabs.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { Divider } from "@/components/tremor/ui/divider"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { useUser } from '@/hooks/use-user';
-import { languageOptions } from '@/lib/elevenlabs/langList';
-import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
-import { fetcher } from '@/lib/utils';
-import { TTS } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { languageOptions } from "@/lib/elevenlabs/langList"
+import {
+  getVoiceNameById,
+  voicesList as vlist,
+  VoiceDetails,
+} from "@/lib/elevenlabs/voiceList"
+import { fetcher } from "@/lib/utils"
+import { TTS } from "@prisma/client"
 
-import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -128,6 +138,7 @@ export default function Page() {
   const [prompt, setPrompt] = useState(queryPrompt || "")
   const [durationSeconds, setDurationSeconds] = useState(8)
   const [isAuto, setIsAuto] = useState(true)
+  const [credit, setCredit] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [influence, setInfluence] = useState(30)
   const [stability, setStability] = useState(0)
@@ -141,6 +152,7 @@ export default function Page() {
   const [lang, setLang] = useState("en")
   const charCount = prompt.length
   const maxChars = 9680
+  const { toast } = useToast()
 
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -155,26 +167,44 @@ export default function Page() {
     return voice ? voice.name : id
   }
 
+  const handleToken = async (duration: number) => {
+    const isEnoughtToken = await verifyCredit(duration)
+    if (!isEnoughtToken) {
+      toast({
+        title: t(`Error`),
+        description: t(`You do not have enought token for this generation`),
+        variant: "error",
+      })
+      setIsLoading(false)
+      throw new Error("")
+    }
+    await reduceCredit(duration)
+  }
+
+  function estimateSpeechDuration(
+    text: string,
+    wordsPerMinute: number = 140,
+  ): number {
+    if (!text) return 0
+
+    const wordCount = text.split(/\s+/).length
+    const wordsPerSecond = wordsPerMinute / 60
+    return Math.floor(wordCount / wordsPerSecond)
+  }
+
+  useEffect(() => {
+    const durationSecond = estimateSpeechDuration(prompt)
+    setCredit(durationSecond)
+  }, [prompt])
+
   const handleGenerate = async () => {
     try {
       setIsLoading(true)
+      await handleToken(credit)
       const client = new ElevenLabsClient({
         apiKey: process.env.NEXT_PUBLIC_XI_API_KEY,
       })
 
-      let option: any
-
-      if (isAuto) {
-        option = {
-          text: prompt,
-        }
-      } else {
-        option = {
-          text: prompt,
-          duration_seconds: durationSeconds,
-          prompt_influence: influence / 100,
-        }
-      }
       const response = await client.textToSpeech.convert(voiceId, {
         output_format: "mp3_44100_128",
         text: prompt,
@@ -196,6 +226,7 @@ export default function Page() {
       setAudioUrl(url)
       await generateTTS(prompt, url, lang, voiceId)
       mutate("/api/audio/generated-tts")
+      mutate("/api/auth/session")
     } catch (error) {
       console.error("Erreur lors de la génération de l'audio :", error)
     } finally {
@@ -293,116 +324,6 @@ export default function Page() {
         />
         <div className="flex items-center justify-between gap-2 p-4">
           <div className="flex items-center gap-2">
-            {/* <Drawer>
-              <DrawerTrigger asChild>
-                <Button variant="ghost" className="h-10">
-                  <Settings2 />
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent className="sm:max-w-lg">
-                <DrawerHeader>
-                  <DrawerTitle>Settings</DrawerTitle>
-                </DrawerHeader>
-                <DrawerBody>
-                  <div className="w-full max-w-md space-y-8 p-4">
-                    <VoiceLibrarySearch onVoiceSelect={handleVoiceSelect} />
-                    <div className="flex flex-col"></div>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <h2 className="text-lg font-medium">
-                          Paramètres vocaux
-                        </h2>
-                        <p className="text-sm text-muted-foreground">
-                          Les paramètres vocaux remplacent les paramètres
-                          enregistrés pour la voix donnée. Ils ne sont appliqués
-                          que sur la demande donnée.
-                        </p>
-                      </div>
-                      <div className="">
-                        <div className="flex items-center gap-3">
-                          <Label htmlFor="stability" className="text-sm">
-                            Stabilité
-                          </Label>
-                          <Badge className="text-sm">{stability}</Badge>
-                        </div>
-                        <Slider
-                          min={0}
-                          max={100}
-                          step={1}
-                          value={[stability]}
-                          onValueChange={handleSliderStabilityChange}
-                          className="mt-5"
-                        />
-                        <div className="mt-1 flex justify-between text-sm text-muted-foreground">
-                          <span>More variable</span>
-                          <span>More stable</span>
-                        </div>
-                      </div>
-                      <div className="pt-6">
-                        <div className="flex items-center gap-3">
-                          <Label htmlFor="stability" className="text-sm">
-                            Augmentation de la similarité
-                          </Label>
-                          <Badge className="text-sm">{similarity}</Badge>
-                        </div>
-                        <Slider
-                          min={0}
-                          max={100}
-                          step={1}
-                          value={[similarity]}
-                          onValueChange={handleSliderSimilarityChange}
-                          className="mt-5"
-                        />
-                        <div className="mt-1 flex justify-between text-sm text-muted-foreground">
-                          <span>low</span>
-                          <span>high</span>
-                        </div>
-                      </div>
-                      <div className="pt-6">
-                        <div className="flex items-center gap-3">
-                          <Label htmlFor="stability" className="text-sm">
-                            Style exaggeration
-                          </Label>
-                          <Badge className="text-sm">{style}</Badge>
-                        </div>
-                        <Slider
-                          min={0}
-                          max={100}
-                          step={1}
-                          value={[style]}
-                          onValueChange={handleSliderStyleChange}
-                          className="mt-5"
-                        />
-                        <div className="mt-1 flex justify-between text-sm text-muted-foreground">
-                          <span>None</span>
-                          <span>Exaggerated</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </DrawerBody>
-                <DrawerFooter className="mt-6">
-                  <Button
-                    className="mt-2 h-10 w-full sm:mt-0 sm:w-fit"
-                    variant="secondary"
-                    onClick={handleReset}
-                  >
-                    Reset
-                  </Button>{" "}
-                  <DrawerClose asChild></DrawerClose>
-                  <DrawerClose asChild>
-                    <Button
-                      className="h-10 w-full sm:w-fit"
-                      onClick={handleGenerate}
-                      isLoading={isLoading}
-                    >
-                      Ok, got it!
-                    </Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-            */}
             <Select value={voiceId} onValueChange={setVoiceId}>
               <SelectTrigger className="h-10 w-[120px]" id="tour10-step2">
                 <SelectValue placeholder="Select Voice" />
@@ -445,7 +366,7 @@ export default function Page() {
               onClick={handleGenerate}
               isLoading={isLoading}
             >
-              {t(`Generate voice`)}
+              {t(`Generate voice`)} ( {credit} credits)
             </Button>
           </div>
         </div>

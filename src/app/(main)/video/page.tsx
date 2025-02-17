@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader2, Sparkles, Upload, X } from "lucide-react"
+import { Loader, Loader2, Sparkles, Upload, X } from "lucide-react"
 import { useOnborda } from "onborda"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -259,7 +259,8 @@ export default function VideoGenerator() {
               onClick={handleSubmit}
               disabled={loading}
             >
-              {loading ? t(`Processing...`) : t(`Generate Video`)}
+              {isLoading && <Loader className="animate-spin" />}
+              {t(`Generate Video`)}
               <p>( {duration == "5" ? "40" : "80"} credits)</p>
             </Button>
           </div>

@@ -24,7 +24,7 @@ export async function generateVideoFromImage(
     const imageToVideo = await client.imageToVideo.create({
       model: "gen3a_turbo",
       promptImage:
-        base64Image === "https://pandorra.ai/assets/fond.png"
+        base64Image === "https://test.pandorra.ai/assets/fond.png"
           ? [
               {
                 uri: base64Image,
@@ -95,7 +95,7 @@ export const videoVerifyTask = SA(
   async (user, taskId: string): Promise<Video> => {
     const API_BASE_URL = "https://pdr.teratany.org"
 
-    let video
+    let video: Video
     let task = await client.tasks.retrieve(taskId)
     if (task.status === "SUCCEEDED") {
       try {
@@ -130,6 +130,14 @@ export const videoVerifyTask = SA(
         },
       })
     }
+    video = await prisma.video.update({
+      where: {
+        taskId: taskId,
+      },
+      data: {
+        failedMessage: "",
+      },
+    })
     return video
   },
 )

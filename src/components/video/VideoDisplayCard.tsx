@@ -10,7 +10,6 @@ import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { Skeleton } from "@/components/ui/skeleton"
 import { useToast } from "@/hooks/use-toast"
 
 interface VideoDisplayCardProps {
@@ -120,6 +119,26 @@ export const VideoDisplayCard = ({
     }
   }
 
+  if (status === "Pending") {
+    return (
+      <Alert variant="default" className="rounded-md border border-border">
+        <AlertCircle className="h-4 w-4" />
+        <AlertDescription>
+          {t(`Generation in progress:`)} {t(videoPrompt)}
+        </AlertDescription>
+      </Alert>
+    )
+  } else if (status === "Failed") {
+    return (
+      <Alert variant="destructive" className="rounded-md border border-border">
+        <AlertCircle className="h-4 w-4" />
+        <AlertDescription>
+          {t(`Failed to generate video:`)} {t(failedMessage || "Unknown error")}
+        </AlertDescription>
+      </Alert>
+    )
+  }
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -184,21 +203,7 @@ export const VideoDisplayCard = ({
               controls={false}
             />
           )}
-          {status === "Pending" && (
-            <div className="h-[400px] w-[250px]">
-              <Skeleton className="h-full w-full" />
-            </div>
-          )}
 
-          {status === "Failed" && (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                {t(`Failed to generate video:`)}{" "}
-                {t(failedMessage || "Unknown error")}
-              </AlertDescription>
-            </Alert>
-          )}
           <div
             className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 transition-opacity duration-300 ${
               isHovered ? "opacity-100" : "opacity-0"

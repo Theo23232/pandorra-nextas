@@ -1,17 +1,17 @@
 "use client"
 
-import { AlertCircle, Download, Loader, Send } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { AlertCircle, Download, Loader, Send } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { createPublicationVideo } from '@/actions/pubVideo.actions';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useToast } from '@/hooks/use-toast';
+import { createPublicationVideo } from "@/actions/pubVideo.actions"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/hooks/use-toast"
 
 interface VideoDisplayCardProps {
   id: string
@@ -172,7 +172,7 @@ export const VideoDisplayCard = ({
               </Tooltip>
             </div>
           </div>
-          {status === "Generated" ? (
+          {status === "Generated" && (
             <video
               id="tour8-step6"
               ref={videoRef}
@@ -183,9 +183,14 @@ export const VideoDisplayCard = ({
               playsInline
               controls={false}
             />
-          ) : status === "Pending" ? (
-            <Skeleton />
-          ) : (
+          )}
+          {status === "Painting" && (
+            <div className="h-[400px] w-[250px]">
+              <Skeleton className="h-full w-full" />
+            </div>
+          )}
+
+          {status === "Failed" && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>

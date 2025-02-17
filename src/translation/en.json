@@ -564,5 +564,11 @@
   "Choose one of these models to lead your generation to the style you want": "Choose one of these models to lead your generation to the style you want",
   "small": "small",
   "medium": "medium",
-  "large": "large"
+  "large": "large",
+  "CreatorPack": "Creator Pack",
+  "VisionPro": "Vision Pro",
+  "PandorraInfini": "Pandorra infini",
+  "CreatorPackYear": "Creator pack annuel",
+  "VisionProYear": "Vision Pro Annuel",
+  "PandorraInfiniYear": "Pandorra Infini Annuel"
 }

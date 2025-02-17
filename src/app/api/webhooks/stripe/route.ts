@@ -104,7 +104,7 @@ export const POST = async (req: NextRequest) => {
             jetonsToAdd = 3000
             referrerGain = parseFloat(((384.89 * 30) / 100).toFixed(2))
             break
-          case 98989:
+          case 0:
             newPlan = "PandorraInfiniYear"
             jetonsToAdd = 8000
             referrerGain = parseFloat(((989.89 * 30) / 100).toFixed(2))

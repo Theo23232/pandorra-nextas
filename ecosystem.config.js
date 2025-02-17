@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: "nextjs",
+            name: "pandorra prod",
             script: "npm",
             args: "start",
             env: {

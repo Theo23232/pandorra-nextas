@@ -1,38 +1,30 @@
 // Page.tsx
 "use client"
-import * as Flags from "country-flag-icons/react/3x2"
-import { ElevenLabsClient } from "elevenlabs"
-import { useSearchParams } from "next/navigation"
-import { useOnborda } from "onborda"
-import React, { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR, { mutate } from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ElevenLabsClient } from 'elevenlabs';
+import { useSearchParams } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { generateTTS } from "@/actions/elevenlabs.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { NothingYet } from "@/components/NothingYet"
-import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
+import { generateTTS } from '@/actions/elevenlabs.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { NothingYet } from '@/components/NothingYet';
+import { Button } from '@/components/tremor/ui/button';
+import { CardTitle } from '@/components/tremor/ui/card';
+import { Divider } from '@/components/tremor/ui/divider';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useUser } from "@/hooks/use-user"
-import { languageOptions } from "@/lib/elevenlabs/langList"
-import {
-  getVoiceNameById,
-  voicesList as vlist,
-  VoiceDetails,
-} from "@/lib/elevenlabs/voiceList"
-import { fetcher } from "@/lib/utils"
-import { TTS } from "@prisma/client"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useUser } from '@/hooks/use-user';
+import { languageOptions } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
+import { fetcher } from '@/lib/utils';
+import { TTS } from '@prisma/client';
 
-import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -240,7 +232,6 @@ export default function Page() {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
-      console.log(tourOnboarding)
       if (
         !tourOnboarding.includes("tenthtour") &&
         !tourOnboarding.includes("stop")

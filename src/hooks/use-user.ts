@@ -1,7 +1,8 @@
-import useSWR from "swr"
+import { useEffect } from 'react';
+import useSWR from 'swr';
 
-import { fetcher } from "@/lib/utils"
-import { User } from "@/types/next"
+import { fetcher } from '@/lib/utils';
+import { User } from '@/types/next';
 
 interface ErrorResponse {
   error: string
@@ -16,6 +17,11 @@ export function useUser() {
       revalidateOnReconnect: false,
     },
   )
+  useEffect(() => {
+    if (data && "language" in data) {
+      localStorage.setItem("lang", data.language)
+    }
+  }, [data])
 
   const isUnauthorized =
     data && "error" in data && data.error === "Non autorisé"

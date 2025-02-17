@@ -1,12 +1,15 @@
 "use client"
-import i18next from "i18next"
-import { useEffect } from "react"
-import { initReactI18next } from "react-i18next"
+import i18next from 'i18next';
+import { useEffect } from 'react';
+import { initReactI18next } from 'react-i18next';
 
-import translationEnglish from "./translation/en.json"
-import translationEspania from "./translation/es.json"
-import translationFrench from "./translation/fr.json"
-import translationItalian from "./translation/ita.json"
+import { editLangange } from '@/actions/user.ations';
+import { useUser } from '@/hooks/use-user';
+
+import translationEnglish from './translation/en.json';
+import translationEspania from './translation/es.json';
+import translationFrench from './translation/fr.json';
+import translationItalian from './translation/ita.json';
 
 const resources = {
   en: {
@@ -22,13 +25,31 @@ const resources = {
     translation: translationEspania,
   },
 }
+const edit = async (lang: string) => {
+  await editLangange(lang)
+  window.location.reload()
+}
 
 const detectBrowserLanguage = (): string => {
   if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+    const localLang = localStorage.getItem("lang")
     const browserLang = navigator.language.substring(0, 2).toLowerCase()
-    return ["fr", "en", "it", "es"].includes(browserLang) ? browserLang : "en"
+    const lang = ["fr", "en", "it", "es"].includes(browserLang)
+      ? browserLang
+      : "en"
+    if (localLang) {
+      if (localLang == "unknown") {
+        edit(lang)
+        return lang
+      } else {
+        return localLang
+      }
+    } else {
+      return lang
+    }
+  } else {
+    return "en" // Valeur par défaut pour le serveur
   }
-  return "en" // Valeur par défaut pour le serveur
 }
 
 if (!i18next.isInitialized) {
@@ -39,12 +60,14 @@ if (!i18next.isInitialized) {
 }
 
 export const useI18n = () => {
+  const { user } = useUser()
+
   useEffect(() => {
     const browserLang = detectBrowserLanguage()
     if (i18next.language !== browserLang) {
       i18next.changeLanguage(browserLang)
     }
-  }, [])
+  }, [user])
 
   return i18next
 }

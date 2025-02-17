@@ -1,25 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import * as Flags from "country-flag-icons/react/3x2"
-import { ChevronDown, Download, Loader, Plus } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ChevronDown, Download, Loader, Plus } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
 
-import { getConversationAudio } from "@/actions/assistant.actions"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Card } from "@/components/tremor/ui/card"
-import { Button } from "@/components/ui/button"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { useUser } from "@/hooks/use-user"
-import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
-import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
-import { formatTimePassed } from "@/lib/utils"
+import { getConversationAudio } from '@/actions/assistant.actions';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Card } from '@/components/tremor/ui/card';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useUser } from '@/hooks/use-user';
+import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
+import { formatTimePassed } from '@/lib/utils';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -85,7 +81,6 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding
-      console.log(tourOnboarding)
       if (
         !tourOnboarding.includes("seventhtour") &&
         !tourOnboarding.includes("stop")

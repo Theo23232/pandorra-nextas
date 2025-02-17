@@ -1,8 +1,8 @@
 "use server"
 
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
-import { Agent } from "@prisma/client"
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { Agent } from '@prisma/client';
 
 interface AgentOption {
   language: string
@@ -137,7 +137,6 @@ export const createAgent = SA(
       },
     )
     const body = await response.json()
-    console.log("Error body:", body)
     const agentId = body.agent_id
 
     const agent = await prisma.agent.create({

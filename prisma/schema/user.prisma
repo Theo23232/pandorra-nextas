@@ -7,7 +7,7 @@ model User {
   tourOnboarding    String[]
   username          String   @unique
   email             String   @unique
-  language          String   @default("en")
+  language          String   @default("unknown")
   description       String?
   theme             String   @default("light")
   password          String

@@ -90,9 +90,7 @@ export async function POST(req: NextRequest) {
       user: { id: user.id, email: user.email },
     })
   } catch (error) {
-    if (error instanceof Error) {
-      console.log("Error: ", error.stack)
-    }
+    console.log("Error: ", error)
   } finally {
     await prisma.$disconnect() // Ferme la connexion après chaque requête
   }

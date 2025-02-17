@@ -1,7 +1,8 @@
 "use client"
+import { useTheme } from 'next-themes';
 import { useTranslation } from 'react-i18next';
 
-import { editLangange } from '@/actions/user.ations';
+import { editTheme } from '@/actions/user.ations';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/tremor/inputs/select';
@@ -11,6 +12,7 @@ import { useUser } from '@/hooks/use-user';
 export function EditTheme() {
   const { t } = useTranslation()
   const { user } = useUser()
+  const { theme, setTheme } = useTheme()
   const { toast } = useToast()
   const data = [
     {
@@ -21,14 +23,11 @@ export function EditTheme() {
       value: "light",
       label: "Light",
     },
-    {
-      value: "system",
-      label: "System",
-    },
   ]
 
   const handleEdit = async (value: string) => {
-    await editLangange(value)
+    setTheme(value)
+    await editTheme(value)
       .then(() => {
         toast({
           title: t(`success`),
@@ -48,10 +47,7 @@ export function EditTheme() {
   }
   if (user) {
     return (
-      <Select
-        onValueChange={(value) => handleEdit(value)}
-        defaultValue={user.theme}
-      >
+      <Select onValueChange={(value) => handleEdit(value)} defaultValue={theme}>
         <SelectTrigger>
           <SelectValue placeholder="Select theme" />
         </SelectTrigger>

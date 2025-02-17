@@ -4,6 +4,7 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Link from 'next/link';
 
 import { accountSettingSession } from '@/actions/stripeSessions.action';
+import { ToggleTheme } from '@/components/(main)/ToggleTheme';
 import { Logo } from '@/components/logo';
 import { UserProfileMobile } from '@/components/navigation/UserProfile';
 import JetonCounter from '@/components/pandorra/jeton-counter';
@@ -84,6 +85,7 @@ export function Navbar() {
         <Button className="hidden" onClick={() => handleCLickButton()}>
           Stripe
         </Button>
+        <ToggleTheme />
         <JetonCounter />
         <UserProfileMobile />
       </div>

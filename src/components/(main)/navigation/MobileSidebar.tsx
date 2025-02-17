@@ -32,15 +32,16 @@ const shortcuts = [
     href: "/image/generation",
     icon: Image,
   },
-  {
-    name: "AI Assistant",
-    href: "/assistant",
-    icon: BotMessageSquare,
-  },
+
   {
     name: "Video generation",
     href: "/video",
     icon: Video,
+  },
+  {
+    name: "AI Assistant",
+    href: "/assistant",
+    icon: BotMessageSquare,
   },
   {
     name: "Audio AI",

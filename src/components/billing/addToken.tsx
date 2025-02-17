@@ -36,10 +36,6 @@ export const AddTokenDialog = (props: addTokenProps) => {
       return
     }
     switch (payementType) {
-      case "0Tokens":
-        await payementSession("0 Crédit", "Achat de 0 jetons", 0)
-        localStorage.setItem("article", "0Tokens")
-        break
       case "1000Tokens":
         await payementSession("1000 Crédits", "Achat de 1000 jetons", 1299)
         localStorage.setItem("article", "1000Tokens")

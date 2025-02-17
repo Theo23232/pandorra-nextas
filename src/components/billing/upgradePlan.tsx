@@ -1,14 +1,24 @@
 "use client"
-import { X } from 'lucide-react';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import { X } from "lucide-react"
+import { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
-import { subscriptionSession } from '@/actions/stripeSessions.action';
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { subscriptionSession } from "@/actions/stripeSessions.action"
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Button } from "@/components/ui/button"
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -56,7 +66,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
         break
       case "CreatorPackYear":
         await subscriptionSession(
-          "CreatorPack",
+          "CreatorPackYear",
           "1000 credits/month for 1 year",
           14289,
           "year",
@@ -66,7 +76,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
 
       case "VisionProYear":
         await subscriptionSession(
-          "VisionPro",
+          "VisionProYear",
           "3000 credits/month for 1 year",
           38499,
           "year",
@@ -75,9 +85,9 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
         break
       case "PandorraInfiniYear":
         await subscriptionSession(
-          "PandorraInfini",
+          "PandorraInfiniYear",
           "8000 credits/month",
-          98989,
+          0,
           "year",
         )
         localStorage.setItem("article", "PandorraInfiniYear")

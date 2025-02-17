@@ -1,8 +1,8 @@
 "use server"
 
-import { currentUser } from '@/lib/current-user';
-import { stripe } from '@/lib/stripe';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { stripe } from "@/lib/stripe"
+import { prisma } from "@/prisma"
 
 export const createProductPayement = async (
   name: string,
@@ -120,7 +120,7 @@ export const withdrawMoney = async (accountId: string, amount: number) => {
 
       await stripe.transfers.create({
         amount: Math.round(amount * 100),
-        currency: "eur",
+        currency: "usd",
         destination: accountId,
       })
 

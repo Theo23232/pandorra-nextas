@@ -1,16 +1,21 @@
 "use client"
 
-import { X } from 'lucide-react';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import { X } from "lucide-react"
+import { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
-import { payementSession } from '@/actions/stripeSessions.action';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
+import { payementSession } from "@/actions/stripeSessions.action"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
 
 export type addTokenProps = {
   children: ReactNode
@@ -31,6 +36,10 @@ export const AddTokenDialog = (props: addTokenProps) => {
       return
     }
     switch (payementType) {
+      case "0Tokens":
+        await payementSession("0 Crédit", "Achat de 0 jetons", 0)
+        localStorage.setItem("article", "0Tokens")
+        break
       case "1000Tokens":
         await payementSession("1000 Crédits", "Achat de 1000 jetons", 1299)
         localStorage.setItem("article", "1000Tokens")

@@ -1,31 +1,36 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader2, Sparkles, Upload, X } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Masonry from 'react-masonry-css';
-import useSWR, { mutate } from 'swr';
+import { Loader2, Sparkles, Upload, X } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import Masonry from "react-masonry-css"
+import useSWR, { mutate } from "swr"
 
-import { verifyCredit } from '@/actions/credits.actions';
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { NothingYet } from '@/components/NothingYet';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { verifyCredit } from "@/actions/credits.actions"
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { NothingYet } from "@/components/NothingYet"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
-import { Plan, Video } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Textarea } from "@/components/ui/textarea"
+import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
+import { Plan, Video } from "@prisma/client"
 
 import type React from "react"
 const SkeletonLoader = () => (
@@ -44,6 +49,7 @@ export default function VideoGenerator() {
   const [ratio, setRatio] = useState("768:1280")
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const { toast } = useToast()
   const { user } = useUser()
@@ -64,12 +70,14 @@ export default function VideoGenerator() {
   }
 
   const handleSubmit = async () => {
+    setIsLoading(true)
     if (!image && !promptText) {
       toast({
         title: t(`Error`),
         description: t(`Please select an image or add text for the prompt`),
         variant: "error",
       })
+      setIsLoading(false)
       return
     }
 
@@ -82,6 +90,7 @@ export default function VideoGenerator() {
         ),
         variant: "error",
       })
+      setIsLoading(false)
       setLoading(false)
       return
     }
@@ -93,6 +102,7 @@ export default function VideoGenerator() {
         description: t(`You do not have enought token for this generation`),
         variant: "error",
       })
+      setIsLoading(false)
       setLoading(false)
       return
     }
@@ -123,6 +133,7 @@ export default function VideoGenerator() {
         variant: "error",
       })
     } finally {
+      setIsLoading(false)
       setLoading(false)
     }
   }
@@ -302,6 +313,15 @@ export default function VideoGenerator() {
           />
         </div>
       )}
+      {isLoading && <GenerationSkeleton />}
     </Bounce>
+  )
+}
+
+const GenerationSkeleton = () => {
+  return (
+    <MagicCard gradientSize={700} className="group relative cursor-pointer">
+      <Skeleton className="h-[450px] w-full" />
+    </MagicCard>
   )
 }

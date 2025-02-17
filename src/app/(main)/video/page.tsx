@@ -286,7 +286,7 @@ export default function VideoGenerator() {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 3,
+            default: 5,
             1440: 2,
             1200: 2,
             700: 1,

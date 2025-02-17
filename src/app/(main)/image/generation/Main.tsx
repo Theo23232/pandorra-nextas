@@ -1,22 +1,23 @@
 "use client"
-import { Loader2, Sparkles } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Loader2, Sparkles } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { getUserGeneration } from '@/actions/generation.action';
-import { enhanceImagePrompt } from '@/actions/openai.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { GenerationResult } from '@/components/image-ai/GenerationResult';
-import { NothingYet } from '@/components/NothingYet';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Button } from '@/components/tremor/ui/button';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { fetchGenerationResult, generationInsert } from '@/lib/leonardo/fetch';
-import { GeneratedImage, Prisma } from '@prisma/client';
+import { verifyCredit } from "@/actions/credits.actions"
+import { getUserGeneration } from "@/actions/generation.action"
+import { enhanceImagePrompt } from "@/actions/openai.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { GenerationResult } from "@/components/image-ai/GenerationResult"
+import { NothingYet } from "@/components/NothingYet"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Button } from "@/components/tremor/ui/button"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
+import { GeneratedImage, Prisma } from "@prisma/client"
 
 export type MainProps = {
   prompt: string
@@ -74,8 +75,19 @@ export const Main = (props: MainProps) => {
     }
   }, [prompt])
 
-  const generate = () => {
+  const generate = async () => {
     setIsLoading(true)
+    const isEnoughtToken = await verifyCredit(props.count * 5)
+    if (!isEnoughtToken) {
+      toast({
+        title: t(`Error`),
+        description: t(`You do not have enought token for this generation`),
+        variant: "error",
+      })
+      setIsLoading(false)
+
+      return
+    }
     props.onGenerate()
   }
   useEffect(() => {

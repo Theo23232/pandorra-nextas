@@ -3,7 +3,6 @@ import { NextResponse } from "next/server"
 import { videoVerifyTask } from "@/actions/runway.actions"
 import { currentUser } from "@/lib/current-user"
 import { prisma } from "@/prisma"
-import { Video } from "@prisma/client"
 
 export async function GET() {
   try {
@@ -23,17 +22,14 @@ export async function GET() {
         createdAt: "desc",
       },
     })
-    let response: Video[] = []
     videos.forEach(async (video, index) => {
       if (video.status === "Pending") {
-        let v = await videoVerifyTask(video.taskId)
-        response.push(v)
-      } else {
-        response.push(video)
+        await videoVerifyTask(video.taskId)
+        console.log("pending")
       }
     })
 
-    return NextResponse.json(response)
+    return NextResponse.json(videos)
   } catch (error) {
     console.error("Error generating video:", error)
     return NextResponse.json({ error: error }, { status: 500 })

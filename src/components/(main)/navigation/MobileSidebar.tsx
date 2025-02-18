@@ -1,18 +1,45 @@
 import {
-    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Sparkles, User2, Video
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+  BoomBox,
+  BotMessageSquare,
+  Coins,
+  Crown,
+  Gift,
+  Image,
+  MessageSquare,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Logo } from '@/components/logo';
-import { Button } from '@/components/tremor/ui/button';
+import { siteConfig } from "@/app/siteConfig"
+import { AddTokenDialog } from "@/components/billing/addToken"
+import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
+import { Logo } from "@/components/logo"
+import { Button } from "@/components/tremor/ui/button"
 import {
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger
-} from '@/components/tremor/ui/drawer';
-import { cx, focusRing } from '@/lib/utils';
-import { RiHome2Line, RiMenuLine } from '@remixicon/react';
+  Drawer,
+  DrawerBody,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/tremor/ui/drawer"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { useUser } from "@/hooks/use-user"
+import { cn, cx, focusRing } from "@/lib/utils"
+import { RiHome2Line, RiMenuLine } from "@remixicon/react"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },
@@ -52,6 +79,9 @@ const shortcuts = [
 
 export default function MobileSidebar() {
   const { t } = useTranslation()
+  const { isSidebar } = useIsSidebar()
+  const { user } = useUser()
+
   const pathname = usePathname()
   const isActive = (itemHref: string) => {
     if (itemHref === siteConfig.baseLinks.settings) {
@@ -112,35 +142,57 @@ export default function MobileSidebar() {
                   </li>
                 ))}
                 <li>
-                  <DrawerClose asChild>
-                    <div
-                      className={cx(
-                        "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                        "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
-                        focusRing,
-                      )}
-                    >
-                      <Sparkles
-                        className="size-5 shrink-0"
-                        aria-hidden="true"
-                      />
-                      {t("Upgrade plan")}
-                    </div>
-                  </DrawerClose>
+                  <UpgradePlanDialog>
+                    <li id="tour1-step5" className="w-full cursor-pointer">
+                      <div
+                        className={cx(
+                          "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                          focusRing,
+                        )}
+                      >
+                        <Sparkles
+                          className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                          aria-hidden="true"
+                        />
+                        {isSidebar ? (
+                          t("Upgrade plan")
+                        ) : (
+                          <Tooltip content={t("Upgrade plan")} side="right">
+                            <span className="sr-only">{t("Upgrade plan")}</span>
+                          </Tooltip>
+                        )}
+                      </div>
+                    </li>
+                  </UpgradePlanDialog>
                 </li>
                 <li>
-                  <DrawerClose asChild>
-                    <div
-                      className={cx(
-                        "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                        "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
-                        focusRing,
-                      )}
-                    >
-                      <Coins className="size-5 shrink-0" aria-hidden="true" />
-                      {t("Add more tokens")}
-                    </div>
-                  </DrawerClose>
+                  <AddTokenDialog>
+                    <li id="tour1-step6" className="w-full cursor-pointer">
+                      <div
+                        className={cx(
+                          "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                          focusRing,
+                        )}
+                      >
+                        <Coins
+                          className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                          aria-hidden="true"
+                        />
+
+                        {isSidebar ? (
+                          t("Add more tokens")
+                        ) : (
+                          <Tooltip content={t("Add more tokens")} side="right">
+                            <span className="sr-only">
+                              {t("Add more tokens")}
+                            </span>
+                          </Tooltip>
+                        )}
+                      </div>
+                    </li>
+                  </AddTokenDialog>
                 </li>
               </ul>
               <div>
@@ -168,6 +220,52 @@ export default function MobileSidebar() {
                     </li>
                   ))}
                 </ul>
+              </div>
+              <div
+                className={cn(
+                  "mt-10 min-w-56 transition-opacity duration-200",
+                  isSidebar ? "opacity-100" : "opacity-0",
+                )}
+              >
+                <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
+                  <CardHeader className="space-y-1">
+                    <CardTitle className="text-center text-2xl font-bold">
+                      {user?.plan === "Free"
+                        ? t("Free")
+                        : user?.plan === "Hebdomadaire"
+                          ? t("Weekly")
+                          : user?.plan === "CreatorPack"
+                            ? t("CreatorPack")
+                            : user?.plan === "VisionPro"
+                              ? t("VisionPro")
+                              : user?.plan === "PandorraInfini"
+                                ? t("PandorraInfini")
+                                : user?.plan === "CreatorPackYear"
+                                  ? t("CreatorPackYear")
+                                  : user?.plan === "VisionProYear"
+                                    ? t("VisionProYear")
+                                    : t("PandorraInfiniYear")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-col items-center space-y-4">
+                    <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                      {t(
+                        "Subscribe to a plan features and get full access on all features!",
+                      )}
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    {user?.plan === "Free" ? (
+                      <UpgradePlanDialog>
+                        <Button className="w-full">{t(`Upgrade Now`)}</Button>
+                      </UpgradePlanDialog>
+                    ) : (
+                      <AddTokenDialog>
+                        <Button className="w-full">{t(`Add credits`)}</Button>
+                      </AddTokenDialog>
+                    )}
+                  </CardFooter>
+                </Card>
               </div>
             </nav>
           </DrawerBody>

@@ -1,9 +1,12 @@
 "use client"
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
 import { useOnborda } from "onborda"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { updateUserPreferences } from "@/actions/user.ations"
+import { ImageGenerationDialog } from "@/app/(main)/image/generation/ImageGenerationDialog"
+import { ImageGenerationSidebar } from "@/app/(main)/image/generation/sidebar"
 import Bounce from "@/components/animated/uibeats/bounce"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useSelectImage } from "@/hooks/use-select-image"
@@ -13,14 +16,14 @@ import { leofetch } from "@/lib/leonardo/fetch"
 import { Model, models } from "@/lib/leonardo/presets"
 
 import { Main } from "./Main"
-import { ImageGenerationSidebar } from "./sidebar"
 
 export default function RoutePage() {
   const { t } = useTranslation()
-  //en fait c'est un ID
   const { imageUrl } = useSelectImage()
   const { user } = useUser()
   const { startOnborda } = useOnborda()
+  const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
+
   const { toast } = useToast()
 
   type State = {
@@ -46,6 +49,16 @@ export default function RoutePage() {
 
   const { prompt, activeModel, presetStyle, contrast, count, width, height } =
     state
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  const closeDialog = () => {
+    setIsDialogOpen(false)
+  }
+
+  const openDialog = () => {
+    setIsDialogOpen(true)
+    setDialogOpen(true)
+  }
 
   const generate = async () => {
     const contrast = state.contrast
@@ -106,7 +119,19 @@ export default function RoutePage() {
 
   return (
     <Bounce className="flex pt-4">
-      <ImageGenerationSidebar
+      <button
+        className="fixed bottom-4 right-4 block rounded-full bg-blue-500 p-2 text-white lg:hidden"
+        onClick={openDialog}
+      >
+        {!dialogOpen ? (
+          <PanelLeftClose size={20} />
+        ) : (
+          <PanelLeftOpen size={20} />
+        )}
+      </button>
+      <ImageGenerationDialog
+        isOpen={isDialogOpen}
+        onClose={closeDialog}
         onModelChange={(model) => handleStateChange("activeModel", model)}
         onPresetStyleChange={(value) => handleStateChange("presetStyle", value)}
         onContrastChange={(value) => handleStateChange("contrast", value)}
@@ -122,6 +147,26 @@ export default function RoutePage() {
         defaultcontrast={contrast}
         defaultcount={count}
       />
+      <div className="hidden lg:block">
+        <ImageGenerationSidebar
+          onModelChange={(model) => handleStateChange("activeModel", model)}
+          onPresetStyleChange={(value) =>
+            handleStateChange("presetStyle", value)
+          }
+          onContrastChange={(value) => handleStateChange("contrast", value)}
+          onCountChange={(value) => handleStateChange("count", value)}
+          onSizeChange={(width, height) => {
+            handleStateChange("width", width)
+            handleStateChange("height", height)
+          }}
+          defaultmodel={activeModel}
+          defaultwidth={width}
+          defaultheight={height}
+          defaultpresetstyle={presetStyle}
+          defaultcontrast={contrast}
+          defaultcount={count}
+        />
+      </div>
 
       <ScrollArea className="w-full p-6 pt-0">
         <Main

@@ -107,7 +107,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
     }
   }, [user, startOnborda])
   return (
-    <MagicCard className="sticky top-20 h-fit max-h-[90vh] w-96 overflow-y-auto border-l bg-card p-4">
+    <MagicCard className="sticky top-20 h-fit max-h-[90vh] overflow-y-auto border-l bg-card p-4 sm:w-full md:w-96">
       <aside className="flex grow flex-col gap-y-6 overflow-y-auto">
         <div id="tour5-step1">
           <ModelSelectDialog

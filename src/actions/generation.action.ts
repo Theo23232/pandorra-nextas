@@ -20,13 +20,16 @@ export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
 }
 
 export const deleteGeneration = async (id: string) => {
-  await prisma.generation
-    .delete({
-      where: {
-        id,
-      },
-    })
-    .catch((e) => {
-      throw new Error(e)
-    })
+  const user = await currentUser()
+  if (user) {
+    await prisma.generation
+      .delete({
+        where: {
+          id,
+        },
+      })
+      .catch((e) => {
+        throw new Error(e)
+      })
+  } else throw new Error("You are not authenticated")
 }

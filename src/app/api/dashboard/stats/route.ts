@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import { getDashboardStats } from "@/actions/stats.action"
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   try {
     const stats = await getDashboardStats()
     return NextResponse.json(stats)

@@ -72,7 +72,7 @@ export function Sidebar() {
     if (itemHref === siteConfig.baseLinks.settings) {
       return pathname?.startsWith("/dashboard")
     }
-    return pathname === itemHref || pathname?.startsWith(itemHref)
+    return pathname === itemHref
   }
 
   return (

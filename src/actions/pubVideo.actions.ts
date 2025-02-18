@@ -1,7 +1,8 @@
 "use server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { trackUserActivity } from "@/actions/user.ations"
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export const createPublicationVideo = async (
   id: string,
@@ -12,6 +13,7 @@ export const createPublicationVideo = async (
   status: string,
 ) => {
   const user = await currentUser()
+  await trackUserActivity("createPublicationVideo")
 
   const publicationVideo = await prisma.publicationVideo.findFirst({
     where: {
@@ -38,6 +40,7 @@ export const createCommentVideo = async (
   publicationVideoId: string,
 ) => {
   const user = await currentUser()
+  await trackUserActivity("createCommentVideo")
 
   if (user) {
     await prisma.commentVideo.create({
@@ -52,6 +55,7 @@ export const createCommentVideo = async (
 
 export const createPubVideoReaction = async (publicationVideoId: string) => {
   const user = await currentUser()
+  await trackUserActivity("createPubVideoReaction")
 
   if (user) {
     const isExist = await prisma.reactionVideo.findFirst({
@@ -73,6 +77,7 @@ export const createPubVideoReaction = async (publicationVideoId: string) => {
 
 export const createCommentVideoReaction = async (commentId: string) => {
   const user = await currentUser()
+  await trackUserActivity("createCommentVideoReaction")
 
   if (user) {
     const isExist = await prisma.commentVideoReaction.findFirst({
@@ -91,8 +96,10 @@ export const createCommentVideoReaction = async (commentId: string) => {
     }
   } else throw new Error("You are not authenticated")
 }
+
 export const deleteCommentVideoReaction = async (commentId: string) => {
   const user = await currentUser()
+  await trackUserActivity("deleteCommentVideoReaction")
 
   if (user) {
     const isExist = await prisma.commentVideoReaction.findFirst({
@@ -113,6 +120,7 @@ export const deleteCommentVideoReaction = async (commentId: string) => {
 
 export const deletePubVideoReaction = async (publicationId: string) => {
   const user = await currentUser()
+  await trackUserActivity("deletePubVideoReaction")
 
   if (user) {
     const isExist = await prisma.reactionVideo.findFirst({

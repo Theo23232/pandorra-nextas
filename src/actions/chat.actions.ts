@@ -1,15 +1,18 @@
 "use server"
 
-import { OpenAI } from 'openai';
+import { OpenAI } from "openai"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { trackUserActivity } from "@/actions/user.ations"
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 })
 
 export async function postMessage(gptConversationId: string, content: string) {
+  await trackUserActivity("postMessage")
+
   const user = await currentUser()
 
   if (!user) {

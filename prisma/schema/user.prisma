@@ -54,6 +54,18 @@ model User {
   VoiceChange          VoiceChange[]
   BuyToken             BuyToken[]
   Subscribe            Subscribe[]
+  UserActivity         UserActivity[]
+}
+
+model UserActivity {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  timestamp DateTime @default(now())
+  action    String // par exemple: 'login', 'post_created', 'comment_added'
+
+  @@index([timestamp])
+  @@index([userId])
 }
 
 model Session {

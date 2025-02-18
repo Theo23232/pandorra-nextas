@@ -1,11 +1,11 @@
 "use server"
 
-import { randomBytes } from 'crypto';
+import { randomBytes } from "crypto"
 
-import { hashPassword } from '@/lib/auth';
-import { sendResetEmail } from '@/lib/mail';
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
+import { hashPassword } from "@/lib/auth"
+import { sendResetEmail } from "@/lib/mail"
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
 
 export const editUser = SA(
   async (
@@ -34,6 +34,7 @@ export const editUser = SA(
 )
 
 export const editImage = SA(async (user, image: string) => {
+  await trackUserActivity("editImage")
   await prisma.user.update({
     where: { id: user.id },
     data: { image },
@@ -41,6 +42,7 @@ export const editImage = SA(async (user, image: string) => {
 })
 
 export const editTheme = SA(async (user, theme: string) => {
+  await trackUserActivity("editTheme")
   await prisma.user.update({
     where: { id: user.id },
     data: { theme },
@@ -48,6 +50,8 @@ export const editTheme = SA(async (user, theme: string) => {
 })
 
 export const editLangange = SA(async (user, language: string) => {
+  await trackUserActivity("editLangange")
+
   await prisma.user.update({
     where: { id: user.id },
     data: { language },
@@ -56,6 +60,8 @@ export const editLangange = SA(async (user, language: string) => {
 
 export const editNotificationPreference = SA(
   async (user, emailNotification: boolean, pushNotification: boolean) => {
+    await trackUserActivity("editNotificationPreference")
+
     await prisma.user.update({
       where: { id: user.id },
       data: { emailNotification, pushNotification },
@@ -69,6 +75,8 @@ export const editPassword = SA(
     newPassword: string,
     currentPassword: string,
   ): Promise<boolean> => {
+    await trackUserActivity("editPassword")
+
     const hashedCurrentPassword = await hashPassword(currentPassword)
     const hashedNewPassword = await hashPassword(newPassword)
     const userWithPassword = await prisma.user.findUnique({
@@ -92,6 +100,8 @@ export const editPassword = SA(
 
 export const resetPassword = SA(
   async (_user, token: string, password: string): Promise<boolean> => {
+    await trackUserActivity("resetPassword")
+
     const resetRequest = await prisma.passwordReset.findUnique({
       where: { token },
     })
@@ -118,6 +128,8 @@ export const resetPassword = SA(
 
 export const forgotPassword = async (email: string) => {
   // Vérifier si l'utilisateur existe
+  await trackUserActivity("forgotPassword")
+
   const user = await prisma.user.findUnique({ where: { email } })
 
   if (!user) {
@@ -147,6 +159,8 @@ export const forgotPassword = async (email: string) => {
 }
 
 export const getUserIdByEmail = async (email: string): Promise<string> => {
+  await trackUserActivity("getUserIdByEmail")
+
   const user = await prisma.user.findFirst({
     where: {
       email,
@@ -190,14 +204,25 @@ export const updateUserPreferences = SA(
     imagePresetStylePreference: string,
     imageNumberPreference: string,
   ) => {
+    await trackUserActivity("updateUserPreferences")
+
     await prisma.user.update({
       where: { id: user.id },
       data: {
         imageModelIdPreference,
         imageSizePreference,
         imagePresetStylePreference,
-        imageNumberPreference
+        imageNumberPreference,
       },
     })
   },
 )
+
+export const trackUserActivity = SA(async (user, action: string) => {
+  await prisma.userActivity.create({
+    data: {
+      userId: user.id,
+      action,
+    },
+  })
+})

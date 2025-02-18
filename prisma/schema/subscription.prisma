@@ -13,6 +13,7 @@ model BuyToken {
   id        String   @id @default(cuid())
   userId    String
   amount    Int
+  price     Int
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -22,7 +23,17 @@ model Subscribe {
   id        String   @id @default(cuid())
   userId    String
   plan      String
+  price     Int
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Affiliation {
+  id        String   @id @default(cuid())
+  userId    String
+  parentId  String
+  plan      String
+  price     Int
+  createdAt DateTime @default(now())
 }

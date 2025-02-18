@@ -1,5 +1,6 @@
 "use server"
 
+import { trackUserActivity } from "@/actions/user.ations"
 import { currentUser } from "@/lib/current-user"
 import { prisma } from "@/prisma"
 
@@ -24,6 +25,7 @@ export const getUserIdByEmail = async (email: string): Promise<string> => {
 // Fonction utilitaire pour mettre à jour les données de l'utilisateur
 export const updateUser = async (data: object) => {
   const user = await getCurrentUser()
+
   await prisma.user.update({
     where: { id: user.id },
     data,
@@ -32,10 +34,14 @@ export const updateUser = async (data: object) => {
 
 // Fonction pour éditer l'image de l'utilisateur
 export const EditImage = async (image: string) => {
+  await trackUserActivity("EditImage")
+
   await updateUser({ image })
 }
 
 // Fonction pour supprimer l'image de l'utilisateur
 export const DeleteImage = async (image: string) => {
+  await trackUserActivity("DeleteImage")
+
   await updateUser({ image })
 }

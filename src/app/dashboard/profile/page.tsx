@@ -190,9 +190,10 @@ export default function UsersPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
-            <SelectItem value="fr">French</SelectItem>
-            <SelectItem value="it">Italian</SelectItem>
-            <SelectItem value="es">Spanish</SelectItem>
+            <SelectItem value="en">Anglais</SelectItem>
+            <SelectItem value="fr">Français</SelectItem>
+            <SelectItem value="it">Italien</SelectItem>
+            <SelectItem value="es">Espagnol</SelectItem>
           </SelectContent>
         </Select>
         <Select value={theme} onValueChange={handleThemeChange}>
@@ -213,13 +214,13 @@ export default function UsersPage() {
             <SelectItem value="all">All</SelectItem>
             <SelectItem value="Free">Free</SelectItem>
             <SelectItem value="Hebdomadaire">Hebdomadaire</SelectItem>
-            <SelectItem value="CreatorPack">CreatorPack</SelectItem>
-            <SelectItem value="VisionPro">VisionPro</SelectItem>
-            <SelectItem value="PandorraInfini">PandorraInfini</SelectItem>
-            <SelectItem value="CreatorPackYear">CreatorPackYear</SelectItem>
-            <SelectItem value="VisionProYear">VisionProYear</SelectItem>
+            <SelectItem value="CreatorPack">Creator Pack</SelectItem>
+            <SelectItem value="VisionPro">Vision Pro</SelectItem>
+            <SelectItem value="PandorraInfini">Pandorra Infini</SelectItem>
+            <SelectItem value="CreatorPackYear">Creator Pack Year</SelectItem>
+            <SelectItem value="VisionProYear">Vision Pro Year</SelectItem>
             <SelectItem value="PandorraInfiniYear">
-              PandorraInfiniYear
+              Pandorra Infini Year
             </SelectItem>
           </SelectContent>
         </Select>

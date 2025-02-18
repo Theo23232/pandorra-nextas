@@ -270,7 +270,7 @@ function PublicationActions({
           )}
         </Button>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="hidden items-center justify-center gap-2">
           <Button
             variant="secondary"
             className="flex h-8 w-full flex-1 items-center justify-center gap-2"

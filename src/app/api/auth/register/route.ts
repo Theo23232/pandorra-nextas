@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server"
 
-import { generateToken, hashPassword } from '@/lib/auth';
-import { getDeviceInfo } from '@/lib/device';
-import { stripe } from '@/lib/stripe';
-import { prisma } from '@/prisma';
+import { generateToken, hashPassword } from "@/lib/auth"
+import { getDeviceInfo } from "@/lib/device"
+import { stripe } from "@/lib/stripe"
+import { prisma } from "@/prisma"
 
 export async function POST(req: NextRequest) {
   try {
@@ -92,6 +92,6 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.log("Error: ", error)
   } finally {
-    await prisma.$disconnect() // Ferme la connexion après chaque requête
+    console.info("") // Ferme la connexion après chaque requête
   }
 }

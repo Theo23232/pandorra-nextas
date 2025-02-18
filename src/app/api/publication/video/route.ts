@@ -1,10 +1,10 @@
 // /api/publication/video
 "use server"
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export const GET = async () => {
   const user = await currentUser()
@@ -53,6 +53,6 @@ export const GET = async () => {
       { status: 500 },
     )
   } finally {
-    await prisma.$disconnect() // Ferme la connexion après chaque requête
+    console.info("") // Ferme la connexion après chaque requête
   }
 }

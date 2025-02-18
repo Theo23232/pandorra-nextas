@@ -34,6 +34,6 @@ export async function GET() {
     console.error("Error generating video:", error)
     return NextResponse.json({ error: error }, { status: 500 })
   } finally {
-    await prisma.$disconnect() // Ferme la connexion après chaque requête
+    console.info("") // Ferme la connexion après chaque requête
   }
 }

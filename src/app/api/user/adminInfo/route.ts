@@ -28,7 +28,7 @@ export async function GET(request: Request) {
         },
       },
     })
-    console.log("user ==> ", user)
+    console.error("user ==> ", user)
     return NextResponse.json(user, { status: 200 })
   } catch (error) {
     console.error("Error fetching comments:", error)

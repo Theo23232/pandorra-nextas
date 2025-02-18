@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       user: { id: user.id, email: user.email },
     })
   } catch (error) {
-    console.log("error ==> ", error)
+    console.error("error ==> ", error)
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 })
   } finally {
     console.info("") // Ferme la connexion après chaque requête

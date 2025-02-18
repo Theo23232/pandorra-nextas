@@ -25,7 +25,6 @@ export async function GET() {
     videos.forEach(async (video, index) => {
       if (video.status === "Pending") {
         await videoVerifyTask(video.taskId)
-        console.log("pending")
       }
     })
 

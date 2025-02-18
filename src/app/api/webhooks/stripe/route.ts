@@ -53,6 +53,7 @@ export const POST = async (req: NextRequest) => {
         data: {
           userId: user.id,
           amount: jetonsToAdd,
+          price: totalAmount || 0,
         },
       })
       console.log("Checkout session completed", session)
@@ -116,6 +117,15 @@ export const POST = async (req: NextRequest) => {
       if (user.referreId) {
         await increaseReferrerBalance(user.referreId, referrerGain)
 
+        await prisma.affiliation.create({
+          data: {
+            userId: user.id,
+            parentId: user.referreId,
+            plan: newPlan,
+            price: totalAmount,
+          },
+        })
+
         await prisma.user.update({
           where: {
             id: user.id,
@@ -141,6 +151,7 @@ export const POST = async (req: NextRequest) => {
         data: {
           userId: user.id,
           plan: newPlan,
+          price: totalAmount,
         },
       })
       console.log("Checkout invoice completed", invoice)

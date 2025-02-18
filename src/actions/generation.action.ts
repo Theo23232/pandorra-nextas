@@ -1,10 +1,13 @@
 "use server"
 
+import { trackUserActivity } from "@/actions/user.ations"
 import { currentUser } from "@/lib/current-user"
 import { prisma } from "@/prisma"
 import { GenerationWithImages } from "@/types/pandorra"
 
 export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
+  await trackUserActivity("getUserGeneration")
+
   const user = await currentUser()
   if (user) {
     return prisma.generation.findMany({
@@ -20,6 +23,8 @@ export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
 }
 
 export const deleteGeneration = async (id: string) => {
+  await trackUserActivity("getUserGeneration")
+
   const user = await currentUser()
   if (user) {
     await prisma.generation

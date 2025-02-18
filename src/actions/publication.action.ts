@@ -1,7 +1,8 @@
 "use server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { trackUserActivity } from "@/actions/user.ations"
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export const createPublication = async (
   imageUrl: string,
@@ -11,6 +12,7 @@ export const createPublication = async (
   generationType: string,
 ) => {
   const user = await currentUser()
+  await trackUserActivity("createPublication")
 
   const publication = await prisma.publication.findFirst({
     where: {
@@ -33,6 +35,8 @@ export const createPublication = async (
 }
 
 export const createComment = async (text: string, publicationId: string) => {
+  await trackUserActivity("createComment")
+
   const user = await currentUser()
 
   if (user) {
@@ -47,6 +51,8 @@ export const createComment = async (text: string, publicationId: string) => {
 }
 
 export const createPubReaction = async (publicationId: string) => {
+  await trackUserActivity("createPubReaction")
+
   const user = await currentUser()
 
   if (user) {
@@ -69,6 +75,7 @@ export const createPubReaction = async (publicationId: string) => {
 
 export const deletePubReaction = async (publicationId: string) => {
   const user = await currentUser()
+  await trackUserActivity("deletePubReaction")
 
   if (user) {
     const isExist = await prisma.reaction.findFirst({
@@ -89,6 +96,7 @@ export const deletePubReaction = async (publicationId: string) => {
 
 export const createCommentReaction = async (commentId: string) => {
   const user = await currentUser()
+  await trackUserActivity("createCommentReaction")
 
   if (user) {
     const isExist = await prisma.commentReaction.findFirst({
@@ -107,8 +115,10 @@ export const createCommentReaction = async (commentId: string) => {
     }
   } else throw new Error("You are not authenticated")
 }
+
 export const deleteCommentReaction = async (commentId: string) => {
   const user = await currentUser()
+  await trackUserActivity("deleteCommentReaction")
 
   if (user) {
     const isExist = await prisma.commentReaction.findFirst({

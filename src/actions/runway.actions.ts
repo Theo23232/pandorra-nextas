@@ -2,6 +2,7 @@
 import fetch from "node-fetch" // Add this line to import fetch
 
 import { reduceCredit } from "@/actions/credits.actions"
+import { trackUserActivity } from "@/actions/user.ations"
 import { currentUser } from "@/lib/current-user"
 import { SA } from "@/lib/safe-ation"
 import { prisma } from "@/prisma"
@@ -19,6 +20,8 @@ export async function generateVideoFromImage(
   ratio: "768:1280" | "1280:768",
 ) {
   try {
+    await trackUserActivity("generateVideoFromImage")
+
     const user = await currentUser()
     // Envoyer l’image à RunwayML
     const imageToVideo = await client.imageToVideo.create({

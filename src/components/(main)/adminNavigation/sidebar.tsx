@@ -70,7 +70,7 @@ export function Sidebar() {
   const pathname = usePathname()
   const isActive = (itemHref: string) => {
     if (itemHref === siteConfig.baseLinks.settings) {
-      return pathname?.startsWith("/settings")
+      return pathname?.startsWith("/dashboard")
     }
     return pathname === itemHref || pathname?.startsWith(itemHref)
   }

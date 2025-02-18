@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server"
 
-import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
+import { currentUser } from "@/lib/current-user"
+import { prisma } from "@/prisma"
 
 export async function GET(request: Request) {
   const user = await currentUser()
@@ -69,6 +69,6 @@ export async function GET(request: Request) {
       { status: 500 },
     )
   } finally {
-    await prisma.$disconnect() // Ferme la connexion après chaque requête
+    console.info("") // Ferme la connexion après chaque requête
   }
 }

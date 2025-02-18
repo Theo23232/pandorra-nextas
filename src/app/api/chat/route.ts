@@ -91,6 +91,6 @@ export async function POST(req: Request) {
       { status: 500 },
     )
   } finally {
-    await prisma.$disconnect() // Fermer la connexion Prisma
+    console.info("") // Fermer la connexion Prisma
   }
 }

@@ -18,6 +18,6 @@ export const GET = async (req: NextRequest) => {
   } catch (error) {
     return NextResponse.json({ status: 500 })
   } finally {
-    await prisma.$disconnect() // Ferme la connexion après chaque requête
+    console.info("") // Ferme la connexion après chaque requête
   }
 }

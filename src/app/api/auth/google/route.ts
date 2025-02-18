@@ -90,6 +90,6 @@ export async function POST(req: Request) {
     console.error("Google auth error:", error)
     return NextResponse.json({ error: "Server error" }, { status: 500 })
   } finally {
-    await prisma.$disconnect() // Ferme la connexion après chaque requête
+    console.info("") // Ferme la connexion après chaque requête
   }
 }

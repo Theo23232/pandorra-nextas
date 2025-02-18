@@ -279,9 +279,15 @@ export function Sidebar() {
                 </p>
               </CardContent>
               <CardFooter>
-                <Link href={"/pricing"} className="w-full">
-                  <Button className="w-full">{t(`Upgrade Now`)}</Button>
-                </Link>
+                {user?.plan === "Free" ? (
+                  <UpgradePlanDialog>
+                    <Button className="w-full">{t(`Upgrade Now`)}</Button>
+                  </UpgradePlanDialog>
+                ) : (
+                  <AddTokenDialog>
+                    <Button className="w-full">{t(`Add credits`)}</Button>
+                  </AddTokenDialog>
+                )}
               </CardFooter>
             </Card>
           </div>

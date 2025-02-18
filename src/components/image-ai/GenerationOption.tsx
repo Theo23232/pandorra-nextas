@@ -1,13 +1,17 @@
 "use client"
-import { Trash } from 'lucide-react';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trash } from "lucide-react"
+import { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
-import { deleteGeneration } from '@/actions/generation.action';
+import { deleteGeneration } from "@/actions/generation.action"
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { useLoadingStore } from '@/hooks/use-loading-store';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useLoadingStore } from "@/hooks/use-loading-store"
 
 export type GenerationOptionProps = {
   generationId: string

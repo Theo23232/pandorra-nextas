@@ -1,5 +1,6 @@
 "use client"
 import confetti from "canvas-confetti"
+import { XIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useOnborda } from "onborda"
 import React from "react"
@@ -110,7 +111,7 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
               {currentStep + 1} of {totalSteps}
             </CardDescription>
           </div>
-          {/* <Button
+          <Button
             variant="ghost"
             size="icon"
             onClick={() => {
@@ -119,7 +120,7 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
             }}
           >
             <XIcon size={16} />
-          </Button> */}
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="w-full">{step.content}</CardContent>

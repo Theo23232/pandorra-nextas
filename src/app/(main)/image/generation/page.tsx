@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next"
 import { updateUserPreferences } from "@/actions/user.ations"
 import { ImageGenerationDialog } from "@/app/(main)/image/generation/ImageGenerationDialog"
 import { ImageGenerationSidebar } from "@/app/(main)/image/generation/sidebar"
-import Bounce from "@/components/animated/uibeats/bounce"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useSelectImage } from "@/hooks/use-select-image"
 import { useToast } from "@/hooks/use-toast"
@@ -119,7 +118,7 @@ export default function RoutePage() {
   }, [user, startOnborda])
 
   return (
-    <Bounce className="flex pt-4">
+    <div className="flex pt-4">
       <button
         className="fixed bottom-4 right-4 z-50 block rounded-full bg-blue-500 p-2 text-white lg:hidden"
         onClick={openDialog}
@@ -178,6 +177,6 @@ export default function RoutePage() {
           id={state.id}
         />
       </ScrollArea>
-    </Bounce>
+    </div>
   )
 }

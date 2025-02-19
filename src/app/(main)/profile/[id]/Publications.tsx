@@ -135,7 +135,7 @@ export const PublicationsProfile = (props: PublicationsProps) => {
   }
   return (
     <div className="mt-8">
-      <div className="mb-8 flex gap-2">
+      <div className="mb-8 flex gap-2 max-lg:flex-col">
         <Tabs defaultValue="image" className="" onValueChange={handleChange}>
           <TabsList className="w-[300px]">
             <TabsTrigger

@@ -322,10 +322,13 @@ export default function Page() {
           className="w-full resize-none overflow-hidden border-0 pt-4 text-xl shadow-none focus-visible:ring-0"
           placeholder={t(`Describe the sound you want...`)}
         />
-        <div className="flex items-center justify-between gap-2 p-4">
+        <div className="flex items-center justify-between gap-2 p-4 max-sm:flex-wrap">
           <div className="flex items-center gap-2">
             <Select value={voiceId} onValueChange={setVoiceId}>
-              <SelectTrigger className="h-10 w-[120px]" id="tour10-step2">
+              <SelectTrigger
+                className="h-10 sm:w-full lg:w-[120px]"
+                id="tour10-step2"
+              >
                 <SelectValue placeholder="Select Voice" />
               </SelectTrigger>
               <SelectContent>
@@ -356,19 +359,15 @@ export default function Page() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="text-sm text-muted-foreground">
-              {charCount.toLocaleString()} / {maxChars.toLocaleString()}
-            </div>
-            <Button
-              id="tour10-step4"
-              className="text-md h-10"
-              onClick={handleGenerate}
-              isLoading={isLoading}
-            >
-              {t(`Generate voice`)} ( {credit} credits)
-            </Button>
-          </div>
+
+          <Button
+            id="tour10-step4"
+            className="text-md h-10 max-sm:w-full"
+            onClick={handleGenerate}
+            isLoading={isLoading}
+          >
+            {t(`Generate voice`)} ( {credit} credits)
+          </Button>
         </div>
       </MagicCard>
 

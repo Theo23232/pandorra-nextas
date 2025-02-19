@@ -110,7 +110,9 @@ export function AudioPlayer({ audioUrl, className }: AudioPlayerProps) {
   }
 
   return (
-    <div className={cn("w-full rounded-lg p-4 shadow-sm", className)}>
+    <div
+      className={cn("audio-player w-full rounded-lg p-4 shadow-sm", className)}
+    >
       <audio ref={audioRef} src={audioUrl} loop={isLooping} />
 
       <div className="space-y-3">

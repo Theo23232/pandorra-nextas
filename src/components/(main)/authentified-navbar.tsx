@@ -1,15 +1,15 @@
 "use client"
 
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
-import Link from 'next/link';
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
+import Link from "next/link"
 
-import { accountSettingSession } from '@/actions/stripeSessions.action';
-import { ToggleTheme } from '@/components/(main)/ToggleTheme';
-import { Logo } from '@/components/logo';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { Button } from '@/components/ui/button';
-import { useIsSidebar } from '@/hooks/use-is-sidebar';
+import { accountSettingSession } from "@/actions/stripeSessions.action"
+import { ToggleTheme } from "@/components/(main)/ToggleTheme"
+import { Logo } from "@/components/logo"
+import { UserProfileMobile } from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { Button } from "@/components/ui/button"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
 
 export function Navbar() {
   // const { startOnborda } = useOnborda()
@@ -75,7 +75,7 @@ export function Navbar() {
 
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between bg-white bg-opacity-70 px-2 backdrop-blur-md sm:gap-x-6 sm:px-4 dark:bg-gray-950 dark:bg-opacity-75 dark:backdrop-blur-md">
-      <div className="flex items-center">
+      <div className="flex cursor-pointer items-center">
         <Link href={"/explore"}>
           <Logo />
         </Link>

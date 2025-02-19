@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { ConversationDetails } from "./conversation-details"
 import { Conversation } from "./mainConversation"
-import { Sidebar } from "./sidebar"
+import { Sidebar, SidebarDialog } from "./sidebar"
 
 export default function Home() {
   const [selectedConversation, setSelectedConversation] = useState<
@@ -15,7 +15,10 @@ export default function Home() {
 
   return (
     <div className="flex pt-4">
-      <Sidebar onSelectConversation={setSelectedConversation} />
+      <SidebarDialog onSelectConversation={setSelectedConversation} />
+      <div className="hidden lg:block">
+        <Sidebar onSelectConversation={setSelectedConversation} />
+      </div>
 
       <ScrollArea className="w-full p-6 pt-0">
         {selectedConversation ? (

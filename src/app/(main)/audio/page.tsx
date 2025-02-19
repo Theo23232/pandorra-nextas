@@ -25,7 +25,6 @@ import { Label } from "@/components/tremor/inputs/label"
 import { Slider } from "@/components/tremor/inputs/slider"
 import { Switch } from "@/components/tremor/inputs/switch"
 import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
 import { Divider } from "@/components/tremor/ui/divider"
 import {
   Drawer,
@@ -37,6 +36,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/tremor/ui/drawer"
+import { CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from "@/hooks/use-user"
@@ -147,7 +147,7 @@ export default function Page() {
   )
 
   return (
-    <div className="w-full max-w-3xl">
+    <div className="w-full">
       <MagicCard>
         <Textarea
           ref={textareaRef}
@@ -157,11 +157,11 @@ export default function Page() {
           placeholder={t(`Describe the sound you want...`)}
           id="tour9-step5"
         />
-        <div className="flex justify-between p-4">
+        <div className="two-btn flex w-full justify-between p-4">
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="ghost" className="h-10" id="tour9-step6">
-                <Settings2 />
+              <Button variant="ghost" className="w-20" id="tour9-step6">
+                <Settings2 size={28} />
               </Button>
             </DrawerTrigger>
             <DrawerContent className="sm:max-w-lg">
@@ -252,20 +252,15 @@ export default function Page() {
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
-          <div className="flex items-center gap-2">
-            <div className="text-sm text-muted-foreground">
-              {charCount.toLocaleString()} / {maxChars.toLocaleString()}
-            </div>
-            <Button
-              className="text-md h-10"
-              onClick={handleGenerate}
-              isLoading={isLoading}
-              id="tour9-step7"
-            >
-              {t(`Generate Sound Effects`)} ( {isAuto ? 8 : durationSeconds}{" "}
-              credits)
-            </Button>
-          </div>
+          <Button
+            className="btn-audio text-md flex h-10 items-start p-2"
+            onClick={handleGenerate}
+            isLoading={isLoading}
+            id="tour9-step7"
+          >
+            {t(`Generate Sound Effects`)}
+            <span className="">( {isAuto ? 8 : durationSeconds} credits)</span>
+          </Button>
         </div>
       </MagicCard>
 
@@ -276,12 +271,12 @@ export default function Page() {
         </MagicCard>
       )}
 
-      <MagicCard className="mt-4 p-4">
+      <MagicCard className="mt-4 p-2">
         <div className="text-center text-muted-foreground">
           {t(`Or try out an example to get started!`)}
         </div>
         <div
-          className="mt-4 flex flex-wrap justify-center gap-2"
+          className="m-6 mt-4 flex flex-wrap justify-center gap-2"
           id="tour9-step8"
         >
           <ExampleButton icon={Car} text="Car whizzing by" />

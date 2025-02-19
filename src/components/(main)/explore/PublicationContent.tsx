@@ -1,19 +1,22 @@
 "use client"
 
-import { Image, Video } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Masonry from 'react-masonry-css';
-import useSWR from 'swr';
-import useSWRInfinite from 'swr/infinite';
+import { Image, Video } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import Masonry from "react-masonry-css"
+import useSWR from "swr"
+import useSWRInfinite from "swr/infinite"
 
-import { PubVideo } from '@/components/(main)/explore/PubVideo';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { fetcher } from '@/lib/utils';
-import { PublicationVideoWithAuthor, PublicationWithAuthor } from '@/types/publicationType';
+import { PubVideo } from "@/components/(main)/explore/PubVideo"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { fetcher } from "@/lib/utils"
+import {
+  PublicationVideoWithAuthor,
+  PublicationWithAuthor,
+} from "@/types/publicationType"
 
-import PubCard from './PubCard';
+import PubCard from "./PubCard"
 
 export const PublicationContent = () => {
   const { t } = useTranslation()
@@ -99,7 +102,7 @@ export const PublicationContent = () => {
 
   return (
     <div className="mt-8">
-      <div className="mb-8 flex gap-2">
+      <div className="mb-8 flex gap-2 max-lg:flex-col">
         <Tabs defaultValue="image" className="" onValueChange={handleChange}>
           <TabsList className="w-[300px]">
             <TabsTrigger

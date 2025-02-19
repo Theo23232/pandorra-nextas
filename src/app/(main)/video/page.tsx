@@ -190,7 +190,7 @@ export default function VideoGenerator() {
 
   return (
     <Bounce className="flex w-full flex-col gap-8">
-      <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-6 shadow-lg">
+      <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-4 shadow-lg">
         <Textarea
           ref={textareaRef}
           value={promptText}

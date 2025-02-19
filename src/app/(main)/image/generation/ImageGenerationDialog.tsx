@@ -34,7 +34,7 @@ export function ImageGenerationDialog({
 }: ImageGenerationDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full">
+      <DialogContent className="w-full bg-transparent">
         <ImageGenerationSidebar
           onModelChange={onModelChange}
           onPresetStyleChange={onPresetStyleChange}

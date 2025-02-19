@@ -53,6 +53,7 @@ export default function RoutePage() {
 
   const closeDialog = () => {
     setIsDialogOpen(false)
+    setDialogOpen(false)
   }
 
   const openDialog = () => {
@@ -120,7 +121,7 @@ export default function RoutePage() {
   return (
     <Bounce className="flex pt-4">
       <button
-        className="fixed bottom-4 right-4 block rounded-full bg-blue-500 p-2 text-white lg:hidden"
+        className="fixed bottom-4 right-4 z-50 block rounded-full bg-blue-500 p-2 text-white lg:hidden"
         onClick={openDialog}
       >
         {!dialogOpen ? (

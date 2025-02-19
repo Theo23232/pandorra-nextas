@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { currentUser } from "@/lib/current-user"
 
-import { Sidebar } from "./sidebar"
+import { Sidebar, SidebarDialog } from "./sidebar"
 
 export default async function RouteLayout({
   children,
@@ -16,9 +16,11 @@ export default async function RouteLayout({
 
   return (
     <div className="flex pt-4">
-      <Sidebar />
-
-      <ScrollArea className="w-full p-6 pt-0">{children}</ScrollArea>
+      <SidebarDialog />
+      <div className="z-40 hidden lg:block">
+        <Sidebar />
+      </div>
+      <ScrollArea className="w-full p-4 pt-0">{children}</ScrollArea>
     </div>
   )
 }

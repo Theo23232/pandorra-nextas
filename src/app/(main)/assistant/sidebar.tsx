@@ -1,21 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import * as Flags from 'country-flag-icons/react/3x2';
-import { ChevronDown, Download, Loader, Plus } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
+import * as Flags from "country-flag-icons/react/3x2"
+import {
+  ChevronDown,
+  Download,
+  Loader,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Plus,
+} from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
 
-import { getConversationAudio } from '@/actions/assistant.actions';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Card } from '@/components/tremor/ui/card';
-import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { useUser } from '@/hooks/use-user';
-import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
-import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
-import { formatTimePassed } from '@/lib/utils';
+import { getConversationAudio } from "@/actions/assistant.actions"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Card } from "@/components/tremor/ui/card"
+import { Button } from "@/components/ui/button"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { useUser } from "@/hooks/use-user"
+import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
+import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
+import { formatTimePassed } from "@/lib/utils"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -49,12 +61,17 @@ interface SidebarProps {
   onSelectConversation: (conversationId: string) => void
 }
 
-export function Sidebar({ onSelectConversation }: SidebarProps) {
+export function Sidebar({
+  onSelectConversation,
+  closeDialog,
+}: SidebarProps & { closeDialog?: () => void }) {
   const { t } = useTranslation()
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [downloadingId, setDownloadingId] = useState("")
   const [activeConversationId, setActiveConversationId] = useState("")
+  const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
+
   const { user } = useUser()
   const { startOnborda } = useOnborda()
 
@@ -141,11 +158,14 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
   }
 
   return (
-    <Card className="sticky top-20 h-fit max-h-[70vh] w-96 overflow-y-auto border-l bg-background p-4">
+    <Card className="sticky top-20 h-fit max-h-[70vh] w-full overflow-y-auto border-l bg-background p-4 lg:w-96">
       <Button
         className="mb-4 w-full"
         id="tour7-step1"
-        onClick={() => onSelectConversation("")}
+        onClick={() => {
+          onSelectConversation("")
+          if (closeDialog) closeDialog()
+        }}
       >
         <Plus className="mr-2 h-4 w-4" /> {t(`Create Discussion`)}
       </Button>
@@ -203,7 +223,10 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
                 <div
                   key={conversation.id}
                   className="flex w-full cursor-pointer items-center justify-between rounded-md p-2 hover:bg-muted"
-                  onClick={() => onSelectConversation(conversation.id)}
+                  onClick={() => {
+                    onSelectConversation(conversation.id)
+                    if (closeDialog) closeDialog()
+                  }}
                 >
                   <div className="flex items-center gap-2">
                     <span>{getVoiceNameById(conversation.agent.voiceId)}</span>
@@ -232,5 +255,41 @@ export function Sidebar({ onSelectConversation }: SidebarProps) {
         </CollapsibleContent>
       </Collapsible>
     </Card>
+  )
+}
+
+export function SidebarDialog({ onSelectConversation }: SidebarProps) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
+  const closeDialog = () => {
+    setIsDialogOpen(false)
+    setDialogOpen(false)
+  }
+
+  const openDialog = () => {
+    setIsDialogOpen(true)
+    setDialogOpen(true)
+  }
+  return (
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild>
+        <button
+          className="fixed bottom-4 right-4 z-50 block rounded-full bg-blue-500 p-2 text-white lg:hidden"
+          onClick={openDialog}
+        >
+          {dialogOpen ? (
+            <PanelLeftClose size={20} />
+          ) : (
+            <PanelLeftOpen size={20} />
+          )}
+        </button>
+      </DialogTrigger>
+      <DialogContent className="w-full bg-transparent">
+        <Sidebar
+          onSelectConversation={onSelectConversation}
+          closeDialog={closeDialog}
+        />
+      </DialogContent>
+    </Dialog>
   )
 }

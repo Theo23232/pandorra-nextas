@@ -78,7 +78,6 @@ export default function ProfilePage() {
             </div>
           </Card>
         </div>
-
         <PublicationsProfile userId={data.id} />
       </div>
     )

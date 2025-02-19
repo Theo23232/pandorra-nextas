@@ -62,7 +62,7 @@ export function Conversation() {
   return (
     <MagicCard
       gradientSize={700}
-      className="flex min-h-96 w-full max-w-2xl flex-col items-center justify-center gap-4 p-8"
+      className="flex min-h-96 w-full max-w-3xl flex-col items-center justify-center gap-4 p-2 py-8"
     >
       <div className="flex w-full flex-col items-center justify-center gap-4">
         <AnimatedGradientCircle isSpeaking={conversation.isSpeaking} />
@@ -141,7 +141,7 @@ export function Conversation() {
 const AnimatedGradientCircle = ({ isSpeaking }) => {
   return (
     <motion.div
-      className="relative size-36"
+      className="relative size-36 max-lg:size-28"
       animate={{
         scale: isSpeaking ? [1, 1.3, 1] : 1,
         transition: {

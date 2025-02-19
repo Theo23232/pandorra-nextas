@@ -144,53 +144,62 @@ export default function MobileSidebar() {
                 <li>
                   <UpgradePlanDialog>
                     <li id="tour1-step5" className="w-full cursor-pointer">
-                      <div
-                        className={cx(
-                          "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
-                          focusRing,
-                        )}
-                      >
-                        <Sparkles
-                          className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
-                          aria-hidden="true"
-                        />
-                        {isSidebar ? (
-                          t("Upgrade plan")
-                        ) : (
-                          <Tooltip content={t("Upgrade plan")} side="right">
-                            <span className="sr-only">{t("Upgrade plan")}</span>
-                          </Tooltip>
-                        )}
-                      </div>
+                      <DrawerClose asChild>
+                        <div
+                          className={cx(
+                            "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                            "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                            focusRing,
+                          )}
+                        >
+                          <Sparkles
+                            className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                            aria-hidden="true"
+                          />
+                          {isSidebar ? (
+                            t("Upgrade plan")
+                          ) : (
+                            <Tooltip content={t("Upgrade plan")} side="right">
+                              <span className="sr-only">
+                                {t("Upgrade plan")}
+                              </span>
+                            </Tooltip>
+                          )}
+                        </div>
+                      </DrawerClose>
                     </li>
                   </UpgradePlanDialog>
                 </li>
                 <li>
                   <AddTokenDialog>
                     <li id="tour1-step6" className="w-full cursor-pointer">
-                      <div
-                        className={cx(
-                          "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
-                          focusRing,
-                        )}
-                      >
-                        <Coins
-                          className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
-                          aria-hidden="true"
-                        />
+                      <DrawerClose asChild>
+                        <div
+                          className={cx(
+                            "w-full text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                            "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                            focusRing,
+                          )}
+                        >
+                          <Coins
+                            className={`shrink-0 duration-200 transition-size ${isSidebar ? "size-5" : "size-6"}`}
+                            aria-hidden="true"
+                          />
 
-                        {isSidebar ? (
-                          t("Add more tokens")
-                        ) : (
-                          <Tooltip content={t("Add more tokens")} side="right">
-                            <span className="sr-only">
-                              {t("Add more tokens")}
-                            </span>
-                          </Tooltip>
-                        )}
-                      </div>
+                          {isSidebar ? (
+                            t("Add more tokens")
+                          ) : (
+                            <Tooltip
+                              content={t("Add more tokens")}
+                              side="right"
+                            >
+                              <span className="sr-only">
+                                {t("Add more tokens")}
+                              </span>
+                            </Tooltip>
+                          )}
+                        </div>
+                      </DrawerClose>
                     </li>
                   </AddTokenDialog>
                 </li>
@@ -202,21 +211,23 @@ export default function MobileSidebar() {
                 <ul aria-label="shortcuts" role="list" className="space-y-0.5">
                   {shortcuts.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        prefetch={true}
-                        href={item.href}
-                        className={cx(
-                          pathname === item.href ||
-                            pathname?.includes(item.href)
-                            ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
-                            : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                          "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
-                          focusRing,
-                        )}
-                      >
-                        <item.icon className="size-4 shrink-0" />
-                        {t(item.name)}
-                      </Link>
+                      <DrawerClose asChild>
+                        <Link
+                          prefetch={true}
+                          href={item.href}
+                          className={cx(
+                            pathname === item.href ||
+                              pathname?.includes(item.href)
+                              ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
+                              : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
+                            "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                            focusRing,
+                          )}
+                        >
+                          <item.icon className="size-4 shrink-0" />
+                          {t(item.name)}
+                        </Link>
+                      </DrawerClose>
                     </li>
                   ))}
                 </ul>

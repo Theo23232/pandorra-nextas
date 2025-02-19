@@ -8,7 +8,6 @@ import { verifyCredit } from "@/actions/credits.actions"
 import { getUserGeneration } from "@/actions/generation.action"
 import { enhanceImagePrompt } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import Bounce from "@/components/animated/uibeats/bounce"
 import { GenerationResult } from "@/components/image-ai/GenerationResult"
 import { NothingYet } from "@/components/NothingYet"
 import { Skeleton } from "@/components/nyxb/skeleton"
@@ -146,7 +145,7 @@ export const Main = (props: MainProps) => {
   }
 
   return (
-    <Bounce className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center">
       <MagicCard className="mb-4 w-full">
         <Textarea
           id="tour6-step1"
@@ -191,22 +190,22 @@ export const Main = (props: MainProps) => {
       )}
       <div className="flex w-full flex-col-reverse gap-4">
         {history.map((h) => (
-          <Bounce key={h.id} once className="h-fit w-full">
+          <div key={h.id} className="h-fit w-full">
             <GenerationResult generated={h} key={h.id} />
-          </Bounce>
+          </div>
         ))}
         {isLoading && <GenerationSkeleton />}
       </div>
       {!isLoaded && (
         <>
-          <Bounce className="flex w-full flex-col-reverse gap-4">
+          <div className="flex w-full flex-col-reverse gap-4">
             <GenerationSkeleton />
             <GenerationSkeleton />
             <GenerationSkeleton />
-          </Bounce>
+          </div>
         </>
       )}
-    </Bounce>
+    </div>
   )
 }
 

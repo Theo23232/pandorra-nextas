@@ -36,7 +36,7 @@ export function Hero() {
       <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
           className={cn(
-            "group rounded-full border border-white/5 bg-neutral-900 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
+            "group w-fit rounded-full border border-white/5 bg-neutral-900 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
           )}
         >
           <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 text-neutral-200 transition ease-out hover:text-neutral-400 hover:duration-300 group-hover:scale-105">
@@ -45,8 +45,11 @@ export function Hero() {
           </AnimatedShinyText>
         </div>
 
-        <p className="max-w-3xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-7.5px] text-white">
-          {t(`Unlock the Power of Creativity`)}
+        <p className="max-w-4xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-5.5px] text-white">
+          <span className="mr-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text pr-2 text-transparent">
+            {t(`Pandorra`)}
+          </span>
+          {t(`at the service of your creativity`)}
         </p>
         <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">
           <Select

@@ -1,12 +1,15 @@
 "use client"
 
-import { Minus, Plus } from 'lucide-react';
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Minus, Plus } from "lucide-react"
+import * as React from "react"
+import { useTranslation } from "react-i18next"
 
 import {
-    Accordion, AccordionContent, AccordionItem, AccordionTrigger
-} from '@/components/affiliation/Accordion';
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/affiliation/Accordion"
 
 const AccordionIcon = ({ isOpen }: { isOpen: boolean }) => {
   return isOpen ? (
@@ -63,7 +66,7 @@ export default function FAQAccordion() {
               return (
                 <div
                   key={`item-${colIndex}-${itemIndex}`}
-                  className={`w-full rounded-[16px] p-[1.5px] hover:bg-gradient-to-r ${
+                  className={`w-full rounded-[16px] p-[1px] hover:bg-gradient-to-r ${
                     isOpen
                       ? "mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF]"
                       : ""

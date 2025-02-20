@@ -55,7 +55,8 @@ export const tours: Tour[] = [
         content: (
           <>
             Dans la section Classement, vous pouvez voir les classements par
-            popularité des utilisateurs actifs sur la plateforme.
+            popularité des utilisateurs actifs sur la plateforme. Soyez le
+            premier et gagnez 1.800$
           </>
         ),
         selector: "#tour1-step4",
@@ -66,8 +67,13 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🔄</>,
-        title: "Mettre à jour",
-        content: <>Mettre à jour vos informations ou paramètres.</>,
+        title: "Mettre à niveau",
+        content: (
+          <>
+            Par ici pour souscrire à un abonnement, que ce soit par semaine, par
+            mois ou par année.
+          </>
+        ),
         selector: "#tour1-step5",
         side: "bottom-left",
         showControls: true,
@@ -78,11 +84,7 @@ export const tours: Tour[] = [
         icon: <>💰</>,
         title: "Ajouter des jetons",
         content: (
-          <>
-            Ici, vous pouvez acheter plus de jetons pour les générations. Vous
-            pouvez également créer un abonnement pour l&apos;ajout de jetons,
-            que ce soit par semaine, par mois ou par année.
-          </>
+          <>Ici, vous pouvez acheter plus de jetons pour les générations.</>
         ),
         selector: "#tour1-step6",
         side: "bottom-left",

@@ -1,162 +1,98 @@
 "use client"
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import Image from "next/image"
+import Link from "next/link"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import Ripple from '@/components/nyxb/ripple';
+import Bounce from "@/components/animated/uibeats/bounce"
+import Ripple from "@/components/nyxb/ripple"
 
 export function Footer() {
   const { t } = useTranslation()
   return (
-    <div className="relative ml-20 flex h-fit min-h-[60vh] w-full items-center justify-center py-24">
+    <div className="relative ml-0 flex h-fit min-h-[60vh] w-full items-center justify-center py-12 sm:ml-20 sm:py-24">
       <Ripple />
 
-      <Bounce className="relative grid w-full max-w-[1274px] grid-cols-5 gap-4">
+      <Bounce className="relative grid w-full max-w-[1274px] grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:px-6 md:grid-cols-3 lg:grid-cols-5 lg:px-8">
         <div className="flex h-full w-full flex-col">
           <Image
             src="/logo/logo-full-white.png"
             alt="logo"
             width={1000}
             height={500}
-            className="h-[39px] w-[173px] object-contain dark:block"
+            className="mb-6 h-[39px] w-[173px] object-contain sm:mb-0 dark:block"
           />
         </div>
         <div className="flex h-full w-full flex-col">
-          <p className="font-inter mb-5 text-[18px] font-medium text-white">
+          <p className="font-inter mb-3 text-[18px] font-medium text-white">
             {t(`Features`)}
           </p>
 
-          <Link
-            href="/audio"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`FX Generation`)}
-          </Link>
-          <Link
-            href="/audio/text-to-speech"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Text to speech`)}
-          </Link>
-          <Link
-            href="/audio/voice-changer"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Voice changer`)}
-          </Link>
-          <Link
-            href="/audio/dubbing"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Dubbing`)}
-          </Link>
-          <Link
-            href="/image/generation"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Text to image`)}
-          </Link>
-          <Link
-            href="/video"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Text to video`)}
-          </Link>
-          <Link
-            href="/assistant"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`AI assistant`)}
-          </Link>
-          <Link
-            href="/ai-talk"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Talk to AI`)}
-          </Link>
-          <Link
-            href="/ai-talk"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Code generation`)}
-          </Link>
+          {[
+            { href: "/audio", text: "FX Generation" },
+            { href: "/audio/text-to-speech", text: "Text to speech" },
+            { href: "/audio/voice-changer", text: "Voice changer" },
+            { href: "/audio/dubbing", text: "Dubbing" },
+            { href: "/image/generation", text: "Text to image" },
+            { href: "/video", text: "Text to video" },
+            { href: "/assistant", text: "AI assistant" },
+            { href: "/ai-talk", text: "Talk to AI" },
+            { href: "/ai-talk", text: "Code generation" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
+            >
+              {t(item.text)}
+            </Link>
+          ))}
         </div>
 
         <div className="flex h-full w-full flex-col">
-          <p className="font-inter mb-5 text-[18px] font-medium text-white">
+          <p className="font-inter mb-3 text-[18px] font-medium text-white">
             {t(`Company`)}
           </p>
-          <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`About Us`)}
-          </Link>
-          <Link
-            href="/"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Contact Us`)}
-          </Link>
-          <Link
-            href="/pricing"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Pricing`)}
-          </Link>
-          <Link
-            href="/explore"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Community`)}
-          </Link>
-          <Link
-            href="/affiliate"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Affiliate Program`)}
-          </Link>
-          <Link
-            href="/refund-policy"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Refund Policy`)}
-          </Link>
-          <Link
-            href="/privacy"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Privacy Policy`)}
-          </Link>
-          <Link
-            href="/terms"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Terms and Conditions`)}
-          </Link>
+          {[
+            { href: "/", text: "About Us" },
+            { href: "/", text: "Contact Us" },
+            { href: "/pricing", text: "Pricing" },
+            { href: "/explore", text: "Community" },
+            { href: "/affiliate", text: "Affiliate Program" },
+            { href: "/refund-policy", text: "Refund Policy" },
+            { href: "/privacy", text: "Privacy Policy" },
+            { href: "/terms", text: "Terms and Conditions" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
+            >
+              {t(item.text)}
+            </Link>
+          ))}
         </div>
         <div className="flex h-full w-full flex-col">
-          <p className="font-inter mb-5 text-[18px] font-medium text-white">
+          <p className="font-inter mb-3 text-[18px] font-medium text-white">
             {t(`Video Tools`)}
           </p>
-          <Link
-            href="/video"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Text to video`)}
-          </Link>
-          <Link
-            href="/video"
-            className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
-          >
-            {t(`Image to video`)}
-          </Link>
+          {[
+            { href: "/video", text: "Text to video" },
+            { href: "/video", text: "Image to video" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
+            >
+              {t(item.text)}
+            </Link>
+          ))}
         </div>
         <div className="flex h-full w-full flex-col">
-          <p className="font-inter mb-5 text-[18px] font-medium text-white">
+          <p className="font-inter mb-3 text-[18px] font-medium text-white">
             {t(`Social`)}
           </p>
+          {/* Add social media links here */}
         </div>
       </Bounce>
     </div>

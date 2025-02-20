@@ -16,7 +16,7 @@ const AccordionIcon = ({ isOpen }: { isOpen: boolean }) => {
   return isOpen ? (
     <Minus className="h-5 w-5 text-[#0CF] transition-transform duration-200" />
   ) : (
-    <Plus className="h-5 w-5 text-white transition-transform duration-200" />
+    <Plus className="z-50 h-5 w-5 text-white transition-transform duration-200" />
   )
 }
 
@@ -71,9 +71,7 @@ function FAQAccordion() {
                 <div
                   key={`item-${colIndex}-${itemIndex}`}
                   className={`w-full rounded-[16px] p-[1px] hover:bg-gradient-to-r ${
-                    isOpen
-                      ? "mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF]"
-                      : ""
+                    isOpen ? "bg-gradient-to-r from-[#0099FF] to-[#CC00FF]" : ""
                   }`}
                   style={{
                     boxShadow: isOpen
@@ -120,10 +118,10 @@ export default function FAQ() {
   const { t } = useTranslation()
 
   return (
-    <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8">
+    <Bounce className="realtive mb-40 mt-[272px] flex flex-col items-center justify-center gap-8 max-sm:mt-[100px]">
       <p
         id="FAQ"
-        className="max-w-3xl text-center text-[64px] font-semibold leading-[68px] text-white"
+        className="max-w-3xl text-center text-[64px] font-semibold leading-[68px] text-white max-sm:text-[52px]"
       >
         {t(`Curious About Pandorra.ai?`)}
         <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">

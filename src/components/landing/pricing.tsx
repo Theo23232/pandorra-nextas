@@ -29,7 +29,7 @@ export const Pricing = () => {
     >
       <div className="absolute bottom-32 right-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(0,153,255,0.6)] blur-[112px]"></div>
       <div className="absolute bottom-32 left-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(204,0,255,0.4)] blur-[112px]"></div>
-      <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
+      <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-sm:text-[50px]">
         {t(`Unlock the Full Power of`)} <br />
         <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
           Pandorra.ai
@@ -49,7 +49,7 @@ export const Pricing = () => {
           </Tabs>
           <TabPanel
             value={"small"}
-            className="relative flex justify-between gap-4"
+            className="relative flex justify-between gap-4 max-sm:flex-col"
           >
             <div className="flex min-h-[522px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
               <div className="">

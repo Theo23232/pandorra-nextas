@@ -1,16 +1,20 @@
 "use client"
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { NavigationMenuNavbar } from '@/components/landing/NavigationMenuNavbar';
-import { Button } from '@/components/ui/button';
+import { Menu } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+
+import Bounce from "@/components/animated/uibeats/bounce"
+import { NavigationMenuNavbar } from "@/components/landing/NavigationMenuNavbar"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export default function LandingNavbar() {
   const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
+  const [sheetIsOpen, setSheetIsOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +42,7 @@ export default function LandingNavbar() {
             height={500}
           />
         </a>
-        <div className="flex">
+        <div className="hidden md:flex">
           <NavigationMenuNavbar />
           <Link href={"/explore"}>
             <Button
@@ -49,6 +53,31 @@ export default function LandingNavbar() {
             </Button>
           </Link>
         </div>
+        <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="text-white md:hidden"
+            >
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Open menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="top" className="w-full dark">
+            <div className="flex w-full flex-col items-center justify-center space-y-4 pt-4">
+              <NavigationMenuNavbar />
+              <Link href={"/explore"}>
+                <Button
+                  variant={"gradient"}
+                  className="w-full rounded-full px-12 py-2 transition-all ease-in-out"
+                >
+                  {t(`Get started`)}
+                </Button>
+              </Link>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </Bounce>
   )

@@ -1,5 +1,5 @@
-import Bounce from '@/components/animated/uibeats/bounce';
-import Marquee from '@/components/nyxb/marquee';
+import Bounce from "@/components/animated/uibeats/bounce"
+import Marquee from "@/components/nyxb/marquee"
 
 export const Corp = () => {
   return (
@@ -15,7 +15,7 @@ export const Corp = () => {
           <img
             key={i}
             src={`/assets/corp/${i + 1}.svg`}
-            className="ml-40 h-12 w-auto"
+            className="ml-40 h-12 w-auto max-sm:ml-20"
             alt={`corp ${i + 1}`}
           />
         ))}

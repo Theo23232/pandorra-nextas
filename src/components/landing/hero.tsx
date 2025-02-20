@@ -32,7 +32,7 @@ export function Hero() {
     if (genType == "video") redirect(`/video?prompt=${prompt}`)
   }
   return (
-    <div className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden">
+    <div className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden max-sm:mt-16">
       <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
         <div
           className={cn(
@@ -45,13 +45,13 @@ export function Hero() {
           </AnimatedShinyText>
         </div>
 
-        <p className="max-w-4xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-5.5px] text-white">
+        <p className="max-w-4xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-5.5px] text-white max-sm:text-[60px]">
           <span className="mr-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text pr-2 text-transparent">
             {t(`Pandorra`)}
           </span>
           {t(`at the service of your creativity`)}
         </p>
-        <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm">
+        <div className="mt-12 flex h-[60px] w-full max-w-2xl items-center gap-2 rounded-full bg-white p-1 shadow-lg backdrop-blur-sm max-sm:hidden">
           <Select
             defaultValue={genType}
             onValueChange={(value) => setGenType(value)}

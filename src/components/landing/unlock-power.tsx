@@ -12,7 +12,7 @@ export const UnlockPower = () => {
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
-        <Bounce className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
+        <Bounce className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-sm:text-[46px]">
           {t(`Unlock the Power of AI with`)}
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-4 text-transparent">
             {t(`Text to Video`)}
@@ -49,7 +49,7 @@ export const UnlockPower = () => {
       </div>
 
       <div className="mt-20 flex flex-col items-center justify-center">
-        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
+        <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-sm:text-[46px]">
           {t(`The Ultimate AI Content`)} <br />
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
             {t(`Generation Platform`)}
@@ -80,9 +80,9 @@ export const UnlockPower = () => {
           </Link>
         </Bounce>
 
-        <Bounce className="relative flex gap-9 overflow-hidden pt-32">
+        <Bounce className="relative flex gap-9 overflow-hidden pt-32 max-sm:flex-col">
           {/* first  */}
-          <BorderGradient className="rounded-lg">
+          <BorderGradient className="rounded-lg max-sm:m-1">
             <div className="h-full w-full max-w-[512px] rounded-lg bg-[#03050c] p-0">
               <div className="relative">
                 <img src="/feature-image-1.png" className="rounded-lg" />
@@ -109,7 +109,7 @@ export const UnlockPower = () => {
               </div>
             </div>
           </BorderGradient>
-          <BorderGradient className="rounded-lg">
+          <BorderGradient className="rounded-lg max-sm:m-1">
             <div className="h-full w-full max-w-[512px] rounded-lg bg-[#03050c] p-0">
               <div className="relative">
                 <img src="/feature-image-2.png" className="rounded-lg" />

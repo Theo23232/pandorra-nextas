@@ -12,7 +12,7 @@ import { Button } from "@/components/tremor/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Textarea } from "@/components/ui/textarea"
 import { useUser } from "@/hooks/use-user"
-import { fetcher } from "@/lib/utils"
+import { cn, fetcher } from "@/lib/utils"
 
 import { Message } from "./message"
 
@@ -90,6 +90,10 @@ export default function Page() {
         method: "POST",
         body: JSON.stringify({ conversationId: convId, content: newMess }),
         signal: controller.signal,
+        headers: {
+          Accept: "text/event-stream",
+          "Cache-Control": "no-cache",
+        },
       })
 
       if (!response.body) throw new Error("No response body")
@@ -151,37 +155,45 @@ export default function Page() {
 
   return (
     <div className="flex pt-4">
-      <Bounce className="sticky top-20 h-fit max-h-[calc(100vh-80px)] w-80 border-l bg-card">
-        <Button
-          onClick={() => {
-            setConversationId("")
-          }}
-          className="w-full"
-        >
-          <Plus className="mr-2" /> {t(`Start Conversation`)}
-        </Button>
-        <ScrollArea className="h-[80vh]">
-          {conversations ? (
-            <Bounce className="mt-4 pr-4">
-              {conversations?.map((conversation) => (
-                <Button
-                  key={conversation.id}
-                  variant={`${
-                    conversationId === conversation.id ? "outline" : "ghost"
-                  }`}
-                  className="w-full justify-start truncate"
-                  onClick={() => setConversationId(conversation.id)}
-                >
-                  {conversation.title}
-                </Button>
-              ))}
-            </Bounce>
-          ) : (
-            <></>
-          )}
-        </ScrollArea>
+      <Bounce className="sticky top-20 h-fit max-h-[calc(100vh-80px)] w-96 bg-card">
+        <MagicCard className="p-4 pb-0">
+          <Button
+            onClick={() => {
+              setConversationId("")
+            }}
+            className="w-full"
+          >
+            <Plus className="mr-2" /> {t(`Start Conversation`)}
+          </Button>
+          <ScrollArea className="h-[80vh]">
+            {conversations ? (
+              <Bounce className="mt-4 pr-4">
+                {conversations?.map((conversation) => (
+                  <Button
+                    key={conversation.id}
+                    variant={`${
+                      conversationId === conversation.id ? "outline" : "ghost"
+                    }`}
+                    className={cn(
+                      "relative w-full max-w-[350px] justify-start truncate",
+                      conversationId === conversation.id
+                        ? "bg-gray-100 text-primary dark:bg-gray-900"
+                        : "",
+                    )}
+                    onClick={() => setConversationId(conversation.id)}
+                  >
+                    {conversation.title}
+                  </Button>
+                ))}
+              </Bounce>
+            ) : (
+              <></>
+            )}
+          </ScrollArea>
+        </MagicCard>
       </Bounce>
-      <Bounce className="mx-auto flex h-full w-full max-w-3xl flex-col">
+
+      <Bounce className="mx-auto flex h-full w-full max-w-3xl flex-col p-2 pb-0">
         {conversationId ? (
           <>
             <div className="min-h-[calc(100vh-204px)] flex-1 p-4">

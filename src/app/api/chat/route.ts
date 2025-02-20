@@ -1,4 +1,4 @@
-//api/chat/route.ts
+// api/chat/route.ts
 import { NextResponse } from "next/server"
 import { OpenAI } from "openai"
 
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       )
     }
 
-    // Récupérer l'historique de la conversation
+    // Récupérer l'historique
     const conversationHistory = await prisma.message.findMany({
       where: { gptConversationId: conversationId },
       orderBy: { createdAt: "asc" },
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
       content: msg.content,
     }))
 
-    // Appeler l'API OpenAI avec streaming
+    // Stream OpenAI
     const stream = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -40,49 +40,61 @@ export async function POST(req: Request) {
           content:
             "You are Pandorra, an AI assistant built by Pandorra.ai, help the user and answear all his question.",
         },
-
         ...messages,
         { role: "user", content },
       ],
-      stream: true, // Activer le streaming
+      stream: true,
     })
 
-    // Créer un ReadableStream pour envoyer les chunks au client
-    const readableStream = new ReadableStream({
+    // Configuration spécifique pour la production
+    const encoder = new TextEncoder()
+    const customStream = new ReadableStream({
       async start(controller) {
         let assistantMessageContent = ""
 
-        for await (const chunk of stream) {
-          const chunkContent = chunk.choices[0]?.delta?.content || ""
-          assistantMessageContent += chunkContent
+        try {
+          for await (const chunk of stream) {
+            const chunkContent = chunk.choices[0]?.delta?.content || ""
+            assistantMessageContent += chunkContent
 
-          // Envoyer chaque chunk au client
-          controller.enqueue(new TextEncoder().encode(chunkContent))
+            // Encoder avec un délimiteur pour assurer la transmission
+            controller.enqueue(encoder.encode(chunkContent + "\n"))
+          }
+
+          // Sauvegarder les messages après le streaming
+          await Promise.all([
+            prisma.message.create({
+              data: {
+                content: content,
+                role: "user",
+                gptConversationId: conversationId,
+              },
+            }),
+            prisma.message.create({
+              data: {
+                content: assistantMessageContent,
+                role: "assistant",
+                gptConversationId: conversationId,
+              },
+            }),
+          ])
+        } catch (error) {
+          console.error("Streaming error:", error)
+          controller.error(error)
+        } finally {
+          controller.close()
         }
-
-        // Enregistrer le message de l'assistant une fois le streaming terminé
-        await prisma.message.create({
-          data: {
-            content: content,
-            role: "user",
-            gptConversationId: conversationId,
-          },
-        })
-        await prisma.message.create({
-          data: {
-            content: assistantMessageContent,
-            role: "assistant",
-            gptConversationId: conversationId,
-          },
-        })
-
-        controller.close()
       },
     })
 
-    // Retourner le flux de données au client
-    return new Response(readableStream, {
-      headers: { "Content-Type": "text/plain" },
+    // Configuration des headers pour la production
+    return new Response(customStream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        "Transfer-Encoding": "chunked",
+      },
     })
   } catch (error) {
     console.error("Error in /api/chat:", error)
@@ -90,7 +102,5 @@ export async function POST(req: Request) {
       { error: "Internal Server Error" },
       { status: 500 },
     )
-  } finally {
-    console.info("") // Fermer la connexion Prisma
   }
 }

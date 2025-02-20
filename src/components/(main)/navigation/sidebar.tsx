@@ -133,7 +133,7 @@ export function Sidebar() {
                     href={item.href}
                     className={cx(
                       isActive(item.href)
-                        ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
+                        ? "border-2 border-primary bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
                         : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                       "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
                       focusRing,

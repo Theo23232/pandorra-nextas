@@ -58,7 +58,7 @@ export async function POST(req: Request) {
             assistantMessageContent += chunkContent
 
             // Encoder avec un délimiteur pour assurer la transmission
-            controller.enqueue(encoder.encode(chunkContent + "\n"))
+            controller.enqueue(encoder.encode(chunkContent))
           }
 
           // Sauvegarder les messages après le streaming

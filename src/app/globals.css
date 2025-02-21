@@ -285,3 +285,17 @@
     width: 270px;
   }
 }
+
+@keyframes upDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animated-scroll-indicator {
+  animation: upDown 2s infinite ease-in-out;
+}

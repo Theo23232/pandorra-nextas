@@ -67,7 +67,10 @@ export default function AuthForm() {
 
       const responseData = await response.json()
       if (responseData.token) {
-        document.cookie = `auth-token=${responseData.token}; path=/`
+        const expirationDate = new Date()
+        expirationDate.setDate(expirationDate.getDate() + 30)
+
+        document.cookie = `auth-token=${responseData.token}; path=/; expires=${expirationDate.toUTCString()}`
         window.location.href = "/explore"
         router.refresh()
       }

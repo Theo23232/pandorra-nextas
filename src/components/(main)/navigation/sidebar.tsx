@@ -1,46 +1,31 @@
 "use client"
 import {
-  BoomBox,
-  BotMessageSquare,
-  Coins,
-  Crown,
-  Gift,
-  Image,
-  MessageSquare,
-  Sparkles,
-  User2,
-  Video,
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useOnborda } from "onborda"
-import { useEffect } from "react"
-import { useTranslation } from "react-i18next"
+    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Sparkles, User2, Video
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Navbar } from "@/components/(main)/authentified-navbar"
-import { AddTokenDialog } from "@/components/billing/addToken"
-import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
-import { Logo } from "@/components/logo"
-import { UserProfileMobile } from "@/components/navigation/UserProfile"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
-import { useUser } from "@/hooks/use-user"
-import { cn, cx, focusRing } from "@/lib/utils"
-import { RiHome2Line } from "@remixicon/react"
+import { siteConfig } from '@/app/siteConfig';
+import { Navbar } from '@/components/(main)/authentified-navbar';
+import { AddTokenDialog } from '@/components/billing/addToken';
+import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
+import { Logo } from '@/components/logo';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
+import { useUser } from '@/hooks/use-user';
+import { cn, cx, focusRing } from '@/lib/utils';
+import { RiHome2Line } from '@remixicon/react';
 
-import MobileSidebar from "./MobileSidebar"
+import MobileSidebar from './MobileSidebar';
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
@@ -135,7 +120,8 @@ export function Sidebar() {
                       isActive(item.href)
                         ? "border-2 border-primary bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
                         : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
-                      "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                      "text-md flex w-full items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                      isSidebar ? "" : "w-fit gap-x-0",
                       focusRing,
                     )}
                   >
@@ -220,9 +206,10 @@ export function Sidebar() {
                       href={item.href}
                       className={cx(
                         isActive(item.href)
-                          ? "bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
+                          ? "border-2 border-primary bg-gray-100 text-primary dark:bg-gray-900 dark:text-primary"
                           : "text-gray-700 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-50",
                         "text-md flex items-center gap-x-2.5 rounded-md px-2 py-1.5 font-medium transition hover:bg-gray-100 hover:dark:bg-gray-900",
+                        isSidebar ? "" : "w-fit gap-x-0",
                         focusRing,
                       )}
                     >
@@ -248,7 +235,7 @@ export function Sidebar() {
           <div
             className={cn(
               "mt-10 min-w-56 transition-opacity duration-200",
-              isSidebar ? "opacity-100" : "opacity-0",
+              isSidebar ? "pb-24 opacity-100" : "opacity-0",
             )}
           >
             <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">

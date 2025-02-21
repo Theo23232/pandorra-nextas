@@ -9,7 +9,7 @@ import { createPublication } from '@/actions/publication.action';
 import ImageSmooth from '@/components/ImageSmooth';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useSelectImage } from '@/hooks/use-select-image';
 import { useToast } from '@/hooks/use-toast';
 import { GeneratedImage } from '@prisma/client';
@@ -169,6 +169,7 @@ export const AIImage = ({
         </DirectionAwareHover>
       </div>
       <DialogContent className="flex max-h-[80vh] max-w-2xl justify-center overflow-hidden border-none bg-transparent p-0 shadow-none">
+        <DialogTitle className="hidden">Image</DialogTitle>
         <ImageSmooth
           src={image.url}
           className="max-h-[80vh] w-auto rounded-lg object-contain shadow"

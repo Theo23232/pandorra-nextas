@@ -1,31 +1,22 @@
 "use client"
-import { ChevronDown, ChevronsUpDown, SunMedium, Zap } from "lucide-react"
-import Image from "next/image"
-import { useSearchParams } from "next/navigation"
-import { useOnborda } from "onborda"
-import * as React from "react"
-import { useTranslation } from "react-i18next"
+import { ChevronDown, ChevronsUpDown, SunMedium, Zap } from 'lucide-react';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { ImageNumberInput } from "@/components/image-ai/ImageNumberInput"
-import { ImageSizeInput } from "@/components/image-ai/ImageSizeInput"
-import { ModelSelectDialog } from "@/components/image-ai/ModelSelectDialog"
-import { Card, CardContent } from "@/components/tremor/ui/card"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { ImageNumberInput } from '@/components/image-ai/ImageNumberInput';
+import { ImageSizeInput } from '@/components/image-ai/ImageSizeInput';
+import { ModelSelectDialog } from '@/components/image-ai/ModelSelectDialog';
+import { Card, CardContent } from '@/components/tremor/ui/card';
 import {
-  Select,
-  SelectContent,
-  SelectCustomTrigger,
-  SelectGroup,
-  SelectItem,
-} from "@/components/ui/select"
-import { useUser } from "@/hooks/use-user"
-import {
-  findModelById,
-  Model,
-  models,
-  presetStyles,
-} from "@/lib/leonardo/presets"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
+} from '@/components/ui/select';
+import { useUser } from '@/hooks/use-user';
+import { findModelById, Model, models, presetStyles } from '@/lib/leonardo/presets';
+import { cn } from '@/lib/utils';
 
 export type SidebarProps = {
   onModelChange: (model: Model) => void
@@ -181,7 +172,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
                   <p className="text-xs text-muted-foreground">
                     {t(`Contrast`)}
                   </p>
-                  <p>{contrast}</p>
+                  <p>{t(contrast)}</p>
                 </div>
               </div>
               <ChevronDown />

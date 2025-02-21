@@ -1,45 +1,24 @@
 import {
-  BoomBox,
-  BotMessageSquare,
-  Coins,
-  Crown,
-  Gift,
-  Image,
-  MessageSquare,
-  Sparkles,
-  User2,
-  Video,
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useTranslation } from "react-i18next"
+    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Sparkles, User2, Video
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-import { siteConfig } from "@/app/siteConfig"
-import { AddTokenDialog } from "@/components/billing/addToken"
-import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
-import { Logo } from "@/components/logo"
-import { Button } from "@/components/tremor/ui/button"
+import { siteConfig } from '@/app/siteConfig';
+import { AddTokenDialog } from '@/components/billing/addToken';
+import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
+import { Logo } from '@/components/logo';
+import { Button } from '@/components/tremor/ui/button';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/tremor/ui/drawer"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
-import { useUser } from "@/hooks/use-user"
-import { cn, cx, focusRing } from "@/lib/utils"
-import { RiHome2Line, RiMenuLine } from "@remixicon/react"
+    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger
+} from '@/components/tremor/ui/drawer';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
+import { useUser } from '@/hooks/use-user';
+import { cn, cx, focusRing } from '@/lib/utils';
+import { RiHome2Line, RiMenuLine } from '@remixicon/react';
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line },

@@ -1,17 +1,12 @@
 "use client"
-import { X } from "lucide-react"
-import { redirect } from "next/navigation"
-import { useTranslation } from "react-i18next"
+import { X } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import { Button } from "@/components/ui/button"
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Button } from '@/components/ui/button';
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -458,7 +453,7 @@ export const Pricing = () => {
                     <p>
                       {t(`Images`)}:{" "}
                       <span className="font-italic mx-1 font-extrabold">
-                        80
+                        200
                       </span>{" "}
                       {t(`AI-generated images`)}
                     </p>

@@ -1,22 +1,22 @@
 "use client"
-import { Loader2, Sparkles } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Loader2, Sparkles } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { verifyCredit } from "@/actions/credits.actions"
-import { getUserGeneration } from "@/actions/generation.action"
-import { enhanceImagePrompt } from "@/actions/openai.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { GenerationResult } from "@/components/image-ai/GenerationResult"
-import { NothingYet } from "@/components/NothingYet"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Button } from "@/components/tremor/ui/button"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { fetchGenerationResult, generationInsert } from "@/lib/leonardo/fetch"
-import { GeneratedImage, Prisma } from "@prisma/client"
+import { verifyCredit } from '@/actions/credits.actions';
+import { getUserGeneration } from '@/actions/generation.action';
+import { enhanceImagePrompt } from '@/actions/openai.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { GenerationResult } from '@/components/image-ai/GenerationResult';
+import { NothingYet } from '@/components/NothingYet';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Button } from '@/components/tremor/ui/button';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { fetchGenerationResult } from '@/lib/leonardo/fetch';
+import { GeneratedImage, Prisma } from '@prisma/client';
 
 export type MainProps = {
   prompt: string
@@ -92,27 +92,22 @@ export const Main = (props: MainProps) => {
   useEffect(() => {
     if (props.id) {
       const fetch = async () => {
-        new Promise((resolve, reject) => {
-          const interval = setInterval(async () => {
-            try {
-              setIsLoading(true)
-              const result = await fetchGenerationResult(props.id!)
-              if (result && result.generations_by_pk.generated_images.length) {
-                const generation = await generationInsert(result)
-                setHistory((prev) => [...prev, generation])
-                setIsLoading(false)
-
-                clearInterval(interval) // Nettoyer l'intervalle ici
-                resolve(result)
-                // window.location.reload()
-              }
-            } catch (error) {
-              clearInterval(interval)
-              console.error(error)
-              reject(error)
-            }
-          }, 2000)
-        })
+        try {
+          setIsLoading(true)
+          const result = await fetchGenerationResult(props.id!)
+          if (result && result.generated_images.length) {
+            setHistory((prev) => [...prev, result])
+            setIsLoading(false)
+          }
+        } catch (error) {
+          console.error(error)
+          setIsLoading(false)
+          toast({
+            title: t(`Error`),
+            description: t(`Error while generating image`),
+            variant: "error",
+          })
+        }
       }
       fetch().then(() => {})
     }
@@ -177,7 +172,7 @@ export const Main = (props: MainProps) => {
             id="tour6-step3"
           >
             {t(`Generate`)}
-            <p>( {props.count * 5} credits)</p>
+            <p className="ml-2"> ({props.count * 5} credits)</p>
           </Button>
         </div>
       </MagicCard>

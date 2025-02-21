@@ -1,23 +1,19 @@
 "use client"
 
-import { Sparkles } from "lucide-react"
-import { redirect } from "next/navigation"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { ArrowDownIcon, Sparkles } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
+import Bounce from '@/components/animated/uibeats/bounce';
+import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/nyxb/select"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useUser } from "@/hooks/use-user"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/nyxb/select';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useUser } from '@/hooks/use-user';
+import { cn } from '@/lib/utils';
 
 export function Hero() {
   const { t } = useTranslation()
@@ -92,6 +88,10 @@ export function Hero() {
         className="absolute left-0 top-0 hidden w-full lg:block"
       ></video>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#010101] lg:block"></div>
+
+      <div className="absolute bottom-16 z-50 mt-16 flex flex-col items-center justify-center gap-4">
+        <ArrowDownIcon className="animated-scroll-indicator text-white" />
+      </div>
     </div>
   )
 }

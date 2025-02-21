@@ -1,24 +1,14 @@
 "use client"
-import { X } from "lucide-react"
-import { ReactNode } from "react"
-import { useTranslation } from "react-i18next"
+import { X } from 'lucide-react';
+import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { subscriptionSession } from "@/actions/stripeSessions.action"
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Button } from "@/components/ui/button"
+import { subscriptionSession } from '@/actions/stripeSessions.action';
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -538,7 +528,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <p>
                           {t(`Images`)}:{" "}
                           <span className="font-italic mx-0.5 font-extrabold">
-                            80
+                            200
                           </span>{" "}
                           {t(`AI-generated images`)}
                         </p>

@@ -283,7 +283,10 @@ export function Sidebar() {
 
       {/* top navbar (xs-lg) */}
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-2 shadow-sm sm:gap-x-6 sm:px-4 lg:hidden dark:border-gray-800 dark:bg-gray-950">
-        <Logo />
+        <Link href={"/explore"}>
+          <Logo />
+        </Link>
+
         <div className="flex items-center gap-1 sm:gap-2">
           <JetonCounter />
 

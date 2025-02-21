@@ -1,7 +1,13 @@
 "use client"
 
 import axios from "axios"
-import { Plus, Send, StopCircle } from "lucide-react"
+import {
+  PanelLeftClose,
+  PanelLeftOpen,
+  Plus,
+  Send,
+  StopCircle,
+} from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import useSWR, { mutate } from "swr"
@@ -10,6 +16,7 @@ import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import Bounce from "@/components/animated/uibeats/bounce"
 import { Button } from "@/components/tremor/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
 import { useUser } from "@/hooks/use-user"
 import { cn, fetcher } from "@/lib/utils"
@@ -25,6 +32,8 @@ export default function Page() {
   const [isStreaming, setIsStreaming] = useState(false)
   const [abortController, setAbortController] =
     useState<AbortController | null>(null)
+  const [sheetIsOpen, setSheetIsOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -32,6 +41,18 @@ export default function Page() {
     "/api/conversations",
     fetcher,
   )
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  const closeDialog = () => {
+    setIsDialogOpen(false)
+    setDialogOpen(false)
+  }
+
+  const openDialog = () => {
+    setIsDialogOpen(true)
+    setDialogOpen(true)
+  }
 
   const createConversation = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -155,7 +176,58 @@ export default function Page() {
 
   return (
     <div className="flex pt-4">
-      <Bounce className="sticky top-20 h-fit max-h-[calc(100vh-80px)] w-96 bg-card">
+      <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
+        <SheetTrigger asChild>
+          <button
+            className="fixed bottom-36 left-4 z-50 block rounded-full bg-blue-500 p-2 text-white md:hidden"
+            onClick={openDialog}
+          >
+            {!dialogOpen ? (
+              <PanelLeftClose size={20} />
+            ) : (
+              <PanelLeftOpen size={20} />
+            )}
+          </button>
+        </SheetTrigger>
+        <SheetContent side="left" className="">
+          <div className="p-4 pb-0">
+            <Button
+              onClick={() => {
+                setConversationId("")
+              }}
+              className="w-full"
+            >
+              <Plus className="mr-2" /> {t(`Start Conversation`)}
+            </Button>
+            <ScrollArea className="h-[80vh]">
+              {conversations ? (
+                <Bounce className="mt-4 pr-4">
+                  {conversations?.map((conversation) => (
+                    <Button
+                      key={conversation.id}
+                      variant={`${
+                        conversationId === conversation.id ? "outline" : "ghost"
+                      }`}
+                      className={cn(
+                        "relative w-full max-w-[350px] justify-start truncate",
+                        conversationId === conversation.id
+                          ? "bg-gray-100 text-primary dark:bg-gray-900"
+                          : "",
+                      )}
+                      onClick={() => setConversationId(conversation.id)}
+                    >
+                      {conversation.title}
+                    </Button>
+                  ))}
+                </Bounce>
+              ) : (
+                <></>
+              )}
+            </ScrollArea>
+          </div>
+        </SheetContent>
+      </Sheet>
+      <Bounce className="sticky top-20 hidden h-fit max-h-[calc(100vh-80px)] w-96 bg-card md:block">
         <MagicCard className="p-4 pb-0">
           <Button
             onClick={() => {
@@ -246,7 +318,7 @@ export default function Page() {
         ) : (
           <>
             <div className="flex min-h-[calc(100vh-204px)] flex-1 items-center justify-center p-4">
-              <Bounce className="font-inter text-center text-[50px] font-semibold leading-[78px] text-black dark:text-[#FDFDFD]">
+              <Bounce className="font-inter text-center text-[40px] font-semibold leading-[78px] text-black md:text-[50px] dark:text-[#FDFDFD]">
                 {t(`Hello,`)}
                 <span className="ml-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text capitalize text-transparent">
                   {user?.username}

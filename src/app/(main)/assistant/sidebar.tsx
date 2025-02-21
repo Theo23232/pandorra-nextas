@@ -59,18 +59,18 @@ const languageToCountry: { [key: string]: keyof typeof Flags } = {
 
 interface SidebarProps {
   onSelectConversation: (conversationId: string) => void
+  onSelectAgent: (id: string, agentId: string, lang: string) => void
 }
 
 export function Sidebar({
   onSelectConversation,
+  onSelectAgent,
   closeDialog,
 }: SidebarProps & { closeDialog?: () => void }) {
   const { t } = useTranslation()
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [downloadingId, setDownloadingId] = useState("")
-  const [activeConversationId, setActiveConversationId] = useState("")
-  const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
 
   const { user } = useUser()
   const { startOnborda } = useOnborda()
@@ -155,6 +155,7 @@ export function Sidebar({
       language: agent.language,
     })
     setIsDialogOpen(true)
+    if (closeDialog) closeDialog()
   }
 
   return (
@@ -182,7 +183,10 @@ export function Sidebar({
               <div
                 key={agent.id}
                 className="mb-2 flex cursor-pointer items-center rounded-md p-2 hover:bg-muted"
-                onClick={() => handleAgentClick(agent)}
+                onClick={() => {
+                  onSelectAgent(agent.id!, agent.voiceId!, agent.language!)
+                  handleAgentClick(agent)
+                }}
               >
                 <img
                   src={`https://api.dicebear.com/9.x/glass/svg?seed=${agent.id}&backgroundType=solid,gradientLinear&randomizeIds=true`}
@@ -258,7 +262,10 @@ export function Sidebar({
   )
 }
 
-export function SidebarDialog({ onSelectConversation }: SidebarProps) {
+export function SidebarDialog({
+  onSelectConversation,
+  onSelectAgent,
+}: SidebarProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
   const closeDialog = () => {
@@ -287,6 +294,7 @@ export function SidebarDialog({ onSelectConversation }: SidebarProps) {
       <DialogContent className="w-full bg-transparent">
         <Sidebar
           onSelectConversation={onSelectConversation}
+          onSelectAgent={onSelectAgent}
           closeDialog={closeDialog}
         />
       </DialogContent>

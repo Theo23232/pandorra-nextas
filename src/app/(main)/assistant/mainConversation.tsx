@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Mic, MicOff, StopCircle } from "lucide-react"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { mutate } from "swr"
 
@@ -21,7 +21,11 @@ import { languageOptions } from "@/lib/elevenlabs/langList"
 import { voicesList } from "@/lib/elevenlabs/voiceList"
 import { useConversation } from "@11labs/react"
 
-export function Conversation() {
+interface ConversationProps {
+  selectedAgent: { id: string; voiceId: string; lang: string }
+}
+
+export function Conversation({ selectedAgent }: ConversationProps) {
   const { t } = useTranslation()
   const [lang, setLang] = useState("en")
   const [agentId, setAgentId] = useState("")
@@ -39,15 +43,26 @@ export function Conversation() {
     setIsLoading(true)
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true })
-      const agent = await createAgent({ language: lang, voiceId })
+      const agent =
+        selectedAgent.id !== ""
+          ? await createAgent({
+              language: selectedAgent.lang,
+              voiceId: selectedAgent.voiceId,
+            })
+          : await createAgent({ language: lang, voiceId })
       setAgentId(agent.id)
       await conversation.startSession({ agentId: agent.id })
+      if (selectedAgent) {
+        selectedAgent.id = ""
+        selectedAgent.voiceId = ""
+        selectedAgent.lang = ""
+      }
     } catch (error) {
       console.error("Failed to start conversation:", error)
     } finally {
       setIsLoading(false)
     }
-  }, [conversation, lang, voiceId, agentId])
+  }, [conversation, lang, voiceId, agentId, selectedAgent])
 
   const stopConversation = useCallback(async () => {
     setIsLoading(true)
@@ -58,6 +73,15 @@ export function Conversation() {
     mutate("/api/auth/session")
     setIsLoading(false)
   }, [conversation, agentId])
+
+  useEffect(() => {
+    if (selectedAgent) {
+      setVoiceId(selectedAgent.voiceId)
+      setLang(selectedAgent.lang)
+    }
+  }, [selectedAgent])
+
+  useEffect(() => {}, [voiceId, lang])
 
   return (
     <MagicCard

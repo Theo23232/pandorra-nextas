@@ -7,8 +7,8 @@ import Bounce from "@/components/animated/uibeats/bounce"
 
 const videos = [
   "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/17.webm",
-  "/assets/explore.mp4",
-  "/assets/hero-video-1.mp4",
+  "https://blob.teratany.org/videos/explore.mp4",
+  "https://blob.teratany.org/videos/hero-video-1.mp4",
 ]
 
 export function RotatingVideosBanner() {

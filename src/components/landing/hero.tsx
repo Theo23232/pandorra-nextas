@@ -84,7 +84,7 @@ export function Hero() {
         </div>
       </Bounce>
       <video
-        src="/assets/hero-video-1.mp4"
+        src="https://blob.teratany.org/videos/hero-video-1.mp4"
         autoPlay
         loop
         muted

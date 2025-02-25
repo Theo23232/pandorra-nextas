@@ -9,10 +9,10 @@ import { BorderGradient } from "@/components/border-gradient"
 import { Button } from "@/components/tremor/ui/button"
 
 const videos = [
-  "/assets/tti.mp4",
-  "/assets/ttv.mp4",
-  "/assets/itv.mp4",
-  "/assets/audioai.mp4",
+  "https://blob.teratany.org/videos/tti.mp4",
+  "https://blob.teratany.org/videos/ttv.mp4",
+  "https://blob.teratany.org/videos/itv.mp4",
+  "https://blob.teratany.org/videos/audioai.mp4",
 ]
 
 export const UnlockPower = () => {

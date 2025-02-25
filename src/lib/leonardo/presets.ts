@@ -46,7 +46,7 @@ export const models: Model[] = [
     featured: false,
     generated_image: {
       id: "744d2b7d-c1c0-4f72-8862-70ceffe6698b",
-      url: "https://cdn.leonardo.ai/users/d35cac34-28ff-4c33-8022-ebc672a45aca/generations/a0bfc1a1-f623-4646-a090-1e41fe4c2f37/segments/2:2:2/Leonardo_Phoenix_Image_is_a_digital_artwork_featuring_a_vibran_0.jpg",
+      url: "https://cdn.leonardo.ai/users/36216618-c37a-47a7-ada5-b4483583ab35/generations/5b48c048-613d-4fdd-a141-f701f3f86fef/Leonardo_Phoenix_10_Generate_an_image_of_a_majestic_phoenix_wi_0.jpg",
     },
   },
   {
@@ -58,7 +58,7 @@ export const models: Model[] = [
     featured: false,
     generated_image: {
       id: "d4e54c43-e278-48a1-8364-8b1f92307448",
-      url: "https://cdn.leonardo.ai/users/097c79c3-b0de-4183-8870-e1527a80cca4/generations/17b319bc-b996-4e3a-8c88-058928221b20/17b319bc-b996-4e3a-8c88-058928221b20.jpg",
+      url: "https://cdn.leonardo.ai/users/36216618-c37a-47a7-ada5-b4483583ab35/generations/82c27b17-d318-441c-bedf-9bdebab6f047/segments/1:1:1/Flux_Dev_Generate_an_image_of_a_young_girl_with_long_curly_hai_0.jpeg",
     },
   },
   {

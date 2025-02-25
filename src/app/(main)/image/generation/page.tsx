@@ -36,13 +36,25 @@ export default function RoutePage() {
   }
   const [state, setState] = useState<State>({
     prompt: "",
-    activeModel: models[0],
-    presetStyle: "DYNAMIC",
-    contrast: "Medium",
-    count: 2,
+    activeModel: localStorage.getItem("activeModel")
+      ? (JSON.parse(localStorage.getItem("activeModel") ?? "") as Model)
+      : models[0],
+    presetStyle: localStorage.getItem("presetStyle")
+      ? JSON.parse(localStorage.getItem("presetStyle") ?? "")
+      : "DYNAMIC",
+    contrast: localStorage.getItem("contrast")
+      ? JSON.parse(localStorage.getItem("contrast") ?? "")
+      : "Medium",
+    count: localStorage.getItem("count")
+      ? parseInt(JSON.parse(localStorage.getItem("count") ?? ""))
+      : 2,
     id: undefined,
-    height: 1176,
-    width: 784,
+    height: localStorage.getItem("height")
+      ? parseInt(JSON.parse(localStorage.getItem("height") ?? ""))
+      : 1176,
+    width: localStorage.getItem("width")
+      ? parseInt(JSON.parse(localStorage.getItem("width") ?? ""))
+      : 784,
   })
 
   const { prompt, activeModel, presetStyle, contrast, count, width, height } =
@@ -91,6 +103,7 @@ export default function RoutePage() {
   }
 
   const handleStateChange = (key: keyof typeof state, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value))
     setState((prevState) => ({
       ...prevState,
       [key]: value,
@@ -124,7 +137,9 @@ export default function RoutePage() {
       <ImageGenerationDialog
         isOpen={isDialogOpen}
         onClose={closeDialog}
-        onModelChange={(model) => handleStateChange("activeModel", model)}
+        onModelChange={(model) => {
+          handleStateChange("activeModel", model)
+        }}
         onPresetStyleChange={(value) => handleStateChange("presetStyle", value)}
         onContrastChange={(value) => handleStateChange("contrast", value)}
         onCountChange={(value) => handleStateChange("count", value)}

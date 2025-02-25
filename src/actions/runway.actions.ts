@@ -2,6 +2,7 @@
 import fetch from "node-fetch" // Add this line to import fetch
 
 import { reduceCredit } from "@/actions/credits.actions"
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
 import { trackUserActivity } from "@/actions/user.ations"
 import { currentUser } from "@/lib/current-user"
 import { SA } from "@/lib/safe-ation"
@@ -21,7 +22,7 @@ export async function generateVideoFromImage(
 ) {
   try {
     await trackUserActivity("generateVideoFromImage")
-
+    promptText = await enhanceVideoPrompt(promptText)
     const user = await currentUser()
     // Envoyer l’image à RunwayML
     const imageToVideo = await client.imageToVideo.create({

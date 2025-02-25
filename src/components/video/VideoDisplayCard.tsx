@@ -119,7 +119,7 @@ export const VideoDisplayCard = ({
     }
   }
 
-  if (status === "PendingTest") {
+  if (status === "Pending") {
     return (
       <Bounce
         className="relative h-96 w-full cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"

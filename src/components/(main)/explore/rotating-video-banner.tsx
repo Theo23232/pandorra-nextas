@@ -6,11 +6,9 @@ import { useTranslation } from "react-i18next"
 import Bounce from "@/components/animated/uibeats/bounce"
 
 const videos = [
-  "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/15.webm",
-  "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/16.webm",
   "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/17.webm",
-  "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/18.webm",
-  "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/19.webm",
+  "/assets/explore.mp4",
+  "/assets/hero-video-1.mp4",
 ]
 
 export function RotatingVideosBanner() {
@@ -31,7 +29,7 @@ export function RotatingVideosBanner() {
   }, [])
 
   return (
-    <Bounce className="relative max-h-[30vh] w-full overflow-hidden rounded-xl">
+    <Bounce className="relative max-h-[40vh] w-full overflow-hidden rounded-xl">
       <div
         className={`transition-opacity duration-1000 ${isTransitioning ? "opacity-0" : "opacity-100"}`}
       >

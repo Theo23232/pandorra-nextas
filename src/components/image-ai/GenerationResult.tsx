@@ -76,101 +76,123 @@ export const GenerationResult = ({
     </Tooltip>
   )
 
-  const renderHeader = () => (
-    <div className="flex w-full items-center justify-between pb-4 pt-8">
-      <div className="flex items-center gap-2">
-        {renderTooltipButton(
-          t(`Reuse generation option`),
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={handleReuseGeneration}
-            id="tour6-step4"
-          >
-            <CornerLeftUp size={20} />
-          </Button>,
-        )}
-        <Tooltip className="max-w-lg" content={generated?.prompt || ""}>
-          <p className="truncate-1-lines line-clamp-1 max-w-[300px] text-lg">
-            {generated?.prompt}
-          </p>
-        </Tooltip>
-        <Tooltip content={isCopied ? "Copied!" : "Copy prompt"}>
-          <Button
-            variant="ghost"
-            size="sm"
-            id="tour6-step5"
-            className="flex items-center gap-2 p-2 transition-all duration-200 ease-in-out"
-            onClick={handleCopy}
-          >
-            {isCopied ? (
-              <>
-                <Check size={16} className="text-green-500" />
-                <span className="text-green-500">{t(`Copied`)}</span>
-              </>
-            ) : (
-              <Copy size={16} />
+  const renderHeader = () => {
+    if (!isLoading) {
+      return (
+        <div className="flex w-full items-center justify-between pb-4 pt-8">
+          <div className="flex items-center gap-2">
+            {renderTooltipButton(
+              t(`Reuse generation option`),
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleReuseGeneration}
+                id="tour6-step4"
+              >
+                <CornerLeftUp size={20} />
+              </Button>,
             )}
-          </Button>
-        </Tooltip>
-      </div>
-      <div className="flex gap-4">
-        <div className="flex gap-4" id="tour6-step6">
-          {renderTooltipButton(
-            `${t(`Model`)} : ${model?.name ?? ""}`,
-            <div className="Model flex items-center gap-2">
-              {model?.generated_image?.url && (
-                <Image
-                  src={model.generated_image.url || "/placeholder.svg"}
-                  width={64}
-                  height={64}
-                  alt={model?.name ?? ""}
-                  className="size-8 object-cover"
-                />
+            <Tooltip className="max-w-lg" content={generated?.prompt || ""}>
+              <p className="truncate-1-lines line-clamp-1 max-w-[300px] text-lg">
+                {generated?.prompt}
+              </p>
+            </Tooltip>
+            <Tooltip content={isCopied ? "Copied!" : "Copy prompt"}>
+              <Button
+                variant="ghost"
+                size="sm"
+                id="tour6-step5"
+                className="flex items-center gap-2 p-2 transition-all duration-200 ease-in-out"
+                onClick={handleCopy}
+              >
+                {isCopied ? (
+                  <>
+                    <Check size={16} className="text-green-500" />
+                    <span className="text-green-500">{t(`Copied`)}</span>
+                  </>
+                ) : (
+                  <Copy size={16} />
+                )}
+              </Button>
+            </Tooltip>
+          </div>
+          <div className="flex gap-4">
+            <div className="flex gap-4" id="tour6-step6">
+              {renderTooltipButton(
+                `${t(`Model`)} : ${model?.name ?? ""}`,
+                <div className="Model flex items-center gap-2">
+                  {model?.generated_image?.url && (
+                    <Image
+                      src={model.generated_image.url || "/placeholder.svg"}
+                      width={64}
+                      height={64}
+                      alt={model?.name ?? ""}
+                      className="size-8 object-cover"
+                    />
+                  )}
+                </div>,
               )}
-            </div>,
-          )}
-          {renderTooltipButton(
-            `${t(`Preset style`)} ${t(generated?.presetStyle || "")}`,
-            <Zap size={20} />,
-          )}
-          {renderTooltipButton(
-            `${t(`Resolution`)} : ${generated?.imageWidth} × ${generated?.imageHeight}`,
-            <Move size={20} className="rotate-45" />,
-          )}
+              {renderTooltipButton(
+                `${t(`Preset style`)} ${t(generated?.presetStyle || "")}`,
+                <Zap size={20} />,
+              )}
+              {renderTooltipButton(
+                `${t(`Resolution`)} : ${generated?.imageWidth} × ${generated?.imageHeight}`,
+                <Move size={20} className="rotate-45" />,
+              )}
+            </div>
+            <GenerationOption generationId={generated?.id || ""}>
+              <Button variant="outline" size="icon" id="tour6-step7">
+                <Menu />
+              </Button>
+            </GenerationOption>
+          </div>
         </div>
-        <GenerationOption generationId={generated?.id || ""}>
-          <Button variant="outline" size="icon" id="tour6-step7">
-            <Menu />
-          </Button>
-        </GenerationOption>
-      </div>
-    </div>
-  )
+      )
+    }
+    return <></>
+  }
 
-  const renderContent = () => (
-    <div className="grid w-full grid-cols-2 gap-4 xl:grid-cols-4">
-      {isLoading
-        ? Array.from({ length: count }, (_, index) => (
-            <Skeleton key={index} className="h-96 w-full" />
-          ))
-        : generated?.generated_images.map((g) => (
-            <AIImage
-              key={g.id}
-              image={{
-                ...g,
-                generationId: generated.id,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              }}
-              generationId={generated.id}
-              prompt={generated.prompt ?? ""}
-              model={model?.name ?? ""}
-              preset={generated.presetStyle ?? ""}
-            />
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="grid w-full grid-cols-2 gap-4 pt-8 xl:grid-cols-4">
+          {Array.from({ length: count }).map((_, index) => (
+            <div
+              key={index}
+              className="group/card relative flex h-96 w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-gray-50 dark:bg-black/50"
+            >
+              <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-gray-900 dark:border-gray-200"></div>
+            </div>
           ))}
-    </div>
-  )
+        </div>
+      )
+    } else {
+      return (
+        <div className="grid w-full grid-cols-2 gap-4 xl:grid-cols-4">
+          {isLoading
+            ? Array.from({ length: count }, (_, index) => (
+                <Skeleton key={index} className="h-96 w-full" />
+              ))
+            : generated?.generated_images.map((g) => (
+                <AIImage
+                  key={g.id}
+                  image={{
+                    ...g,
+                    generationId: generated.id,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                  }}
+                  generationId={generated.id}
+                  prompt={generated.prompt ?? ""}
+                  model={model?.name ?? ""}
+                  preset={generated.presetStyle ?? ""}
+                />
+              ))}
+        </div>
+      )
+    }
+  }
 
   return (
     <MagicCard gradientSize={700} className="group relative cursor-pointer">

@@ -14,14 +14,7 @@ export default function RouteLayout({ children }: { children: ReactNode }) {
 
   if (!queryPresetStyle && !queryModelId && !queryImageSize) {
     if (user) {
-      const presetStyle = user.imagePresetStylePreference
-      const modelId = user.imageModelIdPreference
-      const imageSize = user.imageSizePreference
-      if (imageSize && modelId && presetStyle) {
-        return redirect(
-          `/image/generation?imageSize=${imageSize}&modelId=${modelId}&presetStyle=${presetStyle}`,
-        )
-      }
+      return redirect(`/image/generation`)
     }
   }
 

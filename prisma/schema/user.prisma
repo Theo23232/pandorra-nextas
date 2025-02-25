@@ -25,11 +25,6 @@ model User {
   currentAmount     String   @default("0")
   plan              Plan     @default(Free)
 
-  imageModelIdPreference     String?
-  imageSizePreference        String?
-  imagePresetStylePreference String?
-  imageNumberPreference      String?
-
   Agent                Agent[]
   Comment              Comment[]
   CommentReaction      CommentReaction[]

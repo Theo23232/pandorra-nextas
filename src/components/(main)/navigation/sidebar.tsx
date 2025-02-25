@@ -2,6 +2,7 @@
 import {
     BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Sparkles, User2, Video
 } from 'lucide-react';
+import ImageDisplay from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useOnborda } from 'onborda';
@@ -12,7 +13,6 @@ import { siteConfig } from '@/app/siteConfig';
 import { Navbar } from '@/components/(main)/authentified-navbar';
 import { AddTokenDialog } from '@/components/billing/addToken';
 import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
-import { Logo } from '@/components/logo';
 import { UserProfileMobile } from '@/components/navigation/UserProfile';
 import JetonCounter from '@/components/pandorra/jeton-counter';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
@@ -284,7 +284,26 @@ export function Sidebar() {
       {/* top navbar (xs-lg) */}
       <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-2 shadow-sm sm:gap-x-6 sm:px-4 lg:hidden dark:border-gray-800 dark:bg-gray-950">
         <Link href={"/explore"}>
-          <Logo />
+          <>
+            <ImageDisplay
+              src="/logo/logo-ai-white.png"
+              alt="logo"
+              width={500}
+              height={500}
+              className={cn(
+                "hidden size-[28px] rotate-180 object-contain dark:block",
+              )}
+            />
+            <ImageDisplay
+              src="/logo/logo-ai-black.png"
+              alt="logo"
+              width={500}
+              height={500}
+              className={cn(
+                "size-[28px] rotate-180 object-contain dark:hidden",
+              )}
+            />
+          </>
         </Link>
 
         <div className="flex items-center gap-1 sm:gap-2">

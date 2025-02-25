@@ -39,7 +39,7 @@ export function Unleash() {
         </div>
 
         <video
-          src="/assets/unleash.mp4"
+          src="/assets/explore.mp4"
           autoPlay
           loop
           muted

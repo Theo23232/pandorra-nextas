@@ -1,14 +1,37 @@
 "use client"
 import { MoveRight } from "lucide-react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import Bounce from "@/components/animated/uibeats/bounce"
 import { BorderGradient } from "@/components/border-gradient"
 import { Button } from "@/components/tremor/ui/button"
 
+const videos = [
+  "/assets/tti.mp4",
+  "/assets/ttv.mp4",
+  "/assets/itv.mp4",
+  "/assets/audioai.mp4",
+]
+
 export const UnlockPower = () => {
   const { t } = useTranslation()
+
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length)
+        setIsTransitioning(false)
+      }, 1000)
+    }, 10000)
+
+    return () => clearInterval(interval)
+  }, [])
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
@@ -38,13 +61,16 @@ export const UnlockPower = () => {
           <div className="absolute right-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(204,0,255,0.40)] blur-[112px]"></div>
           <div className="absolute left-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(0,155,255,0.40)] blur-[112px]"></div>
           <video
-            src="https://cdn.pollo.ai/prod/public/video/index/index-text.mp4"
+            key={currentVideoIndex}
             className="relative inset-0 h-[35vw] max-h-[573.387px] w-full max-w-[1166px] rounded-[3px] bg-black p-2"
             autoPlay
             loop
             muted
             playsInline
-          ></video>
+          >
+            <source src={videos[currentVideoIndex]} />
+            {t(`Your browser does not support the video tag.`)}
+          </video>
         </Bounce>
       </div>
 

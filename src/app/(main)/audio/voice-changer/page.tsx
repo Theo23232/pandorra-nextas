@@ -108,7 +108,7 @@ const SpeechToSpeechConverter: React.FC = () => {
 
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
-      await generateVoiceChange(blob, voiceId)
+      await generateVoiceChange(url, voiceId)
       mutate("/api/audio/voice-change")
       mutate("/api/auth/session")
     } catch (error) {

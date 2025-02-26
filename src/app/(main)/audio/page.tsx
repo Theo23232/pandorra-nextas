@@ -108,7 +108,7 @@ export default function Page() {
       const blob = new Blob(chunks, { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       setAudioUrl(url)
-      await generateFX(prompt, blob)
+      await generateFX(prompt, url)
       mutate("/api/audio/generated-fx")
       mutate("/api/auth/session")
     } catch (error) {

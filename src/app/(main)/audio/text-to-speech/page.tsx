@@ -224,7 +224,7 @@ export default function Page() {
       const blob = new Blob(chunks, { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       setAudioUrl(url)
-      await generateTTS(prompt, blob, lang, voiceId)
+      await generateTTS(prompt, url, lang, voiceId)
       mutate("/api/audio/generated-tts")
       mutate("/api/auth/session")
     } catch (error) {

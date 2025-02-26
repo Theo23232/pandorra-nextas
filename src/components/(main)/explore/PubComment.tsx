@@ -133,22 +133,13 @@ export default function PublicationDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-scroll p-4">
+      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-auto p-4">
         <DialogTitle className="sr-only">
           {t(`Publication Details`)}
         </DialogTitle>
         <div className="relative h-full w-full">
-          <DialogClose asChild>
-            <Button
-              variant="outline"
-              className="absolute right-2 top-2 size-9 p-0"
-            >
-              <X className="h-4 w-4 text-accent-foreground" />
-            </Button>
-          </DialogClose>
-
-          <div className="flex w-full gap-4">
-            <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4">
+          <div className="flex w-full gap-4 max-lg:flex-col">
+            <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4 max-lg:h-fit max-lg:max-w-full max-lg:p-0">
               <Image
                 src={publication.image}
                 alt={publication.description.prompt}
@@ -186,6 +177,14 @@ export default function PublicationDialog({
               />
             </div>
           </div>
+          <DialogClose asChild>
+            <Button
+              variant="outline"
+              className="absolute right-2 top-2 size-9 p-0"
+            >
+              <X className="h-4 w-4 text-accent-foreground" />
+            </Button>
+          </DialogClose>
         </div>
 
         {model?.name && (

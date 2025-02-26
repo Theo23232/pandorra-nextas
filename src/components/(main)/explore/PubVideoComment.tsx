@@ -1,26 +1,38 @@
 // PublicationDialog.tsx
 "use client"
 
-import { Clock10, Download, Frame, Loader, Scan, SendHorizontal, X } from 'lucide-react';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
-
-import { createCommentVideo } from '@/actions/pubVideo.actions';
-import CommentVideoCard from '@/components/(main)/explore/CommentVideoCard';
-import { Input } from '@/components/tremor/inputs/input';
-import { Badge } from '@/components/tremor/ui/badge';
-import { Button } from '@/components/tremor/ui/button';
 import {
-    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
-} from '@/components/tremor/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { formatDate } from '@/lib/formatDate';
-import { fetcher } from '@/lib/utils';
-import { CommentVideoWithAuthor } from '@/types/publicationType';
+  Clock10,
+  Download,
+  Frame,
+  Loader,
+  Scan,
+  SendHorizontal,
+  X,
+} from "lucide-react"
+import Link from "next/link"
+import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
+
+import { createCommentVideo } from "@/actions/pubVideo.actions"
+import CommentVideoCard from "@/components/(main)/explore/CommentVideoCard"
+import { Input } from "@/components/tremor/inputs/input"
+import { Badge } from "@/components/tremor/ui/badge"
+import { Button } from "@/components/tremor/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
+import { formatDate } from "@/lib/formatDate"
+import { fetcher } from "@/lib/utils"
+import { CommentVideoWithAuthor } from "@/types/publicationType"
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -84,19 +96,13 @@ export default function PubVideoComment({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-scroll p-4">
+      <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-auto p-4">
         <DialogTitle className="sr-only">
           {t(`Publication Details`)}
         </DialogTitle>
         <div className="relative h-full w-full">
-          <DialogClose asChild>
-            <Button variant="outline" className="absolute right-2 top-2">
-              <X className="h-4 w-4 text-black dark:text-white" />
-            </Button>
-          </DialogClose>
-
-          <div className="flex w-full gap-4">
-            <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4">
+          <div className="flex w-full gap-4 max-lg:flex-col">
+            <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full overflow-hidden rounded bg-muted/60 p-4 max-lg:h-fit max-lg:max-w-full max-lg:p-0">
               <video
                 src={publication.video}
                 className={`h-auto max-h-[calc(100vh-8rem)] w-full transform transition-transform duration-1000 ease-in-out`}
@@ -131,6 +137,11 @@ export default function PubVideoComment({
               />
             </div>
           </div>
+          <DialogClose asChild>
+            <Button variant="outline" className="absolute right-2 top-2">
+              <X className="h-4 w-4 text-black dark:text-white" />
+            </Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

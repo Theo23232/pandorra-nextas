@@ -1,13 +1,13 @@
 // RelatedPublications.tsx
 "use client"
 
-import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
+import Image from "next/image"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
 
-import { Separator } from '@/components/ui/separator';
-import { fetcher } from '@/lib/utils';
-import { PublicationWithAuthor } from '@/types/publicationType';
+import { Separator } from "@/components/ui/separator"
+import { fetcher } from "@/lib/utils"
+import { PublicationWithAuthor } from "@/types/publicationType"
 
 interface RelatedPublicationsProps {
   modelName: string
@@ -33,7 +33,7 @@ export default function RelatedPublications({
   if (!filteredPublications.length) return null
 
   return (
-    <div>
+    <div className="max-lg:hidden">
       <Separator orientation="horizontal" className="my-6" />
       <div className="mb-6 text-lg font-bold">{t(`Related posts`)}</div>
       <div className="grid grid-cols-5 gap-4 pr-4">

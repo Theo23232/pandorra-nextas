@@ -3,7 +3,6 @@ import { Onborda, OnbordaProvider } from "onborda"
 import { MenuList } from "@/components/(main)/explore/menu-list"
 import { PublicationContent } from "@/components/(main)/explore/PublicationContent"
 import { RotatingVideosBanner } from "@/components/(main)/explore/rotating-video-banner"
-import Bounce from "@/components/animated/uibeats/bounce"
 import { OnboardaCard } from "@/components/onboarda/OnboardaCard"
 import { tours } from "@/lib/onboarda/steps"
 
@@ -25,11 +24,11 @@ export default function RoutePage() {
           stiffness: 75,
         }}
       >
-        <Bounce className="mt-4">
+        <div className="mt-4">
           <RotatingVideosBanner />
           <MenuList />
           <PublicationContent />
-        </Bounce>
+        </div>
       </Onborda>
     </OnbordaProvider>
   )

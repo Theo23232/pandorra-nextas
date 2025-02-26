@@ -8,7 +8,7 @@ export const GalleryMultiple = () => {
   const { t } = useTranslation()
   return (
     <div className="mt-24 flex flex-col items-center justify-center">
-      <Bounce className="font-inter text-center text-[80px] font-semibold leading-[78px] text-[#FDFDFD] max-sm:text-[65px]">
+      <Bounce className="font-inter text-center text-[80px] font-semibold leading-[78px] text-[#FDFDFD] max-lg:max-w-[calc(100vw-4rem)] max-lg:text-[60px] max-lg:leading-[60px]">
         {t(`Get inspired by`)} <br />
         <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text text-transparent">
           {t(`other creators`)}
@@ -49,7 +49,7 @@ export const GalleryMultiple = () => {
         <img
           src="/assets/trending.png"
           alt=""
-          className="relative mt-16 h-auto w-full max-w-[884px]"
+          className="relative mt-16 h-auto w-full max-w-[884px] px-8"
         />
       </Bounce>
 

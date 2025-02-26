@@ -35,7 +35,7 @@ export const UnlockPower = () => {
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
-        <Bounce className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-sm:text-[46px]">
+        <Bounce className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-lg:max-w-[calc(100vw-4rem)] max-lg:text-[60px] max-lg:leading-[60px]">
           {t(`Unlock the Power of AI with`)}
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-4 text-transparent">
             {t(`Text to Video`)}

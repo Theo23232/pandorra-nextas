@@ -198,7 +198,7 @@ export const PublicationsProfile = (props: PublicationsProps) => {
                 Kino XL
               </TabsTrigger>
               <TabsTrigger
-                className="flex w-full items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+                className="hidden w-full items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white lg:flex"
                 value="Pandorra Vision XL"
               >
                 Vision XL

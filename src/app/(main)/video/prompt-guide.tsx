@@ -24,7 +24,7 @@ export default function PromptGuide() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="flex items-center justify-center p-4">
+    <div className="flex items-center justify-center">
       <button
         onClick={() => setOpen(true)}
         className="cursor-pointer rounded p-2 hover:bg-accent hover:text-accent-foreground"

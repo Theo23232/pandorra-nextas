@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next"
 import Bounce from "@/components/animated/uibeats/bounce"
 
 const videos = [
+  "https://blob.teratany.org/videos/explore.webm",
   "https://cdn.web.imagine.art/remote-config/assets/main-dashboard/videos/banner/17.webm",
-  "https://blob.teratany.org/videos/explore.mp4",
   "https://blob.teratany.org/videos/hero-video-1.mp4",
 ]
 

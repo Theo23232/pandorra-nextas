@@ -190,7 +190,7 @@ export default function VideoGenerator() {
   }
 
   return (
-    <Bounce className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-8">
       <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-4 shadow-lg">
         <Textarea
           ref={textareaRef}
@@ -201,7 +201,7 @@ export default function VideoGenerator() {
           placeholder={t(`Describe the video you want...`)}
         />
         <Bounce className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-center gap-4">
             <Select value={duration} onValueChange={setDuration}>
               <SelectTrigger className="w-[100px]" id="tour8-step2">
                 <SelectValue placeholder={t(`Duration`)} />
@@ -226,7 +226,7 @@ export default function VideoGenerator() {
                 className="flex cursor-pointer items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground shadow-sm transition-colors hover:bg-accent/50"
               >
                 <Upload className="h-5 w-5" />
-                <span>
+                <span className="max-lg:hidden">
                   {previewUrl ? t(`Change image`) : t(`Upload image`)}
                 </span>
               </Label>
@@ -240,7 +240,7 @@ export default function VideoGenerator() {
               />
             </div>
           </div>
-          <div className="flex items-center justify-end gap-1 p-4">
+          <div className="flex items-center justify-end gap-1 p-4 max-lg:w-full max-lg:justify-between max-lg:p-0 max-lg:pr-4">
             <PromptGuide />
 
             <Tooltip content={t(`Enhance prompt`)}>
@@ -258,7 +258,7 @@ export default function VideoGenerator() {
             </Tooltip>
             <Button
               id="tour8-step5"
-              className="px-6 py-2 text-white transition-all"
+              className="px-6 py-2 text-white transition-all max-lg:w-full"
               onClick={handleSubmit}
               disabled={loading}
             >
@@ -318,7 +318,7 @@ export default function VideoGenerator() {
         </div>
       )}
       {isLoading && <GenerationSkeleton />}
-    </Bounce>
+    </div>
   )
 }
 

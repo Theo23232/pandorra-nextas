@@ -1,6 +1,4 @@
-export default function Token() {
-  return (
-    <svg
+<svg
       width="24px"
       height="24px"
       viewBox="0 0 16 16"
@@ -42,5 +40,3 @@ export default function Token() {
         </g>
       </g>
     </svg>
-  )
-}

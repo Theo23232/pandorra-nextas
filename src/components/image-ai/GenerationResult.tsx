@@ -79,7 +79,7 @@ export const GenerationResult = ({
   const renderHeader = () => {
     if (!isLoading) {
       return (
-        <div className="flex w-full items-center justify-between pb-4 pt-8">
+        <div className="flex w-full items-center justify-between pb-4 pt-8 max-lg:flex-col max-lg:items-start max-lg:gap-2">
           <div className="flex items-center gap-2">
             {renderTooltipButton(
               t(`Reuse generation option`),
@@ -116,7 +116,7 @@ export const GenerationResult = ({
               </Button>
             </Tooltip>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 max-lg:flex-row-reverse">
             <div className="flex gap-4" id="tour6-step6">
               {renderTooltipButton(
                 `${t(`Model`)} : ${model?.name ?? ""}`,
@@ -156,7 +156,7 @@ export const GenerationResult = ({
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="grid w-full grid-cols-2 gap-4 pt-8 xl:grid-cols-4">
+        <div className="grid w-full grid-cols-1 gap-4 pt-8 lg:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: count }).map((_, index) => (
             <div
               key={index}
@@ -169,7 +169,7 @@ export const GenerationResult = ({
       )
     } else {
       return (
-        <div className="grid w-full grid-cols-2 gap-4 xl:grid-cols-4">
+        <div className="grid w-full grid-cols-1 gap-4 pt-8 lg:grid-cols-2 xl:grid-cols-4">
           {isLoading
             ? Array.from({ length: count }, (_, index) => (
                 <Skeleton key={index} className="h-96 w-full" />

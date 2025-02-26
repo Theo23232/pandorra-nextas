@@ -2,7 +2,10 @@ import Bounce from "@/components/animated/uibeats/bounce"
 
 export const UiPresentation = () => {
   return (
-    <Bounce className="relative mt-12 flex w-full items-center justify-center bg-[#010101] shadow-[2xl]">
+    <Bounce
+      className="relative mt-12 flex w-full items-center justify-center bg-[#010101] shadow-[2xl]"
+      id="down"
+    >
       <img
         alt=""
         src={"/assets/UI.png"}

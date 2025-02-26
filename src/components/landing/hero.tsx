@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowDownIcon, Sparkles } from "lucide-react"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -93,9 +94,12 @@ export function Hero() {
       ></video>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#010101] lg:block"></div>
 
-      <div className="absolute bottom-16 z-50 mt-16 flex flex-col items-center justify-center gap-4">
+      <Link
+        href={"/#down"}
+        className="absolute bottom-16 z-50 mt-16 flex flex-col items-center justify-center gap-4"
+      >
         <ArrowDownIcon className="animated-scroll-indicator text-white" />
-      </div>
+      </Link>
     </div>
   )
 }

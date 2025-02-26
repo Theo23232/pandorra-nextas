@@ -28,7 +28,7 @@ export default function ProfilePage() {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="flex items-start justify-between">
-          <Card className="flex gap-3">
+          <Card className="relative flex gap-3 max-lg:flex-col max-lg:items-center">
             <div className="relative">
               <Avatar className="h-16 w-16 border-2 border-white shadow-lg">
                 <AvatarImage
@@ -41,11 +41,14 @@ export default function ProfilePage() {
               </Avatar>
             </div>
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center gap-2 max-lg:items-center">
                 <h1 className="text-xl font-semibold">
                   {data.fullname || data.username}
                 </h1>
-                <Link href={"/settings"}>
+                <Link
+                  href={"/settings"}
+                  className="max-lg:absolute max-lg:right-2 max-lg:top-2"
+                >
                   <Button variant={"ghost"} size={"icon"}>
                     <UserRoundPen />
                   </Button>
@@ -54,20 +57,20 @@ export default function ProfilePage() {
               <p className="text-sm text-muted-foreground">
                 {data.description}
               </p>
-              <div className="flex gap-4 pt-2 text-sm text-muted-foreground">
-                <div className="flex items-center gap-1">
+              <div className="flex gap-4 pt-2 text-sm text-muted-foreground max-lg:grid max-lg:grid-cols-3 max-lg:gap-2">
+                <div className="flex items-center gap-1 max-lg:flex-col max-lg:justify-center">
                   <span className="font-semibold text-foreground">
                     {data._count.Generation}
                   </span>
-                  <span>{t(`Image generation`)}</span>
+                  <span>{t(`Images`)}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 max-lg:flex-col max-lg:justify-center">
                   <span className="font-semibold text-foreground">
                     {data._count.Video}
                   </span>
                   <span>{t(`Videos`)}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 max-lg:flex-col max-lg:justify-center">
                   <span className="font-semibold text-foreground">
                     {data._count.Publication}
                   </span>

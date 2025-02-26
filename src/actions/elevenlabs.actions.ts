@@ -67,7 +67,11 @@ export const downloadAudio = async (blob: Blob): Promise<string> => {
 
     // Retourner le nom du fichier (sans le chemin complet)
 
-    const url = await downloadVideo(fileName)
+    const url = await downloadVideo(
+      `https://test.pandorra.ai/${fileName}`,
+    ).catch(() => {
+      return `https://test.pandorra.ai/${fileName}`
+    })
     return url
   } catch (error) {
     console.error("Erreur lors de l'enregistrement du fichier audio:", error)
@@ -76,6 +80,8 @@ export const downloadAudio = async (blob: Blob): Promise<string> => {
 }
 
 export const downloadVideo = async (audioUrl: string) => {
+  console.log("audioUrl ==> ", audioUrl)
+
   const API_BASE_URL = "https://pdr.teratany.org"
   try {
     const response = await fetch(`${API_BASE_URL}/videos/download-from-url`, {

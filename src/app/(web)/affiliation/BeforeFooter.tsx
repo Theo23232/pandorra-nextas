@@ -1,21 +1,21 @@
 "use client"
-import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
+import Image from "next/image"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/ui/button"
 
 export default function BeforeFooter() {
   const { t } = useTranslation()
   return (
-    <Bounce className="relative mt-[280px]">
-      <div className="absolute -top-5 w-screen">
+    <Bounce className="relative max-lg:mb-32 lg:mt-[280px]">
+      <div className="-top-5 w-screen lg:absolute">
         <Image
           src="/assets/affiliation/Mask.png"
           width={1512}
           height={400}
           alt={""}
-          className="w-full"
+          className="hidden w-full lg:block"
         ></Image>
       </div>
       <div className="abolsute -left-40 top-0">
@@ -24,14 +24,14 @@ export default function BeforeFooter() {
           width={800}
           height={200}
           alt={""}
-          className="w-full"
+          className="hidden w-full lg:block"
         ></Image>
-        <Bounce className="absolute inset-0 -top-52 flex flex-col items-center justify-center gap-[22px]">
-          <p className="text-[64px] font-semibold text-white">
+        <Bounce className="inset-0 -top-52 flex flex-col items-center justify-center gap-[22px] lg:absolute">
+          <p className="font-inter text-[64px] font-semibold text-white max-lg:text-center">
             {t(`Ready to Start Earning`)}
             {/* </span> */}?
           </p>
-          <p className="text-center text-[16px] text-white">
+          <p className="text-center text-[16px] text-white max-lg:mx-2">
             {t(
               `Join thousands of affiliates who are already making money with Pandorra.ai.`,
             )}{" "}

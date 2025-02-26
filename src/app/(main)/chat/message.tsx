@@ -1,24 +1,27 @@
-import { Check, Copy } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useState } from 'react';
-import ReactMarkdown, { Components } from 'react-markdown';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import remarkGfm from 'remark-gfm';
+import { Check, Copy } from "lucide-react"
+import { useTheme } from "next-themes"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import ReactMarkdown, { Components } from "react-markdown"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism"
+import remarkGfm from "remark-gfm"
 
-import Bounce from '@/components/animated/uibeats/bounce';
+import Bounce from "@/components/animated/uibeats/bounce"
 
 export type MessageProps = {
   content: string
   role: string
   isStreaming?: boolean
+  isLoading?: boolean
 }
-
 export const Message: React.FC<MessageProps> = ({
   content,
   role,
   isStreaming,
+  isLoading,
 }) => {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState<Record<string, boolean>>({})
   const { theme } = useTheme()
 
@@ -135,11 +138,12 @@ export const Message: React.FC<MessageProps> = ({
 
   return (
     <Bounce className="rounded-lg bg-background p-4 text-foreground">
-      {isStreaming && (
-        <div className="mb-2 animate-pulse text-sm text-muted-foreground">
-          Pandorra is thinking...
-        </div>
-      )}
+      {isStreaming ||
+        (isLoading && (
+          <div className="mb-2 animate-pulse text-sm text-muted-foreground">
+            {t(`Pandorra is thinking...`)}
+          </div>
+        ))}
       <div className={`${isStreaming ? "animate-fade-in" : ""}`}>
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
           {content}

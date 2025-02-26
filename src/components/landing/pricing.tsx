@@ -1,12 +1,18 @@
 "use client"
-import { X } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { X } from "lucide-react"
+import { redirect } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Button } from '@/components/ui/button';
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Badge } from "@/components/tremor/ui/badge"
+import { Button } from "@/components/ui/button"
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -258,10 +264,9 @@ export const Pricing = () => {
                     <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
                       {t(`Pro vision`)}
                     </p>
-                    {/* 
-                    <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      <p className="gdt text-sm font-semibold">Save 40%</p>
-                    </div> */}
+                    <Badge className="dark:bg-blue-800/50 dark:text-white dark:ring-blue-700/70">
+                      {t(`Best deal`)}
+                    </Badge>
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -335,9 +340,14 @@ export const Pricing = () => {
             </div>
             <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
               <div className="">
-                <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
-                  {t(`Infinite Pandorra`)}
-                </p>
+                <div className="flex items-center justify-between">
+                  <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
+                    {t(`Infinite Pandorra`)}
+                  </p>
+                  <Badge className="dark:bg-purple-800/50 dark:text-white dark:ring-purple-700/70">
+                    {t(`Most popular`)}
+                  </Badge>
+                </div>
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />
@@ -495,9 +505,9 @@ export const Pricing = () => {
                       {t(`Pro vision`)}
                     </p>
 
-                    {/* <div className="flex h-6 w-fit items-center justify-center rounded bg-white px-2">
-                      <p className="gdt text-sm font-semibold">Save 40%</p>
-                    </div> */}
+                    <Badge className="dark:bg-blue-800/50 dark:text-white dark:ring-blue-700/70">
+                      {t(`Best deal`)}
+                    </Badge>
                   </div>
                   <div className="mb-6 mt-8 flex flex-col gap-3">
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -571,9 +581,14 @@ export const Pricing = () => {
             </div>
             <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
               <div className="">
-                <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
-                  {t(`Infinite Pandorra`)}
-                </p>
+                <div className="flex items-center justify-between">
+                  <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
+                    {t(`Infinite Pandorra`)}
+                  </p>
+                  <Badge className="dark:bg-purple-800/50 dark:text-white dark:ring-purple-700/70">
+                    {t(`Most popular`)}
+                  </Badge>
+                </div>
                 <div className="mb-6 mt-8 flex flex-col gap-3">
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                     <Check className="mr-3" />

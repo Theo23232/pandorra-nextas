@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 
 import { AddTokenDialog } from "@/components/billing/addToken"
 import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
+import Token from "@/components/token"
 import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { useUser } from "@/hooks/use-user"
 import { Plan } from "@prisma/client"
@@ -27,7 +28,7 @@ export default function JetonCounter() {
             className="flex h-10 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-bold hover:bg-muted"
           >
             <span>{formatJeton(user?.jeton || 0)}</span>
-            <img src="/assets/token.png" className="h-6 w-auto" />
+            <Token />
           </div>
         </AddTokenDialog>
       </Tooltip>

@@ -1,29 +1,15 @@
 "use client"
 
-import { redirect, useSearchParams } from "next/navigation"
+import { redirect } from "next/navigation"
 import { ReactNode } from "react"
 
 import { useUser } from "@/hooks/use-user"
 
 export default function RouteLayout({ children }: { children: ReactNode }) {
   const { user } = useUser()
-  const searchParams = useSearchParams()
-  const queryPresetStyle = searchParams?.get("presetStyle")
-  const queryModelId = searchParams?.get("modelId")
-  const queryImageSize = searchParams?.get("imageSize")
 
-  if (!queryPresetStyle && !queryModelId && !queryImageSize) {
-    if (user) {
-      const presetStyle = user.imagePresetStylePreference
-      const modelId = user.imageModelIdPreference
-      const imageSize = user.imageSizePreference
-      if (imageSize && modelId && presetStyle) {
-        return redirect(
-          `/image/generation?imageSize=${imageSize}&modelId=${modelId}&presetStyle=${presetStyle}`,
-        )
-      }
-    }
+  if (user) {
+    return <>{children}</>
   }
-
-  return <>{children}</>
+  return redirect(`/auth`)
 }

@@ -121,12 +121,33 @@ export const VideoDisplayCard = ({
 
   if (status === "Pending") {
     return (
-      <Alert variant="default" className="rounded-md border border-border">
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>
-          {t(`Generation in progress:`)} {t(videoPrompt)}
-        </AlertDescription>
-      </Alert>
+      <Bounce
+        className="relative h-96 w-full cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="flex h-96 flex-col items-center justify-center gap-4">
+          <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-gray-900 dark:border-gray-200"></div>
+          <p> {t(`Generation in progress`)}</p>
+        </div>
+        <div
+          className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 transition-opacity duration-300 ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <Tooltip content={videoPrompt} className="max-w-xl">
+            <p className="truncate-2-lines line-clamp-3 text-left text-white/80">
+              {videoPrompt}
+            </p>
+          </Tooltip>
+        </div>
+      </Bounce>
+      // <Alert variant="default" className="rounded-md border border-border">
+
+      //   <AlertDescription>
+      //      {t(videoPrompt)}
+      //   </AlertDescription>
+      // </Alert>
     )
   } else if (status === "Failed") {
     return (

@@ -1,3 +1,4 @@
+"use client"
 import { ImageGenerationSidebar } from "@/app/(main)/image/generation/sidebar"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 

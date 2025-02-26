@@ -279,6 +279,11 @@ export default function Page() {
                       message.role === "assistant" &&
                       message === messages[messages.length - 1]
                     }
+                    isLoading={
+                      isLoading &&
+                      message.role === "assistant" &&
+                      message === messages[messages.length - 1]
+                    }
                   />
                 </div>
               ))}

@@ -74,39 +74,39 @@ export const ImageSizeInput = ({ onChange }: ImageSizeProps) => {
   }, [])
 
   useEffect(() => {
-    const imageSizeParam = searchParams?.get("imageSize")
-    if (imageSizeParam) {
-      const [width, height] = imageSizeParam.split("×").map(Number)
-      const match = findMatchingRatio(width, height)
-      if (match) {
-        setActiveName(match.ratio)
-        setActiveSize(match.size)
-      } else {
-        // If no exact match is found, find the closest ratio
-        const closestRatio = ratioList.reduce((closest, current) => {
-          const currentRatio = current.medium.w / current.medium.h
-          const targetRatio = width / height
-          return Math.abs(currentRatio - targetRatio) <
-            Math.abs(closest.medium.w / closest.medium.h - targetRatio)
-            ? current
-            : closest
-        })
-        setActiveName(closestRatio.ratio as RatioName)
-        // Set size based on which dimension is closest
-        const closestSize = ["small", "medium", "large"].reduce(
-          (closest, size) => {
-            const currentDiff =
-              Math.abs(closestRatio[size].w - width) +
-              Math.abs(closestRatio[size].h - height)
-            const closestDiff =
-              Math.abs(closestRatio[closest].w - width) +
-              Math.abs(closestRatio[closest].h - height)
-            return currentDiff < closestDiff ? size : closest
-          },
-          "medium" as SizeOption,
-        )
-        setActiveSize(closestSize as SizeOption)
-      }
+    const storedwidth = localStorage.getItem("width")
+    const width = storedwidth ? JSON.parse(storedwidth) : 784
+    const storedheight = localStorage.getItem("height")
+    const height = storedheight ? JSON.parse(storedheight) : 1176
+    const match = findMatchingRatio(width, height)
+    if (match) {
+      setActiveName(match.ratio)
+      setActiveSize(match.size)
+    } else {
+      // If no exact match is found, find the closest ratio
+      const closestRatio = ratioList.reduce((closest, current) => {
+        const currentRatio = current.medium.w / current.medium.h
+        const targetRatio = width / height
+        return Math.abs(currentRatio - targetRatio) <
+          Math.abs(closest.medium.w / closest.medium.h - targetRatio)
+          ? current
+          : closest
+      })
+      setActiveName(closestRatio.ratio as RatioName)
+      // Set size based on which dimension is closest
+      const closestSize = ["small", "medium", "large"].reduce(
+        (closest, size) => {
+          const currentDiff =
+            Math.abs(closestRatio[size].w - width) +
+            Math.abs(closestRatio[size].h - height)
+          const closestDiff =
+            Math.abs(closestRatio[closest].w - width) +
+            Math.abs(closestRatio[closest].h - height)
+          return currentDiff < closestDiff ? size : closest
+        },
+        "medium" as SizeOption,
+      )
+      setActiveSize(closestSize as SizeOption)
     }
   }, [searchParams, findMatchingRatio])
 

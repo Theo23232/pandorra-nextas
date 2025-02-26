@@ -73,12 +73,12 @@ export default function ReasonToJoin() {
           </defs>
         </svg>
         <Bounce className="flex flex-col max-md:mx-2 lg:w-[730px] lg:items-start">
-          <p className="mb-[40px] text-white max-lg:mx-2 lg:max-w-lg">
+          <p className="mb-[40px] text-white max-lg:p-4 lg:max-w-lg">
             {t(
               `Turn your influence into income with Pandorra.ai’s Affiliate Program! Earn 30% commission on every subscription and enjoy limitless earning potential. With real-time tracking, fast payouts, and a top-tier AI platform, promoting Pandorra.ai has never been easier.`,
             )}
           </p>
-          <div className="flex flex-col gap-[25px] max-lg:mx-2">
+          <div className="flex flex-col gap-[25px] max-lg:p-4">
             <div className="flex items-center gap-[10px] text-white">
               <svg
                 width="24"

@@ -25,7 +25,7 @@ export default function JetonCounter() {
         <AddTokenDialog>
           <div
             id="tour3-step2"
-            className="flex h-10 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-bold hover:bg-muted"
+            className="relative flex h-10 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-bold hover:bg-muted"
           >
             <span>{formatJeton(user?.jeton || 0)}</span>
             <Token />

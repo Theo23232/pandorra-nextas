@@ -1,6 +1,6 @@
 export default function StyledToken() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex h-fit w-fit items-center justify-center">
       <svg
         width="24px"
         height="24px"

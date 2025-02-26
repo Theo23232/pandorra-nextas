@@ -1,15 +1,15 @@
 "use client"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/ui/button';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Button } from "@/components/ui/button"
 
 /* eslint-disable @next/next/no-img-element */
 export default function ReasonToJoin() {
   const { t } = useTranslation()
   return (
     <div className="mt-[272px] flex flex-col items-center justify-center gap-8">
-      <Bounce className="max-w-xl text-[64px] font-semibold leading-[68px] text-white">
+      <Bounce className="font-inter max-w-xl text-center text-[64px] font-semibold leading-[68px] text-white">
         {t(`Why Join Our`)} {""}
         <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
           {t(`Affiliate Program`)}
@@ -22,6 +22,7 @@ export default function ReasonToJoin() {
           height="540"
           viewBox="0 0 540 540"
           fill="none"
+          className="max-lg:hidden"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
@@ -71,13 +72,13 @@ export default function ReasonToJoin() {
             />
           </defs>
         </svg>
-        <Bounce className="flex w-[730px] flex-col items-start">
-          <p className="mb-[40px] max-w-lg text-white">
+        <Bounce className="flex flex-col max-md:mx-2 lg:w-[730px] lg:items-start">
+          <p className="mb-[40px] text-white max-lg:p-4 lg:max-w-lg">
             {t(
               `Turn your influence into income with Pandorra.ai’s Affiliate Program! Earn 30% commission on every subscription and enjoy limitless earning potential. With real-time tracking, fast payouts, and a top-tier AI platform, promoting Pandorra.ai has never been easier.`,
             )}
           </p>
-          <div className="flex flex-col gap-[25px]">
+          <div className="flex flex-col gap-[25px] max-lg:p-4">
             <div className="flex items-center gap-[10px] text-white">
               <svg
                 width="24"

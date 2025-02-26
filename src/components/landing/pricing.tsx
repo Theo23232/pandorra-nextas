@@ -184,7 +184,7 @@ export const Pricing = () => {
           </TabPanel>
           <TabPanel
             value={"monthly"}
-            className="relative flex justify-between gap-4"
+            className="relative flex justify-between gap-4 max-md:flex-col"
           >
             <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
               <div className="">
@@ -420,7 +420,7 @@ export const Pricing = () => {
           </TabPanel>
           <TabPanel
             value={"Annually"}
-            className="relative flex justify-between gap-4"
+            className="relative flex justify-between gap-4 max-md:flex-col"
           >
             <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
               <div className="">

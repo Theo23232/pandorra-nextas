@@ -1,14 +1,14 @@
 "use client"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
+import Bounce from "@/components/animated/uibeats/bounce"
 
 export const DescribeSection = () => {
   const { t } = useTranslation()
   return (
-    <Bounce className="mb-8 mt-[600px] flex flex-col items-center justify-center gap-4">
+    <Bounce className="mb-8 mt-64 flex flex-col items-center justify-center gap-4 lg:mt-[600px]">
       <div className="flex w-full flex-col items-center justify-center gap-8">
-        <p className="text-[64px] font-semibold leading-[68px] text-white">
+        <p className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-white max-md:text-[50px]">
           {t(`How it`)}
           <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
             {t(`Works`)}
@@ -21,13 +21,13 @@ export const DescribeSection = () => {
           }}
         >
           <div
-            className="flex w-[789px] items-center justify-start gap-[66px] rounded-[16px] p-[40px] text-white"
+            className="flex w-[789px] items-center justify-start gap-[66px] rounded-[16px] p-[40px] text-white max-md:w-[600px] max-sm:w-fit md:w-[789px] md:p-[40px]"
             style={{
               background: "black",
             }}
           >
             <p
-              className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent"
+              className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent max-sm:hidden"
               style={{
                 fontStyle: "italic",
               }}
@@ -43,7 +43,7 @@ export const DescribeSection = () => {
         {["2", "3", "4"].map((number, index) => (
           <div
             key={index}
-            className="flex w-[789px] items-center justify-start gap-[66px] rounded-[16px] p-[40px] text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-[#0099FF] hover:to-[#CC00FF] hover:shadow-[0px_4px_60px_0px_rgba(188,46,255,0.25)]"
+            className="flex items-center justify-start gap-[66px] rounded-[16px] p-[25px] text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-[#0099FF] hover:to-[#CC00FF] hover:shadow-[0px_4px_60px_0px_rgba(188,46,255,0.25)] max-md:w-[600px] max-sm:mx-2 max-sm:w-fit md:w-[789px] md:p-[40px]"
             style={{
               borderRadius: "16px",
               border: "1px solid rgba(255, 255, 255, 0.10)",
@@ -51,7 +51,7 @@ export const DescribeSection = () => {
             }}
           >
             <p
-              className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent"
+              className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text p-1 text-[42px] font-semibold leading-[28px] text-transparent max-sm:hidden"
               style={{
                 fontStyle: "italic",
               }}

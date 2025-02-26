@@ -9,12 +9,13 @@ import { Button } from "@/components/ui/button"
 export const Hero = () => {
   const { t } = useTranslation()
   return (
-    <div className="mt-28 flex flex-col items-center">
-      <div className="relative">
+    <div className="mt-32 flex flex-col items-center">
+      <div className="lg:relative">
         <svg
           width="744"
           height="337"
           viewBox="0 0 744 337"
+          className="hidden lg:block"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -64,14 +65,14 @@ export const Hero = () => {
           </defs>
         </svg>
 
-        <Bounce className="absolute -bottom-[280px] mt-4 flex flex-col items-center justify-center gap-[32px]">
-          <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
+        <Bounce className="-bottom-[280px] mt-4 flex flex-col items-center justify-center gap-[32px] lg:absolute">
+          <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-md:text-[50px]">
             {t(`Earn with Pandorra.ai`)} <br />
             <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`Join Our Affiliate Program!`)}
             </span>
           </p>
-          <p className="w-full max-w-3xl text-center text-[16px] font-normal leading-normal text-[#FDFDFD]">
+          <p className="w-full max-w-3xl text-center text-[16px] font-normal leading-normal text-[#FDFDFD] max-lg:p-4">
             {t(`Share Pandorra.ai with your audience and earn`)}
             <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`30% commission on every subscription`)}

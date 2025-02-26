@@ -14,11 +14,11 @@ export const TokenPrice = () => {
   return (
     <div
       id="pricing"
-      className="relative mt-20 flex flex-col items-center justify-center"
+      className="relative mt-32 flex flex-col items-center justify-center"
     >
       <div className="absolute bottom-32 right-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(0,153,255,0.6)] blur-[112px]"></div>
       <div className="absolute bottom-32 left-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(204,0,255,0.4)] blur-[112px]"></div>
-      <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
+      <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-md:text-[50px]">
         {t(`Extends Power of`)} <br />
         <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
           Pandorra.ai
@@ -30,7 +30,7 @@ export const TokenPrice = () => {
         )}
       </Bounce>
       <div className="relative flex min-h-[424px] w-full max-w-[1200px] items-center justify-center gap-9 pb-48 pt-8">
-        <div className="relative flex justify-between gap-4">
+        <div className="relative flex justify-between gap-4 max-md:flex-col">
           <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
             <div className="">
               <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">

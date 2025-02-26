@@ -102,7 +102,7 @@ export default function ReasonToJoin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="font-thin">
+              <p className="font-light">
                 <span className="font-semibold">{t(`High Earnings`)} - </span>{" "}
                 {t(`30% commission on every subscription.`)}
               </p>
@@ -130,7 +130,7 @@ export default function ReasonToJoin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="font-thin">
+              <p className="font-light">
                 <span className="font-semibold">
                   {t(`Unlimited Potential`)} -{" "}
                 </span>{" "}
@@ -160,7 +160,7 @@ export default function ReasonToJoin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="font-thin">
+              <p className="font-light">
                 <span className="font-semibold">{t(`Easy Tracking`)} - </span>{" "}
                 {t(
                   `Real-time dashboard to track clicks, sign-ups, and commissions.`,
@@ -190,7 +190,7 @@ export default function ReasonToJoin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="font-thin">
+              <p className="font-light">
                 <span className="font-semibold">{t(`Fast Payouts`)} - </span>{" "}
                 {t(`Get paid quickly and securely.`)}
               </p>
@@ -218,7 +218,7 @@ export default function ReasonToJoin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="font-thin">
+              <p className="font-light">
                 <span className="font-semibold">
                   {t(`Quality AI Platform`)} -{" "}
                 </span>{" "}

@@ -44,7 +44,7 @@ export const Logo = (props: logoProps) => {
             width={500}
             height={500}
             className={cn(
-              "hidden size-[28px] object-contain dark:block",
+              "hidden size-[28px] rotate-180 object-contain dark:block",
               props.className,
             )}
           />
@@ -54,7 +54,7 @@ export const Logo = (props: logoProps) => {
             width={500}
             height={500}
             className={cn(
-              "size-[28px] object-contain dark:hidden",
+              "size-[28px] rotate-180 object-contain dark:hidden",
               props.className,
             )}
           />

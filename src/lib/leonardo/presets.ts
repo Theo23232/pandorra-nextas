@@ -600,10 +600,10 @@ export const presetStyles: Value[] = [
   //   name: "GENERAL",
   //   value: "GENERAL",
   // },
-  {
-    name: "HDR",
-    value: "HDR",
-  },
+  // {
+  //   name: "HDR",
+  //   value: "HDR",
+  // },
   {
     name: "ILLUSTRATION",
     value: "ILLUSTRATION",
@@ -632,10 +632,10 @@ export const presetStyles: Value[] = [
   //   name: "NONE",
   //   value: "NONE",
   // },
-  {
-    name: "NEUTRAL",
-    value: "NEUTRAL",
-  },
+  // {
+  //   name: "NEUTRAL",
+  //   value: "NEUTRAL",
+  // },
   {
     name: "PHOTOGRAPHY",
     value: "PHOTOGRAPHY",
@@ -644,10 +644,10 @@ export const presetStyles: Value[] = [
     name: "PORTRAIT",
     value: "PORTRAIT",
   },
-  {
-    name: "RAYTRACED",
-    value: "RAYTRACED",
-  },
+  // {
+  //   name: "RAYTRACED",
+  //   value: "RAYTRACED",
+  // },
   // {
   //   name: "RENDER_3D",
   //   value: "RENDER_3D",
@@ -664,10 +664,10 @@ export const presetStyles: Value[] = [
   //   name: "SKETCH_COLOR",
   //   value: "SKETCH_COLOR",
   // },
-  {
-    name: "STOCK_PHOTO",
-    value: "STOCK_PHOTO",
-  },
+  // {
+  //   name: "STOCK_PHOTO",
+  //   value: "STOCK_PHOTO",
+  // },
   // {
   //   name: "VIBRANT",
   //   value: "VIBRANT",

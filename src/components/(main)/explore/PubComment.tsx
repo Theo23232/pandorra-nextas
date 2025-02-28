@@ -8,6 +8,7 @@ import {
   Fullscreen,
   Loader,
   SendHorizontal,
+  Trash,
   X,
   Zap,
 } from "lucide-react"
@@ -16,9 +17,9 @@ import Link from "next/link"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
-import useSWR from "swr"
+import useSWR, { mutate as mutateOnDelete } from "swr"
 
-import { createComment } from "@/actions/publication.action"
+import { createComment, deletePublication } from "@/actions/publication.action"
 import { Input } from "@/components/tremor/inputs/input"
 import { Button } from "@/components/tremor/ui/button"
 import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
@@ -72,6 +73,7 @@ export default function PublicationDialog({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isDownloading, setIsDownloading] = useState<boolean>(false)
   const model = models.find((m) => m.name === publication.description.model)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   const handlePostComment = async () => {
     if (!comment.trim()) return
@@ -130,6 +132,14 @@ export default function PublicationDialog({
     }
   }
 
+  const handleDeletePublication = async () => {
+    setDeleteLoading(true)
+    await deletePublication(publication.id)
+    mutateOnDelete(`/api/publication/all?model=all&page=1`)
+    setDeleteLoading(false)
+    setIsOpen(false)
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -177,6 +187,22 @@ export default function PublicationDialog({
               />
             </div>
           </div>
+          <Button
+            variant="outline"
+            className="absolute right-14 top-2 size-9 p-0"
+            onClick={handleDeletePublication}
+          >
+            {deleteLoading ? (
+              <Loader className="animate-spin" size={20} color="red" />
+            ) : (
+              <Trash
+                size={24}
+                color="red"
+                className="h-4 w-4 text-accent-foreground"
+              />
+            )}
+          </Button>
+
           <DialogClose asChild>
             <Button
               variant="outline"

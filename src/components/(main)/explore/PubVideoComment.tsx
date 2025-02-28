@@ -8,14 +8,16 @@ import {
   Loader,
   Scan,
   SendHorizontal,
+  Trash,
   X,
 } from "lucide-react"
 import Link from "next/link"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import useSWR from "swr"
+import useSWR, { mutate as mutateOnDelete } from "swr"
 
 import { createCommentVideo } from "@/actions/pubVideo.actions"
+import { deletePublicationVideo } from "@/actions/runway.actions"
 import CommentVideoCard from "@/components/(main)/explore/CommentVideoCard"
 import { Input } from "@/components/tremor/inputs/input"
 import { Badge } from "@/components/tremor/ui/badge"
@@ -54,6 +56,9 @@ export default function PubVideoComment({
   publication,
 }: PublicationDialogProps) {
   const { t } = useTranslation()
+  const [isOpen, setIsOpen] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
   const { data: comments, mutate } = useSWR<CommentVideoWithAuthor[]>(
     `/api/publication/video/commentVideo?publicationVideoId=${publication.id}`,
     fetcher,
@@ -93,8 +98,16 @@ export default function PubVideoComment({
     }
   }
 
+  const handleDeletePublicationVideo = async () => {
+    setDeleteLoading(true)
+    await deletePublicationVideo(publication.id)
+    mutateOnDelete("/api/publication/video")
+    setDeleteLoading(false)
+    setIsOpen(false)
+  }
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="h-[calc(100vh-4rem)] w-[calc(100vw-4rem)] max-w-none items-start overflow-y-auto p-4">
         <DialogTitle className="sr-only">
@@ -137,8 +150,23 @@ export default function PubVideoComment({
               />
             </div>
           </div>
+          <Button
+            variant="outline"
+            className="absolute right-14 top-2 size-9 p-0"
+            onClick={handleDeletePublicationVideo}
+          >
+            {deleteLoading ? (
+              <Loader className="animate-spin" size={20} color="red" />
+            ) : (
+              <Trash
+                size={24}
+                color="red"
+                className="h-4 w-4 text-accent-foreground"
+              />
+            )}
+          </Button>
           <DialogClose asChild>
-            <Button variant="outline" className="absolute right-2 top-2">
+            <Button variant="outline" className="absolute right-2 top-2 p-0">
               <X className="h-4 w-4 text-black dark:text-white" />
             </Button>
           </DialogClose>

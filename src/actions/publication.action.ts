@@ -2,6 +2,7 @@
 
 import { trackUserActivity } from "@/actions/user.ations"
 import { currentUser } from "@/lib/current-user"
+import { SA } from "@/lib/safe-ation"
 import { prisma } from "@/prisma"
 
 export const createPublication = async (
@@ -136,3 +137,14 @@ export const deleteCommentReaction = async (commentId: string) => {
     }
   }
 }
+
+export const deletePublication = SA(
+  async (user, pubId: string): Promise<null> => {
+    await prisma.publication.delete({
+      where: {
+        id: pubId,
+      },
+    })
+    return null
+  },
+)

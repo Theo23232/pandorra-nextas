@@ -1,6 +1,8 @@
 model Generation {
   id                  String           @id @default(cuid())
   modelId             String?
+  isLoading           String?
+  generationId        String[]
   motion              String?
   motionModel         String?
   motionStrength      Int?

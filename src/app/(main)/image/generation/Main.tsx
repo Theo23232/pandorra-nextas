@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { verifyCredit } from "@/actions/credits.actions"
 import { getUserGeneration } from "@/actions/generation.action"
 import { enhanceImagePrompt } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
@@ -14,8 +13,9 @@ import { Skeleton } from "@/components/nyxb/skeleton"
 import { Button } from "@/components/tremor/ui/button"
 import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Textarea } from "@/components/ui/textarea"
+import { useImageLoading } from "@/hooks/use-image-loading"
 import { useToast } from "@/hooks/use-toast"
-import { fetchGenerationResult } from "@/lib/leonardo/fetch"
+import { useUser } from "@/hooks/use-user"
 import { GeneratedImage, Prisma } from "@prisma/client"
 
 export type MainProps = {
@@ -38,6 +38,8 @@ export type GenerationWithImages = Omit<
 }
 
 export const Main = (props: MainProps) => {
+  const { imageLoading, setImageNumber } = useImageLoading()
+  const { user } = useUser()
   const { t } = useTranslation()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
@@ -45,8 +47,6 @@ export const Main = (props: MainProps) => {
 
   const [isEnhancing, setIsEnhancing] = useState(false)
   const [prompt, setPrompt] = useState(props.prompt)
-  const [isLoading, setIsLoading] = useState(false)
-  const [generated, setGenerated] = useState<GenerationWithImages>()
   const [history, setHistory] = useState<GenerationWithImages[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
   const { toast } = useToast()
@@ -75,43 +75,18 @@ export const Main = (props: MainProps) => {
   }, [prompt])
 
   const generate = async () => {
-    setIsLoading(true)
-    const isEnoughtToken = await verifyCredit(props.count * 5)
-    if (!isEnoughtToken) {
-      toast({
-        title: t(`Error`),
-        description: t(`You do not have enought token for this generation`),
-        variant: "error",
-      })
-      setIsLoading(false)
-
-      return
-    }
-    props.onGenerate()
-  }
-  useEffect(() => {
-    if (props.id) {
-      const fetch = async () => {
-        try {
-          setIsLoading(true)
-          const result = await fetchGenerationResult(props.id!)
-          if (result && result.generated_images.length) {
-            setHistory((prev) => [...prev, result])
-            setIsLoading(false)
-          }
-        } catch (error) {
-          console.error(error)
-          setIsLoading(false)
-          toast({
-            title: t(`Error`),
-            description: t(`Error while generating image`),
-            variant: "error",
-          })
-        }
+    if (user) {
+      if (user.jeton < props.count * 5) {
+        toast({
+          title: t(`Error`),
+          description: t(`You do not have enought token for this generation`),
+          variant: "error",
+        })
+        return
       }
-      fetch().then(() => {})
+      props.onGenerate()
     }
-  }, [props.id, generated])
+  }
 
   useEffect(() => {
     const req = async () => {
@@ -120,7 +95,7 @@ export const Main = (props: MainProps) => {
       setIsLoaded(true)
     }
     req().then(() => {})
-  }, [])
+  }, [imageLoading])
 
   const enhancePrompt = async () => {
     setIsEnhancing(true)
@@ -167,7 +142,7 @@ export const Main = (props: MainProps) => {
 
           <Button
             onClick={generate}
-            isLoading={isLoading}
+            isLoading={imageLoading ? true : false}
             className="text-md"
             id="tour6-step3"
           >
@@ -177,19 +152,27 @@ export const Main = (props: MainProps) => {
         </div>
       </MagicCard>
 
-      {history.length == 0 && isLoaded == true && isLoading == false && (
+      {history.length == 0 && isLoaded == true && !imageLoading && (
         <NothingYet
           subtitle={t(`Your image generation will be displayed here`)}
           title={t(`There is no image yet`)}
         />
       )}
+
       <div className="flex w-full flex-col-reverse gap-4">
         {history.map((h) => (
           <div key={h.id} className="h-fit w-full">
             <GenerationResult generated={h} key={h.id} />
           </div>
         ))}
-        {isLoading && <GenerationResult isLoading count={props.count} />}
+        {imageLoading ? (
+          <GenerationResult
+            isLoading={imageLoading ? true : false}
+            count={imageLoading}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       {!isLoaded && (
         <>

@@ -39,7 +39,7 @@ export function Unleash() {
         </div>
 
         <video
-          src="https://blob.teratany.org/videos/explore.webm"
+          src="https://blob.teratany.org/videos/unleash.mp4"
           autoPlay
           loop
           muted

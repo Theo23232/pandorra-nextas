@@ -43,3 +43,5 @@ prisma/migrations
 ssh
 
 public/*.mp3
+
+anim_logo.mp4

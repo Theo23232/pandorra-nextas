@@ -286,3 +286,25 @@
 .animated-scroll-indicator {
   animation: upDown 2s infinite ease-in-out;
 }
+@layer components {
+  .left-scrollbar .scrollbar {
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  .left-scrollbar .thumb {
+    left: 0 !important;
+    right: auto !important;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}

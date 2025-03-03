@@ -1,5 +1,6 @@
 "use client"
 import { Clipboard } from "lucide-react"
+import Image from "next/image"
 import { useTranslation } from "react-i18next"
 
 import Bounce from "@/components/animated/uibeats/bounce"
@@ -9,13 +10,20 @@ import { Button } from "@/components/ui/button"
 export const Hero = () => {
   const { t } = useTranslation()
   return (
-    <div className="mt-32 flex flex-col items-center">
-      <div className="lg:relative">
+    <div className="flex flex-col items-center">
+      <Image
+        src={"/img/affiliate.png"}
+        width={1200}
+        height={1200}
+        className="absolute h-auto w-screen"
+        alt=""
+      />
+      <div className="mt-32 lg:relative">
         <svg
           width="744"
           height="337"
           viewBox="0 0 744 337"
-          className="hidden lg:block"
+          className="hidden opacity-0 lg:block"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"

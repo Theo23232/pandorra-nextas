@@ -7,10 +7,11 @@ import { useTranslation } from "react-i18next"
 import { ImageGenerationDialog } from "@/app/(main)/image/generation/ImageGenerationDialog"
 import { ImageGenerationSidebar } from "@/app/(main)/image/generation/sidebar"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useImageLoading } from "@/hooks/use-image-loading"
 import { useSelectImage } from "@/hooks/use-select-image"
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from "@/hooks/use-user"
-import { leofetch } from "@/lib/leonardo/fetch"
+import { leonardoGenerateImage } from "@/lib/leonardo/fetch"
 import { Model, models } from "@/lib/leonardo/presets"
 
 import { Main } from "./Main"
@@ -18,6 +19,8 @@ import { Main } from "./Main"
 export default function RoutePage() {
   const { t } = useTranslation()
   const { imageUrl } = useSelectImage()
+  const { imageLoading, setImageNumber } = useImageLoading()
+
   const { user } = useUser()
   const { startOnborda } = useOnborda()
   const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
@@ -88,18 +91,33 @@ export default function RoutePage() {
       presetStyle: state.presetStyle,
       imagePrompts: imageUrl ? [imageUrl] : [],
     }
-    await leofetch("https://cloud.leonardo.ai/api/rest/v1/generations", {
+    setImageNumber(state.count)
+    await leonardoGenerateImage({
       method: "POST",
       data,
-    }).then((initGen: any) => {
-      if (
-        initGen &&
-        initGen.sdGenerationJob &&
-        initGen.sdGenerationJob.generationId
-      ) {
-        handleStateChange("id", initGen.sdGenerationJob.generationId)
-      }
     })
+      .then((initGen: any) => {
+        if (initGen.error) {
+          handleStateChange("id", "error")
+          toast({
+            title: "Generation error",
+            description: initGen.error,
+            variant: "error",
+            duration: 3000,
+          })
+        }
+      })
+      .catch(() => {
+        setImageNumber(0)
+
+        toast({
+          title: "Generation error",
+          description: "",
+          variant: "error",
+          duration: 3000,
+        })
+      })
+    setImageNumber(0)
   }
 
   const handleStateChange = (key: keyof typeof state, value: any) => {

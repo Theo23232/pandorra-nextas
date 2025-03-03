@@ -29,8 +29,66 @@ export const TokenPrice = () => {
           `Purchase the number of credits that match your usage. Credits are only available during the current subscription period. Free users are not allowed to purchase credits.`,
         )}
       </Bounce>
-      <div className="relative flex min-h-[424px] w-full max-w-[1200px] items-center justify-center gap-9 pb-48 pt-8">
-        <div className="relative flex justify-between gap-4 max-md:flex-col">
+      <div className="relative flex min-h-[424px] w-full max-w-[1600px] flex-wrap items-center justify-center gap-9 pb-48 pt-8">
+        <div className="relative flex flex-wrap justify-center gap-4 max-md:flex-col">
+          <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
+            <div className="">
+              <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
+                {t(`600 credits`)}
+              </p>
+
+              <div className="mb-6 mt-8 flex flex-col gap-3">
+                <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+                  <Check className="mr-3" />{" "}
+                  <p>
+                    {t(`Short Video`)} (5 sec):{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      15
+                    </span>{" "}
+                    {t(`videos`)}
+                  </p>
+                </div>
+                <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+                  <Check className="mr-3" />{" "}
+                  <p>
+                    {t(`Medium Video`)} (10 sec):{" "}
+                    <span className="font-italic mx-0.5 font-extrabold">7</span>{" "}
+                    {t(`videos`)}
+                  </p>
+                </div>
+                <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+                  <Check className="mr-3" /> {t(`Images`)}:{" "}
+                  <p>
+                    <span className="font-italic mx-0.5 font-extrabold">
+                      120
+                    </span>{" "}
+                    {t(`AI-generated images`)}
+                  </p>
+                </div>
+                <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+                  <Check className="mr-3" /> {t(`Text Generation unlimited`)}
+                </div>
+                <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+                  <Check className="mr-3" /> {t(`AI Voice`)}:{" "}
+                  <p className="font-italic mx-0.5 font-extrabold">10</p>{" "}
+                  {t(`minutes`)}
+                </div>
+              </div>
+
+              <div className="mb-8 flex items-center text-white">
+                <p className="pt-2 text-[24px]">€</p>
+                <p className="text-[36px] font-bold">6.99</p>
+                <p className="ml-2 pt-2 font-light"></p>
+              </div>
+              <Button
+                variant={"ghost"}
+                className="mt-auto w-full bg-white hover:bg-white/80"
+                onClick={() => handleButtonClick()}
+              >
+                <p className="gdt">{t(`Add credits`)}</p>
+              </Button>
+            </div>
+          </div>
           <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
             <div className="">
               <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">

@@ -564,22 +564,9 @@ export const presetStyles: Value[] = [
     value: "ANIME",
   },
   {
-    name: "CREATIVE",
-    value: "CREATIVE",
-  },
-  {
-    name: "BOKEH",
-    value: "BOKEH",
-  },
-  {
     name: "CINEMATIC",
     value: "CINEMATIC",
   },
-  // {
-  //   name: "CINEMATIC_CLOSEUP",
-  //   value: "CINEMATIC_CLOSEUP",
-  // },
-
   {
     name: "ENVIRONMENT",
     value: "ENVIRONMENT",
@@ -589,24 +576,8 @@ export const presetStyles: Value[] = [
     value: "FASHION",
   },
   {
-    name: "FILM",
-    value: "FILM",
-  },
-  {
     name: "FOOD",
     value: "FOOD",
-  },
-  // {
-  //   name: "GENERAL",
-  //   value: "GENERAL",
-  // },
-  // {
-  //   name: "HDR",
-  //   value: "HDR",
-  // },
-  {
-    name: "ILLUSTRATION",
-    value: "ILLUSTRATION",
   },
   {
     name: "LONG_EXPOSURE",
@@ -616,14 +587,57 @@ export const presetStyles: Value[] = [
     name: "MACRO",
     value: "MACRO",
   },
+  {
+    name: "PHOTOGRAPHY",
+    value: "PHOTOGRAPHY",
+  },
+  {
+    name: "PORTRAIT",
+    value: "PORTRAIT",
+  },
+  // {
+  //   name: "ILLUSTRATION",
+  //   value: "ILLUSTRATION",
+  // },
+  // {
+  //   name: "RETRO",
+  //   value: "RETRO",
+  // },
+
+  // {
+  //   name: "MONOCHROME",
+  //   value: "MONOCHROME",
+  // },
+  // {
+  //   name: "CREATIVE",
+  //   value: "CREATIVE",
+  // },
+  // {
+  //   name: "BOKEH",
+  //   value: "BOKEH",
+  // },
+
+  // {
+  //   name: "CINEMATIC_CLOSEUP",
+  //   value: "CINEMATIC_CLOSEUP",
+  // },
+
+  // {
+  //   name: "FILM",
+  //   value: "FILM",
+  // },
+  // {
+  //   name: "GENERAL",
+  //   value: "GENERAL",
+  // },
+  // {
+  //   name: "HDR",
+  //   value: "HDR",
+  // },
   // {
   //   name: "MINIMALISTIC",
   //   value: "MINIMALISTIC",
   // },
-  {
-    name: "MONOCHROME",
-    value: "MONOCHROME",
-  },
   // {
   //   name: "MOODY",
   //   value: "MOODY",
@@ -636,14 +650,6 @@ export const presetStyles: Value[] = [
   //   name: "NEUTRAL",
   //   value: "NEUTRAL",
   // },
-  {
-    name: "PHOTOGRAPHY",
-    value: "PHOTOGRAPHY",
-  },
-  {
-    name: "PORTRAIT",
-    value: "PORTRAIT",
-  },
   // {
   //   name: "RAYTRACED",
   //   value: "RAYTRACED",
@@ -652,10 +658,6 @@ export const presetStyles: Value[] = [
   //   name: "RENDER_3D",
   //   value: "RENDER_3D",
   // },
-  {
-    name: "RETRO",
-    value: "RETRO",
-  },
   // {
   //   name: "SKETCH_BW",
   //   value: "SKETCH_BW",

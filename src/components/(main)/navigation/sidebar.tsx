@@ -34,7 +34,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { useIsSidebar } from "@/hooks/use-is-sidebar"
 import { useUser } from "@/hooks/use-user"
@@ -121,7 +121,12 @@ export function Sidebar() {
           isSidebar ? "lg:w-60" : "lg:w-14",
         )}
       >
-        <ScrollArea className="flex h-screen min-h-screen grow flex-col gap-y-6 p-2 pr-0 dark:bg-gray-950">
+        <ScrollArea
+          className={cn(
+            "flex h-screen min-h-screen grow flex-col gap-y-6 p-2 pl-3 pr-0 dark:bg-gray-950",
+            "[&>div>div]:!left-0 [&>div>div]:!right-auto",
+          )}
+        >
           <nav
             aria-label="core navigation links"
             className="flex flex-1 flex-col space-y-10"
@@ -294,6 +299,7 @@ export function Sidebar() {
               </CardFooter>
             </Card>
           </div>
+          <ScrollBar />
         </ScrollArea>
       </nav>
 

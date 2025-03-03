@@ -162,7 +162,7 @@ export const GenerationResult = ({
               key={index}
               className="group/card relative flex h-96 w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-gray-50 dark:bg-black/50"
             >
-              <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-gray-900 dark:border-gray-200"></div>
+              <div className="relative h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-sky-500 shadow-[0_0_15px_rgba(14,165,233,0.5)] dark:border-sky-400"></div>
             </div>
           ))}
         </div>

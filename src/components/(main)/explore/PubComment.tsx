@@ -2,45 +2,33 @@
 "use client"
 
 import {
-  Download,
-  Eraser,
-  Expand,
-  Fullscreen,
-  Loader,
-  SendHorizontal,
-  Trash,
-  X,
-  Zap,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import React, { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { toast } from "sonner"
-import useSWR from "swr"
+    Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, Trash, X, Zap
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import useSWR from 'swr';
 
-import { createComment, deletePublication } from "@/actions/publication.action"
-import { Input } from "@/components/tremor/inputs/input"
-import { Button } from "@/components/tremor/ui/button"
-import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import { createComment, deletePublication } from '@/actions/publication.action';
+import { Input } from '@/components/tremor/inputs/input';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/formatDate"
-import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
-import { models } from "@/lib/leonardo/presets"
-import { fetcher } from "@/lib/utils"
-import { CommentWithAuthor } from "@/types/publicationType"
-import { User } from "@prisma/client"
+    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import { formatDate } from '@/lib/formatDate';
+import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
+import { models } from '@/lib/leonardo/presets';
+import { fetcher } from '@/lib/utils';
+import { CommentWithAuthor } from '@/types/publicationType';
+import { User } from '@prisma/client';
 
-import CommentCard from "./CommentCard"
-import RelatedPublications from "./RelatedPublications"
+import CommentCard from './CommentCard';
+import RelatedPublications from './RelatedPublications';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -157,6 +145,7 @@ export default function PublicationDialog({
           <div className="flex w-full gap-4 max-lg:flex-col">
             <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4 max-lg:h-fit max-lg:max-w-full max-lg:p-0">
               <Image
+                loading="lazy"
                 src={publication.image}
                 alt={publication.description.prompt}
                 className="h-full w-full overflow-hidden rounded-lg object-contain"
@@ -333,6 +322,7 @@ function PublicationActions({
           {model?.generated_image?.url && (
             <Image
               src={model.generated_image.url}
+              loading="lazy"
               width={16}
               height={16}
               alt={model.name}

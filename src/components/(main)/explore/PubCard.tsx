@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState } from 'react';
 
-import { LikePublication } from "@/components/(main)/explore/LikePublication"
-import Bounce from "@/components/animated/uibeats/bounce"
-import ImageSmooth from "@/components/ImageSmooth"
+import { LikePublication } from '@/components/(main)/explore/LikePublication';
+import Bounce from '@/components/animated/uibeats/bounce';
+import ImageSmooth from '@/components/ImageSmooth';
 
-import PubComment from "./PubComment"
+import PubComment from './PubComment';
 
 interface PubCardProps {
   imageUrl: string
@@ -62,6 +62,7 @@ export default function PubCard(props: PubCardProps) {
           height={700}
           className="w-full transform bg-accent object-contain transition-transform duration-500 hover:scale-105 hover:cursor-pointer"
           src={props.imageUrl}
+          loading="lazy"
           alt={`Random stock image ${props.index + 1}`}
         />
       </PubComment>

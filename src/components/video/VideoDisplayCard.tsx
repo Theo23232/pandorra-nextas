@@ -193,7 +193,7 @@ export const VideoDisplayCard = ({
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="w-full">
         <Bounce
           className="relative w-full cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
           onMouseEnter={() => setIsHovered(true)}

@@ -1,12 +1,12 @@
 "use client"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
+import Bounce from '@/components/animated/uibeats/bounce';
 
 export const DescribeSection = () => {
   const { t } = useTranslation()
   return (
-    <Bounce className="mb-8 mt-64 flex flex-col items-center justify-center gap-4 lg:mt-[600px]">
+    <Bounce className="relative mb-8 mt-64 flex flex-col items-center justify-center gap-4 lg:mt-[600px]">
       <div className="flex w-full flex-col items-center justify-center gap-8">
         <p className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-white max-md:text-[50px]">
           {t(`How it`)}

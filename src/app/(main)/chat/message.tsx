@@ -138,12 +138,11 @@ export const Message: React.FC<MessageProps> = ({
 
   return (
     <Bounce className="rounded-lg bg-background p-4 text-foreground">
-      {isStreaming ||
-        (isLoading && (
+      {isStreaming  && (
           <div className="mb-2 animate-pulse text-sm text-muted-foreground">
             {t(`Pandorra is thinking...`)}
           </div>
-        ))}
+        )}
       <div className={`${isStreaming ? "animate-fade-in" : ""}`}>
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
           {content}

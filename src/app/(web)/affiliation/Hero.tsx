@@ -1,23 +1,25 @@
 "use client"
-import { Clipboard } from "lucide-react"
-import Image from "next/image"
-import { useTranslation } from "react-i18next"
+import { Clipboard } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/ui/button"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/ui/button';
 
 /* eslint-disable @next/next/no-img-element */
 export const Hero = () => {
   const { t } = useTranslation()
   return (
     <div className="flex flex-col items-center">
-      <Image
-        src={"/img/affiliate.png"}
-        width={1200}
-        height={1200}
-        className="absolute h-auto w-screen"
-        alt=""
-      />
+      <div className="absolute h-fit max-h-screen w-full">
+        <Image
+          src={"/img/affiliate.jpg"}
+          width={1200}
+          height={1200}
+          className="absolute z-0 hidden h-auto max-h-screen w-screen lg:block"
+          alt=""
+        />
+      </div>
       <div className="mt-32 lg:relative">
         <svg
           width="744"

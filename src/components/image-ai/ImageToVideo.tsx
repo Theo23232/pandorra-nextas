@@ -1,30 +1,34 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader, Loader2, Sparkles } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+import { Loader, Loader2, Sparkles } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { verifyCredit } from '@/actions/credits.actions';
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import PromptGuide from '@/app/(main)/video/prompt-guide';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import ImageSmooth from '@/components/ImageSmooth';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
+import { verifyCredit } from "@/actions/credits.actions"
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import PromptGuide from "@/app/(main)/video/prompt-guide"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import ImageSmooth from "@/components/ImageSmooth"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
-import { Plan, Video } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
+import { Plan, Video } from "@prisma/client"
 
 import type React from "react"
 const SkeletonLoader = () => (
@@ -222,13 +226,16 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
             </Tooltip>
             <Button
               id="tour8-step5"
-              className="px-6 py-2 text-white transition-all max-lg:w-full"
+              className="gap-0 px-6 py-2 text-white transition-all max-lg:w-full"
               onClick={handleSubmit}
               disabled={loading}
             >
               {isLoading && <Loader className="animate-spin" />}
               {t(`Generate Video`)}
-              <p className=""> ({duration == "5" ? "40" : "80"} credits)</p>
+              <span className="ml-1 flex items-center justify-center">
+                {duration == "5" ? "40" : "80"}
+                <img src="/coin.png" className="ml-0.5 h-5 w-auto" />
+              </span>
             </Button>
           </div>
         </Bounce>

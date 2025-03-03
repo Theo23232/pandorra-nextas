@@ -1,11 +1,12 @@
 "use client"
 
-import { AlertCircle, Download, Loader, Send } from 'lucide-react';
+import { AlertCircle, Download, Loader, Send, Trash } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
 
 import { createPublicationVideo } from '@/actions/pubVideo.actions';
+import { deleteVideoGenerated } from '@/actions/runway.actions';
 import Bounce from '@/components/animated/uibeats/bounce';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -35,6 +36,7 @@ export const VideoDisplayCard = ({
   const { t } = useTranslation()
   const [isHovered, setIsHovered] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { toast } = useToast()
 
@@ -130,6 +132,24 @@ export const VideoDisplayCard = ({
     }
   }
 
+  const handleDelete = async () => {
+    setIsDeleting(true)
+    try {
+      await deleteVideoGenerated(id)
+      mutate("/api/video")
+      toast({
+        title: t(`Success`),
+        description: t(`Your video has been deleted`),
+        variant: "success",
+        duration: 3000,
+      })
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la vidéo :", error)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
   if (status === "Pending") {
     return (
       <Bounce
@@ -185,6 +205,24 @@ export const VideoDisplayCard = ({
             }`}
           >
             <div className="absolute right-3 top-2 z-40 flex gap-3">
+              <Tooltip content={t(`Delete`)}>
+                <Button
+                  size={"icon"}
+                  variant="magicDestructive"
+                  className="z-40 size-10 rounded-full p-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDelete()
+                  }}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? (
+                    <Loader className="animate-spin" size={20} />
+                  ) : (
+                    <Trash />
+                  )}
+                </Button>
+              </Tooltip>
               <Tooltip content={t(`Download`)}>
                 <Button
                   size={"icon"}

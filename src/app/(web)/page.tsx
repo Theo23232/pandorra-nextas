@@ -80,6 +80,7 @@ export default function RoutePage() {
   if (!videoEnded) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center bg-[#010101] text-white">
+        {/* Loader visible tant que la vidéo n'est pas chargée */}
         {!videoLoaded && (
           <div className="fixed inset-0 flex items-center justify-center">
             <div className="loader">
@@ -92,9 +93,9 @@ export default function RoutePage() {
                     x1="0%"
                     id="gradient1"
                   >
-                    <stop stop-color="#4f8ef7" offset="0%"></stop>
-                    <stop stop-color="#a663cc" offset="50%"></stop>
-                    <stop stop-color="#f74f6f" offset="100%"></stop>
+                    <stop stopColor="#4f8ef7" offset="0%"></stop>
+                    <stop stopColor="#a663cc" offset="50%"></stop>
+                    <stop stopColor="#f74f6f" offset="100%"></stop>
                   </linearGradient>
                   <linearGradient
                     y2="0%"
@@ -103,9 +104,9 @@ export default function RoutePage() {
                     x1="0%"
                     id="gradient2"
                   >
-                    <stop stop-color="#f7b34f" offset="0%"></stop>
-                    <stop stop-color="#5ef7a5" offset="50%"></stop>
-                    <stop stop-color="#4f8ef7" offset="100%"></stop>
+                    <stop stopColor="#f7b34f" offset="0%"></stop>
+                    <stop stopColor="#5ef7a5" offset="50%"></stop>
+                    <stop stopColor="#4f8ef7" offset="100%"></stop>
                   </linearGradient>
                 </defs>
                 <circle
@@ -126,20 +127,20 @@ export default function RoutePage() {
             </div>
           </div>
         )}
-        <div
-          className={`h-full w-full transition-opacity duration-1000 ${fadeOut ? "opacity-0" : "opacity-100"}`}
-        >
-          <video
-            ref={videoRef}
-            className="h-full w-full object-cover"
-            src="https://blob.teratany.org/videos/anim_logo.mp4"
-            playsInline
-            autoPlay
-            muted
-            onLoadedData={() => setVideoLoaded(true)}
-            onEnded={() => setVideoEnded(true)}
-          />
-        </div>
+
+        {/* Vidéo présente dans le DOM mais invisible tant que non chargée */}
+        <video
+          ref={videoRef}
+          className={`h-full w-full object-cover transition-opacity duration-500 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          src="https://blob.teratany.org/videos/anim_logo.mp4"
+          playsInline
+          autoPlay
+          muted
+          onLoadedData={() => setVideoLoaded(true)}
+          onEnded={() => setVideoEnded(true)}
+        />
       </div>
     )
   }

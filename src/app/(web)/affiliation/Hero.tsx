@@ -15,13 +15,13 @@ export const Hero = () => {
         <img src="/img/affiliate.png" alt="" className="mt-20 max-w-2xl" />
 
         <Bounce className="flex flex-col items-center justify-center gap-[32px]">
-          <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-md:text-[50px]">
+          <p className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-lg:max-w-[calc(100vw-4rem)] max-lg:text-[60px] max-lg:leading-[60px]">
             {t(`Earn with Pandorra.ai`)} <br />
             <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`Join Our Affiliate Program!`)}
             </span>
           </p>
-          <p className="w-full max-w-3xl text-center text-[16px] font-normal leading-normal text-[#FDFDFD] max-lg:p-4">
+          <p className="w-full max-w-3xl text-center text-[16px] font-medium leading-normal text-neutral-400 max-lg:max-w-[calc(100vw-4rem)]">
             {t(`Share Pandorra.ai with your audience and earn`)}
             <span className="mx-2 bg-gradient-to-r from-[#0099FF] to-[#CC00FF] bg-clip-text text-transparent">
               {t(`30% commission on every subscription`)}

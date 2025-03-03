@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 export async function GET() {
   try {
@@ -13,9 +13,15 @@ export async function GET() {
         { status: 403 },
       )
 
+    const twentyFourHoursAgo = new Date()
+    twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24)
+
     const audios = await prisma.tTS.findMany({
       where: {
         userId: user.id,
+        createdAt: {
+          gte: twentyFourHoursAgo, // Filtrer les enregistrements de moins de 24h
+        },
       },
       orderBy: {
         createdAt: "desc",

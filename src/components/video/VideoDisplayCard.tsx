@@ -1,16 +1,16 @@
 "use client"
 
-import { AlertCircle, Download, Loader, Send } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { AlertCircle, Download, Loader, Send } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { createPublicationVideo } from "@/actions/pubVideo.actions"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useToast } from "@/hooks/use-toast"
+import { createPublicationVideo } from '@/actions/pubVideo.actions';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 
 interface VideoDisplayCardProps {
   id: string
@@ -127,7 +127,7 @@ export const VideoDisplayCard = ({
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex h-96 flex-col items-center justify-center gap-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-gray-900 dark:border-gray-200"></div>
+          <div className="relative h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-sky-500 shadow-[0_0_15px_rgba(14,165,233,0.5)] dark:border-sky-400"></div>
           <p> {t(`Generation in progress`)}</p>
         </div>
         <div

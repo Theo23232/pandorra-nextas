@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader, Loader2, Sparkles, Upload, X } from 'lucide-react';
+import { Loader, Loader2, Sparkles } from 'lucide-react';
 import { useOnborda } from 'onborda';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Masonry from 'react-masonry-css';
 import useSWR, { mutate } from 'swr';
 
 import { verifyCredit } from '@/actions/credits.actions';
@@ -14,16 +13,14 @@ import { generateVideoFromImage } from '@/actions/runway.actions';
 import PromptGuide from '@/app/(main)/video/prompt-guide';
 import { MagicCard } from '@/components/animated/magic-ui/magic-card';
 import Bounce from '@/components/animated/uibeats/bounce';
-import { NothingYet } from '@/components/NothingYet';
+import ImageSmooth from '@/components/ImageSmooth';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
-import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@/hooks/use-user';
 import { fetcher } from '@/lib/utils';
@@ -36,7 +33,7 @@ const SkeletonLoader = () => (
   </div>
 )
 
-export default function VideoGenerator() {
+export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
   const { t } = useTranslation()
   const { data: histories } = useSWR<Video[]>("/api/video", fetcher)
   const [image, setImage] = useState<File | null>(null)
@@ -104,13 +101,7 @@ export default function VideoGenerator() {
       return
     }
 
-    const base64Image = image
-      ? await new Promise<string>((resolve) => {
-          const reader = new FileReader()
-          reader.readAsDataURL(image)
-          reader.onload = () => resolve(reader.result as string)
-        })
-      : "https://test.pandorra.ai/assets/fond.png"
+    const base64Image = imageUrl
 
     try {
       const videoDuration = duration === "5" ? 5 : 10
@@ -123,7 +114,9 @@ export default function VideoGenerator() {
         videoRatio,
       )
       mutate("/api/video")
+      window.location.href = "/video"
     } catch (error) {
+      console.log("error ==> ", error)
       toast({
         title: t(`Error`),
         description: t(`Failed to generate video`),
@@ -149,12 +142,6 @@ export default function VideoGenerator() {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
   }, [promptText])
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      handleImageChange(e.target.files[0])
-    }
-  }
 
   useEffect(() => {
     if (user) {
@@ -186,7 +173,7 @@ export default function VideoGenerator() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col p-4">
       <MagicCard className="overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-50 p-4 shadow-lg">
         <Textarea
           ref={textareaRef}
@@ -216,25 +203,6 @@ export default function VideoGenerator() {
                 <SelectItem value="768:1280">{t(`Portrait`)}</SelectItem>
               </SelectContent>
             </Select>
-            <div className="" id="tour8-step4">
-              <Label
-                htmlFor="image-upload"
-                className="flex cursor-pointer items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground shadow-sm transition-colors hover:bg-accent/50"
-              >
-                <Upload className="h-5 w-5" />
-                <span className="max-lg:hidden">
-                  {previewUrl ? t(`Change image`) : t(`Upload image`)}
-                </span>
-              </Label>
-              <input
-                id="image-upload"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleImageUpload}
-                ref={fileInputRef}
-              />
-            </div>
           </div>
           <div className="flex items-center justify-end gap-1 p-4 max-lg:w-full max-lg:justify-between max-lg:p-0 max-lg:pr-4">
             <PromptGuide />
@@ -254,69 +222,27 @@ export default function VideoGenerator() {
             </Tooltip>
             <Button
               id="tour8-step5"
-              className="gap-1 px-6 py-2 text-white transition-all max-lg:w-full"
+              className="px-6 py-2 text-white transition-all max-lg:w-full"
               onClick={handleSubmit}
               disabled={loading}
             >
               {isLoading && <Loader className="animate-spin" />}
               {t(`Generate Video`)}
-              <span className="flex items-center justify-center">
-                {duration == "5" ? "40" : "80"}
-                <img src="/coin.png" className="ml-0.5 h-5 w-auto" />
-              </span>
+              <p className=""> ({duration == "5" ? "40" : "80"} credits)</p>
             </Button>
           </div>
         </Bounce>
-        {previewUrl && (
-          <Bounce className="relative mt-6">
-            <img
-              src={previewUrl || "/placeholder.svg"}
-              alt="Uploaded image preview"
-              className="max-h-64 w-full rounded-lg object-contain shadow-md"
-            />
-            <button
-              onClick={handleRemoveImage}
-              className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white shadow-md transition-colors hover:bg-red-600"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </Bounce>
-        )}
       </MagicCard>
-
-      {histories && histories.length > 0 ? (
-        <Masonry
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-          breakpointCols={{
-            default: 5,
-            1440: 2,
-            1200: 2,
-            700: 1,
-          }}
-        >
-          {histories.map((video) => (
-            <VideoDisplayCard
-              key={video.id}
-              id={video.id}
-              status={video.status}
-              url={video.url}
-              failedMessage={video.failedMessage!}
-              videoPrompt={video.prompt}
-              videoDuration={video.duration}
-              videoRatio={video.ratio}
-            />
-          ))}
-        </Masonry>
-      ) : (
-        <div className="" id="tour8-step6">
-          <NothingYet
-            subtitle="Your video generation will be displayed here"
-            title="There is no video yet"
-          />
-        </div>
-      )}
-      {isLoading && <GenerationSkeleton />}
+      <Bounce className="relative mt-6 rounded-lg bg-muted p-4">
+        <ImageSmooth
+          loading="lazy"
+          alt=""
+          className="max-h-[50vh] w-auto overflow-hidden rounded-lg object-contain shadow"
+          src={imageUrl}
+          width="600"
+          height="800"
+        />
+      </Bounce>
     </div>
   )
 }

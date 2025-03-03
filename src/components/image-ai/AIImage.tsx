@@ -1,14 +1,18 @@
 "use client"
 
+import Autoplay from 'embla-carousel-autoplay';
 import { Download, Loader, Send } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { createPublication } from '@/actions/publication.action';
 import ImageSmooth from '@/components/ImageSmooth';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Button } from '@/components/ui/button';
+import {
+    Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
+} from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useSelectImage } from '@/hooks/use-select-image';
 import { useToast } from '@/hooks/use-toast';
@@ -22,6 +26,8 @@ interface AllImageProps {
   preset: string
   image: GeneratedImage
   generationId?: string
+  index: number
+  imageList: string[]
 }
 
 export const AIImage = ({
@@ -30,7 +36,10 @@ export const AIImage = ({
   preset,
   image,
   generationId,
+  imageList,
+  index,
 }: AllImageProps) => {
+  const plugin = useRef(Autoplay({ delay: 9000, stopOnInteraction: true }))
   const { t } = useTranslation()
   const { toast } = useToast()
   const [isOpen, setIsOpen] = useState(false)
@@ -153,30 +162,41 @@ export const AIImage = ({
                 <Send />
               </Button>
             </Tooltip>
-            {/* <Tooltip content={t(`Edit`)}>
-              <Button
-                size={"icon"}
-                className="size-10 rounded-full p-2"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleEdit(image.url)
-                }}
-              >
-                <Edit />
-              </Button>
-            </Tooltip> */}
           </div>
         </DirectionAwareHover>
       </div>
-      <DialogContent className="flex max-h-[80vh] max-w-2xl justify-center overflow-hidden border-none bg-transparent p-0 shadow-none">
+      <DialogContent className="flex max-h-[80vh] max-w-2xl justify-center border-none bg-transparent p-0 shadow-none">
         <DialogTitle className="hidden">Image</DialogTitle>
-        <ImageSmooth
-          src={image.url}
-          className="max-h-[80vh] w-auto rounded-lg object-contain shadow"
-          alt=""
-          width="600"
-          height="800"
-        />
+
+        <Carousel
+          plugins={[plugin.current]}
+          className="w-full"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+          opts={{
+            startIndex: index,
+            align: "start",
+            loop: true,
+          }}
+        >
+          <CarouselContent className="flex items-center">
+            {imageList.map((image, index) => (
+              <CarouselItem key={index}>
+                <ImageSmooth
+                  key={image}
+                  loading="lazy"
+                  alt=""
+                  className="max-h-[80vh] w-auto overflow-hidden rounded-lg object-contain shadow"
+                  src={image}
+                  width="600"
+                  height="800"
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="h-12 w-12 text-lg" />
+          <CarouselNext className="h-12 w-12 text-lg" />
+        </Carousel>
       </DialogContent>
     </Dialog>
   )

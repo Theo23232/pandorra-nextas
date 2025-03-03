@@ -1,20 +1,20 @@
 "use client"
 
-import { Check, Copy, CornerLeftUp, Menu, Move, Zap } from "lucide-react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Check, Copy, CornerLeftUp, Menu, Move, Zap } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { CardContent } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { models } from "@/lib/leonardo/presets"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { models } from '@/lib/leonardo/presets';
 
-import { AIImage } from "./AIImage"
-import { GenerationOption } from "./GenerationOption"
+import { AIImage } from './AIImage';
+import { GenerationOption } from './GenerationOption';
 
 import type { GenerationWithImages } from "@/types/pandorra"
 
@@ -174,7 +174,7 @@ export const GenerationResult = ({
             ? Array.from({ length: count }, (_, index) => (
                 <Skeleton key={index} className="h-96 w-full" />
               ))
-            : generated?.generated_images.map((g) => (
+            : generated?.generated_images.map((g, index) => (
                 <AIImage
                   key={g.id}
                   image={{
@@ -183,10 +183,14 @@ export const GenerationResult = ({
                     createdAt: new Date(),
                     updatedAt: new Date(),
                   }}
+                  index={index}
                   generationId={generated.id}
                   prompt={generated.prompt ?? ""}
                   model={model?.name ?? ""}
                   preset={generated.presetStyle ?? ""}
+                  imageList={generated.generated_images.map(
+                    (image) => image.url,
+                  )}
                 />
               ))}
         </div>

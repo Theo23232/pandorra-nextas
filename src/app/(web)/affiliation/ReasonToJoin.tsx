@@ -102,7 +102,7 @@ export default function ReasonToJoin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="font-light">
+              <p className="">
                 <span className="font-semibold">{t(`High Earnings`)} - </span>{" "}
                 {t(`30% commission on every subscription.`)}
               </p>

@@ -35,6 +35,7 @@ import { Separator } from "@/components/ui/separator"
 import { formatDate } from "@/lib/formatDate"
 import { fetcher } from "@/lib/utils"
 import { CommentVideoWithAuthor } from "@/types/publicationType"
+import { User } from "@prisma/client"
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -57,6 +58,7 @@ export default function PubVideoComment({
 }: PublicationDialogProps) {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
+  const { data: user } = useSWR<User>("/api/auth/user", fetcher)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   const { data: comments, mutate } = useSWR<CommentVideoWithAuthor[]>(
@@ -150,21 +152,23 @@ export default function PubVideoComment({
               />
             </div>
           </div>
-          <Button
-            variant="outline"
-            className="absolute right-14 top-2 size-9 p-0"
-            onClick={handleDeletePublicationVideo}
-          >
-            {deleteLoading ? (
-              <Loader className="animate-spin" size={20} color="red" />
-            ) : (
-              <Trash
-                size={24}
-                color="red"
-                className="h-4 w-4 text-accent-foreground"
-              />
-            )}
-          </Button>
+          {user && user.id === publication.ownerId && (
+            <Button
+              variant="outline"
+              className="absolute right-14 top-2 size-9 p-0"
+              onClick={handleDeletePublicationVideo}
+            >
+              {deleteLoading ? (
+                <Loader className="animate-spin" size={20} color="red" />
+              ) : (
+                <Trash
+                  size={24}
+                  color="red"
+                  className="h-4 w-4 text-accent-foreground"
+                />
+              )}
+            </Button>
+          )}
           <DialogClose asChild>
             <Button
               variant="outline"

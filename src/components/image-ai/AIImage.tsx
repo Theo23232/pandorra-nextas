@@ -1,11 +1,12 @@
 "use client"
 
 import Autoplay from 'embla-carousel-autoplay';
-import { Download, Film, Loader, Send } from 'lucide-react';
+import { Download, Film, Loader, Send, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { deleteImage } from '@/actions/generation.action';
 import { createPublication } from '@/actions/publication.action';
 import { ImageToVideo } from '@/components/image-ai/ImageToVideo';
 import ImageSmooth from '@/components/ImageSmooth';
@@ -46,6 +47,7 @@ export const AIImage = ({
   const { toast } = useToast()
   const [isOpen, setIsOpen] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
   const { selectImage } = useSelectImage()
 
@@ -113,6 +115,16 @@ export const AIImage = ({
       setIsDownloading(false)
     }
   }
+  const handleDelete = async (url: string) => {
+    setIsDeleting(true)
+    try {
+      await deleteImage(url)
+    } catch (error) {
+      console.error("Erreur lors du téléchargement de l'image :", error)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
 
   const handleEdit = (url: string) => {
     selectImage(url)
@@ -165,6 +177,7 @@ export const AIImage = ({
                   <Send />
                 </Button>
               </Tooltip>
+
               <Tooltip content={t(`Image to video`)}>
                 <Button
                   size={"icon"}
@@ -175,6 +188,23 @@ export const AIImage = ({
                   }}
                 >
                   <Film />
+                </Button>
+              </Tooltip>
+              <Tooltip content={t(`Delete`)}>
+                <Button
+                  size={"icon"}
+                  variant={"magicDestructive"}
+                  className="size-10 rounded-full p-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDelete(image.url)
+                  }}
+                >
+                  {isDeleting ? (
+                    <Loader className="animate-spin" size={20} />
+                  ) : (
+                    <Trash />
+                  )}
                 </Button>
               </Tooltip>
             </div>

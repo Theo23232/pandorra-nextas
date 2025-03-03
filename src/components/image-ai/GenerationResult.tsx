@@ -156,7 +156,7 @@ export const GenerationResult = ({
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="grid w-full grid-cols-1 gap-4 pt-8 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="grid w-full grid-cols-1 gap-4 pt-8 xl:grid-cols-2 2xl:grid-cols-4">
           {Array.from({ length: count }).map((_, index) => (
             <div
               key={index}
@@ -169,7 +169,7 @@ export const GenerationResult = ({
       )
     } else {
       return (
-        <div className="grid w-full grid-cols-1 gap-4 pt-8 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="grid w-full grid-cols-1 gap-4 pt-8 xl:grid-cols-2 2xl:grid-cols-4">
           {isLoading
             ? Array.from({ length: count }, (_, index) => (
                 <Skeleton key={index} className="h-96 w-full" />

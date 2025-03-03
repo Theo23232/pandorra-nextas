@@ -148,7 +148,7 @@ export const videoVerifyTask = SA(
 
 export const deletePublicationVideo = SA(
   async (user, pubVideoId: string): Promise<null> => {
-    await prisma.video.delete({
+    await prisma.publicationVideo.delete({
       where: {
         id: pubVideoId,
       },

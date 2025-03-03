@@ -17,7 +17,7 @@ import Link from "next/link"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
-import useSWR, { mutate as mutateOnDelete } from "swr"
+import useSWR from "swr"
 
 import { createComment, deletePublication } from "@/actions/publication.action"
 import { Input } from "@/components/tremor/inputs/input"
@@ -135,8 +135,9 @@ export default function PublicationDialog({
   const handleDeletePublication = async () => {
     setDeleteLoading(true)
     await deletePublication(publication.id)
-    mutateOnDelete(`/api/publication/all?model=all&page=1`)
+    // mutateOnDelete("/api/publication/all?model=all&page=1")
     setDeleteLoading(false)
+    window.location.reload()
     setIsOpen(false)
   }
 

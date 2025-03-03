@@ -166,7 +166,10 @@ export default function PubVideoComment({
             )}
           </Button>
           <DialogClose asChild>
-            <Button variant="outline" className="absolute right-2 top-2 p-0">
+            <Button
+              variant="outline"
+              className="absolute right-2 top-2 size-9 p-0"
+            >
               <X className="h-4 w-4 text-black dark:text-white" />
             </Button>
           </DialogClose>

@@ -44,7 +44,7 @@ export function Conversation({ selectedAgent }: ConversationProps) {
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true })
       const agent =
-        selectedAgent.id !== ""
+        selectedAgent && selectedAgent.id !== ""
           ? await createAgent({
               language: selectedAgent.lang,
               voiceId: selectedAgent.voiceId,

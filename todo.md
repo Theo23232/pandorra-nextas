@@ -6,7 +6,7 @@ OK - mettre a jour prix credit 500 6,99euros 1000 3000 8000
 OK - supprimer publication
 OK - ampina bleu loading generation
 OK - barre de scroll atao kelikely sidebar
+OK - soloina ny video farany ambany landing
+OK - tooltip amin'ny presetstyles
 
-- soloina ny video farany ambany landing
-- tooltip amin'ny presetstyles
 - descri presetstyle tooltip

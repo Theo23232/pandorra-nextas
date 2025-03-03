@@ -1,27 +1,21 @@
 "use client"
 
-import axios from "axios"
-import {
-  PanelLeftClose,
-  PanelLeftOpen,
-  Plus,
-  Send,
-  StopCircle,
-} from "lucide-react"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR, { mutate } from "swr"
+import axios from 'axios';
+import { PanelLeftClose, PanelLeftOpen, Plus, Send, StopCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/tremor/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Textarea } from "@/components/ui/textarea"
-import { useUser } from "@/hooks/use-user"
-import { cn, fetcher } from "@/lib/utils"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/tremor/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Textarea } from '@/components/ui/textarea';
+import { useUser } from '@/hooks/use-user';
+import { cn, fetcher } from '@/lib/utils';
 
-import { Message } from "./message"
+import { Message } from './message';
 
 export default function Page() {
   const [conversationId, setConversationId] = useState("")
@@ -280,7 +274,7 @@ export default function Page() {
                       message === messages[messages.length - 1]
                     }
                     isLoading={
-                      isLoading &&
+                      isStreaming &&
                       message.role === "assistant" &&
                       message === messages[messages.length - 1]
                     }

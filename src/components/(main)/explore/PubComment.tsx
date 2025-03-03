@@ -37,6 +37,7 @@ import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
 import { models } from "@/lib/leonardo/presets"
 import { fetcher } from "@/lib/utils"
 import { CommentWithAuthor } from "@/types/publicationType"
+import { User } from "@prisma/client"
 
 import CommentCard from "./CommentCard"
 import RelatedPublications from "./RelatedPublications"
@@ -68,6 +69,7 @@ export default function PublicationDialog({
     isOpen ? `/api/publication/comment?publicationId=${publication.id}` : null, // Conditional fetch
     fetcher,
   )
+  const { data: user } = useSWR<User>("/api/user/current", fetcher)
 
   const [comment, setComment] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -140,6 +142,9 @@ export default function PublicationDialog({
     window.location.reload()
     setIsOpen(false)
   }
+  if (user) {
+    console.log("userId", user?.id, "ownerId", publication.ownerId)
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -188,21 +193,23 @@ export default function PublicationDialog({
               />
             </div>
           </div>
-          <Button
-            variant="outline"
-            className="absolute right-14 top-2 size-9 p-0"
-            onClick={handleDeletePublication}
-          >
-            {deleteLoading ? (
-              <Loader className="animate-spin" size={20} color="red" />
-            ) : (
-              <Trash
-                size={24}
-                color="red"
-                className="h-4 w-4 text-accent-foreground"
-              />
-            )}
-          </Button>
+          {user && user.id === publication.ownerId && (
+            <Button
+              variant="outline"
+              className="absolute right-14 top-2 size-9 p-0"
+              onClick={handleDeletePublication}
+            >
+              {deleteLoading ? (
+                <Loader className="animate-spin" size={20} color="red" />
+              ) : (
+                <Trash
+                  size={24}
+                  color="red"
+                  className="h-4 w-4 text-accent-foreground"
+                />
+              )}
+            </Button>
+          )}
 
           <DialogClose asChild>
             <Button

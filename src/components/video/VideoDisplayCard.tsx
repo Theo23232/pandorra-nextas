@@ -153,7 +153,7 @@ export const VideoDisplayCard = ({
   if (status === "Pending") {
     return (
       <Bounce
-        className="relative h-96 w-full cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
+        className="relative h-[500px] w-full cursor-pointer overflow-hidden rounded-lg border border-border bg-accent shadow-sm"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

@@ -38,7 +38,10 @@ const SkeletonLoader = () => (
 
 export default function VideoGenerator() {
   const { t } = useTranslation()
-  const { data: histories } = useSWR<Video[]>("/api/video", fetcher)
+  const { data: histories, isLoading: historyLoading } = useSWR<Video[]>(
+    "/api/video",
+    fetcher,
+  )
   const [image, setImage] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
   const [promptText, setPromptText] = useState("")
@@ -309,12 +312,17 @@ export default function VideoGenerator() {
           ))}
         </Masonry>
       ) : (
+        <></>
+      )}
+      {!historyLoading && !histories ? (
         <div className="" id="tour8-step6">
           <NothingYet
             subtitle="Your video generation will be displayed here"
             title="There is no video yet"
           />
         </div>
+      ) : (
+        <></>
       )}
       {isLoading && <GenerationSkeleton />}
     </div>

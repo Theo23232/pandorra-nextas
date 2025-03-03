@@ -1,10 +1,10 @@
 "use client"
 
-import { AnimatePresence, motion } from "framer-motion"
-import Image from "next/image"
-import { ReactNode, useRef, useState } from "react"
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { ReactNode, useRef, useState } from 'react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 export const DirectionAwareHover = ({
   imageUrl,
@@ -93,6 +93,7 @@ export const DirectionAwareHover = ({
               )}
               width="600"
               height="800"
+              loading="lazy"
               src={imageUrl}
             />
           </motion.div>

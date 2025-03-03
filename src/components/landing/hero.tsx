@@ -1,7 +1,6 @@
 "use client"
 
 import { ArrowDownIcon, Sparkles } from 'lucide-react';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +29,7 @@ export function Hero() {
   }
   return (
     <div className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden max-sm:mt-16">
-      <Bounce className="z-10 flex min-h-64 flex-col items-center justify-center">
+      <Bounce className="z-10 mt-36 flex min-h-64 flex-col items-center justify-center">
         <div
           className={cn(
             "group w-fit rounded-full border border-white/5 bg-neutral-900/70 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-800/90",
@@ -80,12 +79,17 @@ export function Hero() {
               <Sparkles fill="white" /> {t(`Create for free`)}
             </Button>
           </div>{" "}
-          <Link
-            href={"/#down"}
-            className="mt-16 flex flex-col items-center justify-center gap-4"
+          <div
+            className="mt-16 flex cursor-pointer flex-col items-center justify-center gap-4"
+            onClick={() =>
+              window.scrollBy({
+                top: window.innerHeight * 0.8,
+                behavior: "smooth",
+              })
+            }
           >
             <ArrowDownIcon className="animated-scroll-indicator text-white" />
-          </Link>
+          </div>
         </div>
       </Bounce>
       <video

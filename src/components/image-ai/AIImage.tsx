@@ -1,12 +1,14 @@
 "use client"
 
 import Autoplay from 'embla-carousel-autoplay';
-import { Download, Loader, Send } from 'lucide-react';
+import { Download, Film, Loader, Send, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { deleteImage } from '@/actions/generation.action';
 import { createPublication } from '@/actions/publication.action';
+import { ImageToVideo } from '@/components/image-ai/ImageToVideo';
 import ImageSmooth from '@/components/ImageSmooth';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Button } from '@/components/ui/button';
@@ -39,11 +41,13 @@ export const AIImage = ({
   imageList,
   index,
 }: AllImageProps) => {
+  const [isImageToVideoOpen, setIsImageToVideoOpen] = useState(false)
   const plugin = useRef(Autoplay({ delay: 9000, stopOnInteraction: true }))
   const { t } = useTranslation()
   const { toast } = useToast()
   const [isOpen, setIsOpen] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
   const { selectImage } = useSelectImage()
 
@@ -111,93 +115,141 @@ export const AIImage = ({
       setIsDownloading(false)
     }
   }
+  const handleDelete = async (url: string) => {
+    setIsDeleting(true)
+    try {
+      await deleteImage(url)
+    } catch (error) {
+      console.error("Erreur lors du téléchargement de l'image :", error)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
 
   const handleEdit = (url: string) => {
     selectImage(url)
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <div
-        onClick={() => setIsOpen(true)}
-        className="h-96 w-full"
-        id="tour6-step8"
-      >
-        <DirectionAwareHover imageUrl={image.url}>
-          <div className="flex h-full w-full items-center justify-center gap-4">
-            <DialogTrigger asChild>
-              <Tooltip content={t(`Download`)}>
+    <>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <div
+          onClick={() => setIsOpen(true)}
+          className="h-96 w-full"
+          id="tour6-step8"
+        >
+          <DirectionAwareHover imageUrl={image.url}>
+            <div className="flex h-full w-full items-center justify-center gap-4">
+              <DialogTrigger asChild>
+                <Tooltip content={t(`Download`)}>
+                  <Button
+                    size={"icon"}
+                    className="size-10 rounded-full p-2"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleDownload()
+                    }}
+                    disabled={isDownloading}
+                  >
+                    {isDownloading ? (
+                      <Loader className="animate-spin" size={20} />
+                    ) : (
+                      <Download />
+                    )}
+                  </Button>
+                </Tooltip>
+              </DialogTrigger>
+              <Tooltip content={t(`Post this image`)}>
                 <Button
                   size={"icon"}
                   className="size-10 rounded-full p-2"
                   onClick={(e) => {
                     e.stopPropagation()
-                    handleDownload()
+                    handlePublication(
+                      image.url,
+                      prompt,
+                      model,
+                      preset,
+                      "textToImage",
+                    )
                   }}
-                  disabled={isDownloading}
                 >
-                  {isDownloading ? (
+                  <Send />
+                </Button>
+              </Tooltip>
+
+              <Tooltip content={t(`Image to video`)}>
+                <Button
+                  size={"icon"}
+                  className="size-10 rounded-full p-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setIsImageToVideoOpen(true)
+                  }}
+                >
+                  <Film />
+                </Button>
+              </Tooltip>
+              <Tooltip content={t(`Delete`)}>
+                <Button
+                  size={"icon"}
+                  variant={"magicDestructive"}
+                  className="size-10 rounded-full p-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDelete(image.url)
+                  }}
+                >
+                  {isDeleting ? (
                     <Loader className="animate-spin" size={20} />
                   ) : (
-                    <Download />
+                    <Trash />
                   )}
                 </Button>
               </Tooltip>
-            </DialogTrigger>
-            <Tooltip content={t(`Post this image`)}>
-              <Button
-                size={"icon"}
-                className="size-10 rounded-full p-2"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handlePublication(
-                    image.url,
-                    prompt,
-                    model,
-                    preset,
-                    "textToImage",
-                  )
-                }}
-              >
-                <Send />
-              </Button>
-            </Tooltip>
-          </div>
-        </DirectionAwareHover>
-      </div>
-      <DialogContent className="flex max-h-[80vh] max-w-2xl justify-center border-none bg-transparent p-0 shadow-none">
-        <DialogTitle className="hidden">Image</DialogTitle>
+            </div>
+          </DirectionAwareHover>
+        </div>
+        <DialogContent className="flex max-h-[80vh] max-w-2xl justify-center border-none bg-transparent p-0 shadow-none">
+          <DialogTitle className="hidden">Image</DialogTitle>
 
-        <Carousel
-          plugins={[plugin.current]}
-          className="w-full"
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-          opts={{
-            startIndex: index,
-            align: "start",
-            loop: true,
-          }}
-        >
-          <CarouselContent className="flex items-center">
-            {imageList.map((image, index) => (
-              <CarouselItem key={index}>
-                <ImageSmooth
-                  key={image}
-                  loading="lazy"
-                  alt=""
-                  className="max-h-[80vh] w-auto overflow-hidden rounded-lg object-contain shadow"
-                  src={image}
-                  width="600"
-                  height="800"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="h-12 w-12 text-lg" />
-          <CarouselNext className="h-12 w-12 text-lg" />
-        </Carousel>
-      </DialogContent>
-    </Dialog>
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full"
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+            opts={{
+              startIndex: index,
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="flex items-center">
+              {imageList.map((image, index) => (
+                <CarouselItem key={index}>
+                  <ImageSmooth
+                    key={image}
+                    loading="lazy"
+                    alt=""
+                    className="max-h-[80vh] w-auto overflow-hidden rounded-lg object-contain shadow"
+                    src={image}
+                    width="600"
+                    height="800"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="h-12 w-12 text-lg" />
+            <CarouselNext className="h-12 w-12 text-lg" />
+          </Carousel>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={isImageToVideoOpen} onOpenChange={setIsImageToVideoOpen}>
+        <DialogContent className="max-w-3xl">
+          <DialogTitle>{t(`Image to Video`)}</DialogTitle>
+          <ImageToVideo imageUrl={image.url} />
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }

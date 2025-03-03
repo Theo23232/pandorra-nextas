@@ -48,9 +48,10 @@ export function ConversationDetails({
             <p className="text-sm font-medium text-muted-foreground">
               {t(`Duration`)}
             </p>
-            <p className="text-2xl font-bold">
-              {conversation.callDurationSecs}s
-            </p>
+            <span className="flex items-center justify-start text-2xl font-bold">
+              {conversation.callDurationSecs}{" "}
+              <img src="/coin.png" className="ml-0.5 h-5 w-auto" />
+            </span>
           </div>
           <div className="space-y-2">
             <p className="text-sm font-medium text-muted-foreground">

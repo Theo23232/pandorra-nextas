@@ -1,33 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import * as Flags from "country-flag-icons/react/3x2"
-import {
-  ChevronDown,
-  Download,
-  Loader,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Plus,
-} from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ChevronDown, Download, Loader, PanelLeftClose, PanelLeftOpen, Plus } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
 
-import { getConversationAudio } from "@/actions/assistant.actions"
-import { Skeleton } from "@/components/nyxb/skeleton"
-import { Card } from "@/components/tremor/ui/card"
-import { Button } from "@/components/ui/button"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useUser } from "@/hooks/use-user"
-import { getLangageNameByCode } from "@/lib/elevenlabs/langList"
-import { getVoiceNameById } from "@/lib/elevenlabs/voiceList"
-import { formatTimePassed } from "@/lib/utils"
+import { getConversationAudio } from '@/actions/assistant.actions';
+import { Skeleton } from '@/components/nyxb/skeleton';
+import { Card } from '@/components/tremor/ui/card';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { useUser } from '@/hooks/use-user';
+import { getLangageNameByCode } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById } from '@/lib/elevenlabs/voiceList';
+import { formatTimePassed } from '@/lib/utils';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -71,7 +60,8 @@ export function Sidebar({
   const { data, error } = useSWR("/api/assistant", fetcher)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [downloadingId, setDownloadingId] = useState("")
-
+  const twentyFourHoursAgo = new Date()
+  twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24)
   const { user } = useUser()
   const { startOnborda } = useOnborda()
 
@@ -223,6 +213,8 @@ export function Sidebar({
             )
             .map((conversation: any) => {
               const timePassed = formatTimePassed(conversation.createdAt)
+              const isOldConversation =
+                new Date(conversation.createdAt) < twentyFourHoursAgo
               return (
                 <div
                   key={conversation.id}
@@ -247,10 +239,22 @@ export function Sidebar({
                       handleDownload(conversation.id)
                     }}
                   >
-                    {downloadingId == conversation.id ? (
-                      <Loader className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Download className="h-4 w-4" />
+                    {!isOldConversation && (
+                      <Button
+                        size="icon"
+                        id="tour7-step4"
+                        variant="ghost"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleDownload(conversation.id)
+                        }}
+                      >
+                        {downloadingId === conversation.id ? (
+                          <Loader className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Download className="h-4 w-4" />
+                        )}
+                      </Button>
                     )}
                   </Button>
                 </div>

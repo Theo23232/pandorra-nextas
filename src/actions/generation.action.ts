@@ -1,9 +1,10 @@
 "use server"
 
-import { trackUserActivity } from "@/actions/user.ations"
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
-import { GenerationWithImages } from "@/types/pandorra"
+import { trackUserActivity } from '@/actions/user.ations';
+import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { GenerationWithImages } from '@/types/pandorra';
 
 export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
   await trackUserActivity("getUserGeneration")
@@ -38,3 +39,17 @@ export const deleteGeneration = async (id: string) => {
       })
   } else throw new Error("You are not authenticated")
 }
+
+export const deleteImage = SA(async (user, imageUrl: string): Promise<null> => {
+  await prisma.generatedImage.deleteMany({
+    where: {
+      url: imageUrl,
+    },
+  })
+  await prisma.userImage.deleteMany({
+    where: {
+      imageUrl: imageUrl,
+    },
+  })
+  return null
+})

@@ -308,3 +308,60 @@
   opacity: 0;
   transition: opacity 1s ease-out;
 }
+
+/* From Uiverse.io by Z4drus */
+.loader {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.loader svg {
+  width: 100%;
+  height: 100%;
+  animation: rotate-svg 2s linear infinite;
+  transform-origin: center center;
+}
+
+.loader-circle {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.circle-1 {
+  stroke-dasharray: 251.3274; /* 2 * π * 40 */
+  stroke-dashoffset: 251.3274;
+  animation: dash-circle1 1.5s cubic-bezier(0.66, 0, 0.34, 1) infinite alternate;
+}
+
+.circle-2 {
+  stroke-dasharray: 188.4956; /* 2 * π * 30 */
+  stroke-dashoffset: 0;
+  animation: dash-circle2 1.5s cubic-bezier(0.66, 0, 0.34, 1) infinite alternate;
+}
+
+@keyframes rotate-svg {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash-circle1 {
+  0% {
+    stroke-dashoffset: 251.3274;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dash-circle2 {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 188.4956;
+  }
+}

@@ -3,6 +3,7 @@
 import { AlertCircle, Download, Loader, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
 
 import { createPublicationVideo } from '@/actions/pubVideo.actions';
 import Bounce from '@/components/animated/uibeats/bounce';
@@ -49,6 +50,16 @@ export const VideoDisplayCard = ({
       }
     }
   }, [isHovered])
+
+  useEffect(() => {
+    if (status === "Pending") {
+      const interval = setInterval(() => {
+        mutate("/api/video")
+      }, 1000)
+
+      return () => clearInterval(interval) // Nettoyage de l'intervalle quand le composant est démonté ou le statut change
+    }
+  }, [status])
 
   const handlePublicationVideo = async (
     id: string,

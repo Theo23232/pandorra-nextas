@@ -198,6 +198,7 @@ export const VideoDisplayCard = ({
               <Tooltip content={t(`Delete`)}>
                 <Button
                   size={"icon"}
+                  variant="magicDestructive"
                   className="z-40 size-10 rounded-full p-2"
                   onClick={(e) => {
                     e.stopPropagation()

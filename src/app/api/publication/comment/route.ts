@@ -21,34 +21,50 @@ export async function GET(request: Request) {
   }
 
   try {
-    const comments = await prisma.comment
-      .findMany({
-        where: {
-          publicationId: publicationId,
-        },
-        include: {
-          user: {
-            select: {
-              id: true,
-              username: true,
-              image: true,
-            },
-          },
-          commentReaction: {
-            select: {
-              id: true,
-              userId: true,
-            },
+    const comments = await prisma.comment.findMany({
+      where: {
+        publicationId: publicationId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            image: true,
           },
         },
-        orderBy: {
-          date: "desc",
+        commentReaction: {
+          select: {
+            id: true,
+            userId: true,
+          },
         },
-      })
-      .catch((e) => {
-        console.log(e)
-        throw new Error(e)
-      })
+        childComments: {
+          select: {
+            date: true,
+            id: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+                image: true,
+              },
+            },
+            commentReaction: {
+              select: {
+                id: true,
+                userId: true,
+              },
+            },
+            parentId: true,
+            text: true,
+          },
+        },
+      },
+      orderBy: {
+        date: "desc",
+      },
+    })
 
     // Transform the data to include isLiked and reaction count
     const formattedComments = comments.map((comment) => ({
@@ -59,6 +75,9 @@ export async function GET(request: Request) {
       reactionCount: comment.commentReaction.length,
       // Remove the raw reaction data since we've processed it
       commentReaction: undefined,
+      childCommentsCount: comment.childComments.length,
+      childComments: comment.childComments,
+      childCommentReaction: comment.childComments,
     }))
 
     return NextResponse.json(formattedComments, { status: 200 })

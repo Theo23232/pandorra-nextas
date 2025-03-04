@@ -32,10 +32,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { useUser } from "@/hooks/use-user"
 import { formatDate } from "@/lib/formatDate"
 import { fetcher } from "@/lib/utils"
 import { CommentVideoWithAuthor } from "@/types/publicationType"
-import { User } from "@prisma/client"
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -58,7 +58,7 @@ export default function PubVideoComment({
 }: PublicationDialogProps) {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
-  const { data: user } = useSWR<User>("/api/auth/user", fetcher)
+  const { user } = useUser()
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   const { data: comments, mutate } = useSWR<CommentVideoWithAuthor[]>(
@@ -236,10 +236,12 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
         </Button>
       </form>
 
-      <div className="flex flex-col gap-4">
-        {comments?.map((comment) => (
-          <CommentVideoCard key={comment.id} comment={comment} />
-        ))}
+      <div className="mb-3 flex flex-col gap-4">
+        {comments
+          ?.filter((comment) => !comment.parentId)
+          .map((comment) => (
+            <CommentVideoCard key={comment.id} comment={comment} />
+          ))}
       </div>
     </div>
   )

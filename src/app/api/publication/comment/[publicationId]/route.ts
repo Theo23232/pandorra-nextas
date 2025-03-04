@@ -40,6 +40,11 @@ export const GET = async (req: NextRequest) => {
             userId: true,
           },
         },
+        childComments: {
+          select: {
+            id: true,
+          },
+        },
       },
       orderBy: {
         date: "desc",

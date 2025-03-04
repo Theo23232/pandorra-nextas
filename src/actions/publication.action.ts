@@ -51,6 +51,54 @@ export const createComment = async (text: string, publicationId: string) => {
   } else throw new Error("You are not authenticated")
 }
 
+export const deleteComment = async (publicationId: string) => {
+  const user = await currentUser()
+  await trackUserActivity("deleteComment")
+
+  if (!user) {
+    throw new Error("You are not athenticated")
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: publicationId,
+    },
+  })
+}
+
+export const replyComment = async (
+  publicationId: string,
+  text: string,
+  parentId: string,
+) => {
+  await trackUserActivity("createComment")
+
+  const user = await currentUser()
+
+  const isExistParent = await prisma.comment.findUnique({
+    where: {
+      id: parentId,
+    },
+  })
+
+  if (!user) {
+    throw new Error("You must be connected")
+  }
+
+  if (!isExistParent) {
+    throw new Error("You must be connected")
+  }
+
+  const replyComment = await prisma.comment.create({
+    data: {
+      text: text,
+      userId: user.id,
+      publicationId: publicationId,
+      parentId: parentId,
+    },
+  })
+}
+
 export const createPubReaction = async (publicationId: string) => {
   await trackUserActivity("createPubReaction")
 

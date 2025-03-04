@@ -100,25 +100,33 @@ model PublicationVideo {
 }
 
 model Comment {
-  id              String            @id @default(cuid())
-  text            String
-  date            DateTime          @default(now())
-  userId          String
-  publicationId   String
-  publication     Publication       @relation(fields: [publicationId], references: [id], onDelete: Cascade)
-  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String      @id @default(cuid())
+  text          String
+  date          DateTime    @default(now())
+  userId        String
+  publicationId String
+  parentId      String?
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  parent          Comment?          @relation("ChildComments", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   commentReaction CommentReaction[]
+  childComments   Comment[]         @relation("ChildComments")
 }
 
 model CommentVideo {
-  id                   String                 @id @default(cuid())
-  text                 String
-  date                 DateTime               @default(now())
-  userId               String
-  publicationVideoId   String
-  publicationVideo     PublicationVideo       @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
-  user                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                 String           @id @default(cuid())
+  text               String
+  date               DateTime         @default(now())
+  userId             String
+  publicationVideoId String
+  parentId           String?
+  publicationVideo   PublicationVideo @relation(fields: [publicationVideoId], references: [id], onDelete: Cascade)
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  parent               CommentVideo?          @relation("ChildVideoComments", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   CommentVideoReaction CommentVideoReaction[]
+  childVideoComments   CommentVideo[]         @relation("ChildVideoComments")
 }
 
 model CommentReaction {

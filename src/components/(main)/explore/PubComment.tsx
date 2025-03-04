@@ -2,33 +2,44 @@
 "use client"
 
 import {
-    Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, Trash, X, Zap
-} from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
-import useSWR from 'swr';
+  Download,
+  Eraser,
+  Expand,
+  Fullscreen,
+  Loader,
+  SendHorizontal,
+  Trash,
+  X,
+  Zap,
+} from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
+import { toast } from "sonner"
+import useSWR from "swr"
 
-import { createComment, deletePublication } from '@/actions/publication.action';
-import { Input } from '@/components/tremor/inputs/input';
-import { Button } from '@/components/tremor/ui/button';
-import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
+import { createComment, deletePublication } from "@/actions/publication.action"
+import CommentCard from "@/components/(main)/explore/CommentCard"
+import { Input } from "@/components/tremor/inputs/input"
+import { Button } from "@/components/tremor/ui/button"
+import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
 import {
-    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
-} from '@/components/tremor/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import { formatDate } from '@/lib/formatDate';
-import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
-import { models } from '@/lib/leonardo/presets';
-import { fetcher } from '@/lib/utils';
-import { CommentWithAuthor } from '@/types/publicationType';
-import { User } from '@prisma/client';
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Separator } from "@/components/ui/separator"
+import { formatDate } from "@/lib/formatDate"
+import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
+import { models } from "@/lib/leonardo/presets"
+import { fetcher } from "@/lib/utils"
+import { CommentWithAuthor } from "@/types/publicationType"
 
-import CommentCard from './CommentCard';
-import RelatedPublications from './RelatedPublications';
+import RelatedPublications from "./RelatedPublications"
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -54,10 +65,9 @@ export default function PublicationDialog({
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const { data: comments, mutate } = useSWR<CommentWithAuthor[]>(
-    isOpen ? `/api/publication/comment?publicationId=${publication.id}` : null, // Conditional fetch
+    `/api/publication/comment?publicationId=${publication.id}`,
     fetcher,
   )
-  const { data: user } = useSWR<User>("/api/user/current", fetcher)
 
   const [comment, setComment] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -130,9 +140,6 @@ export default function PublicationDialog({
     window.location.reload()
     setIsOpen(false)
   }
-  if (user) {
-    console.log("userId", user?.id, "ownerId", publication.ownerId)
-  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -145,7 +152,6 @@ export default function PublicationDialog({
           <div className="flex w-full gap-4 max-lg:flex-col">
             <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4 max-lg:h-fit max-lg:max-w-full max-lg:p-0">
               <Image
-                loading="lazy"
                 src={publication.image}
                 alt={publication.description.prompt}
                 className="h-full w-full overflow-hidden rounded-lg object-contain"
@@ -182,23 +188,21 @@ export default function PublicationDialog({
               />
             </div>
           </div>
-          {user && user.id === publication.ownerId && (
-            <Button
-              variant="outline"
-              className="absolute right-14 top-2 size-9 p-0"
-              onClick={handleDeletePublication}
-            >
-              {deleteLoading ? (
-                <Loader className="animate-spin" size={20} color="red" />
-              ) : (
-                <Trash
-                  size={24}
-                  color="red"
-                  className="h-4 w-4 text-accent-foreground"
-                />
-              )}
-            </Button>
-          )}
+          <Button
+            variant="outline"
+            className="absolute right-14 top-2 size-9 p-0"
+            onClick={handleDeletePublication}
+          >
+            {deleteLoading ? (
+              <Loader className="animate-spin" size={20} color="red" />
+            ) : (
+              <Trash
+                size={24}
+                color="red"
+                className="h-4 w-4 text-accent-foreground"
+              />
+            )}
+          </Button>
 
           <DialogClose asChild>
             <Button
@@ -322,7 +326,6 @@ function PublicationActions({
           {model?.generated_image?.url && (
             <Image
               src={model.generated_image.url}
-              loading="lazy"
               width={16}
               height={16}
               alt={model.name}
@@ -367,9 +370,9 @@ function CommentSection({ comments, comment, setComment, onPostComment }) {
       </form>
 
       <div className="flex flex-col gap-4">
-        {comments?.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
-        ))}
+        {comments
+          ?.filter((comment) => !comment.parentId)
+          .map((comment) => <CommentCard key={comment.id} comment={comment} />)}
       </div>
     </div>
   )

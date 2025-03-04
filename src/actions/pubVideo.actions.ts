@@ -53,6 +53,54 @@ export const createCommentVideo = async (
   } else throw new Error("You are not authenticated")
 }
 
+export const deleteCommentVideo = async (publicationVideoId: string) => {
+  const user = await currentUser()
+  await trackUserActivity("deleteCommentVideo")
+
+  if (!user) {
+    throw new Error("You are not athenticated")
+  }
+
+  await prisma.commentVideo.delete({
+    where: {
+      id: publicationVideoId,
+    },
+  })
+}
+
+export const replyCommentVideo = async (
+  publicationVideoId: string,
+  text: string,
+  parentId: string,
+) => {
+  await trackUserActivity("createComment")
+
+  const user = await currentUser()
+
+  const isExistParent = await prisma.commentVideo.findUnique({
+    where: {
+      id: parentId,
+    },
+  })
+
+  if (!user) {
+    throw new Error("You must be connected")
+  }
+
+  if (!isExistParent) {
+    throw new Error("You must be connected")
+  }
+
+  const replyCommentVideo = await prisma.commentVideo.create({
+    data: {
+      text: text,
+      userId: user.id,
+      publicationVideoId: publicationVideoId,
+      parentId: parentId,
+    },
+  })
+}
+
 export const createPubVideoReaction = async (publicationVideoId: string) => {
   const user = await currentUser()
   await trackUserActivity("createPubVideoReaction")

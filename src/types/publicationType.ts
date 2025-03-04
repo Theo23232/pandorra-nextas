@@ -1,4 +1,4 @@
-import { Prisma, User } from '@prisma/client';
+import { Prisma, User } from "@prisma/client"
 
 export type PublicationWithAuthor = Omit<
   Prisma.PublicationGetPayload<{
@@ -40,6 +40,22 @@ export type CommentWithAuthor = Omit<
   isLiked: boolean
   reactionCount: number
   commentReaction: number
+  childCommentsCount: number
+  childComments: {
+    date: string
+    id: string
+    user: {
+      id: string
+      username: string
+      image: string
+    }
+    CommentReaction: {
+      id: string
+      userId: string
+    }[]
+    parentId: string
+    text: string
+  }[]
 }
 export type CommentVideoWithAuthor = Omit<
   Prisma.CommentVideoGetPayload<{
@@ -51,4 +67,20 @@ export type CommentVideoWithAuthor = Omit<
   isLiked: boolean
   reactionVideoCount: number
   commentVideoReaction: number
+  childVideoCommentsCount: number
+  childVideoComments: {
+    date: string
+    id: string
+    user: {
+      id: string
+      username: string
+      image: string
+    }
+    CommentVideoReaction: {
+      id: string
+      userId: string
+    }[]
+    parentId: string
+    text: string
+  }[]
 }

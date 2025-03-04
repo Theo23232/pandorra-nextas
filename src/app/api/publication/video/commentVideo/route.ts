@@ -40,6 +40,27 @@ export async function GET(request: Request) {
             userId: true,
           },
         },
+        childVideoComments: {
+          select: {
+            date: true,
+            id: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+                image: true,
+              },
+            },
+            CommentVideoReaction: {
+              select: {
+                id: true,
+                userId: true,
+              },
+            },
+            parentId: true,
+            text: true,
+          },
+        },
       },
       orderBy: {
         date: "desc",
@@ -55,6 +76,9 @@ export async function GET(request: Request) {
       reactionVideoCount: comment.CommentVideoReaction.length,
       // Remove the raw reaction data since we've processed it
       commentVideoReaction: undefined,
+      childVideoCommentsCount: comment.childVideoComments.length,
+      childVideoComments: comment.childVideoComments,
+      childVideoCommentReaction: comment.childVideoComments,
     }))
 
     return NextResponse.json(formattedComments, { status: 200 })

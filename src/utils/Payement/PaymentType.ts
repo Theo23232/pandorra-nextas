@@ -10,7 +10,7 @@ export const SubscriptionType = [
   {
     identity: "Hebdomadaire",
     name: "Hebdomadaire",
-    price: "€ 4,99",
+    price: "$ 4,99",
     priceYear: "",
     timelap: "per week",
     timelapYear: "",
@@ -20,7 +20,7 @@ export const SubscriptionType = [
   {
     identity: "CreatorPack",
     name: "Creator pack",
-    price: "€ 12,99",
+    price: "$ 12,99",
     priceYear: "",
     timelap: "per month",
     timelapYear: "",
@@ -30,7 +30,7 @@ export const SubscriptionType = [
   {
     identity: "VisionPro",
     name: "VisionPro",
-    price: "€ 34,99",
+    price: "$ 34,99",
     priceYear: "",
     timelap: "per month",
     timelapYear: "",
@@ -40,7 +40,7 @@ export const SubscriptionType = [
   {
     identity: "PandorraInfini",
     name: "PandorraInfini",
-    price: "€ 89,99",
+    price: "$ 89,99",
     priceYear: "",
     timelap: "per month",
     timelapYear: "",
@@ -50,7 +50,7 @@ export const SubscriptionType = [
   {
     identity: "CreatorPackYear",
     name: "CreatorPack",
-    price: "€ 142,89",
+    price: "$ 142,89",
     priceYear: "",
     timelap: "per year",
     timelapYear: "",
@@ -60,7 +60,7 @@ export const SubscriptionType = [
   {
     identity: "PandorraInfiniYear",
     name: "PandorraInfini",
-    price: "€ 989.89",
+    price: "$ 989.89",
     priceYear: "",
     timelap: "per year",
     timelapYear: "",

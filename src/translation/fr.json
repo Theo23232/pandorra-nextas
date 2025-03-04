@@ -454,7 +454,7 @@
   "Infinite Pandorra": "Pandorra Infini",
   "Unleash Your Creativity Today": "Libérez votre créativité aujourd'hui",
   "View pricing": "Voir les tarifs",
-  "Unlock the Power of AI with": "Libérez la puissance de l'IA et transformez vos mots",
+  "Unlock the Power of AI with": "Libérez la puissance de l'IA en transformant vos mots",
   "Text to Video": "en vidéos captivantes",
   "Convert simple text prompts into engaging AI-generated videos. Bring stories, ads, and concepts to life in seconds.": "Transformez des prompts textuels simples en vidéos générées par IA captivantes. Donnez vie à des histoires, des publicités et des concepts en quelques secondes.",
   "Try for free": "Essayez gratuitement",
@@ -656,5 +656,11 @@
   "La caméra vole de façon fluide à travers un [emplacement du sujet]": "La caméra vole de façon fluide à travers un [emplacement du sujet]",
   "Guide de Prompting Pandorra video": "Guide de Prompting Pandorra video",
   "Best deal": "Meilleure offre",
-  "Most popular": "Populaire"
+  "Most popular": "Populaire",
+  "year": "an",
+  "Pandorra chat currently costs 1 credit per message but will soon be free and unlimited.": "Pandorra chat coûte actuellement 1 crédit par message mais sera bientôt gratuit et illimité.",
+  "Announcement": "Annonce",
+  "You do not have enought token for this message": "Vous n'avez pas assez de jetons pour cette message.",
+  "The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.": "Les audios que vous générez seront supprimés 24 heures après leur création. Veuillez télécharger vos créations avant cette date pour éviter de perdre vos données.",
+  "by subscribing to our newsletter": "en souscrivant à notre newsletter"
 }

@@ -11,29 +11,25 @@ OK - tooltip amin'ny presetstyles
 
 TODO
 
-- mettre la video anim a l'inscription
-- Liberer soloina anle message sur whatsapp
+OK - mettre la video anim a l'inscription
+OK - Liberer soloina anle message sur whatsapp
+OK - avadika dollars daholo
+OK - repondre commentaire
+OK - atao payant aloha ny text de ampina message hoe gratuit plus tard
+OK - soratana hoe mifafa afaka 24h ny audio
+OK - restez à l'ecoute pour le classement pour s'inscrire a la news letter
+OK - ampina delimitation mirehitra entre chat sy haut
 
-- avadika dollars daholo
-
-Abonnement
+OK - Abonnement
 
 - hebdo 5.80
 - Creator 13.80
 - Pro vision 38.80
 - Infinite 96.50
-
-credit
-
+  OK - credit
 - 350 6$
 - 700 12$
 - 1400 20$
 - 3500 50$
 - 7000 95$
 - 14000 180$
-
-- ampina delimitation mirehitra entre chat sy haut
-- atao payant aloha ny text de ampina message hoe gratuit plus tard
-- repondre commentaire
-- restez à l'ecoute pour le classement pour s'inscrire a la news letter
-- soratana hoe mifafa afaka 24h ny audio

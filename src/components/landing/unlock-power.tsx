@@ -1,42 +1,21 @@
 "use client"
 import { MoveRight } from "lucide-react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import Bounce from "@/components/animated/uibeats/bounce"
 import { BorderGradient } from "@/components/border-gradient"
 import { Button } from "@/components/tremor/ui/button"
 
-const videos = [
-  "https://blob.teratany.org/videos/tti.mp4",
-  "https://blob.teratany.org/videos/ttv.mp4",
-  "https://blob.teratany.org/videos/itv.mp4",
-  "https://blob.teratany.org/videos/audioai.mp4",
-]
-
 export const UnlockPower = () => {
   const { t } = useTranslation()
 
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTransitioning(true)
-      setTimeout(() => {
-        setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length)
-        setIsTransitioning(false)
-      }, 1000)
-    }, 10000)
-
-    return () => clearInterval(interval)
-  }, [])
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-center">
         <Bounce className="font-inter max-w-4xl text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD] max-lg:max-w-[calc(100vw-4rem)] max-lg:text-[60px] max-lg:leading-[60px]">
           {t(`Unlock the Power of AI with`)}
+          <br />
           <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-4 text-transparent">
             {t(`Text to Video`)}
           </span>
@@ -61,14 +40,13 @@ export const UnlockPower = () => {
           <div className="absolute right-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(204,0,255,0.40)] blur-[112px]"></div>
           <div className="absolute left-0 top-0 h-[50vw] max-h-[665px] w-[50vw] max-w-[595px] flex-shrink-0 rounded-full bg-[rgba(0,155,255,0.40)] blur-[112px]"></div>
           <video
-            key={currentVideoIndex}
             className="relative inset-0 h-[35vw] max-h-[573.387px] w-full max-w-[1166px] rounded-[3px] bg-black p-2"
             autoPlay
             loop
             muted
             playsInline
           >
-            <source src={videos[currentVideoIndex]} />
+            <source src={"https://blob.teratany.org/videos/features.webm"} />
             {t(`Your browser does not support the video tag.`)}
           </video>
         </Bounce>

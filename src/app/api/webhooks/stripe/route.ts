@@ -25,16 +25,16 @@ export const POST = async (req: NextRequest) => {
 
       if (!session.subscription) {
         switch (totalAmount) {
-          case 699: // 6,99€
+          case 699: // 6,99$
             jetonsToAdd = 600
             break
-          case 1299: // 12,99€
+          case 1299: // 12,99$
             jetonsToAdd = 1000
             break
-          case 3699: // 36,99€
+          case 3699: // 36,99$
             jetonsToAdd = 3699
             break
-          case 9199: // 91,99€
+          case 9199: // 91,99$
             jetonsToAdd = 9199
             break
           default:

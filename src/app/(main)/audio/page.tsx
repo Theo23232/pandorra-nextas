@@ -1,33 +1,51 @@
 "use client"
-import { ElevenLabsClient } from 'elevenlabs';
-import { Building2, Car, Cat, Gamepad2, Mic2, Music, Settings2, Waves, Wind } from 'lucide-react';
-import React, { useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
-
-import { reduceCredit, verifyCredit } from '@/actions/credits.actions';
-import { generateFX } from '@/actions/elevenlabs.actions';
-import { translateToEnglish } from '@/actions/openai.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { InputNumber } from '@/components/input-number';
-import { NothingYet } from '@/components/NothingYet';
-import { Label } from '@/components/tremor/inputs/label';
-import { Slider } from '@/components/tremor/inputs/slider';
-import { Switch } from '@/components/tremor/inputs/switch';
-import { Button } from '@/components/tremor/ui/button';
-import { Divider } from '@/components/tremor/ui/divider';
+import { ElevenLabsClient } from "elevenlabs"
 import {
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle,
-    DrawerTrigger
-} from '@/components/tremor/ui/drawer';
-import { CardTitle } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
-import { FX } from '@prisma/client';
+  Building2,
+  Car,
+  Cat,
+  Gamepad2,
+  Megaphone,
+  Mic2,
+  Music,
+  Settings2,
+  Waves,
+  Wind,
+} from "lucide-react"
+import React, { useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { AudioPlayer } from './audio-player'; // Assurez-vous du bon chemin d'importation
+import { reduceCredit, verifyCredit } from "@/actions/credits.actions"
+import { generateFX } from "@/actions/elevenlabs.actions"
+import { translateToEnglish } from "@/actions/openai.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { InputNumber } from "@/components/input-number"
+import { NothingYet } from "@/components/NothingYet"
+import { Label } from "@/components/tremor/inputs/label"
+import { Slider } from "@/components/tremor/inputs/slider"
+import { Switch } from "@/components/tremor/inputs/switch"
+import { Button } from "@/components/tremor/ui/button"
+import { Divider } from "@/components/tremor/ui/divider"
+import {
+  Drawer,
+  DrawerBody,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/tremor/ui/drawer"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
+import { FX } from "@prisma/client"
+
+import { AudioPlayer } from "./audio-player" // Assurez-vous du bon chemin d'importation
 
 export default function Page() {
   const { t } = useTranslation()
@@ -258,7 +276,15 @@ export default function Page() {
           <AudioPlayer audioUrl={audioUrl} />
         </MagicCard>
       )}
-
+      <Alert className="mt-4 border border-border">
+        <Megaphone className="h-4 w-4" />
+        <AlertTitle>{t(`Announcement`)}!</AlertTitle>
+        <AlertDescription>
+          {t(
+            `The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.`,
+          )}
+        </AlertDescription>
+      </Alert>
       <MagicCard className="mt-4 p-2">
         <div className="text-center text-muted-foreground">
           {t(`Or try out an example to get started!`)}

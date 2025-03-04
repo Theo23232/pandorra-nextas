@@ -17,7 +17,7 @@ export const createProductPayement = async (
     })
     const createdPrice = await stripe.prices.create({
       unit_amount: price,
-      currency: "eur",
+      currency: "usd",
       product: product.id,
     })
 
@@ -41,7 +41,7 @@ export async function createProductSubscription(
   const price = await stripe.prices.create({
     product: product.id,
     unit_amount: amount,
-    currency: "eur",
+    currency: "usd",
     recurring: {
       interval,
     },

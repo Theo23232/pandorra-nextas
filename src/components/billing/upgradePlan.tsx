@@ -20,83 +20,14 @@ import {
   DialogTrigger,
 } from "@/components/tremor/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { subsList } from "@/lib/prices"
+import { cn } from "@/lib/utils"
 
 export type upgradePlanProps = {
   children: ReactNode
 }
 export const UpgradePlanDialog = (props: upgradePlanProps) => {
   const { t } = useTranslation()
-
-  const handleButtonClick = async (subscriptionType: string) => {
-    switch (subscriptionType) {
-      case "Hebdomadaire":
-        await subscriptionSession(
-          "Hebdomadaire",
-          "400 credits/week",
-          499,
-          "week",
-        )
-        localStorage.setItem("article", "Hebdomadaire")
-        break
-      case "CreatorPack":
-        await subscriptionSession(
-          "CreatorPack",
-          "1000 credits/month",
-          1299,
-          "month",
-        )
-        localStorage.setItem("article", "CreatorPack")
-        break
-      case "VisionPro":
-        await subscriptionSession(
-          "VisionPro",
-          "3000 credits/month",
-          3699,
-          "month",
-        )
-        localStorage.setItem("article", "VisionPro")
-        break
-      case "PandorraInfini":
-        await subscriptionSession(
-          "PandorraInfini",
-          "8000 credits/month",
-          9199,
-          "month",
-        )
-        localStorage.setItem("article", "PandorraInfini")
-        break
-      case "CreatorPackYear":
-        await subscriptionSession(
-          "CreatorPackYear",
-          "1000 credits/month for 1 year",
-          14289,
-          "year",
-        )
-        localStorage.setItem("article", "CreatorPackYear")
-        break
-
-      case "VisionProYear":
-        await subscriptionSession(
-          "VisionProYear",
-          "3000 credits/month for 1 year",
-          38499,
-          "year",
-        )
-        localStorage.setItem("article", "VisionProYear")
-        break
-      case "PandorraInfiniYear":
-        await subscriptionSession(
-          "PandorraInfiniYear",
-          "8000 credits/month",
-          0,
-          "year",
-        )
-        localStorage.setItem("article", "PandorraInfiniYear")
-        break
-      default:
-        break
-    }
-  }
 
   return (
     <Dialog>
@@ -127,7 +58,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
               </Tabs>
               <TabPanel
                 value={"small"}
-                className="relative flex flex-wrap justify-center gap-4"
+                className="relative flex justify-between gap-4 max-sm:flex-col"
               >
                 <div className="flex min-h-[522px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
                   <div className="">
@@ -176,570 +107,51 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex min-h-[522px] w-[350px] items-center justify-center rounded-[24px] bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]">
-                  <div className="flex h-full w-full shrink-0 flex-col items-start gap-[32px] rounded-[24px] bg-[#39517e77] p-[25px_32px]">
-                    <div className="">
-                      <div className="flex items-center justify-between">
-                        <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
-                          {t(`Weekly`)}
-                        </p>
-                      </div>
-                      <div className="mb-6 mt-8 flex flex-col gap-3">
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            <span className="font-italic mx-1 font-extrabold">
-                              350
-                            </span>{" "}
-                            {t(`Credits`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Short Video`)} (5 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
-                              8
-                            </span>{" "}
-                            {t(`videos`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Medium Video`)} (10 sec):{" "}
-                            <span className="font-italic mx-1 font-extrabold">
-                              4
-                            </span>{" "}
-                            {t(`videos`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Images`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
-                              70
-                            </span>{" "}
-                            {t(`AI-generated images`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />{" "}
-                          {t(`Text Generation unlimited`)}
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`AI Voice`)}:{" "}
-                            <span className="font-italic mx-1 font-extrabold">
-                              5
-                            </span>{" "}
-                            {t(`minutes`)}
-                            <span className="font-italic mx-1 font-extrabold">
-                              {" "}
-                              30
-                            </span>{" "}
-                            {t(`s`)}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mb-8 flex items-center text-white">
-                        <p className="pt-2 text-[24px]">€</p>
-                        <p className="text-[36px] font-bold">4.99</p>
-                        <p className="ml-2 pt-2 font-light">/ {t(`week`)}</p>
-                      </div>
-                      <Button
-                        variant={"gradient"}
-                        className="mt-auto w-full"
-                        onClick={() => handleButtonClick("Hebdomadaire")}
-                      >
-                        <p className="">{t(`Choose`)}</p>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                <Sub
+                  creditsCount={350}
+                  price={5.8}
+                  isPrime={true}
+                  title={"Weekly"}
+                  priceStripe={580}
+                  frequence={"week"}
+                  productName="Hebdomadaire"
+                />
               </TabPanel>
               <TabPanel
                 value={"monthly"}
-                className="relative flex flex-wrap justify-center gap-4"
+                className="relative flex justify-between gap-4 max-md:flex-col"
               >
-                <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
-                  <div className="">
-                    <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
-                      {t(`Creator Pack`)}
-                    </p>
-
-                    <div className="mb-6 mt-8 flex flex-col gap-3">
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            1000
-                          </span>{" "}
-                          {t(`Credits`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {" "}
-                          {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            25
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            12
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" /> {t(`Images`)}:{" "}
-                        <p className="font-italic mx-0.5 font-extrabold">200</p>{" "}
-                        {t(`AI-generated images`)}
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />{" "}
-                        {t(`Text Generation unlimited`)}
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            16
-                          </span>{" "}
-                          {t(`minutes`)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-8 flex items-center text-white">
-                      <p className="pt-2 text-[24px]">€</p>
-                      <p className="text-[36px] font-bold">12.99</p>
-                      <p className="ml-2 pt-2 font-light">/ {t(`month`)}</p>
-                    </div>
-                    <Button
-                      variant={"ghost"}
-                      className="w-full bg-white hover:bg-white/80"
-                      onClick={() => handleButtonClick("CreatorPack")}
-                    >
-                      <p className="gdt">{t(`Choose`)}</p>
-                    </Button>
-                  </div>
-                </div>
-                <div className="relative flex min-h-[400px] w-[350px] items-center justify-center rounded-[24px] bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]">
-                  <div className="flex h-full w-full shrink-0 flex-col items-start gap-[32px] rounded-[24px] bg-[#39517e77] p-[25px_32px]">
-                    <div className="">
-                      <div className="flex items-center justify-between">
-                        <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
-                          {t(`Pro vision`)}
-                        </p>
-                        <Badge className="dark:bg-blue-800/50 dark:text-white dark:ring-blue-700/70">
-                          {t(`Best deal`)}
-                        </Badge>
-                      </div>
-                      <div className="mb-6 mt-8 flex flex-col gap-3">
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              3000
-                            </span>{" "}
-                            {t(`Credits`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Short Video`)} (5 sec):{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              75
-                            </span>{" "}
-                            {t(`videos`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Medium Video`)} (10 sec):{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              37
-                            </span>{" "}
-                            {t(`videos`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Images`)}:{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              600
-                            </span>{" "}
-                            {t(`AI-generated images`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />{" "}
-                          {t(`Text Generation unlimited`)}
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`AI Voice`)}:{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              50
-                            </span>{" "}
-                            {t(`minutes`)}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mb-8 flex items-center text-white">
-                        <p className="pt-2 text-[24px]">€</p>
-                        <p className="text-[36px] font-bold">36.99</p>
-                        <p className="ml-2 pt-2 font-light">/ {t(`month`)}</p>
-                      </div>
-                      <Button
-                        variant={"gradient"}
-                        className="w-full"
-                        onClick={() => handleButtonClick("VisionPro")}
-                      >
-                        <p className="">{t(`Choose`)}</p>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
-                  <div className="">
-                    <div className="flex items-center justify-between">
-                      <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
-                        {t(`Infinite Pandorra`)}
-                      </p>
-                      <Badge className="dark:bg-purple-800/50 dark:text-white dark:ring-purple-700/70">
-                        {t(`Most popular`)}
-                      </Badge>
-                    </div>
-                    <div className="mb-6 mt-8 flex flex-col gap-3">
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            8000
-                          </span>{" "}
-                          {t(`Credits`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            200
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            100
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Images`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            1600
-                          </span>{" "}
-                          {t(`AI-generated images`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />{" "}
-                        {t(`Text Generation unlimited`)}
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            130
-                          </span>{" "}
-                          {t(`minutes`)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-8 flex items-center text-white">
-                      <p className="pt-2 text-[24px]">€</p>
-                      <p className="text-[36px] font-bold">91.99</p>
-                      <p className="ml-2 pt-2 font-light">/ {t(`month`)}</p>
-                    </div>
-                    <Button
-                      variant={"ghost"}
-                      className="w-full bg-white hover:bg-white/80"
-                      onClick={() => handleButtonClick("PandorraInfini")}
-                    >
-                      <p className="gdt">{t(`Choose`)}</p>
-                    </Button>
-                  </div>
-                </div>
+                {subsList.map((price) => (
+                  <Sub
+                    creditsCount={price.creditsCount}
+                    price={price.price}
+                    isPrime={price.isPrime}
+                    title={price.title}
+                    priceStripe={price.priceStripe}
+                    badge={price.badge}
+                    key={price.creditsCount}
+                    frequence={"month"}
+                    productName={price.productName}
+                  />
+                ))}
               </TabPanel>
               <TabPanel
                 value={"Annually"}
-                className="relative flex flex-wrap justify-center gap-4"
+                className="relative flex justify-between gap-4 max-md:flex-col"
               >
-                <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
-                  <div className="">
-                    <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
-                      {t(`Creator Pack`)}
-                    </p>
-
-                    <div className="mb-6 mt-8 flex flex-col gap-3">
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            1000
-                          </span>{" "}
-                          {t(`Credits`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            25
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            12
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Images`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            200
-                          </span>{" "}
-                          {t(`AI-generated images`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />{" "}
-                        {t(`Text Generation unlimited`)}
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            16
-                          </span>{" "}
-                          {t(`minutes`)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-8 flex items-center text-white">
-                      <p className="pt-2 text-[24px]">€</p>
-                      <p className="text-[36px] font-bold">142.99</p>
-                      <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
-                    </div>
-                    <Button
-                      variant={"ghost"}
-                      className="w-full bg-white hover:bg-white/80"
-                      onClick={() => handleButtonClick("CreatorPackYear")}
-                    >
-                      <p className="gdt">{t(`Choose`)}</p>
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex min-h-[400px] w-[350px] items-center justify-center rounded-[24px] bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]">
-                  <div className="flex h-full w-full shrink-0 flex-col items-start gap-[32px] rounded-[24px] bg-[#39517e77] p-[25px_32px]">
-                    <div className="">
-                      <div className="flex items-center justify-between">
-                        <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
-                          {t(`Pro vision`)}
-                        </p>
-
-                        <Badge className="dark:bg-blue-800/50 dark:text-white dark:ring-blue-700/70">
-                          {t(`Best deal`)}
-                        </Badge>
-                      </div>
-                      <div className="mb-6 mt-8 flex flex-col gap-3">
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              3000
-                            </span>{" "}
-                            {t(`Credits`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />{" "}
-                          <p>
-                            {t(`Short Video`)} (5 sec):{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              75
-                            </span>{" "}
-                            {t(`videos`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Medium Video`)} (10 sec):{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              37
-                            </span>{" "}
-                            {t(`videos`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`Images`)}:{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              600
-                            </span>{" "}
-                            {t(`AI-generated images`)}
-                          </p>
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />{" "}
-                          {t(`Text Generation unlimited`)}
-                        </div>
-                        <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                          <Check className="mr-3" />
-                          <p>
-                            {t(`AI Voice`)}:{" "}
-                            <span className="font-italic mx-0.5 font-extrabold">
-                              50
-                            </span>{" "}
-                            {t(`minutes`)}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mb-8 flex items-center text-white">
-                        <p className="pt-2 text-[24px]">€</p>
-                        <p className="text-[36px] font-bold">406.99</p>
-                        <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
-                      </div>
-                      <Button
-                        variant={"gradient"}
-                        className="w-full"
-                        onClick={() => handleButtonClick("VisionProYear")}
-                      >
-                        <p className="">{t(`Choose`)}</p>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
-                  <div className="">
-                    <div className="flex items-center justify-between">
-                      <p className="font-inter gdt self-stretch text-[24px] font-bold leading-normal">
-                        {t(`Infinite Pandorra`)}
-                      </p>
-                      <Badge className="dark:bg-purple-800/50 dark:text-white dark:ring-purple-700/70">
-                        {t(`Most popular`)}
-                      </Badge>
-                    </div>
-                    <div className="mb-6 mt-8 flex flex-col gap-3">
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            8000
-                          </span>{" "}
-                          {t(`Credits`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Short Video`)} (5 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            200
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Medium Video`)} (10 sec):{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            100
-                          </span>{" "}
-                          {t(`videos`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`Images`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            1600
-                          </span>{" "}
-                          {t(`AI-generated images`)}
-                        </p>
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />{" "}
-                        {t(`Text Generation unlimited`)}
-                      </div>
-                      <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" />
-                        <p>
-                          {t(`AI Voice`)}:{" "}
-                          <span className="font-italic mx-0.5 font-extrabold">
-                            130
-                          </span>{" "}
-                          {t(`minutes`)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-8 flex items-center text-white">
-                      <p className="pt-2 text-[24px]">€</p>
-                      <p className="text-[36px] font-bold">1011.99</p>
-                      <p className="ml-2 pt-2 font-light">/ {t(`year`)}</p>
-                    </div>
-                    <Button
-                      variant={"ghost"}
-                      className="w-full bg-white hover:bg-white/80"
-                      onClick={() => handleButtonClick("PandorraInfiniYear")}
-                    >
-                      <p className="gdt">{t(`Choose`)}</p>
-                    </Button>
-                  </div>
-                </div>
+                {subsList.map((price) => (
+                  <Sub
+                    creditsCount={price.creditsCount}
+                    price={price.price * 11}
+                    isPrime={price.isPrime}
+                    title={price.title}
+                    priceStripe={price.priceStripe * 11}
+                    badge={price.badge}
+                    frequence={"year"}
+                    key={price.creditsCount}
+                    productName={`${price.productName}Year`}
+                  />
+                ))}
               </TabPanel>
             </TabContainer>
           </div>
@@ -755,5 +167,139 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
         </DialogClose>
       </DialogContent>
     </Dialog>
+  )
+}
+
+type SubProps = {
+  creditsCount: number
+  price: number
+  priceStripe: number
+  isPrime?: boolean
+  badge?: string
+  title: string
+  frequence: "month" | "year" | "week"
+  productName: string
+}
+
+const Sub = (props: SubProps) => {
+  const { t } = useTranslation()
+
+  const handleButtonClick = async () => {
+    await subscriptionSession(
+      props.productName,
+      `${props.creditsCount} credits/${props.frequence}`,
+      props.priceStripe,
+      props.frequence,
+    )
+  }
+  return (
+    <div
+      className={cn(
+        "flex min-h-[400px] w-[350px] items-center justify-center rounded-[24px]",
+        props.isPrime &&
+          "bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]",
+      )}
+    >
+      <div
+        className={cn(
+          "flex h-full w-full shrink-0 flex-col items-start gap-[32px] rounded-[24px] bg-[#39517e77] p-[25px_32px]",
+          !props.isPrime &&
+            "border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)]",
+        )}
+      >
+        <div className="">
+          <div className="flex items-center justify-between">
+            <p
+              className={cn(
+                "font-inter self-stretch text-[24px] font-bold leading-normal text-white",
+                props.badge == "Most popular" && "gdt",
+              )}
+            >
+              {t(props.title)}
+            </p>
+            {props.badge && (
+              <Badge
+                className={
+                  props.isPrime
+                    ? "dark:bg-blue-800/50 dark:text-white dark:ring-blue-700/70"
+                    : "dark:bg-purple-800/50 dark:text-white dark:ring-purple-700/70"
+                }
+              >
+                {t(props.badge)}
+              </Badge>
+            )}
+          </div>
+          <div className="mb-6 mt-8 flex flex-col gap-3">
+            <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+              <Check className="mr-3" />
+              <p>
+                <span className="font-italic mx-1 font-extrabold">
+                  {props.creditsCount}
+                </span>{" "}
+                {t(`Credits`)}
+              </p>
+            </div>
+            <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+              <Check className="mr-3" />
+              <p>
+                {t(`Short Video`)} (5 sec):{" "}
+                <span className="font-italic mx-1 font-extrabold">
+                  {Math.floor(props.creditsCount / 40)}
+                </span>{" "}
+                {t(`videos`)}
+              </p>
+            </div>
+            <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+              <Check className="mr-3" />
+              <p>
+                {t(`Medium Video`)} (10 sec):{" "}
+                <span className="font-italic mx-1 font-extrabold">
+                  {Math.floor(props.creditsCount / 80)}
+                </span>{" "}
+                {t(`videos`)}
+              </p>
+            </div>
+            <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+              <Check className="mr-3" />
+              <p>
+                {t(`Images`)}:{" "}
+                <span className="font-italic mx-1 font-extrabold">
+                  {Math.floor(props.creditsCount / 5)}
+                </span>{" "}
+                {t(`AI-generated images`)}
+              </p>
+            </div>
+            <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+              <Check className="mr-3" /> {t(`Text Generation unlimited`)}
+            </div>
+            <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
+              <Check className="mr-3" />
+              <p>
+                {t(`AI Voice`)}:{" "}
+                <span className="font-italic mx-1 font-extrabold">
+                  {Math.floor(props.creditsCount / 60)}
+                </span>{" "}
+                {t(`minutes`)}
+              </p>
+            </div>
+          </div>
+          <div className="mb-8 flex items-center text-white">
+            <p className="pt-2 text-[24px]">$</p>
+            <p className="text-[36px] font-bold">{props.price.toFixed(2)}</p>
+            <p className="ml-2 pt-2 font-light">/ {t(props.frequence)}</p>
+          </div>
+          <Button
+            variant={props.isPrime ? "gradient" : "ghost"}
+            className={cn(
+              "w-full",
+              !props.isPrime && "bg-white hover:bg-white/80",
+            )}
+            onClick={() => handleButtonClick()}
+          >
+            <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
+          </Button>
+        </div>
+      </div>
+    </div>
   )
 }

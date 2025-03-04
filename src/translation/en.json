@@ -656,5 +656,11 @@
   "La caméra vole de façon fluide à travers un [emplacement du sujet]": "The camera flies smoothly through a [subject location]",
   "Guide de Prompting Pandorra video": " Prompting guide for Pandorra video",
   "Best deal": "Best deal",
-  "Most popular": "Popular"
+  "Most popular": "Popular",
+  "year": "year",
+  "Pandorra chat currently costs 1 credit per message but will soon be free and unlimited.": "Pandorra chat currently costs 1 credit per message but will soon be free and unlimited.",
+  "Announcement": "Announcement",
+  "You do not have enought token for this message": "You do not have enought token for this message",
+  "The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.": "The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.",
+  "by subscribing to our newsletter": "by subscribing to our newsletter"
 }

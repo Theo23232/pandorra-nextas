@@ -1,5 +1,5 @@
 "use client"
-import { AlertCircle, Mic, Upload } from "lucide-react"
+import { AlertCircle, Megaphone, Mic, Upload } from "lucide-react"
 import { useOnborda } from "onborda"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -11,6 +11,7 @@ import { AudioPlayer } from "@/app/(main)/audio/audio-player"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { NothingYet } from "@/components/NothingYet"
 import { Divider } from "@/components/tremor/ui/divider"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -189,6 +190,15 @@ const SpeechToSpeechConverter: React.FC = () => {
           </div>
         )}
       </MagicCard>
+      <Alert className="mt-4 border border-border">
+        <Megaphone className="h-4 w-4" />
+        <AlertTitle>{t(`Announcement`)}!</AlertTitle>
+        <AlertDescription>
+          {t(
+            `The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.`,
+          )}
+        </AlertDescription>
+      </Alert>
 
       {voiceChanges && !(voiceChanges.length === 0) ? (
         <MagicCard className="p-6">

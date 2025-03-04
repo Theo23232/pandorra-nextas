@@ -1,16 +1,16 @@
 "use client"
 
-import { FormEvent, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR from 'swr';
+import { FormEvent, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
 
-import { withdrawMoney } from '@/actions/stripe.actions';
-import { CreateReferralAccount } from '@/app/(main)/affiliate/CreateReferralAccount';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { fetcher } from '@/lib/utils';
-import { User } from '@prisma/client';
+import { withdrawMoney } from "@/actions/stripe.actions"
+import { CreateReferralAccount } from "@/app/(main)/affiliate/CreateReferralAccount"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { fetcher } from "@/lib/utils"
+import { User } from "@prisma/client"
 
 export const MoneyTracker = () => {
   const { t } = useTranslation()
@@ -90,7 +90,7 @@ export const MoneyTracker = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="text-2xl font-bold text-white">€ {accumulated}</div>
+            <div className="text-2xl font-bold text-white">$ {accumulated}</div>
             <p className="text-xs text-muted-foreground text-white">
               {t(`Lifetime savings`)}
             </p>
@@ -104,7 +104,7 @@ export const MoneyTracker = () => {
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold text-white">
-              € {currentTotal}
+              $ {currentTotal}
             </div>
             <p className="text-xs text-muted-foreground text-white">
               {t(`Available balance`)}

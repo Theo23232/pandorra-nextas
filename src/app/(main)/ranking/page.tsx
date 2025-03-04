@@ -1,9 +1,10 @@
 "use client"
 
-import { useTranslation } from 'react-i18next';
+import Link from "next/link"
+import { useTranslation } from "react-i18next"
 
-import { Badge } from '@/components/tremor/ui/badge';
-import { Card } from '@/components/tremor/ui/card';
+import { Badge } from "@/components/tremor/ui/badge"
+import { Card } from "@/components/tremor/ui/card"
 
 export default function RankingsPage() {
   const { t } = useTranslation()
@@ -25,7 +26,12 @@ export default function RankingsPage() {
             `We know you're excited to see the ranking feature, but it will be available starting early March. We're working hard to bring you an amazing experience and we appreciate your patience!`,
           )}
         </p>
-        <Badge>🚀 {t(`Stay tuned for the launch`)}</Badge>
+        <Badge>
+          🚀 {t(`Stay tuned for the launch`)}{" "}
+          <Link href={"/news-letter"} className="underline">
+            {t(`by subscribing to our newsletter`)}
+          </Link>
+        </Badge>
       </div>
     </Card>
   )

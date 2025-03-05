@@ -1,14 +1,15 @@
 "use server"
 
-import axios from "axios"
-import fs from "fs"
-import path from "path"
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
 
-import { reduceCredit } from "@/actions/credits.actions"
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
-import { GenerationWithImages } from "@/types/pandorra"
-import { GeneratedImage } from "@prisma/client"
+import { reduceCredit } from '@/actions/credits.actions';
+import { myCache } from '@/cache';
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
+import { GenerationWithImages } from '@/types/pandorra';
+import { GeneratedImage } from '@prisma/client';
 
 interface FetchOptions {
   method: "GET" | "POST" | "PUT" | "DELETE"
@@ -167,7 +168,7 @@ export async function fetchGenerationResult(
           if (response.generated_images.length) {
             console.log("Generated")
 
-            await prisma.generation.create({
+            const data = await prisma.generation.create({
               data: {
                 id: response.id,
                 modelId: response.modelId,
@@ -204,7 +205,8 @@ export async function fetchGenerationResult(
                 },
               },
             })
-
+            const cacheKey = `user:generation:${user.id}`
+            myCache.del(cacheKey)
             await Promise.all(
               response.generated_images.map((image) =>
                 prisma.userImage.create({
@@ -283,7 +285,8 @@ export const generationInsert = async (
           },
         },
       })
-
+      const cacheKey = `user:generation:${user.id}`
+      myCache.del(cacheKey)
       response.generated_images.map((image) => ({
         url: image.url,
         nsfw: image.nsfw,
@@ -624,6 +627,8 @@ export async function leonardoGenerateImage<T>(options: FetchOptions) {
                         user: { connect: { id: user.id } },
                       },
                     })
+                    const cacheKey = `user:generation:${user.id}`
+                    myCache.del(cacheKey)
                     console.log(`✅ Métadonnées de génération sauvegardées`)
                   } catch (error) {
                     console.error(

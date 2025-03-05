@@ -1,0 +1,14 @@
+{
+  "safe-action": {
+    "prefix": "ncache",
+    "description": "nextas cache",
+    "scope": "javascript,typescript",
+
+    "body": [
+      "const cacheKey = `${1:cacheKey}`;",
+      "const cachedResult = myCache.get(cacheKey);",
+      "if (cachedResult) return cachedResult;",
+      "myCache.set(cacheKey, ${2:data}, 3600)",
+    ],
+  },
+}

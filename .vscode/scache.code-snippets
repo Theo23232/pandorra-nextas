@@ -1,0 +1,12 @@
+{
+  "safe-action": {
+    "prefix": "scache",
+    "description": "nextas cache",
+    "scope": "javascript,typescript",
+
+    "body": [
+      "const cacheKey = `${1:cacheKey}`;",
+      "myCache.set(cacheKey, ${2:data}, 3600)",
+    ],
+  },
+}

@@ -1,6 +1,7 @@
 "use server"
 
 import { trackUserActivity } from '@/actions/user.ations';
+import { myCache } from '@/cache';
 import { currentUser } from '@/lib/current-user';
 import { SA } from '@/lib/safe-ation';
 import { prisma } from '@/prisma';
@@ -11,7 +12,11 @@ export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
 
   const user = await currentUser()
   if (user) {
-    return prisma.generation.findMany({
+    const cacheKey = `user:generation:${user.id}`
+    const cachedResult = myCache.get(cacheKey)
+    if (cachedResult) return cachedResult as GenerationWithImages[]
+
+    const data = prisma.generation.findMany({
       where: { userId: user.id },
       include: {
         generated_images: true,
@@ -20,6 +25,8 @@ export const getUserGeneration = async (): Promise<GenerationWithImages[]> => {
         createdAt: "asc",
       },
     })
+    myCache.set(cacheKey, data, 3600)
+    return data
   } else throw new Error("You are not authenticated")
 }
 

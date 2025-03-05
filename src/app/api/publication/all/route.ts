@@ -19,7 +19,7 @@ export const GET = async (request: Request) => {
 
   const cacheKey = `user:explore:${user.id}:page:${page}:limit:${limit}`
   const cachedResponse = myCache.get(cacheKey)
-  if (cachedResponse) return cachedResponse
+  if (cachedResponse) return NextResponse.json(cachedResponse, { status: 200 })
 
   try {
     const publications = await prisma.publication.findMany({

@@ -157,9 +157,9 @@ const Pricing = (props: PricingProps) => {
               onClick={() => handleButtonClick()}
             >
               {isLoading ? (
-                <Loader className="animate-spin" />
+                <Loader className="animate-spin text-blue-600" />
               ) : (
-                <p className="">{t(`Add credits`)}</p>
+                <p className="gdt">{t(`Add credits`)}</p>
               )}
             </Button>
           </div>

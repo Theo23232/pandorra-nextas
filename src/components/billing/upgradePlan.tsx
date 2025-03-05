@@ -131,7 +131,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
               >
                 {subsList.map((price) => (
                   <Sub
-                    creditsCount={price.creditsCount * 11}
+                    creditsCount={price.creditsCount * 12}
                     price={price.price * 11}
                     isPrime={price.isPrime}
                     title={price.title}
@@ -179,7 +179,7 @@ const Sub = (props: SubProps) => {
     setIsLoading(true)
     await subscriptionSession(
       props.productName,
-      `${props.creditsCount} credits/${props.frequence}`,
+      `${props.creditsCount} credits / ${t(props.frequence)}`,
       props.priceStripe,
       props.frequence,
     )
@@ -289,7 +289,7 @@ const Sub = (props: SubProps) => {
             onClick={() => handleButtonClick()}
           >
             {isLoading ? (
-              <Loader className="animate-spin" />
+              <Loader className="animate-spin text-blue-600" />
             ) : (
               <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
             )}

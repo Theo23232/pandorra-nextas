@@ -69,7 +69,7 @@ export const POST = async (req: NextRequest) => {
             newPlan = t.productName as Plan
             referrerGain = parseFloat(((t.price * 30) / 100).toFixed(2))
           } else if (t.priceStripe * 11 == totalAmount) {
-            jetonsToAdd = t.creditsCount
+            jetonsToAdd = t.creditsCount * 12
             newPlan = `${t.productName}Year` as Plan
             referrerGain = parseFloat(((t.price * 30 * 11) / 100).toFixed(2))
           }

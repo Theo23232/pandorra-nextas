@@ -202,7 +202,7 @@ export const Pricing = () => {
           >
             {subsList.map((price) => (
               <Sub
-                creditsCount={price.creditsCount * 11}
+                creditsCount={price.creditsCount * 12}
                 price={price.price * 11}
                 isPrime={price.isPrime}
                 title={price.title}

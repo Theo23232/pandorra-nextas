@@ -14,7 +14,7 @@ export const SubscriptionType = [
     priceYear: "",
     timelap: "Forever free",
     timelapYear: "",
-    desc: "150 Tokens offered at the start",
+    desc: "100 Tokens offered at the start",
     buttonName: "Return to free plan",
   },
   {

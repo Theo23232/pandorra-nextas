@@ -493,7 +493,7 @@
   "Rate your experience": "Évaluez votre expérience",
   "Click on a star to rate": "Cliquez sur une étoile pour évaluer",
   "Submitting": "Envoi en cours",
-  "Submit Feedback": "Soumettre des commentaires",
+  "Submit Feedback": "Envoyer les commentaires",
   "Withdrawal failed. Please try again.": "Le retrait a échoué. Veuillez réessayer.",
   "Amount can't be zero": "Le montant ne peut pas être nul",
   "Amount can't exceed the current amount": "Le montant ne peut pas dépasser le montant actuel",
@@ -662,5 +662,14 @@
   "Announcement": "Annonce",
   "You do not have enought token for this message": "Vous n'avez pas assez de jetons pour cette message.",
   "The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.": "Les audios que vous générez seront supprimés 24 heures après leur création. Veuillez télécharger vos créations avant cette date pour éviter de perdre vos données.",
-  "by subscribing to our newsletter": "en souscrivant à notre newsletter"
+  "by subscribing to our newsletter": "en souscrivant à notre newsletter",
+  "Feedback submitted": "Retour soumis",
+  "Thank you for your feedback! We'll review it shortly.": "Merci pour votre retour ! Nous l'examinerons sous peu.",
+  "Failed to submit your feedback. Please try again.": "Échec de l'envoi de votre retour. Veuillez réessayer.",
+  "Please describe what happened, what you expected to happen, and steps to reproduce...": "Veuillez décrire ce qui s'est passé, ce que vous attendiez et les étapes pour reproduire...",
+  "Please describe your idea and how it would improve your experience...": "Veuillez décrire votre idée et comment elle améliorerait votre expérience...",
+  "Tell us what you enjoyed or found particularly useful. Your feedback, whether positive or negative, helps us improve!": "Dites-nous ce que vous avez apprécié ou trouvé particulièrement utile. Vos retours, qu'ils soient positifs ou négatifs, nous aident à nous améliorer !",
+  "Please provide detailed information...": "Veuillez fournir des informations détaillées...",
+  "Title": "Titre",
+  "Submitting...": "Envoi en cours..."
 }

@@ -1,0 +1,95 @@
+// prisma/schema.prisma
+
+enum TaskType {
+    BUG
+    FEATURE
+    IMPROVEMENT
+    SUGGESTION
+    FEEDBACK
+}
+
+enum TaskPriority {
+    LOW
+    MEDIUM
+    HIGH
+    CRITICAL
+}
+
+model Task {
+    id               String        @id @default(cuid())
+    type             TaskType
+    title            String
+    description      String
+    priority         TaskPriority
+    assignedToId     String?
+    isFromFeedback   Boolean
+    isHidden         Boolean       @default(false)
+    userId           String
+    createdAt        DateTime      @default(now())
+    updatedAt        DateTime      @updatedAt
+    moderationReason String?
+    moderatedAt      DateTime?
+    moderatedBy      String?
+    status           String        @default("backlog")
+    moderator        User?         @relation(name: "TaskModerator", fields: [moderatedBy], references: [id])
+    user             User          @relation(name: "TaskUser", fields: [userId], references: [id])
+    assignedTo       User?         @relation(name: "TaskUserAssignation", fields: [assignedToId], references: [id])
+    comments         TaskComment[]
+    attachments      Attachment[]
+    order            Int           @default(autoincrement())
+    TaskHistory      TaskHistory[]
+
+    @@index([userId])
+    @@index([moderatedBy])
+    @@index([assignedToId])
+}
+
+model TaskStatus {
+    id        String   @id @default(cuid())
+    status    String   @unique
+    createdAt DateTime @default(now())
+    order     Int      @unique
+
+    @@index([status])
+}
+
+model TaskComment {
+    id        String   @id @default(cuid())
+    content   String
+    userId    String
+    user      User     @relation(fields: [userId], references: [id])
+    taskId    String
+    task      Task     @relation(fields: [taskId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId])
+    @@index([taskId])
+}
+
+model Attachment {
+    id               String   @id @default(cuid())
+    url              String
+    filename         String
+    originalFilename String
+    mimetype         String
+    size             String
+    taskId           String
+    task             Task     @relation(fields: [taskId], references: [id])
+    createdAt        DateTime @default(now())
+
+    @@index([taskId])
+}
+
+model TaskHistory {
+    id        String   @id @default(cuid())
+    taskId    String
+    task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    status    String
+    createdAt DateTime @default(now())
+
+    @@index([taskId])
+    @@index([userId])
+}

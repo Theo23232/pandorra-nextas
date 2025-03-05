@@ -662,5 +662,14 @@
   "Announcement": "Announcement",
   "You do not have enought token for this message": "You do not have enought token for this message",
   "The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.": "The audio files you generate will be deleted 24 hours after their creation. Please download your creations before this deadline to avoid losing your data.",
-  "by subscribing to our newsletter": "by subscribing to our newsletter"
+  "by subscribing to our newsletter": "by subscribing to our newsletter",
+  "Feedback submitted": "Feedback submitted",
+  "Thank you for your feedback! We'll review it shortly.": "Thank you for your feedback! We'll review it shortly.",
+  "Failed to submit your feedback. Please try again.": "Failed to submit your feedback. Please try again.",
+  "Please describe what happened, what you expected to happen, and steps to reproduce...": "Please describe what happened, what you expected to happen, and steps to reproduce...",
+  "Please describe your idea and how it would improve your experience...": "Please describe your idea and how it would improve your experience...",
+  "Tell us what you enjoyed or found particularly useful. Your feedback, whether positive or negative, helps us improve!": "Tell us what you enjoyed or found particularly useful. Your feedback, whether positive or negative, helps us improve!",
+  "Please provide detailed information...": "Please provide detailed information...",
+  "Title": "Title",
+  "Submitting...": "Submitting..."
 }

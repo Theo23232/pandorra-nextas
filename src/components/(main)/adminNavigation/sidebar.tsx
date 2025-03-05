@@ -1,32 +1,29 @@
 "use client"
 import {
-  BoomBox,
-  BotMessageSquare,
-  Image,
-  MessageSquare,
-  Users,
-  Video,
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useTranslation } from "react-i18next"
+    BoomBox, BotMessageSquare, Image, ListTodo, MessageSquare, SquareKanban, Users, Video
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Navbar } from "@/components/(main)/authentified-navbar"
-import { Logo } from "@/components/logo"
-import { UserProfileMobile } from "@/components/navigation/UserProfile"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
-import { useUser } from "@/hooks/use-user"
-import { cn, cx, focusRing } from "@/lib/utils"
-import { RiHome2Line } from "@remixicon/react"
+import { siteConfig } from '@/app/siteConfig';
+import { Navbar } from '@/components/(main)/authentified-navbar';
+import { Logo } from '@/components/logo';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
+import { useUser } from '@/hooks/use-user';
+import { cn, cx, focusRing } from '@/lib/utils';
+import { RiHome2Line } from '@remixicon/react';
 
-import MobileSidebar from "./MobileSidebar"
+import MobileSidebar from './MobileSidebar';
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: RiHome2Line },
   { name: "Utilisateurs", href: "/dashboard/profile", icon: Users },
+  { name: "Kanban", href: "/dashboard/kanban", icon: SquareKanban },
+  { name: "Tasks", href: "/dashboard/tasks", icon: ListTodo },
 ] as const
 
 const shortcuts = [

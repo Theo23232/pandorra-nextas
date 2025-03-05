@@ -1,7 +1,7 @@
-import { cookies } from "next/headers"
+import { cookies } from 'next/headers';
 
-import { verifyToken } from "@/lib/auth"
-import { prisma } from "@/prisma"
+import { verifyToken } from '@/lib/auth';
+import { prisma } from '@/prisma';
 
 export async function currentUser() {
   const token = (await cookies()).get("auth-token")?.value

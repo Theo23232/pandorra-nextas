@@ -13,6 +13,7 @@
   "dependencies": {
     "@11labs/react": "^0.0.6",
     "@gsap/react": "^2.1.1",
+    "@hello-pangea/dnd": "^18.0.1",
     "@heroui/navbar": "^2.2.8",
     "@heroui/react": "^2.6.13",
     "@heroui/system": "^2.4.6",

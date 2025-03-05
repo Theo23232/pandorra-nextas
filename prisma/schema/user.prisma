@@ -50,6 +50,12 @@ model User {
   BuyToken             BuyToken[]
   Subscribe            Subscribe[]
   UserActivity         UserActivity[]
+
+  TaskComment     TaskComment[]
+  Tasks           Task[]        @relation(name: "TaskUser")
+  TasksModerated  Task[]        @relation(name: "TaskModerator")
+  TasksAssignated Task[]        @relation(name: "TaskUserAssignation")
+  TaskHistory     TaskHistory[]
 }
 
 model UserActivity {

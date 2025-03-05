@@ -1,27 +1,17 @@
 "use client"
-import { X } from "lucide-react"
-import { ReactNode } from "react"
-import { useTranslation } from "react-i18next"
+import { X } from 'lucide-react';
+import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { subscriptionSession } from "@/actions/stripeSessions.action"
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import { Badge } from "@/components/tremor/ui/badge"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { subsList } from "@/lib/prices"
-import { cn } from "@/lib/utils"
+import { subscriptionSession } from '@/actions/stripeSessions.action';
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { subsList } from '@/lib/prices';
+import { cn } from '@/lib/utils';
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -141,7 +131,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
               >
                 {subsList.map((price) => (
                   <Sub
-                    creditsCount={price.creditsCount}
+                    creditsCount={price.creditsCount * 11}
                     price={price.price * 11}
                     isPrime={price.isPrime}
                     title={price.title}

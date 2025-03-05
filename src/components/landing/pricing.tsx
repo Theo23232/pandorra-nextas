@@ -1,22 +1,17 @@
 "use client"
-import { X } from "lucide-react"
-import { redirect } from "next/navigation"
-import { useTranslation } from "react-i18next"
+import { X } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import { Badge } from "@/components/tremor/ui/badge"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { subsList } from "@/lib/prices"
-import { cn } from "@/lib/utils"
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { subsList } from '@/lib/prices';
+import { cn } from '@/lib/utils';
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -207,7 +202,7 @@ export const Pricing = () => {
           >
             {subsList.map((price) => (
               <Sub
-                creditsCount={price.creditsCount}
+                creditsCount={price.creditsCount * 11}
                 price={price.price * 11}
                 isPrime={price.isPrime}
                 title={price.title}

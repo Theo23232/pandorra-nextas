@@ -67,13 +67,19 @@ export const POST = async (req: NextRequest) => {
           if (t.priceStripe == totalAmount) {
             jetonsToAdd = t.creditsCount
             newPlan = t.productName as Plan
-            referrerGain = parseFloat((t.price / 100).toFixed(2))
+            referrerGain = parseFloat(((t.price * 30) / 100).toFixed(2))
           } else if (t.priceStripe * 11 == totalAmount) {
             jetonsToAdd = t.creditsCount
             newPlan = `${t.productName}Year` as Plan
-            referrerGain = parseFloat(((t.price * 11) / 100).toFixed(2))
+            referrerGain = parseFloat(((t.price * 30 * 11) / 100).toFixed(2))
           }
         })
+      }
+
+      if (totalAmount == 580) {
+        jetonsToAdd = 350
+        newPlan = Plan.Hebdomadaire
+        referrerGain = parseFloat(((5.8 * 30) / 100).toFixed(2))
       }
 
       if (user.referreId) {

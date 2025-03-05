@@ -53,7 +53,7 @@ export const subsList = [
     title: "Infinite Pandorra",
     creditsCount: 8000,
     price: 96.5,
-    priceStripe: 0,
+    priceStripe: 9650,
     badge: "Most popular",
     productName: "PandorraInfini",
   },

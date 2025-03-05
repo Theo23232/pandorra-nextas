@@ -1,6 +1,6 @@
 "use client"
-import { X } from 'lucide-react';
-import { ReactNode } from 'react';
+import { Loader, X } from 'lucide-react';
+import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { subscriptionSession } from '@/actions/stripeSessions.action';
@@ -173,8 +173,10 @@ type SubProps = {
 
 const Sub = (props: SubProps) => {
   const { t } = useTranslation()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleButtonClick = async () => {
+    setIsLoading(true)
     await subscriptionSession(
       props.productName,
       `${props.creditsCount} credits/${props.frequence}`,
@@ -286,7 +288,11 @@ const Sub = (props: SubProps) => {
             )}
             onClick={() => handleButtonClick()}
           >
-            <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
+            {isLoading ? (
+              <Loader className="animate-spin" />
+            ) : (
+              <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
+            )}
           </Button>
         </div>
       </div>

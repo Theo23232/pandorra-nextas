@@ -1,22 +1,17 @@
 "use client"
 
-import { X } from "lucide-react"
-import { ReactNode } from "react"
-import { useTranslation } from "react-i18next"
+import { Loader, X } from 'lucide-react';
+import { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { payementSession } from "@/actions/stripeSessions.action"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { tokenPricesList } from "@/lib/prices"
+import { payementSession } from '@/actions/stripeSessions.action';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { tokenPricesList } from '@/lib/prices';
 
 export type addTokenProps = {
   children: ReactNode
@@ -24,8 +19,6 @@ export type addTokenProps = {
 
 export const AddTokenDialog = (props: addTokenProps) => {
   const { t } = useTranslation()
-  const { toast } = useToast()
-  const { user } = useUser()
 
   return (
     <Dialog>
@@ -84,8 +77,9 @@ const Pricing = (props: PricingProps) => {
   const { t } = useTranslation()
   const { toast } = useToast()
   const { user } = useUser()
-
+  const [isLoading, setIsLoading] = useState(false)
   const handleButtonClick = async () => {
+    setIsLoading(true)
     if (user?.plan === "Free") {
       toast({
         title: t("Purchase not allowed"),
@@ -162,7 +156,11 @@ const Pricing = (props: PricingProps) => {
               className="mt-auto w-full"
               onClick={() => handleButtonClick()}
             >
-              <p className="">{t(`Add credits`)}</p>
+              {isLoading ? (
+                <Loader className="animate-spin" />
+              ) : (
+                <p className="">{t(`Add credits`)}</p>
+              )}
             </Button>
           </div>
         </div>
@@ -228,7 +226,11 @@ const Pricing = (props: PricingProps) => {
           className="mt-auto w-full bg-white hover:bg-white/80"
           onClick={() => handleButtonClick()}
         >
-          <p className="gdt">{t(`Add credits`)}</p>
+          {isLoading ? (
+            <Loader className="animate-spin" />
+          ) : (
+            <p className="">{t(`Add credits`)}</p>
+          )}
         </Button>
       </div>
     </div>

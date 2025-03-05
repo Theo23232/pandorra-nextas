@@ -1,12 +1,11 @@
 "use server"
-import { NextRequest, NextResponse } from "next/server"
-import Stripe from "stripe"
+import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
-import {
-  findUserFromCustomerId,
-  increaseReferrerBalance,
-} from "@/actions/stripe.actions"
-import { prisma } from "@/prisma"
+import { findUserFromCustomerId, increaseReferrerBalance } from '@/actions/stripe.actions';
+import { subsList, tokenPricesList } from '@/lib/prices';
+import { prisma } from '@/prisma';
+import { Plan } from '@prisma/client';
 
 export const POST = async (req: NextRequest) => {
   const body = (await req.json()) as Stripe.Event
@@ -23,24 +22,11 @@ export const POST = async (req: NextRequest) => {
       const totalAmount = session.amount_total
       let jetonsToAdd = 0
 
-      if (!session.subscription) {
-        switch (totalAmount) {
-          case 699: // 6,99$
-            jetonsToAdd = 600
-            break
-          case 1299: // 12,99$
-            jetonsToAdd = 1000
-            break
-          case 3699: // 36,99$
-            jetonsToAdd = 3699
-            break
-          case 9199: // 91,99$
-            jetonsToAdd = 9199
-            break
-          default:
-            console.warn("Unrecognized total amount:", totalAmount)
+      tokenPricesList.forEach((t) => {
+        if (t.priceStripe == totalAmount) {
+          jetonsToAdd = t.creditsCount
         }
-      }
+      })
 
       await prisma.user.update({
         where: {
@@ -77,46 +63,19 @@ export const POST = async (req: NextRequest) => {
       let referrerGain = 0
 
       if (invoice.subscription) {
-        switch (totalAmount) {
-          case 499:
-            newPlan = "Hebdomadaire"
-            jetonsToAdd = 400
-            referrerGain = parseFloat(((4.99 * 30) / 100).toFixed(2))
-            break
-          case 1299:
-            newPlan = "CreatorPack"
-            jetonsToAdd = 1000
-            referrerGain = parseFloat(((12.99 * 30) / 100).toFixed(2))
-            break
-          case 3699:
-            newPlan = "VisionPro"
-            jetonsToAdd = 3000
-            referrerGain = parseFloat(((36.99 * 30) / 100).toFixed(2))
-            break
-          case 9199:
-            newPlan = "PandorraInfini"
-            jetonsToAdd = 8000
-            referrerGain = parseFloat(((91.99 * 30) / 100).toFixed(2))
-            break
-          case 14289:
-            newPlan = "CreatorPackYear"
-            jetonsToAdd = 1000
-            referrerGain = parseFloat(((142.89 * 30) / 100).toFixed(2))
-            break
-          case 38499:
-            newPlan = "VisionProYear"
-            jetonsToAdd = 3000
-            referrerGain = parseFloat(((384.89 * 30) / 100).toFixed(2))
-            break
-          case 0:
-            newPlan = "PandorraInfiniYear"
-            jetonsToAdd = 8000
-            referrerGain = parseFloat(((989.89 * 30) / 100).toFixed(2))
-            break
-          default:
-            console.warn("Unrecognized subscription amount:", totalAmount)
-        }
+        subsList.forEach((t) => {
+          if (t.priceStripe == totalAmount) {
+            jetonsToAdd = t.creditsCount
+            newPlan = t.productName as Plan
+            referrerGain = parseFloat((t.price / 100).toFixed(2))
+          } else if (t.priceStripe * 11 == totalAmount) {
+            jetonsToAdd = t.creditsCount
+            newPlan = `${t.productName}Year` as Plan
+            referrerGain = parseFloat(((t.price * 11) / 100).toFixed(2))
+          }
+        })
       }
+
       if (user.referreId) {
         await increaseReferrerBalance(user.referreId, referrerGain)
 

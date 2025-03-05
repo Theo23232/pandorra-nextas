@@ -54,32 +54,6 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
   const { startOnborda } = useOnborda()
   const [isEnhancing, setIsEnhancing] = useState(false)
 
-  const handleImageChange = (file: File | null) => {
-    if (file && file.type.startsWith("image/")) {
-      setImage(file)
-      setPreviewUrl(URL.createObjectURL(file))
-    }
-  }
-
-  const missingToken = () => {
-    toast({
-      title: t(`Oops`),
-      description: t(
-        `Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon.`,
-      ),
-      variant: "error",
-    })
-
-    return
-  }
-
-  const handleRemoveImage = () => {
-    setImage(null)
-    if (previewUrl) URL.revokeObjectURL(previewUrl)
-    setPreviewUrl(null)
-    if (fileInputRef.current) fileInputRef.current.value = ""
-  }
-
   const handleSubmit = async () => {
     setIsLoading(true)
     if (!image && !promptText) {
@@ -240,7 +214,7 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
             <Button
               id="tour8-step5"
               className="gap-0 px-6 py-2 text-white transition-all max-lg:w-full"
-              onClick={missingToken}
+              onClick={handleSubmit}
               disabled={loading}
             >
               {isLoading && <Loader className="animate-spin" />}

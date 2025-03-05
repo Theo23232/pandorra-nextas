@@ -142,19 +142,6 @@ export default function VideoGenerator() {
     }
   }
 
-  const missingToken = () => {
-    toast({
-      title: t(`Oops`),
-      description: t(
-        `Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon.`,
-      ),
-      variant: "error",
-    })
-    setIsLoading(false)
-    setLoading(false)
-    return
-  }
-
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPromptText(e.target.value)
     if (textareaRef.current) {
@@ -275,7 +262,7 @@ export default function VideoGenerator() {
             <Button
               id="tour8-step5"
               className="gap-1 px-6 py-2 text-white transition-all max-lg:w-full"
-              onClick={missingToken}
+              onClick={handleSubmit}
               disabled={loading}
             >
               {isLoading && <Loader className="animate-spin" />}

@@ -28,7 +28,7 @@ export const tokenPricesList = [
   {
     creditsCount: 14000,
     price: 180,
-    priceStripe: 18000,
+    priceStripe: 0,
   },
 ]
 
@@ -53,7 +53,7 @@ export const subsList = [
     title: "Infinite Pandorra",
     creditsCount: 8000,
     price: 96.5,
-    priceStripe: 9650,
+    priceStripe: 0,
     badge: "Most popular",
     productName: "PandorraInfini",
   },

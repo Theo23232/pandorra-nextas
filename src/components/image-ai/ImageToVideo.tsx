@@ -60,6 +60,19 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
       setPreviewUrl(URL.createObjectURL(file))
     }
   }
+
+  const missingToken = () => {
+    toast({
+      title: t(`Oops`),
+      description: t(
+        `Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon.`,
+      ),
+      variant: "error",
+    })
+
+    return
+  }
+
   const handleRemoveImage = () => {
     setImage(null)
     if (previewUrl) URL.revokeObjectURL(previewUrl)
@@ -227,7 +240,7 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
             <Button
               id="tour8-step5"
               className="gap-0 px-6 py-2 text-white transition-all max-lg:w-full"
-              onClick={handleSubmit}
+              onClick={missingToken}
               disabled={loading}
             >
               {isLoading && <Loader className="animate-spin" />}

@@ -1,33 +1,37 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader, Loader2, Sparkles, Upload, X } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Masonry from 'react-masonry-css';
-import useSWR, { mutate } from 'swr';
+import { Loader, Loader2, Sparkles, Upload, X } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import Masonry from "react-masonry-css"
+import useSWR, { mutate } from "swr"
 
-import { verifyCredit } from '@/actions/credits.actions';
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import PromptGuide from '@/app/(main)/video/prompt-guide';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { NothingYet } from '@/components/NothingYet';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { verifyCredit } from "@/actions/credits.actions"
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import PromptGuide from "@/app/(main)/video/prompt-guide"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { NothingYet } from "@/components/NothingYet"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Textarea } from '@/components/ui/textarea';
-import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
-import { Plan, Video } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Textarea } from "@/components/ui/textarea"
+import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
+import { Plan, Video } from "@prisma/client"
 
 import type React from "react"
 const SkeletonLoader = () => (
@@ -136,6 +140,19 @@ export default function VideoGenerator() {
       setIsLoading(false)
       setLoading(false)
     }
+  }
+
+  const missingToken = () => {
+    toast({
+      title: t(`Oops`),
+      description: t(
+        `Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon.`,
+      ),
+      variant: "error",
+    })
+    setIsLoading(false)
+    setLoading(false)
+    return
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -258,7 +275,7 @@ export default function VideoGenerator() {
             <Button
               id="tour8-step5"
               className="gap-1 px-6 py-2 text-white transition-all max-lg:w-full"
-              onClick={handleSubmit}
+              onClick={missingToken}
               disabled={loading}
             >
               {isLoading && <Loader className="animate-spin" />}

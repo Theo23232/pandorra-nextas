@@ -683,5 +683,6 @@
   "Automatic renewal is enabled": "Automatic renewal is enabled",
   "Automatic renewal is disabled": "Automatic renewal is disabled",
   "About subscription renewal": "About subscription renewal",
-  "When auto-renewal": "When auto-renewal is enabled, your subscription will automatically renew at the end of each billing period using your default payment method. You can disable auto-renewal at any time, and your subscription will remain active until the end of your current billing period."
+  "When auto-renewal": "When auto-renewal is enabled, your subscription will automatically renew at the end of each billing period using your default payment method. You can disable auto-renewal at any time, and your subscription will remain active until the end of your current billing period.",
+  "Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon.": "Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon."
 }

@@ -683,5 +683,6 @@
   "Automatic renewal is enabled": "Le renouvellement automatique est activé",
   "Automatic renewal is disabled": "Le renouvellement automatique est désactivé",
   "About subscription renewal": "À propos du renouvellement de l'abonnement",
-  "When auto-renewal": "Lorsque le renouvellement automatique est activé, votre abonnement sera automatiquement renouvelé à la fin de chaque période de facturation en utilisant votre mode de paiement par défaut. Vous pouvez désactiver le renouvellement automatique à tout moment, et votre abonnement restera actif jusqu'à la fin de votre période de facturation en cours."
+  "When auto-renewal": "Lorsque le renouvellement automatique est activé, votre abonnement sera automatiquement renouvelé à la fin de chaque période de facturation en utilisant votre mode de paiement par défaut. Vous pouvez désactiver le renouvellement automatique à tout moment, et votre abonnement restera actif jusqu'à la fin de votre période de facturation en cours.",
+  "Video generation is currently not available and we're working on it. It will be available on March 6, 2025, at noon.": "La génération de vidéo n'est actuellement pas disponible et nous y travaillons. Elle sera disponible le 6 mars 2025 à midi."
 }

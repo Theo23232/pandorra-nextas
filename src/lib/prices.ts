@@ -28,7 +28,7 @@ export const tokenPricesList = [
   {
     creditsCount: 14000,
     price: 180,
-    priceStripe: 0,
+    priceStripe: 18000,
   },
 ]
 

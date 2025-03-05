@@ -28,7 +28,7 @@ export async function generateVideoFromImage(
     const imageToVideo = await client.imageToVideo.create({
       model: "gen3a_turbo",
       promptImage:
-        base64Image === "https://test.pandorra.ai/assets/fond.png"
+        base64Image === "https://pandorra.ai/assets/fond.png"
           ? [
               {
                 uri: base64Image,

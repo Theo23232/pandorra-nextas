@@ -113,7 +113,7 @@ export default function VideoGenerator() {
           reader.readAsDataURL(image)
           reader.onload = () => resolve(reader.result as string)
         })
-      : "https://test.pandorra.ai/assets/fond.png"
+      : "https://pandorra.ai/assets/fond.png"
 
     try {
       const videoDuration = duration === "5" ? 5 : 10

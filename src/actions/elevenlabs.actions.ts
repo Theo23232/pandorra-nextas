@@ -1,7 +1,7 @@
 "use server"
 
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
 
 export const generateFX = SA(
   async (user, prompt: string, url: string): Promise<any> => {
@@ -65,9 +65,9 @@ export const generateVoiceChange = SA(
 //     // Retourner le nom du fichier (sans le chemin complet)
 
 //     const url = await downloadVideo(
-//       `https://test.pandorra.ai/${fileName}`,
+//       `https://pandorra.ai/${fileName}`,
 //     ).catch(() => {
-//       return `https://test.pandorra.ai/${fileName}`
+//       return `https://pandorra.ai/${fileName}`
 //     })
 //     return url
 //   } catch (error) {

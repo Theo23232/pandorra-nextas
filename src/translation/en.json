@@ -671,5 +671,17 @@
   "Tell us what you enjoyed or found particularly useful. Your feedback, whether positive or negative, helps us improve!": "Tell us what you enjoyed or found particularly useful. Your feedback, whether positive or negative, helps us improve!",
   "Please provide detailed information...": "Please provide detailed information...",
   "Title": "Title",
-  "Submitting...": "Submitting..."
+  "Submitting...": "Submitting...",
+  "Failed to fetch subscription status": "Failed to fetch subscription status",
+  "Auto-renewal enabled": "Auto-renewal enabled",
+  "Auto-renewal disabled": "Auto-renewal disabled",
+  "Your subscription will automatically renew at the end of your billing period.": "Your subscription will automatically renew at the end of your billing period.",
+  "Your subscription will expire at the end of your billing period.": "Your subscription will expire at the end of your billing period.",
+  "Failed to update subscription settings": "Failed to update subscription settings",
+  "Subscription Renewal": "Subscription Renewal",
+  "Manage your subscription auto-renewal settings": "Manage your subscription auto-renewal settings",
+  "Automatic renewal is enabled": "Automatic renewal is enabled",
+  "Automatic renewal is disabled": "Automatic renewal is disabled",
+  "About subscription renewal": "About subscription renewal",
+  "When auto-renewal": "When auto-renewal is enabled, your subscription will automatically renew at the end of each billing period using your default payment method. You can disable auto-renewal at any time, and your subscription will remain active until the end of your current billing period."
 }

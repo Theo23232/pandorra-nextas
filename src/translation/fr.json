@@ -671,5 +671,17 @@
   "Tell us what you enjoyed or found particularly useful. Your feedback, whether positive or negative, helps us improve!": "Dites-nous ce que vous avez apprécié ou trouvé particulièrement utile. Vos retours, qu'ils soient positifs ou négatifs, nous aident à nous améliorer !",
   "Please provide detailed information...": "Veuillez fournir des informations détaillées...",
   "Title": "Titre",
-  "Submitting...": "Envoi en cours..."
+  "Submitting...": "Envoi en cours...",
+  "Failed to fetch subscription status": "Échec de la récupération du statut de l'abonnement",
+  "Auto-renewal enabled": "Renouvellement automatique activé",
+  "Auto-renewal disabled": "Renouvellement automatique désactivé",
+  "Your subscription will automatically renew at the end of your billing period.": "Votre abonnement sera automatiquement renouvelé à la fin de votre période de facturation.",
+  "Your subscription will expire at the end of your billing period.": "Votre abonnement expirera à la fin de votre période de facturation.",
+  "Failed to update subscription settings": "Échec de la mise à jour des paramètres d'abonnement",
+  "Subscription Renewal": "Renouvellement de l'abonnement",
+  "Manage your subscription auto-renewal settings": "Gérez les paramètres de renouvellement automatique de votre abonnement",
+  "Automatic renewal is enabled": "Le renouvellement automatique est activé",
+  "Automatic renewal is disabled": "Le renouvellement automatique est désactivé",
+  "About subscription renewal": "À propos du renouvellement de l'abonnement",
+  "When auto-renewal": "Lorsque le renouvellement automatique est activé, votre abonnement sera automatiquement renouvelé à la fin de chaque période de facturation en utilisant votre mode de paiement par défaut. Vous pouvez désactiver le renouvellement automatique à tout moment, et votre abonnement restera actif jusqu'à la fin de votre période de facturation en cours."
 }

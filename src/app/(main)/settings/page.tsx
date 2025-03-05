@@ -1,16 +1,12 @@
 "use client"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
-import { AccountSecurityForm } from "@/components/settings/profile/account-security-form"
-import { EditImageForm } from "@/components/settings/profile/edit-photo"
-import { PersonalInfoForm } from "@/components/settings/profile/personal-info-form"
-import { PreferencesForm } from "@/components/settings/profile/preference-form"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/tremor/ui/tabs"
+import { AccountSecurityForm } from '@/components/settings/profile/account-security-form';
+import { EditRenewSubscription } from '@/components/settings/profile/autoRenewSubscription';
+import { EditImageForm } from '@/components/settings/profile/edit-photo';
+import { PersonalInfoForm } from '@/components/settings/profile/personal-info-form';
+import { PreferencesForm } from '@/components/settings/profile/preference-form';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/tremor/ui/tabs';
 
 export default function Page() {
   const { t } = useTranslation()
@@ -44,9 +40,10 @@ export default function Page() {
           </TabsContent>
           <TabsContent
             value="preferences"
-            className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
+            className="flex flex-col gap-1 space-y-2 text-sm leading-10 text-gray-600 dark:text-gray-500"
           >
             <PreferencesForm />
+            <EditRenewSubscription />
           </TabsContent>
         </div>
       </Tabs>

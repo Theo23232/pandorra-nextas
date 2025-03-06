@@ -58,3 +58,9 @@ export const subsList = [
     productName: "PandorraInfini",
   },
 ]
+
+export const sublistPromo = subsList.map((plan) => ({
+  ...plan,
+  price: +(plan.price * 0.9).toFixed(2), // Réduction 10% et arrondi à 2 décimales
+  priceStripe: Math.round(plan.priceStripe * 0.9), // Réduction 10% et arrondi entier
+}))

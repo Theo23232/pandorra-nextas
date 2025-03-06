@@ -28,7 +28,7 @@ export default function RankingsPage() {
         </p>
         <Badge>
           🚀 {t(`Stay tuned for the launch`)}{" "}
-          <Link href={"/news-letter"} className="underline">
+          <Link href={"/news-letter"} className="hidden underline">
             {t(`by subscribing to our newsletter`)}
           </Link>
         </Badge>

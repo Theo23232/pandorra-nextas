@@ -1,11 +1,14 @@
 "use server"
-import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { NextRequest, NextResponse } from "next/server"
+import Stripe from "stripe"
 
-import { findUserFromCustomerId, increaseReferrerBalance } from '@/actions/stripe.actions';
-import { subsList, tokenPricesList } from '@/lib/prices';
-import { prisma } from '@/prisma';
-import { Plan } from '@prisma/client';
+import {
+  findUserFromCustomerId,
+  increaseReferrerBalance,
+} from "@/actions/stripe.actions"
+import { subsList, tokenPricesList } from "@/lib/prices"
+import { prisma } from "@/prisma"
+import { Plan } from "@prisma/client"
 
 export const POST = async (req: NextRequest) => {
   const body = (await req.json()) as Stripe.Event
@@ -48,7 +51,6 @@ export const POST = async (req: NextRequest) => {
       console.log("Checkout session completed", session)
       break
     }
-
     case "invoice.paid": {
       const invoice = body.data.object as Stripe.Invoice
       const stripeCustomerId = invoice.customer
@@ -125,7 +127,63 @@ export const POST = async (req: NextRequest) => {
       console.log("Checkout invoice completed", invoice)
       break
     }
+    case "customer.subscription.updated": {
+      const subscription = body.data.object as Stripe.Subscription
+      const stripeCustomerId = subscription.customer
+      const user = await findUserFromCustomerId(stripeCustomerId)
+      if (!user?.id) {
+        break
+      }
 
+      // Check if the subscription status indicates it's ending
+      if (
+        subscription.status === "canceled" ||
+        subscription.cancel_at_period_end === true
+      ) {
+        await prisma.user.update({
+          where: {
+            id: user?.id,
+          },
+          data: {
+            plan: "Free",
+          },
+        })
+        console.log("Subscription set to cancel at period end", subscription)
+      } else {
+        let jetonsToAdd = 0
+        let newPlan = user.plan
+
+        await prisma.user.update({
+          where: {
+            id: user?.id,
+          },
+          data: {
+            jeton: {
+              increment: jetonsToAdd,
+            },
+            plan: newPlan,
+          },
+        })
+        const lastSub = await prisma.subscribe.findMany({
+          where: {
+            userId: user.id,
+            plan: newPlan,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        })
+
+        await prisma.subscribe.create({
+          data: {
+            userId: user.id,
+            plan: newPlan,
+            price: lastSub[0].price,
+          },
+        })
+      }
+      break
+    }
     case "invoice.payment_failed": {
       const invoice = body.data.object as Stripe.Invoice
       const stripeCustomerId = invoice.customer
@@ -147,7 +205,6 @@ export const POST = async (req: NextRequest) => {
       console.log("Invoice event", body.type, invoice)
       break
     }
-
     case "customer.subscription.deleted": {
       const subscription = body.data.object as Stripe.Subscription
       const stripeCustomerId = subscription.customer
@@ -179,8 +236,20 @@ export const POST = async (req: NextRequest) => {
     case "payout.failed":
       const payoutFailed = body.data.object as Stripe.Payout
       console.log("Payout échoué:", payoutFailed)
-
       break
+
+    case "invoice.payment_action_required": {
+      const invoice = body.data.object as Stripe.Invoice
+      const stripeCustomerId = invoice.customer
+      const user = await findUserFromCustomerId(stripeCustomerId)
+      if (!user?.id) {
+        break
+      }
+
+      // TODO: You might want to notify the user here that payment action is required
+      console.log("Payment action required for invoice", invoice)
+      break
+    }
 
     default: {
       console.log("Unhandled event type", body.type)

@@ -1,34 +1,49 @@
 "use client"
 import {
-    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Send, Sparkles, User2,
-    Video
-} from 'lucide-react';
-import ImageDisplay from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useOnborda } from 'onborda';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+  BoomBox,
+  BotMessageSquare,
+  Coins,
+  Crown,
+  Gift,
+  Image,
+  MessageSquare,
+  Send,
+  Sparkles,
+  User2,
+  Video,
+} from "lucide-react"
+import ImageDisplay from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useOnborda } from "onborda"
+import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
-import { siteConfig } from '@/app/siteConfig';
-import { Navbar } from '@/components/(main)/authentified-navbar';
-import { ToggleTheme } from '@/components/(main)/ToggleTheme';
-import { AddTokenDialog } from '@/components/billing/addToken';
-import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
-import { UserProfileMobile } from '@/components/navigation/UserProfile';
-import JetonCounter from '@/components/pandorra/jeton-counter';
-import { TaskForm } from '@/components/task/task-dialog';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { useIsSidebar } from '@/hooks/use-is-sidebar';
-import { useUser } from '@/hooks/use-user';
-import { cn, cx, focusRing } from '@/lib/utils';
-import { RiHome2Line } from '@remixicon/react';
+import { siteConfig } from "@/app/siteConfig"
+import { Navbar } from "@/components/(main)/authentified-navbar"
+import { ToggleTheme } from "@/components/(main)/ToggleTheme"
+import { AddTokenDialog } from "@/components/billing/addToken"
+import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
+import { UserProfileMobile } from "@/components/navigation/UserProfile"
+import JetonCounter from "@/components/pandorra/jeton-counter"
+import { TaskForm } from "@/components/task/task-dialog"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { useUser } from "@/hooks/use-user"
+import { cn, cx, focusRing } from "@/lib/utils"
+import { RiHome2Line } from "@remixicon/react"
 
-import MobileSidebar from './MobileSidebar';
+import MobileSidebar from "./MobileSidebar"
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
@@ -51,16 +66,16 @@ const shortcuts = [
     id: "tour1-step8",
   },
   {
-    name: "AI Assistant",
-    href: "/assistant",
-    icon: BotMessageSquare,
-    id: "tour1-step9",
-  },
-  {
     name: "Video generation",
     href: "/video",
     icon: Video,
     id: "tour1-step10",
+  },
+  {
+    name: "AI Assistant",
+    href: "/assistant",
+    icon: BotMessageSquare,
+    id: "tour1-step9",
   },
   {
     name: "Audio AI",

@@ -1,17 +1,27 @@
 "use client"
-import { Loader, X } from 'lucide-react';
-import { ReactNode, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Loader, X } from "lucide-react"
+import { ReactNode, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { subscriptionSession } from '@/actions/stripeSessions.action';
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Badge } from '@/components/tremor/ui/badge';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { subsList } from '@/lib/prices';
-import { cn } from '@/lib/utils';
+import { subscriptionSession } from "@/actions/stripeSessions.action"
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Badge } from "@/components/tremor/ui/badge"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { subsList } from "@/lib/prices"
+import { cn } from "@/lib/utils"
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -289,7 +299,12 @@ const Sub = (props: SubProps) => {
             onClick={() => handleButtonClick()}
           >
             {isLoading ? (
-              <Loader className="animate-spin text-blue-600" />
+              <Loader
+                className={cn(
+                  "animate-spin text-blue-600",
+                  props.isPrime && "text-white",
+                )}
+              />
             ) : (
               <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
             )}

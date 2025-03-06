@@ -4,6 +4,7 @@ import { XIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useOnborda } from "onborda"
 import React from "react"
+import { useTranslation } from "react-i18next"
 
 import { EditUserTourDone } from "@/actions/user.ations"
 // Shadcn
@@ -27,7 +28,7 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
   arrow,
 }) => {
   const router = useRouter()
-
+  const { t } = useTranslation()
   // Onborda hooks
   const { closeOnborda, startOnborda, currentTour } = useOnborda()
 
@@ -105,10 +106,10 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         <div className="flex w-full items-start justify-between">
           <div className="w-full">
             <CardTitle className="mb-2 w-full text-lg">
-              {step.icon} {step.title}
+              {step.icon} {t(step.title)}
             </CardTitle>
             <CardDescription className="w-full">
-              {currentStep + 1} of {totalSteps}
+              {currentStep + 1} {t(`of`)} {totalSteps}
             </CardDescription>
           </div>
           <Button
@@ -123,20 +124,24 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="w-full">{step.content}</CardContent>
+      <CardContent className="w-full">
+        {typeof step.content === "object" && React.isValidElement(step.content)
+          ? t(step.content.props.children)
+          : t(String(step.content))}
+      </CardContent>
       <CardFooter className="w-full">
         <div className="flex w-full justify-between">
           {currentStep !== 0 && (
-            <Button onClick={() => prevStep()}>Previous</Button>
+            <Button onClick={() => prevStep()}>{t(`Previous`)}</Button>
           )}
           {currentStep + 1 !== totalSteps && (
             <Button onClick={() => nextStep()} className="ml-auto">
-              Next
+              {t(`Next`)}
             </Button>
           )}
           {currentStep + 1 === totalSteps && (
             <Button onClick={() => handleConfetti()} className="ml-auto">
-              🎉 Finish!
+              {t(`🎉 Finish!`)}
             </Button>
           )}
         </div>

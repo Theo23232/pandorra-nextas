@@ -53,7 +53,7 @@ export function Footer() {
             {t(`Company`)}
           </p>
           {[
-            { href: "/", text: "About Us" },
+            { href: "/about", text: "About Us" },
             { href: "/", text: "Contact Us" },
             { href: "/pricing", text: "Pricing" },
             { href: "/explore", text: "Community" },

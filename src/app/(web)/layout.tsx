@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
+import { redirect } from "next/navigation"
+import { ReactNode } from "react"
 
-import { currentUser } from '@/lib/current-user';
+import { currentUser } from "@/lib/current-user"
 
 export default async function RouteLayout({
   children,
@@ -10,5 +10,5 @@ export default async function RouteLayout({
 }) {
   const user = await currentUser()
   if (user) return redirect("/explore")
-  return <>{children}</>
+  return <div className="dark">{children}</div>
 }

@@ -1,17 +1,22 @@
 "use client"
 
-import { Loader, X } from 'lucide-react';
-import { ReactNode, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Loader, X } from "lucide-react"
+import { ReactNode, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { payementSession } from '@/actions/stripeSessions.action';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { tokenPricesList } from '@/lib/prices';
+import { payementSession } from "@/actions/stripeSessions.action"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { tokenPricesList } from "@/lib/prices"
 
 export type addTokenProps = {
   children: ReactNode
@@ -157,9 +162,9 @@ const Pricing = (props: PricingProps) => {
               onClick={() => handleButtonClick()}
             >
               {isLoading ? (
-                <Loader className="animate-spin text-blue-600" />
+                <Loader className="animate-spin text-white" />
               ) : (
-                <p className="gdt">{t(`Add credits`)}</p>
+                <p className="">{t(`Add credits`)}</p>
               )}
             </Button>
           </div>
@@ -227,9 +232,9 @@ const Pricing = (props: PricingProps) => {
           onClick={() => handleButtonClick()}
         >
           {isLoading ? (
-            <Loader className="animate-spin" />
+            <Loader className="animate-spin text-blue-500" />
           ) : (
-            <p className="">{t(`Add credits`)}</p>
+            <p className="gdt">{t(`Add credits`)}</p>
           )}
         </Button>
       </div>

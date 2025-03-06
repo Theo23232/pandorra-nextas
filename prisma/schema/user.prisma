@@ -5,11 +5,12 @@ model User {
   fullname          String?
   image             String
   tourOnboarding    String[]
+  promoCode         String?
   username          String   @unique
   email             String   @unique
   language          String   @default("unknown")
   description       String?
-  theme             String   @default("light")
+  theme             String   @default("dark")
   password          String
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt

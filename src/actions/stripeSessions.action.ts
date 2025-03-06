@@ -35,8 +35,9 @@ export const subscriptionSession = async (
 
   const session = await stripe.checkout.sessions.create({
     customer: stripeCustomerId as string,
+    allow_promotion_codes: true,
     mode: "subscription",
-    payment_method_types: ["card", "link"],
+    payment_method_types: ["card", "link", "alipay", "amazon_pay"],
     line_items: [
       {
         price: priceId,

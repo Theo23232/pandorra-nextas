@@ -33,6 +33,7 @@ import {
 } from "@/components/tremor/ui/dialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
+import { useUser } from "@/hooks/use-user"
 import { formatDate } from "@/lib/formatDate"
 import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
 import { models } from "@/lib/leonardo/presets"
@@ -68,6 +69,7 @@ export default function PublicationDialog({
     `/api/publication/comment?publicationId=${publication.id}`,
     fetcher,
   )
+  const { user } = useUser()
 
   const [comment, setComment] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -188,21 +190,23 @@ export default function PublicationDialog({
               />
             </div>
           </div>
-          <Button
-            variant="outline"
-            className="absolute right-14 top-2 size-9 p-0"
-            onClick={handleDeletePublication}
-          >
-            {deleteLoading ? (
-              <Loader className="animate-spin" size={20} color="red" />
-            ) : (
-              <Trash
-                size={24}
-                color="red"
-                className="h-4 w-4 text-accent-foreground"
-              />
-            )}
-          </Button>
+          {user?.id == publication.ownerId && (
+            <Button
+              variant="outline"
+              className="absolute right-14 top-2 size-9 p-0"
+              onClick={handleDeletePublication}
+            >
+              {deleteLoading ? (
+                <Loader className="animate-spin" size={20} color="red" />
+              ) : (
+                <Trash
+                  size={24}
+                  color="red"
+                  className="h-4 w-4 text-accent-foreground"
+                />
+              )}
+            </Button>
+          )}
 
           <DialogClose asChild>
             <Button

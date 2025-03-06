@@ -67,7 +67,7 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
     }
 
     setLoading(true)
-    if (user?.plan == Plan.Free) {
+    if (user?.plan == Plan.Free && !user.permissions.includes("admin")) {
       toast({
         title: t(`Error`),
         description: t(

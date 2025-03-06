@@ -1,19 +1,23 @@
 "use client"
 
-import { ArrowDownIcon, Sparkles } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { ArrowDownIcon, Sparkles } from "lucide-react"
+import { redirect } from "next/navigation"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import AnimatedShinyText from '@/components/nyxb/animated-shiny-text';
+import Bounce from "@/components/animated/uibeats/bounce"
+import AnimatedShinyText from "@/components/nyxb/animated-shiny-text"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/nyxb/select';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useUser } from '@/hooks/use-user';
-import { cn } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/nyxb/select"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useUser } from "@/hooks/use-user"
+import { cn } from "@/lib/utils"
 
 export function Hero() {
   const { t } = useTranslation()
@@ -41,7 +45,7 @@ export function Hero() {
           </AnimatedShinyText>
         </div>
 
-        <p className="max-w-4xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-5.5px] text-white max-lg:max-w-[calc(100vw-4rem)] max-lg:text-[60px] max-lg:leading-[60px]">
+        <p className="max-w-4xl text-center font-sans text-[102px] font-[600] leading-[108px] tracking-[-5.5px] text-white max-lg:max-w-[calc(100vw-4rem)] max-lg:text-[60px] max-lg:leading-[65px] max-lg:tracking-[-2.5px]">
           <span className="mr-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text pr-2 text-transparent">
             {t(`Pandorra`)}
           </span>

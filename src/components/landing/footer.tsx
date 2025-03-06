@@ -54,7 +54,7 @@ export function Footer() {
           </p>
           {[
             { href: "/about", text: "About Us" },
-            { href: "/", text: "Contact Us" },
+            // { href: "/", text: "Contact Us" },
             { href: "/pricing", text: "Pricing" },
             { href: "/explore", text: "Community" },
             { href: "/affiliate", text: "Affiliate Program" },

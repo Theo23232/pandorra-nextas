@@ -39,7 +39,7 @@ export const SponsorShareLink = () => {
         </h2>
         <p className="mt-1 text-muted-foreground">
           {t(
-            `You must share this link to become a sponsor, when your sponsored user makes a subscription you will have 40% of the subscription price`,
+            `You must share this link to become a sponsor, when your sponsored user makes a subscription you will have 30% of the subscription price`,
           )}
         </p>
       </div>

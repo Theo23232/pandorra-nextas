@@ -1,11 +1,15 @@
 "use client"
 
+import type React from "react"
+
 import axios from "axios"
 import {
+  Globe,
   Megaphone,
   PanelLeftClose,
   PanelLeftOpen,
   Plus,
+  Search,
   Send,
   StopCircle,
 } from "lucide-react"
@@ -21,6 +25,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
+import { Toggle } from "@/components/ui/toggle"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from "@/hooks/use-user"
 import { cn, fetcher } from "@/lib/utils"
@@ -37,7 +48,8 @@ export default function Page() {
   const [abortController, setAbortController] =
     useState<AbortController | null>(null)
   const [sheetIsOpen, setSheetIsOpen] = useState(false)
-  const [dialogOpen, setDialogOpen] = useState<Boolean>(false)
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+  const [useWebSearch, setUseWebSearch] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { toast } = useToast()
@@ -122,7 +134,11 @@ export default function Page() {
       // Appeler l'API avec streaming
       const response = await fetch(`/api/chat`, {
         method: "POST",
-        body: JSON.stringify({ conversationId: convId, content: newMess }),
+        body: JSON.stringify({
+          conversationId: convId,
+          content: newMess,
+          useWebSearch: useWebSearch,
+        }),
         signal: controller.signal,
         headers: {
           Accept: "text/event-stream",
@@ -221,11 +237,7 @@ export default function Page() {
                     {conversations?.map((conversation) => (
                       <Button
                         key={conversation.id}
-                        variant={`${
-                          conversationId === conversation.id
-                            ? "outline"
-                            : "ghost"
-                        }`}
+                        variant={`${conversationId === conversation.id ? "outline" : "ghost"}`}
                         className={cn(
                           "relative w-full max-w-[350px] justify-start truncate",
                           conversationId === conversation.id
@@ -261,9 +273,7 @@ export default function Page() {
                   {conversations?.map((conversation) => (
                     <Button
                       key={conversation.id}
-                      variant={`${
-                        conversationId === conversation.id ? "outline" : "ghost"
-                      }`}
+                      variant={`${conversationId === conversation.id ? "outline" : "ghost"}`}
                       className={cn(
                         "relative w-full max-w-[350px] justify-start truncate",
                         conversationId === conversation.id
@@ -308,32 +318,64 @@ export default function Page() {
                 <div ref={messagesEndRef} />
               </div>
               <MagicCard className="sticky bottom-4 z-50 p-4">
-                <div className="flex">
-                  <Textarea
-                    ref={textareaRef}
-                    value={newMessage}
-                    onChange={handleInput}
-                    className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
-                    placeholder="Type your message..."
-                    rows={1}
-                  />
-                  <div className="flex items-end">
-                    {isStreaming ? (
-                      <Button
-                        type="button"
-                        onClick={stopGeneration}
-                        className="flex h-10 w-10 items-center justify-center p-0"
-                      >
-                        <StopCircle size={20} />
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => sendMessage(newMessage, conversationId)}
-                        className="flex h-10 w-10 items-center justify-center p-0"
-                      >
-                        <Send size={20} />
-                      </Button>
-                    )}
+                <div className="flex flex-col">
+                  <div className="mb-2 flex items-center">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Toggle
+                            aria-label="Toggle web search"
+                            pressed={useWebSearch}
+                            onPressedChange={setUseWebSearch}
+                            className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
+                          >
+                            <Globe className="mr-1 h-4 w-4" />
+                            Web
+                          </Toggle>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Enable web search for up-to-date information</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <div className="flex">
+                    <Textarea
+                      ref={textareaRef}
+                      value={newMessage}
+                      onChange={handleInput}
+                      className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
+                      placeholder={
+                        useWebSearch
+                          ? "Ask me anything with web search..."
+                          : "Type your message..."
+                      }
+                      rows={1}
+                    />
+                    <div className="flex items-end">
+                      {isStreaming ? (
+                        <Button
+                          type="button"
+                          onClick={stopGeneration}
+                          className="flex h-10 w-10 items-center justify-center p-0"
+                        >
+                          <StopCircle size={20} />
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() =>
+                            sendMessage(newMessage, conversationId)
+                          }
+                          className="flex h-10 w-10 items-center justify-center p-0"
+                        >
+                          {useWebSearch ? (
+                            <Search size={20} />
+                          ) : (
+                            <Send size={20} />
+                          )}
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </MagicCard>
@@ -362,32 +404,62 @@ export default function Page() {
                 <div ref={messagesEndRef} />
               </div>
               <MagicCard className="sticky bottom-4 z-50 p-4">
-                <form onSubmit={createConversation} className="flex">
-                  <Textarea
-                    ref={textareaRef}
-                    value={newMessage}
-                    onChange={handleInput}
-                    className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
-                    placeholder="Type your message..."
-                    rows={1}
-                  />
-                  <div className="flex items-end">
-                    {isStreaming ? (
-                      <Button
-                        type="button"
-                        onClick={stopGeneration}
-                        className="flex h-10 w-10 items-center justify-center p-0"
-                      >
-                        <StopCircle size={20} />
-                      </Button>
-                    ) : (
-                      <Button
-                        type="submit"
-                        className="flex h-10 w-10 items-center justify-center p-0"
-                      >
-                        <Send size={20} />
-                      </Button>
-                    )}
+                <form onSubmit={createConversation} className="flex flex-col">
+                  <div className="mb-2 flex items-center">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Toggle
+                            aria-label="Toggle web search"
+                            pressed={useWebSearch}
+                            onPressedChange={setUseWebSearch}
+                            className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
+                          >
+                            <Globe className="mr-1 h-4 w-4" />
+                            Web
+                          </Toggle>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Enable web search for up-to-date information</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <div className="flex">
+                    <Textarea
+                      ref={textareaRef}
+                      value={newMessage}
+                      onChange={handleInput}
+                      className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
+                      placeholder={
+                        useWebSearch
+                          ? "Ask me anything with web search..."
+                          : "Type your message..."
+                      }
+                      rows={1}
+                    />
+                    <div className="flex items-end">
+                      {isStreaming ? (
+                        <Button
+                          type="button"
+                          onClick={stopGeneration}
+                          className="flex h-10 w-10 items-center justify-center p-0"
+                        >
+                          <StopCircle size={20} />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="submit"
+                          className="flex h-10 w-10 items-center justify-center p-0"
+                        >
+                          {useWebSearch ? (
+                            <Search size={20} />
+                          ) : (
+                            <Send size={20} />
+                          )}
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </form>
               </MagicCard>

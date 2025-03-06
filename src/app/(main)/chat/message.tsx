@@ -62,6 +62,16 @@ export const Message: React.FC<MessageProps> = ({
     td: ({ children }) => (
       <td className="border-r border-border p-2 last:border-r-0">{children}</td>
     ),
+    a: ({ href, children }) => (
+      <a
+        href={href}
+        className="break-words text-blue-500 hover:underline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
     code({ className, children, node, ...props }) {
       const match = /language-(\w+)/.exec(className || "")
       const code = String(children).replace(/\n$/, "")
@@ -138,11 +148,11 @@ export const Message: React.FC<MessageProps> = ({
 
   return (
     <Bounce className="rounded-lg bg-background p-4 text-foreground">
-      {isStreaming  && (
-          <div className="mb-2 animate-pulse text-sm text-muted-foreground">
-            {t(`Pandorra is thinking...`)}
-          </div>
-        )}
+      {isStreaming && (
+        <div className="mb-2 animate-pulse text-sm text-muted-foreground">
+          {t(`Pandorra is thinking...`)}
+        </div>
+      )}
       <div className={`${isStreaming ? "animate-fade-in" : ""}`}>
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
           {content}

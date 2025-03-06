@@ -50,6 +50,7 @@ export const subscriptionSession = async (
   if (!session.url) {
     throw new Error("Session URL is missing")
   }
+  console.log("session.url ==> ", session.url)
   redirect(session.url)
 }
 

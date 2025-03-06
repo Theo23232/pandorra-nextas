@@ -77,19 +77,15 @@ export async function POST(req: Request) {
                 assistantMessageContent += `${searchResults}\n\n`
               } else {
                 // Format search results for display
-                const formattedResults = searchResults
-                  .map(
-                    (result: any, index: number) =>
-                      `${index + 1}. **${result.title}**\n   ${result.snippet}\n   [${result.link}](${result.link})\n`,
-                  )
-                  .join("\n")
+                // const formattedResults = searchResults
+                //   .map(
+                //     (result: any, index: number) =>
+                //       `${index + 1}. **${result.title}**\n   ${result.snippet}\n   [${result.link}](${result.link})\n`,
+                //   )
+                //   .join("\n")
 
-                controller.enqueue(
-                  encoder.encode(
-                    `Found information:\n\n${formattedResults}\n\n`,
-                  ),
-                )
-                assistantMessageContent += `🔍 Web search results:\n\n${formattedResults}\n\n`
+                controller.enqueue(encoder.encode(`Found information:\n\n`))
+                // assistantMessageContent += `🔍 Web search results:\n\n${formattedResults}\n\n`
 
                 // Now use OpenAI to analyze the search results
                 const stream = await openai.chat.completions.create({
@@ -97,8 +93,7 @@ export async function POST(req: Request) {
                   messages: [
                     {
                       role: "system",
-                      content: `You are Pandorra, an AI assistant built by Pandorra.ai. Help the user by analyzing web search results and providing a comprehensive answer. When citing sources, always use descriptive link text instead of URLs. For example, use [Article Title](URL) instead of [URL](URL). Always cite your sources.
-                       Inseade of [//duckduckgo.com/l/?uddg=https%3A%2F%2Fplanetrulers.com%2Fmadagascar%2Dpresident%2F&rut=caac32c0d223000637fe1fc4b9564d84bbf32f35d8b632b7cdf62b6d67d7fed2](planetrulers.com) for example send [//duckduckgo.com/l/?uddg=https%3A%2F%2Fplanetrulers.com%2Fmadagascar%2Dpresident%2F&rut=caac32c0d223000637fe1fc4b9564d84bbf32f35d8b632b7cdf62b6d67d7fed2](//duckduckgo.com/l/?uddg=https%3A%2F%2Fplanetrulers.com%2Fmadagascar%2Dpresident%2F&rut=caac32c0d223000637fe1fc4b9564d84bbf32f35d8b632b7cdf62b6d67d7fed2)`,
+                      content: `You are Pandorra, an AI assistant built by Pandorra.ai. Help the user by analyzing web search results and providing a comprehensive answer. When citing sources, always use descriptive link text instead of URLs. For example, use [Article Title](URL) instead of [URL](URL). Always cite your sources. And resend as a list the top 3 web research using the user's language`,
                     },
                     ...messages,
                     {

@@ -17,8 +17,15 @@ export async function searchWeb(
       `https://html.duckduckgo.com/html/?q=${query}`,
     )
 
+    console.log("response.data ==> ", response.data)
+    let data = response.data
+    data = data.replace(/\/\/duckduckgo\.com\/l\/\?uddg=/g, "")
+    data = data.replace(/%3A%2F%2F/g, "://")
+    data = data.replace(/%2F/g, "/")
+    data = data.replace(/%2D/g, "-")
+    console.log("data ==> ", data)
     // Charger la page HTML dans Cheerio pour pouvoir l'analyser
-    const $: CheerioAPI = load(response.data)
+    const $: CheerioAPI = load(data)
 
     // Extraire les résultats de recherche
     const searchResults: SearchResult[] = []

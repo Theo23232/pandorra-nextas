@@ -206,8 +206,8 @@ export default function Page() {
   }
 
   return (
-    <MagicCard className="rounded-xl">
-      <div className="flex flex-row p-4">
+    <MagicCard className="max-h-[calc(100vh-80px)] rounded-xl">
+      <div className="flex flex-row p-4 pr-0">
         <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
           <SheetTrigger asChild>
             <button
@@ -257,7 +257,7 @@ export default function Page() {
             </div>
           </SheetContent>
         </Sheet>
-        <Bounce className="sticky top-4 hidden h-fit max-h-[calc(100vh-20px)] w-96 bg-card md:block">
+        <div className="sticky top-4 hidden h-fit max-h-[calc(100vh-20px)] w-96 bg-card md:block">
           <MagicCard className="overflow-hidden p-4 pb-0">
             <Button
               onClick={() => {
@@ -291,181 +291,183 @@ export default function Page() {
               )}
             </ScrollArea>
           </MagicCard>
-        </Bounce>
+        </div>
 
-        <Bounce className="mx-auto flex h-full w-full max-w-3xl flex-col p-2 pb-0">
-          {conversationId ? (
-            <>
-              <div className="min-h-[calc(100vh-204px)] flex-1 p-4">
-                {messages.map((message) => (
-                  <div key={message.id} className="mb-4">
-                    <Message
-                      content={message.content}
-                      role={message.role}
-                      isStreaming={
-                        isStreaming &&
-                        message.role === "assistant" &&
-                        message === messages[messages.length - 1]
-                      }
-                      isLoading={
-                        isStreaming &&
-                        message.role === "assistant" &&
-                        message === messages[messages.length - 1]
-                      }
-                    />
-                  </div>
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
-              <MagicCard className="sticky bottom-4 z-50 p-4">
-                <div className="flex flex-col">
-                  <div className="mb-2 flex items-center">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Toggle
-                            aria-label="Toggle web search"
-                            pressed={useWebSearch}
-                            onPressedChange={setUseWebSearch}
-                            className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
-                          >
-                            <Globe className="mr-1 h-4 w-4" />
-                            Web
-                          </Toggle>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Enable web search for up-to-date information</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  <div className="flex">
-                    <Textarea
-                      ref={textareaRef}
-                      value={newMessage}
-                      onChange={handleInput}
-                      className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
-                      placeholder={
-                        useWebSearch
-                          ? "Ask me anything with web search..."
-                          : "Type your message..."
-                      }
-                      rows={1}
-                    />
-                    <div className="flex items-end">
-                      {isStreaming ? (
-                        <Button
-                          type="button"
-                          onClick={stopGeneration}
-                          className="flex h-10 w-10 items-center justify-center p-0"
-                        >
-                          <StopCircle size={20} />
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={() =>
-                            sendMessage(newMessage, conversationId)
-                          }
-                          className="flex h-10 w-10 items-center justify-center p-0"
-                        >
-                          {useWebSearch ? (
-                            <Search size={20} />
-                          ) : (
-                            <Send size={20} />
-                          )}
-                        </Button>
-                      )}
+        <div className="h-full max-h-[calc(100vh-80px)] w-full overflow-y-scroll">
+          <div className="mx-auto flex h-full w-full max-w-3xl flex-col p-2 pb-0">
+            {conversationId ? (
+              <>
+                <div className="min-h-[calc(100vh-204px)] flex-1 p-4">
+                  {messages.map((message) => (
+                    <div key={message.id} className="mb-4">
+                      <Message
+                        content={message.content}
+                        role={message.role}
+                        isStreaming={
+                          isStreaming &&
+                          message.role === "assistant" &&
+                          message === messages[messages.length - 1]
+                        }
+                        isLoading={
+                          isStreaming &&
+                          message.role === "assistant" &&
+                          message === messages[messages.length - 1]
+                        }
+                      />
                     </div>
-                  </div>
+                  ))}
+                  <div ref={messagesEndRef} />
                 </div>
-              </MagicCard>
-            </>
-          ) : (
-            <>
-              <div className="flex min-h-[calc(100vh-204px)] flex-1 items-center justify-center p-4">
-                <Bounce>
-                  <div className="font-inter text-center text-[40px] font-semibold leading-[78px] text-black md:text-[50px] dark:text-[#FDFDFD]">
-                    {t(`Hello,`)}
-                    <span className="ml-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text capitalize text-transparent">
-                      {user?.username}
-                    </span>
-                  </div>
-                  <Alert className="max-w-md border border-border">
-                    <Megaphone className="h-4 w-4" />
-                    <AlertTitle>{t(`Announcement`)}!</AlertTitle>
-                    <AlertDescription>
-                      {t(
-                        `Pandorra chat currently costs 1 credit per message but will soon be free and unlimited.`,
-                      )}
-                    </AlertDescription>
-                  </Alert>
-                </Bounce>
-                <p> </p>
-                <div ref={messagesEndRef} />
-              </div>
-              <MagicCard className="sticky bottom-4 z-50 p-4">
-                <form onSubmit={createConversation} className="flex flex-col">
-                  <div className="mb-2 flex items-center">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Toggle
-                            aria-label="Toggle web search"
-                            pressed={useWebSearch}
-                            onPressedChange={setUseWebSearch}
-                            className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
+                <MagicCard className="sticky bottom-0 z-50 p-4 shadow-none">
+                  <div className="flex flex-col">
+                    <div className="mb-2 flex items-center">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Toggle
+                              aria-label="Toggle web search"
+                              pressed={useWebSearch}
+                              onPressedChange={setUseWebSearch}
+                              className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
+                            >
+                              <Globe className="mr-1 h-4 w-4" />
+                              Web
+                            </Toggle>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Enable web search for up-to-date information</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                    <div className="flex">
+                      <Textarea
+                        ref={textareaRef}
+                        value={newMessage}
+                        onChange={handleInput}
+                        className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
+                        placeholder={
+                          useWebSearch
+                            ? "Ask me anything with web search..."
+                            : "Type your message..."
+                        }
+                        rows={1}
+                      />
+                      <div className="flex items-end">
+                        {isStreaming ? (
+                          <Button
+                            type="button"
+                            onClick={stopGeneration}
+                            className="flex h-10 w-10 items-center justify-center p-0"
                           >
-                            <Globe className="mr-1 h-4 w-4" />
-                            Web
-                          </Toggle>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Enable web search for up-to-date information</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  <div className="flex">
-                    <Textarea
-                      ref={textareaRef}
-                      value={newMessage}
-                      onChange={handleInput}
-                      className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
-                      placeholder={
-                        useWebSearch
-                          ? "Ask me anything with web search..."
-                          : "Type your message..."
-                      }
-                      rows={1}
-                    />
-                    <div className="flex items-end">
-                      {isStreaming ? (
-                        <Button
-                          type="button"
-                          onClick={stopGeneration}
-                          className="flex h-10 w-10 items-center justify-center p-0"
-                        >
-                          <StopCircle size={20} />
-                        </Button>
-                      ) : (
-                        <Button
-                          type="submit"
-                          className="flex h-10 w-10 items-center justify-center p-0"
-                        >
-                          {useWebSearch ? (
-                            <Search size={20} />
-                          ) : (
-                            <Send size={20} />
-                          )}
-                        </Button>
-                      )}
+                            <StopCircle size={20} />
+                          </Button>
+                        ) : (
+                          <Button
+                            onClick={() =>
+                              sendMessage(newMessage, conversationId)
+                            }
+                            className="flex h-10 w-10 items-center justify-center p-0"
+                          >
+                            {useWebSearch ? (
+                              <Search size={20} />
+                            ) : (
+                              <Send size={20} />
+                            )}
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </form>
-              </MagicCard>
-            </>
-          )}
-        </Bounce>
+                </MagicCard>
+              </>
+            ) : (
+              <>
+                <div className="flex min-h-[calc(100vh-204px)] flex-1 items-center justify-center overflow-y-auto p-4">
+                  <Bounce>
+                    <div className="font-inter text-center text-[40px] font-semibold leading-[78px] text-black md:text-[50px] dark:text-[#FDFDFD]">
+                      {t(`Hello,`)}
+                      <span className="ml-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text capitalize text-transparent">
+                        {user?.username}
+                      </span>
+                    </div>
+                    <Alert className="max-w-md border border-border">
+                      <Megaphone className="h-4 w-4" />
+                      <AlertTitle>{t(`Announcement`)}!</AlertTitle>
+                      <AlertDescription>
+                        {t(
+                          `Pandorra chat currently costs 1 credit per message but will soon be free and unlimited.`,
+                        )}
+                      </AlertDescription>
+                    </Alert>
+                  </Bounce>
+                  <p> </p>
+                  <div ref={messagesEndRef} />
+                </div>
+                <MagicCard className="sticky bottom-0 z-50 p-4 shadow-none">
+                  <form onSubmit={createConversation} className="flex flex-col">
+                    <div className="mb-2 flex items-center">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Toggle
+                              aria-label="Toggle web search"
+                              pressed={useWebSearch}
+                              onPressedChange={setUseWebSearch}
+                              className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
+                            >
+                              <Globe className="mr-1 h-4 w-4" />
+                              Web
+                            </Toggle>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Enable web search for up-to-date information</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                    <div className="flex">
+                      <Textarea
+                        ref={textareaRef}
+                        value={newMessage}
+                        onChange={handleInput}
+                        className="max-h-48 w-full resize-none overflow-y-auto border-0 bg-transparent pt-2 text-base shadow-none focus-visible:ring-0"
+                        placeholder={
+                          useWebSearch
+                            ? "Ask me anything with web search..."
+                            : "Type your message..."
+                        }
+                        rows={1}
+                      />
+                      <div className="flex items-end">
+                        {isStreaming ? (
+                          <Button
+                            type="button"
+                            onClick={stopGeneration}
+                            className="flex h-10 w-10 items-center justify-center p-0"
+                          >
+                            <StopCircle size={20} />
+                          </Button>
+                        ) : (
+                          <Button
+                            type="submit"
+                            className="flex h-10 w-10 items-center justify-center p-0"
+                          >
+                            {useWebSearch ? (
+                              <Search size={20} />
+                            ) : (
+                              <Send size={20} />
+                            )}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </form>
+                </MagicCard>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </MagicCard>
   )

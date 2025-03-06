@@ -35,7 +35,10 @@ export const Message: React.FC<MessageProps> = ({
 
   if (role === "user") {
     return (
-      <Bounce className="relative ml-auto w-fit max-w-xl rounded-3xl bg-muted px-5 py-2.5">
+      <Bounce
+        once={true}
+        className="relative ml-auto w-fit max-w-xl rounded-3xl bg-muted px-5 py-2.5"
+      >
         <div className="whitespace-pre-wrap">{content}</div>
       </Bounce>
     )
@@ -147,7 +150,10 @@ export const Message: React.FC<MessageProps> = ({
   }
 
   return (
-    <Bounce className="rounded-lg bg-background p-4 text-foreground">
+    <Bounce
+      once={true}
+      className="rounded-lg bg-background p-4 text-foreground"
+    >
       {isStreaming && (
         <div className="mb-2 animate-pulse text-sm text-muted-foreground">
           {t(`Pandorra is thinking...`)}

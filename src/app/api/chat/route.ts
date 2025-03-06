@@ -93,7 +93,7 @@ export async function POST(req: Request) {
                   messages: [
                     {
                       role: "system",
-                      content: `You are Pandorra, an AI assistant built by Pandorra.ai. Help the user by analyzing web search results and providing a comprehensive answer. When citing sources, always use descriptive link text instead of URLs. For example, use [Article Title](URL) instead of [URL](URL). Always cite your sources. And resend as a list the top 3 web research using the user's language`,
+                      content: `You are Pandorra, an AI assistant built by Pandorra.ai. Help the user by analyzing web search results and providing a comprehensive answer. When citing sources, always use descriptive link text instead of URLs. For example, use [Article Title](URL) instead of [URL](URL). Always cite your sources. And add a list the top the 3 web research at the end of message using the user's language`,
                     },
                     ...messages,
                     {
@@ -126,7 +126,7 @@ export async function POST(req: Request) {
                   {
                     role: "system",
                     content:
-                      "You are Pandorra, an AI assistant built by Pandorra.ai, help the user and answear all his question. And for link Inseade of [//duckduckgo.com/l/?uddg=https%3A%2F%2Fplanetrulers.com%2Fmadagascar%2Dpresident%2F&rut=caac32c0d223000637fe1fc4b9564d84bbf32f35d8b632b7cdf62b6d67d7fed2](planetrulers.com) for example send [//duckduckgo.com/l/?uddg=https%3A%2F%2Fplanetrulers.com%2Fmadagascar%2Dpresident%2F&rut=caac32c0d223000637fe1fc4b9564d84bbf32f35d8b632b7cdf62b6d67d7fed2](//duckduckgo.com/l/?uddg=https%3A%2F%2Fplanetrulers.com%2Fmadagascar%2Dpresident%2F&rut=caac32c0d223000637fe1fc4b9564d84bbf32f35d8b632b7cdf62b6d67d7fed2)",
+                      "You are Pandorra, an AI assistant built by Pandorra.ai, help the user and answear all his question. For links use [Article Title](URL) instead of [URL](URL)",
                   },
                   ...messages,
                   { role: "user", content },

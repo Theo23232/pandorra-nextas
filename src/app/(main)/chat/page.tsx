@@ -5,6 +5,7 @@ import type React from "react"
 import axios from "axios"
 import {
   Globe,
+  Loader,
   Megaphone,
   PanelLeftClose,
   PanelLeftOpen,
@@ -100,14 +101,11 @@ export default function Page() {
         `/api/conversations/one?id=${conversationId}`,
       )
       setMessages(data.messages)
+      messagesEndRef.current?.scrollIntoView({ behavior: "instant" })
     }
 
     fetchMessages()
   }, [conversationId])
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [messages])
 
   const sendMessage = async (newMess: string, convId: string) => {
     setNewMessage("")
@@ -121,7 +119,7 @@ export default function Page() {
 
     const controller = new AbortController()
     setAbortController(controller)
-
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     try {
       // Envoyer le message utilisateur
       const userMessage = {
@@ -207,11 +205,11 @@ export default function Page() {
 
   return (
     <MagicCard className="max-h-[calc(100vh-80px)] rounded-xl">
-      <div className="flex flex-row p-4 pr-0">
+      <div className="flex flex-row pl-4 pr-0">
         <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
           <SheetTrigger asChild>
             <button
-              className="fixed bottom-36 left-4 z-50 block rounded-full bg-blue-500 p-2 text-white md:hidden"
+              className="fixed bottom-44 right-8 z-50 block rounded-full bg-blue-500 p-2 text-white md:hidden"
               onClick={openDialog}
             >
               {!dialogOpen ? (
@@ -231,9 +229,9 @@ export default function Page() {
               >
                 <Plus className="mr-2" /> {t(`Start Conversation`)}
               </Button>
-              <ScrollArea className="h-[calc(100vh-120px)]">
+              <ScrollArea className="h-[calc(100vh-112px)]">
                 {conversations ? (
-                  <Bounce className="mt-4 pr-4">
+                  <Bounce once={true} className="mt-4 pr-4">
                     {conversations?.map((conversation) => (
                       <Button
                         key={conversation.id}
@@ -257,8 +255,8 @@ export default function Page() {
             </div>
           </SheetContent>
         </Sheet>
-        <div className="sticky top-4 hidden h-fit max-h-[calc(100vh-20px)] w-96 bg-card md:block">
-          <MagicCard className="overflow-hidden p-4 pb-0">
+        <div className="sticky top-4 hidden h-fit max-h-[calc(100vh-28px)] w-96 flex-col bg-card md:flex">
+          <MagicCard className="overflow-hidden p-4 pb-0 shadow-none">
             <Button
               onClick={() => {
                 setConversationId("")
@@ -267,9 +265,9 @@ export default function Page() {
             >
               <Plus className="mr-2" /> {t(`Start Conversation`)}
             </Button>
-            <ScrollArea className="h-[calc(100vh-160px)]">
+            <ScrollArea className="h-[calc(100vh-168px)]">
               {conversations ? (
-                <Bounce className="mt-4 pr-4">
+                <Bounce once={true} className="mt-4 pr-4">
                   {conversations?.map((conversation) => (
                     <Button
                       key={conversation.id}
@@ -293,8 +291,8 @@ export default function Page() {
           </MagicCard>
         </div>
 
-        <div className="h-full max-h-[calc(100vh-80px)] w-full overflow-y-scroll">
-          <div className="mx-auto flex h-full w-full max-w-3xl flex-col p-2 pb-0">
+        <div className="h-full max-h-[calc(100vh-80px)] w-full overflow-y-scroll py-[4px]">
+          <div className="mx-auto flex h-fit w-full max-w-3xl flex-col p-2 pb-0">
             {conversationId ? (
               <>
                 <div className="min-h-[calc(100vh-204px)] flex-1 p-4">
@@ -316,31 +314,11 @@ export default function Page() {
                       />
                     </div>
                   ))}
-                  <div ref={messagesEndRef} />
+                  <div ref={messagesEndRef} className="pb-12" />
                 </div>
-                <MagicCard className="sticky bottom-0 z-50 p-4 shadow-none">
+                <MagicCard className="sticky bottom-4 z-50 p-4 shadow-none">
                   <div className="flex flex-col">
-                    <div className="mb-2 flex items-center">
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Toggle
-                              aria-label="Toggle web search"
-                              pressed={useWebSearch}
-                              onPressedChange={setUseWebSearch}
-                              className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
-                            >
-                              <Globe className="mr-1 h-4 w-4" />
-                              Web
-                            </Toggle>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Enable web search for up-to-date information</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                    <div className="flex">
+                    <div className="flex flex-col">
                       <Textarea
                         ref={textareaRef}
                         value={newMessage}
@@ -353,12 +331,43 @@ export default function Page() {
                         }
                         rows={1}
                       />
-                      <div className="flex items-end">
+                      <div className="flex w-full items-end justify-between">
+                        <div className="mb-2 flex items-center">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Toggle
+                                  aria-label="Toggle web search"
+                                  pressed={useWebSearch}
+                                  onPressedChange={setUseWebSearch}
+                                  className={`mr-2 h-8 border border-border px-2 ${useWebSearch ? "border-primary bg-blue-500/20 text-primary hover:bg-blue-500/40 hover:text-primary" : ""}`}
+                                >
+                                  <Globe className="mr-1 h-4 w-4" />
+                                  Web
+                                </Toggle>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>
+                                  Enable web search for up-to-date information
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                        {isLoading && !isStreaming && (
+                          <Button
+                            type="button"
+                            onClick={stopGeneration}
+                            className="flex h-8 w-10 items-center justify-center p-0"
+                          >
+                            <Loader className="animate-spin" size={20} />
+                          </Button>
+                        )}
                         {isStreaming ? (
                           <Button
                             type="button"
                             onClick={stopGeneration}
-                            className="flex h-10 w-10 items-center justify-center p-0"
+                            className="flex h-8 w-10 items-center justify-center p-0"
                           >
                             <StopCircle size={20} />
                           </Button>
@@ -367,7 +376,7 @@ export default function Page() {
                             onClick={() =>
                               sendMessage(newMessage, conversationId)
                             }
-                            className="flex h-10 w-10 items-center justify-center p-0"
+                            className="flex h-8 w-10 items-center justify-center p-0"
                           >
                             {useWebSearch ? (
                               <Search size={20} />
@@ -384,7 +393,7 @@ export default function Page() {
             ) : (
               <>
                 <div className="flex min-h-[calc(100vh-204px)] flex-1 items-center justify-center overflow-y-auto p-4">
-                  <Bounce>
+                  <Bounce once={true}>
                     <div className="font-inter text-center text-[40px] font-semibold leading-[78px] text-black md:text-[50px] dark:text-[#FDFDFD]">
                       {t(`Hello,`)}
                       <span className="ml-4 bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text capitalize text-transparent">
@@ -404,29 +413,9 @@ export default function Page() {
                   <p> </p>
                   <div ref={messagesEndRef} />
                 </div>
-                <MagicCard className="sticky bottom-0 z-50 p-4 shadow-none">
+                <MagicCard className="sticky bottom-4 z-50 p-4 shadow-none">
                   <form onSubmit={createConversation} className="flex flex-col">
-                    <div className="mb-2 flex items-center">
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Toggle
-                              aria-label="Toggle web search"
-                              pressed={useWebSearch}
-                              onPressedChange={setUseWebSearch}
-                              className={`mr-2 h-8 px-2 ${useWebSearch ? "bg-blue-500/20 text-primary" : ""}`}
-                            >
-                              <Globe className="mr-1 h-4 w-4" />
-                              Web
-                            </Toggle>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Enable web search for up-to-date information</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                    <div className="flex">
+                    <div className="flex flex-col">
                       <Textarea
                         ref={textareaRef}
                         value={newMessage}
@@ -439,19 +428,50 @@ export default function Page() {
                         }
                         rows={1}
                       />
-                      <div className="flex items-end">
+                      <div className="flex w-full items-end justify-between">
+                        <div className="mb-2 flex items-center">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Toggle
+                                  aria-label="Toggle web search"
+                                  pressed={useWebSearch}
+                                  onPressedChange={setUseWebSearch}
+                                  className={`mr-2 h-8 border border-border px-2 ${useWebSearch ? "border-primary bg-blue-500/20 text-primary hover:bg-blue-500/40 hover:text-primary" : ""}`}
+                                >
+                                  <Globe className="mr-1 h-4 w-4" />
+                                  Web
+                                </Toggle>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>
+                                  Enable web search for up-to-date information
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                        {isLoading && !isStreaming && (
+                          <Button
+                            type="button"
+                            onClick={stopGeneration}
+                            className="flex h-8 w-10 items-center justify-center p-0"
+                          >
+                            <Loader className="animate-spin" size={20} />
+                          </Button>
+                        )}
                         {isStreaming ? (
                           <Button
                             type="button"
                             onClick={stopGeneration}
-                            className="flex h-10 w-10 items-center justify-center p-0"
+                            className="flex h-8 w-10 items-center justify-center p-0"
                           >
                             <StopCircle size={20} />
                           </Button>
                         ) : (
                           <Button
                             type="submit"
-                            className="flex h-10 w-10 items-center justify-center p-0"
+                            className="flex h-8 w-10 items-center justify-center p-0"
                           >
                             {useWebSearch ? (
                               <Search size={20} />

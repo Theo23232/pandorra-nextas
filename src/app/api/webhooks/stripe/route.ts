@@ -58,6 +58,7 @@ export const POST = async (req: NextRequest) => {
       if (!user?.id) {
         break
       }
+      const threshold = 0.01
 
       const totalAmount = invoice.amount_paid
       let jetonsToAdd = 0
@@ -66,11 +67,17 @@ export const POST = async (req: NextRequest) => {
 
       if (invoice.subscription) {
         subsList.forEach((t) => {
-          if (t.priceStripe == totalAmount) {
+          if (
+            t.priceStripe == totalAmount ||
+            Math.abs(t.priceStripe * 0.9 - totalAmount) < threshold
+          ) {
             jetonsToAdd = t.creditsCount
             newPlan = t.productName as Plan
             referrerGain = parseFloat(((t.price * 30) / 100).toFixed(2))
-          } else if (t.priceStripe * 11 == totalAmount) {
+          } else if (
+            t.priceStripe * 11 == totalAmount ||
+            Math.abs(t.priceStripe * 11 * 0.9 - totalAmount) < threshold
+          ) {
             jetonsToAdd = t.creditsCount * 12
             newPlan = `${t.productName}Year` as Plan
             referrerGain = parseFloat(((t.price * 30 * 11) / 100).toFixed(2))
@@ -78,7 +85,7 @@ export const POST = async (req: NextRequest) => {
         })
       }
 
-      if (totalAmount == 580) {
+      if (totalAmount == 580 || totalAmount == 522) {
         jetonsToAdd = 350
         newPlan = Plan.Hebdomadaire
         referrerGain = parseFloat(((5.8 * 30) / 100).toFixed(2))
@@ -255,6 +262,7 @@ export const POST = async (req: NextRequest) => {
       console.log("Unhandled event type", body.type)
     }
   }
+  console.log("Stripe request ==> ", body.data)
   return NextResponse.json({
     ok: true,
   })

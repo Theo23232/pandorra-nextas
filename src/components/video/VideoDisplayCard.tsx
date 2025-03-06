@@ -1,18 +1,18 @@
 "use client"
 
-import { AlertCircle, Download, Loader, Send, Trash } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { mutate } from 'swr';
+import { AlertCircle, Download, Loader, Send, Trash } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { mutate } from "swr"
 
-import { createPublicationVideo } from '@/actions/pubVideo.actions';
-import { deleteVideoGenerated } from '@/actions/runway.actions';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { useToast } from '@/hooks/use-toast';
+import { createPublicationVideo } from "@/actions/pubVideo.actions"
+import { deleteVideoGenerated } from "@/actions/runway.actions"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { useToast } from "@/hooks/use-toast"
 
 interface VideoDisplayCardProps {
   id: string
@@ -263,7 +263,6 @@ export const VideoDisplayCard = ({
           </div>
           {status === "Generated" && (
             <video
-              id="tour8-step6"
               ref={videoRef}
               src={url}
               className={`h-auto w-full transform transition-transform duration-1000 ease-in-out ${isHovered ? "scale-105" : ""}`}

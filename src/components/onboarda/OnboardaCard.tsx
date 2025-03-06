@@ -3,7 +3,7 @@ import confetti from "canvas-confetti"
 import { XIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useOnborda } from "onborda"
-import React from "react"
+import React, { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
 import { EditUserTourDone } from "@/actions/user.ations"
@@ -99,7 +99,13 @@ export const OnboardaCard: React.FC<CardComponentProps> = ({
         break
     }
   }
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
 
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [currentTour])
   return (
     <Card className="mt-2 w-[800px] max-w-lg rounded-3xl border-0">
       <CardHeader>

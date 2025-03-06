@@ -1,27 +1,18 @@
 "use client"
-import { Loader, X } from "lucide-react"
-import { ReactNode, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Loader, X } from 'lucide-react';
+import { ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { subscriptionSession } from "@/actions/stripeSessions.action"
-import {
-  Tab,
-  TabContainer,
-  TabPanel,
-  Tabs,
-} from "@/components/animated/animated-tabs"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import { Badge } from "@/components/tremor/ui/badge"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { subsList } from "@/lib/prices"
-import { cn } from "@/lib/utils"
+import { subscriptionSession } from '@/actions/stripeSessions.action';
+import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Badge } from '@/components/tremor/ui/badge';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useUser } from '@/hooks/use-user';
+import { subListVariant, subsList } from '@/lib/prices';
+import { cn } from '@/lib/utils';
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -48,6 +39,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
             {t(
               `Choose the plan that fits your creative needs and experience AI-powered content generation like never before. Whether you're just exploring or need professional-grade tools, we have the right plan for you`,
             )}
+            {t(`You can upgrade your plan, but you can't downgrade it`)}
           </Bounce>
           <div className="relative flex min-h-[424px] w-full max-w-[1200px] items-center justify-center gap-9">
             <TabContainer className="relative flex flex-col items-center justify-center">
@@ -184,6 +176,10 @@ type SubProps = {
 const Sub = (props: SubProps) => {
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
+  const { user } = useUser()
+
+  const [currentPlan, setCurrentPlan] = useState<String>(user?.plan!)
+  const [isUpgradable, setisUpgradable] = useState(false)
 
   const handleButtonClick = async () => {
     setIsLoading(true)
@@ -194,6 +190,16 @@ const Sub = (props: SubProps) => {
       props.frequence,
     )
   }
+  useEffect(() => {
+    const current = subListVariant.find(
+      (plan) => plan.name === props.productName,
+    )
+    const userPLan = subListVariant.find((plan) => plan.name === user?.plan)
+    if (userPLan && current && userPLan?.index > current?.index) {
+      setisUpgradable(false)
+    } else setisUpgradable(true)
+  }, [])
+
   return (
     <div
       className={cn(
@@ -290,25 +296,39 @@ const Sub = (props: SubProps) => {
             <p className="text-[36px] font-bold">{props.price.toFixed(2)}</p>
             <p className="ml-2 pt-2 font-light">/ {t(props.frequence)}</p>
           </div>
-          <Button
-            variant={props.isPrime ? "gradient" : "ghost"}
-            className={cn(
-              "w-full",
-              !props.isPrime && "bg-white hover:bg-white/80",
-            )}
-            onClick={() => handleButtonClick()}
-          >
-            {isLoading ? (
-              <Loader
-                className={cn(
-                  "animate-spin text-blue-600",
-                  props.isPrime && "text-white",
-                )}
-              />
-            ) : (
-              <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
-            )}
-          </Button>
+          {currentPlan !== props.productName && isUpgradable ? (
+            <Button
+              variant={props.isPrime ? "gradient" : "ghost"}
+              className={cn(
+                "w-full",
+                !props.isPrime && "bg-white hover:bg-white/80",
+              )}
+              onClick={() => handleButtonClick()}
+            >
+              {isLoading ? (
+                <Loader
+                  className={cn(
+                    "animate-spin text-blue-600",
+                    props.isPrime && "text-white",
+                  )}
+                />
+              ) : (
+                <p className={!props.isPrime ? "gdt" : ""}>{t(`Choose`)}</p>
+              )}
+            </Button>
+          ) : (
+            <Button
+              variant={props.isPrime ? "gradient" : "ghost"}
+              className={cn(
+                "w-full cursor-not-allowed",
+                !props.isPrime && "bg-white hover:bg-white/80",
+              )}
+            >
+              <p className={!props.isPrime ? "gdt" : ""}>
+                {!isUpgradable ? t("Choose") : t(`Current plan`)}
+              </p>
+            </Button>
+          )}
         </div>
       </div>
     </div>

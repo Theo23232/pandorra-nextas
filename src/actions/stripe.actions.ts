@@ -1,8 +1,8 @@
 "use server"
 
-import { currentUser } from "@/lib/current-user"
-import { stripe } from "@/lib/stripe"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { stripe } from '@/lib/stripe';
+import { prisma } from '@/prisma';
 
 export const createProductPayement = async (
   name: string,
@@ -23,7 +23,7 @@ export const createProductPayement = async (
 
     return createdPrice.id
   } catch (error) {
-    throw new Error("Failed to create product and price")
+    throw new Error("Failed to create product and price in payement")
   }
 }
 
@@ -33,21 +33,25 @@ export async function createProductSubscription(
   amount: number,
   interval: "week" | "month" | "year",
 ) {
-  const product = await stripe.products.create({
-    name,
-    description,
-  })
+  try {
+    const product = await stripe.products.create({
+      name,
+      description,
+    })
 
-  const price = await stripe.prices.create({
-    product: product.id,
-    unit_amount: amount,
-    currency: "usd",
-    recurring: {
-      interval,
-    },
-  })
+    const price = await stripe.prices.create({
+      product: product.id,
+      unit_amount: amount,
+      currency: "usd",
+      recurring: {
+        interval,
+      },
+    })
 
-  return price.id
+    return price.id
+  } catch (error) {
+    throw new Error("Failed to create product and price in subscription")
+  }
 }
 
 export const findUserFromCustomerId = async (stripeCustomerId: unknown) => {
@@ -83,6 +87,7 @@ export const createStripeConnect = async (country: string) => {
     return account.id
   } catch (error) {
     console.error("Error creating account:", error)
+    throw new Error("Failed to create a stripe connect account")
   }
 }
 
@@ -98,6 +103,7 @@ export const createLinkOnBoarding = async (accountId: string) => {
     return accountLink.url
   } catch (error) {
     console.error("Error creating account:", error)
+    throw new Error("Failed to create link OnBoarding")
   }
 }
 
@@ -137,6 +143,7 @@ export const withdrawMoney = async (accountId: string, amount: number) => {
     }
   } catch (error) {
     console.error("Withdrawal error:", error)
+    throw new Error("Failed to withdraw money")
   }
 }
 
@@ -164,6 +171,7 @@ export const increaseReferrerBalance = async (
       })
     }
   } catch (error) {
-    console.error(error)
+    console.error("Increase Referrer Balance:", error)
+    throw new Error("Failed to increase referrer balance")
   }
 }

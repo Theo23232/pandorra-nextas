@@ -14,44 +14,48 @@ export const subscriptionSession = async (
   productAmount: number,
   subsInterval: "week" | "month" | "year",
 ) => {
-  const user = await currentUser()
+  try {
+    const user = await currentUser()
 
-  if (!user) {
-    throw new Error("User not found")
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    const stripeCustomerId = user?.stripeCustomerId ?? ""
+
+    if (!stripeCustomerId) {
+      throw new Error("Stripe customer ID is missing")
+    }
+
+    const priceId = await createProductSubscription(
+      productName,
+      productDesc,
+      productAmount,
+      subsInterval,
+    )
+
+    const session = await stripe.checkout.sessions.create({
+      customer: stripeCustomerId as string,
+      allow_promotion_codes: true,
+      mode: "subscription",
+      payment_method_types: ["card", "link"],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+    })
+    if (!session.url) {
+      throw new Error("Session URL is missing")
+    }
+    redirect(session.url)
+  } catch (error) {
+    console.error("Subscription session:", error)
+    throw new Error("Failed to open subscription session")
   }
-
-  const stripeCustomerId = user?.stripeCustomerId ?? ""
-
-  if (!stripeCustomerId) {
-    throw new Error("Stripe customer ID is missing")
-  }
-
-  const priceId = await createProductSubscription(
-    productName,
-    productDesc,
-    productAmount,
-    subsInterval,
-  )
-
-  const session = await stripe.checkout.sessions.create({
-    customer: stripeCustomerId as string,
-    allow_promotion_codes: true,
-    mode: "subscription",
-    payment_method_types: ["card", "link"],
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
-    success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
-  })
-  if (!session.url) {
-    throw new Error("Session URL is missing")
-  }
-  console.log("session.url ==> ", session.url)
-  redirect(session.url)
 }
 
 export const payementSession = async (
@@ -59,94 +63,109 @@ export const payementSession = async (
   productDesc: string,
   productAmount: number,
 ) => {
-  const user = await currentUser()
+  try {
+    const user = await currentUser()
 
-  if (!user) {
-    throw new Error("User not found")
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    const stripeCustomerId = user?.stripeCustomerId ?? ""
+
+    if (!stripeCustomerId) {
+      throw new Error("Stripe customer ID is missing")
+    }
+
+    const priceId = await createProductPayement(
+      productName,
+      productDesc,
+      productAmount,
+    )
+
+    const session = await stripe.checkout.sessions.create({
+      customer: stripeCustomerId,
+      mode: "payment",
+      payment_method_types: ["card", "link"],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+    })
+    if (!session.url) {
+      throw new Error("Session URL is missing")
+    }
+    redirect(session.url)
+  } catch (error) {
+    console.error("Payement session:", error)
+    throw new Error("Failed to open payement session")
   }
-
-  const stripeCustomerId = user?.stripeCustomerId ?? ""
-
-  if (!stripeCustomerId) {
-    throw new Error("Stripe customer ID is missing")
-  }
-
-  const priceId = await createProductPayement(
-    productName,
-    productDesc,
-    productAmount,
-  )
-
-  const session = await stripe.checkout.sessions.create({
-    customer: stripeCustomerId,
-    mode: "payment",
-    payment_method_types: ["card", "link"],
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
-    success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
-  })
-  if (!session.url) {
-    throw new Error("Session URL is missing")
-  }
-  redirect(session.url)
 }
 
 export const accountSettingSession = async () => {
-  const user = await currentUser()
+  try {
+    const user = await currentUser()
 
-  if (!user) {
-    throw new Error("User not found")
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    const stripeCustomerId = user?.stripeCustomerId
+
+    if (!stripeCustomerId) {
+      throw new Error("Stripe customer ID is missing")
+    }
+
+    const stripeSession = await stripe.billingPortal.sessions.create({
+      customer: user.stripeCustomerId ?? "",
+      return_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+    })
+
+    if (!stripeSession.url) {
+      throw new Error("Session URL is missing")
+    }
+    redirect(stripeSession.url)
+  } catch (error) {
+    console.error("Account setting:", error)
+    throw new Error("Failed to open account setting session")
   }
-
-  const stripeCustomerId = user?.stripeCustomerId
-
-  if (!stripeCustomerId) {
-    throw new Error("Stripe customer ID is missing")
-  }
-
-  const stripeSession = await stripe.billingPortal.sessions.create({
-    customer: user.stripeCustomerId ?? "",
-    return_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
-  })
-
-  if (!stripeSession.url) {
-    throw new Error("Session URL is missing")
-  }
-  redirect(stripeSession.url)
 }
 
 export const autoRenewSubscription = async (inactiveRenew: boolean) => {
-  const user = await currentUser()
+  try {
+    const user = await currentUser()
 
-  if (!user) {
-    throw new Error("User not found")
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    const stripeCustomerId = user?.stripeCustomerId
+
+    if (!stripeCustomerId) {
+      throw new Error("Stripe customer is missing")
+    }
+
+    const subscription = await stripe.subscriptions.list({
+      customer: stripeCustomerId,
+    })
+
+    if (subscription.data.length === 0) {
+      throw new Error("No subscriptions found for this customer.")
+    }
+    const subscriptionId = await stripe.subscriptions.retrieve(
+      subscription.data[0].id,
+    )
+
+    await stripe.subscriptions.update(subscriptionId.id, {
+      cancel_at_period_end: inactiveRenew,
+    })
+  } catch (error) {
+    console.error("Auto renew subscription:", error)
+    throw new Error("Failed to edit auto renew subscription")
   }
-
-  const stripeCustomerId = user?.stripeCustomerId
-
-  if (!stripeCustomerId) {
-    throw new Error("Stripe customer is missing")
-  }
-
-  const subscription = await stripe.subscriptions.list({
-    customer: stripeCustomerId,
-  })
-
-  if (subscription.data.length === 0) {
-    throw new Error("No subscriptions found for this customer.")
-  }
-  const subscriptionId = await stripe.subscriptions.retrieve(
-    subscription.data[0].id,
-  )
-
-  await stripe.subscriptions.update(subscriptionId.id, {
-    cancel_at_period_end: inactiveRenew,
-  })
 }
 
 export const getSubscriptionState = async () => {
@@ -166,6 +185,7 @@ export const getSubscriptionState = async () => {
 
     return subscriptionState
   } catch (error) {
-    console.log(error)
+    console.error("Subscription state", error)
+    throw new Error("Failed to get subscription state")
   }
 }

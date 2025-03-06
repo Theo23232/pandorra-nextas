@@ -59,6 +59,37 @@ export const subsList = [
   },
 ]
 
+export const subListVariant = [
+  {
+    name: "Hebdomadaire",
+    index: 0,
+  },
+  {
+    name: "CreatorPack",
+    index: 1,
+  },
+  {
+    name: "VisionPro",
+    index: 2,
+  },
+  {
+    name: "PandorraInfini",
+    index: 3,
+  },
+  {
+    name: "CreatorPackYear",
+    index: 4,
+  },
+  {
+    name: "VisionProYear",
+    index: 5,
+  },
+  {
+    name: "PandorraInfiniYear",
+    index: 6,
+  },
+]
+
 export const sublistPromo = subsList.map((plan) => ({
   ...plan,
   price: +(plan.price * 0.9).toFixed(2), // Réduction 10% et arrondi à 2 décimales

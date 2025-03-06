@@ -1,18 +1,28 @@
 "use client"
-import { Loader, X } from 'lucide-react';
-import { ReactNode, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Loader, TriangleAlert, X } from "lucide-react"
+import { ReactNode, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { subscriptionSession } from '@/actions/stripeSessions.action';
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Badge } from '@/components/tremor/ui/badge';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { useUser } from '@/hooks/use-user';
-import { subListVariant, subsList } from '@/lib/prices';
-import { cn } from '@/lib/utils';
+import { subscriptionSession } from "@/actions/stripeSessions.action"
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Badge } from "@/components/tremor/ui/badge"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/tremor/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { useUser } from "@/hooks/use-user"
+import { subListVariant, subsList } from "@/lib/prices"
+import { cn } from "@/lib/utils"
 
 export type upgradePlanProps = {
   children: ReactNode
@@ -35,11 +45,15 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
               {t(`Upgrade plan`)}
             </span>
           </Bounce>
-          <Bounce className="my-6 max-w-3xl text-center font-medium leading-normal text-neutral-400">
+          <Bounce className="my-6 flex max-w-4xl flex-col items-center text-center font-medium leading-normal text-neutral-400">
             {t(
               `Choose the plan that fits your creative needs and experience AI-powered content generation like never before. Whether you're just exploring or need professional-grade tools, we have the right plan for you`,
             )}
-            {t(`You can upgrade your plan, but you can't downgrade it`)}
+            <br />
+            <span className="mt-4 flex items-center justify-center gap-2">
+              <TriangleAlert size={20} />{" "}
+              {t(`You can upgrade your plan, but you can't downgrade it`)}
+            </span>
           </Bounce>
           <div className="relative flex min-h-[424px] w-full max-w-[1200px] items-center justify-center gap-9">
             <TabContainer className="relative flex flex-col items-center justify-center">
@@ -77,8 +91,10 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
                         <p>{t(`Medium Video`)}</p>
                       </div>
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                        <Check className="mr-3" /> {t(`Images`)}:{" "}
-                        <p className="font-italic mx-1 font-extrabold">20</p>{" "}
+                        <Check className="mr-3" />
+                        <p className="font-italic mx-1 font-extrabold">
+                          20
+                        </p>{" "}
                         {t(`AI-generated images`)}
                       </div>
                       <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -215,7 +231,7 @@ const Sub = (props: SubProps) => {
             "border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)]",
         )}
       >
-        <div className="">
+        <div className="w-full">
           <div className="flex items-center justify-between">
             <p
               className={cn(
@@ -248,29 +264,26 @@ const Sub = (props: SubProps) => {
               </p>
             </div>
             <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-              <Check className="mr-3" />
+              <Check className="mr-3" />{" "}
               <p>
-                {t(`Short Video`)} (5 sec):{" "}
-                <span className="font-italic mx-1 font-extrabold">
+                <span className="font-italic mr-1 font-extrabold">
                   {Math.floor(props.creditsCount / 40)}
-                </span>{" "}
-                {t(`videos`)}
+                </span>
+                {t(`Short Video`)} (5 sec)
               </p>
             </div>
             <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-              <Check className="mr-3" />
+              <Check className="mr-3" />{" "}
               <p>
-                {t(`Medium Video`)} (10 sec):{" "}
-                <span className="font-italic mx-1 font-extrabold">
+                <span className="font-italic mr-1 font-extrabold">
                   {Math.floor(props.creditsCount / 80)}
-                </span>{" "}
-                {t(`videos`)}
+                </span>
+                {t(`Medium Video`)} (10 sec)
               </p>
             </div>
             <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
               <Check className="mr-3" />
               <p>
-                {t(`Images`)}:{" "}
                 <span className="font-italic mx-1 font-extrabold">
                   {Math.floor(props.creditsCount / 5)}
                 </span>{" "}

@@ -38,7 +38,6 @@ import { formatDate } from "@/lib/formatDate"
 import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
 import { models } from "@/lib/leonardo/presets"
 import { fetcher } from "@/lib/utils"
-import { CommentWithAuthor } from "@/types/publicationType"
 
 import RelatedPublications from "./RelatedPublications"
 
@@ -65,8 +64,8 @@ export default function PublicationDialog({
 }: PublicationDialogProps) {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
-  const { data: comments, mutate } = useSWR<CommentWithAuthor[]>(
-    `/api/publication/comment?publicationId=${publication.id}`,
+  const { data: comments, mutate } = useSWR(
+    isOpen ? `/api/publication/comment?publicationId=${publication.id}` : null,
     fetcher,
   )
   const { user } = useUser()

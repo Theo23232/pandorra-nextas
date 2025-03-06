@@ -62,7 +62,9 @@ export default function PubVideoComment({
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   const { data: comments, mutate } = useSWR<CommentVideoWithAuthor[]>(
-    `/api/publication/video/commentVideo?publicationVideoId=${publication.id}`,
+    isOpen
+      ? `/api/publication/video/commentVideo?publicationVideoId=${publication.id}`
+      : null,
     fetcher,
   )
 

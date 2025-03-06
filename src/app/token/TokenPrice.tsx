@@ -59,7 +59,7 @@ const Pricing = (props: PricingProps) => {
     return (
       <div className="flex min-h-[400px] w-[350px] items-center justify-center rounded-[24px] bg-gradient-to-br from-[#0099FF66] to-[#CC00FF77] p-[1px]">
         <div className="flex h-full w-full shrink-0 flex-col items-start gap-[32px] rounded-[24px] bg-[#39517e77] p-[25px_32px]">
-          <div className="">
+          <div className="w-full">
             <div className="flex items-center justify-between">
               <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
                 {props.creditsCount} {t(`credits`)}
@@ -69,25 +69,23 @@ const Pricing = (props: PricingProps) => {
               <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                 <Check className="mr-3" />{" "}
                 <p>
-                  {t(`Short Video`)} (5 sec):{" "}
-                  <span className="font-italic mx-0.5 font-extrabold">
+                  <span className="font-italic mr-0.5 font-extrabold">
                     {Math.floor(props.creditsCount / 40)}
                   </span>{" "}
-                  {t(`videos`)}
+                  {t(`Short Video`)} (5 sec)
                 </p>
               </div>
               <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                 <Check className="mr-3" />{" "}
                 <p>
-                  {t(`Medium Video`)} (10 sec):{" "}
-                  <span className="font-italic mx-0.5 font-extrabold">
+                  <span className="font-italic mr-0.5 font-extrabold">
                     {Math.floor(props.creditsCount / 80)}
                   </span>{" "}
-                  {t(`videos`)}
+                  {t(`Medium Video`)} (10 sec)
                 </p>
               </div>
               <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                <Check className="mr-3" /> {t(`Images`)}:{" "}
+                <Check className="mr-3" />
                 <p>
                   <span className="font-italic mx-0.5 font-extrabold">
                     {Math.floor(props.creditsCount / 5)}
@@ -125,7 +123,7 @@ const Pricing = (props: PricingProps) => {
   }
   return (
     <div className="flex min-h-[400px] w-[350px] shrink-0 flex-col items-start gap-[32px] rounded-[24px] border border-[rgba(255,255,255,0.10)] bg-[rgba(5,10,24,0.40)] p-[25px_32px]">
-      <div className="">
+      <div className="w-full">
         <p className="font-inter self-stretch text-[24px] font-bold leading-normal text-white">
           {props.creditsCount} {t(`credits`)}
         </p>
@@ -134,11 +132,10 @@ const Pricing = (props: PricingProps) => {
           <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
             <Check className="mr-3" />{" "}
             <p>
-              {t(`Short Video`)} (5 sec):{" "}
-              <span className="font-italic mx-0.5 font-extrabold">
+              <span className="font-italic mr-0.5 font-extrabold">
                 {Math.floor(props.creditsCount / 40)}
               </span>{" "}
-              {t(`videos`)}
+              {t(`Short Video`)} (5 sec)
             </p>
           </div>
           <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
@@ -152,7 +149,7 @@ const Pricing = (props: PricingProps) => {
             </p>
           </div>
           <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-            <Check className="mr-3" /> {t(`Images`)}:{" "}
+            <Check className="mr-3" />
             <p>
               <span className="font-italic mx-0.5 font-extrabold">
                 {Math.floor(props.creditsCount / 5)}

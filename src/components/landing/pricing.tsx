@@ -1,17 +1,22 @@
 "use client"
-import { X } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { X } from "lucide-react"
+import { redirect } from "next/navigation"
+import { useTranslation } from "react-i18next"
 
-import { Tab, TabContainer, TabPanel, Tabs } from '@/components/animated/animated-tabs';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Check } from '@/components/icons/check';
-import { Badge } from '@/components/tremor/ui/badge';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { subsList } from '@/lib/prices';
-import { cn } from '@/lib/utils';
+import {
+  Tab,
+  TabContainer,
+  TabPanel,
+  Tabs,
+} from "@/components/animated/animated-tabs"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Check } from "@/components/icons/check"
+import { Badge } from "@/components/tremor/ui/badge"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { subsList } from "@/lib/prices"
+import { cn } from "@/lib/utils"
 
 export const Pricing = () => {
   const { t } = useTranslation()
@@ -74,7 +79,7 @@ export const Pricing = () => {
                     <p>{t(`Medium Video`)}</p>
                   </div>
                   <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
-                    <Check className="mr-3" /> {t(`Images`)}:{" "}
+                    <Check className="mr-3" />
                     <p className="font-italic mx-1 font-extrabold">20</p>{" "}
                     {t(`AI-generated images`)}
                   </div>
@@ -136,7 +141,6 @@ export const Pricing = () => {
                     <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
                       <Check className="mr-3" />
                       <p>
-                        {t(`Images`)}:{" "}
                         <span className="font-italic mx-1 font-extrabold">
                           70
                         </span>{" "}
@@ -307,7 +311,6 @@ const Sub = (props: SubProps) => {
             <div className="font-inter flex items-center text-[16px] font-normal leading-normal text-white">
               <Check className="mr-3" />
               <p>
-                {t(`Images`)}:{" "}
                 <span className="font-italic mx-1 font-extrabold">
                   {Math.floor(props.creditsCount / 5)}
                 </span>{" "}

@@ -365,3 +365,10 @@
     stroke-dashoffset: 188.4956;
   }
 }
+
+body:has(.onborda-overlay) {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}

@@ -1,14 +1,14 @@
 "use server"
-import fetch from 'node-fetch'; // Add this line to import fetch
+import fetch from "node-fetch" // Add this line to import fetch
 
-import { reduceCredit } from '@/actions/credits.actions';
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { trackUserActivity } from '@/actions/user.ations';
-import { currentUser } from '@/lib/current-user';
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
-import { Video } from '@prisma/client';
-import RunwayML from '@runwayml/sdk';
+import { reduceCredit } from "@/actions/credits.actions"
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { trackUserActivity } from "@/actions/user.ations"
+import { currentUser } from "@/lib/current-user"
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
+import { Video } from "@prisma/client"
+import RunwayML from "@runwayml/sdk"
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env
@@ -22,7 +22,7 @@ export async function generateVideoFromImage(
 ) {
   try {
     await trackUserActivity("generateVideoFromImage")
-    const enhancedPrompt = await enhanceVideoPrompt(promptText)
+    const enhancedPrompt = await enhanceVideoPrompt(promptText).catch(() => {})
     const user = await currentUser()
     // Envoyer l’image à RunwayML
     const imageToVideo = await client.imageToVideo.create({
@@ -36,7 +36,7 @@ export async function generateVideoFromImage(
               },
             ]
           : base64Image,
-      promptText: enhancedPrompt,
+      promptText: enhancedPrompt ?? promptText,
       duration: duration,
       ratio: ratio,
     })

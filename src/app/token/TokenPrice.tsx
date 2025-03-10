@@ -88,7 +88,7 @@ const Pricing = (props: PricingProps) => {
                 <Check className="mr-3" />
                 <p>
                   <span className="font-italic mx-0.5 font-extrabold">
-                    {Math.floor(props.creditsCount / 5)}
+                    {Math.floor(props.creditsCount / 4)}
                   </span>{" "}
                   {t(`AI-generated images`)}
                 </p>
@@ -152,7 +152,7 @@ const Pricing = (props: PricingProps) => {
             <Check className="mr-3" />
             <p>
               <span className="font-italic mx-0.5 font-extrabold">
-                {Math.floor(props.creditsCount / 5)}
+                {Math.floor(props.creditsCount / 4)}
               </span>{" "}
               {t(`AI-generated images`)}
             </p>

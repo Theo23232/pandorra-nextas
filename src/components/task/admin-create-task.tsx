@@ -39,7 +39,7 @@ export function AdminTaskForm(props: TaskFormProps) {
   const { control, handleSubmit, reset, watch, setValue } =
     useForm<CreateTaskDto>({
       defaultValues: {
-        type: TaskType.BUG, // Default to feedback tab
+        type: TaskType.BUG, // Default to task tab
         priority: TaskPriority.LOW, // Default priority
       },
     })
@@ -122,7 +122,7 @@ export function AdminTaskForm(props: TaskFormProps) {
       <DialogTrigger asChild>{props.children}</DialogTrigger>
       <DialogContent className="max-h-[calc(100vh-4rem)] overflow-y-auto overflow-x-hidden sm:max-w-2xl">
         <DialogHeader>
-          <DialogTitle>{t(`Feedback`)}</DialogTitle>
+          <DialogTitle>{t(`Task`)}</DialogTitle>
           <DialogDescription>
             {t(
               `We value your experience. Please share your thoughts with us to help improve our service.`,
@@ -237,7 +237,7 @@ export function AdminTaskForm(props: TaskFormProps) {
           />
 
           <Button type="submit" disabled={isSubmitting} className="w-full">
-            {t(isSubmitting ? "Submitting..." : "Submit Feedback")}
+            {t(isSubmitting ? "Submitting..." : "Submit Task")}
           </Button>
         </form>
       </DialogContent>

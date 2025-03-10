@@ -312,7 +312,7 @@ const Sub = (props: SubProps) => {
               <Check className="mr-3" />
               <p>
                 <span className="font-italic mx-1 font-extrabold">
-                  {Math.floor(props.creditsCount / 5)}
+                  {Math.floor(props.creditsCount / 4)}
                 </span>{" "}
                 {t(`AI-generated images`)}
               </p>

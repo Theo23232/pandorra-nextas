@@ -1,9 +1,9 @@
 "use server"
 
-import { SA } from '@/lib/safe-ation';
-import { prisma } from '@/prisma';
-import { TaskWithRelations } from '@/types/task';
-import { Task, TaskPriority, TaskType } from '@prisma/client';
+import { SA } from "@/lib/safe-ation"
+import { prisma } from "@/prisma"
+import { TaskWithRelations } from "@/types/task"
+import { Task, TaskPriority, TaskType } from "@prisma/client"
 
 export const createTask = SA(
   async (
@@ -273,4 +273,25 @@ export const getTasks = async (
   }))
 
   return tasks
+}
+
+type UpdateData = {
+  title?: string
+  priority?: TaskPriority
+  description?: string
+}
+
+export async function updateTask(taskId: string, data: UpdateData) {
+  try {
+    // In a real app, you would update the task in your database
+    console.log(`Updating task ${taskId} with data:`, data)
+
+    // Simulate a delay for the API call
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
+    return { success: true }
+  } catch (error) {
+    console.error("Failed to update task:", error)
+    return { success: false, error: "Failed to update task" }
+  }
 }

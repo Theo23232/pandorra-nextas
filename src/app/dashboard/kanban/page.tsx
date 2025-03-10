@@ -1,23 +1,24 @@
 "use client"
 
-import { FilterIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
+import { FilterIcon, Plus } from "lucide-react"
+import { useEffect, useState } from "react"
+import useSWR from "swr"
 
-import { AddKanbanColumn } from '@/components/kanban/add-kanban-column';
-import { FilterDialog } from '@/components/kanban/filter-dialog';
-import { KanbanColumn } from '@/components/kanban/kanban-column';
-import { TaskDetailDialog } from '@/components/kanban/task-detail-dialog';
-import { useFilters } from '@/components/kanban/use-filters';
-import { useTaskData } from '@/components/kanban/use-task-data';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { useIsSidebar } from '@/hooks/use-is-sidebar';
-import { fetcher } from '@/lib/utils';
-import { TaskWithRelations } from '@/types/task';
-import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { AddKanbanColumn } from "@/components/kanban/add-kanban-column"
+import { FilterDialog } from "@/components/kanban/filter-dialog"
+import { KanbanColumn } from "@/components/kanban/kanban-column"
+import { TaskDetailDialog } from "@/components/kanban/task-detail-dialog"
+import { useFilters } from "@/components/kanban/use-filters"
+import { useTaskData } from "@/components/kanban/use-task-data"
+import { AdminTaskForm } from "@/components/task/admin-create-task"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { fetcher } from "@/lib/utils"
+import { TaskWithRelations } from "@/types/task"
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd"
 
 export default function RoutePage() {
   const { data: TaskStatus = [], mutate: mutateTaskStatus } = useSWR<string[]>(
@@ -109,6 +110,11 @@ export default function RoutePage() {
           <h1 className="text-2xl font-bold">Task Kanban Board</h1>
 
           <div className="flex items-center gap-2">
+            <AdminTaskForm>
+              <Button>
+                <Plus /> Add task
+              </Button>
+            </AdminTaskForm>
             <Input
               placeholder="Search tasks..."
               value={searchQuery}
@@ -118,7 +124,7 @@ export default function RoutePage() {
 
             <Dialog open={showFilterDialog} onOpenChange={setShowFilterDialog}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" className="w-10">
                   <FilterIcon className="h-4 w-4" />
                 </Button>
               </DialogTrigger>

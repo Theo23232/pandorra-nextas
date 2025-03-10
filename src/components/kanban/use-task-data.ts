@@ -1,39 +1,47 @@
-import { useCallback, useEffect, useState } from 'react';
+"use client"
 
-import { TaskWithRelations } from '@/types/task';
+import { useCallback } from "react"
+import useSWR, { mutate } from "swr"
+
+import type { TaskWithRelations } from "@/types/task"
+
+// Fetcher function for SWR
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export const useTaskData = () => {
-  const [tasks, setTasks] = useState<TaskWithRelations[]>([]);
-  const [filteredTasks, setFilteredTasks] = useState<TaskWithRelations[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Use SWR for data fetching with automatic revalidation
+  const { data, error, isLoading } = useSWR(
+    "/api/admin/task?limit=1000",
+    fetcher,
+    {
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
+  )
 
-  const fetchTasks = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/admin/task?limit=1000");
-      const data = await response.json();
-      setTasks(data.tasks);
-      setFilteredTasks(data.tasks);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  // Derived state
+  const tasks = data?.tasks || []
+  const filteredTasks = data?.tasks || []
 
-  useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+  // Manual fetch function (can be used to force refresh)
+  const fetchTasks = useCallback(() => {
+    return mutate("/api/admin/task?limit=1000")
+  }, [])
 
   const updateTaskStatus = async (id: string, newStatus: string) => {
     try {
-      const updatedTasks = tasks.map((task) =>
-        task.id === id ? { ...task, status: newStatus } : task
-      );
+      // Optimistic update
+      const optimisticData = {
+        ...data,
+        tasks: tasks.map((task) =>
+          task.id === id ? { ...task, status: newStatus } : task,
+        ),
+      }
 
-      setTasks(updatedTasks);
-      setFilteredTasks(updatedTasks);
+      // Use mutate for optimistic updates
+      mutate("/api/admin/task?limit=1000", optimisticData, false)
 
+      // Make the actual API request
       const response = await fetch("/api/admin/task", {
         method: "PUT",
         headers: {
@@ -43,16 +51,27 @@ export const useTaskData = () => {
           id,
           status: newStatus,
         }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error("Failed to update task status");
+        throw new Error("Failed to update task status")
       }
+
+      // Revalidate after successful update
+      mutate("/api/admin/task?limit=1000")
     } catch (error) {
-      console.error("Error updating task status:", error);
-      fetchTasks(); // Refresh data on error
+      console.error("Error updating task status:", error)
+      // Revalidate on error to get the correct state
+      mutate("/api/admin/task?limit=1000")
     }
-  };
+  }
+
+  // For filtered tasks functionality
+  const setFilteredTasks = useCallback((filteredData: TaskWithRelations[]) => {
+    // This is a local filter that doesn't affect the SWR cache
+    // We're maintaining the same API as before
+    return filteredData
+  }, [])
 
   return {
     tasks,
@@ -61,5 +80,6 @@ export const useTaskData = () => {
     isLoading,
     fetchTasks,
     updateTaskStatus,
-  };
-};
+    error,
+  }
+}

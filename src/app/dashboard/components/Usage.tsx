@@ -136,22 +136,7 @@ export const Usage = async () => {
             <div>
               <p className="text-sm font-medium">Subscription Tokens</p>
               <p className="text-2xl font-bold">
-                {leonardoData?.subscriptionTokens || 0}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm font-medium">Paid Tokens</p>
-              <p className="text-2xl font-bold">
-                {leonardoData?.paidTokens || 0}
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm font-medium">API Paid Tokens</p>
-              <p className="text-2xl font-bold">
-                {leonardoData?.apiPaidTokens || 0}
+                {leonardoData?.apiSubscriptionTokens || 0}
               </p>
             </div>
             <div>

@@ -1,8 +1,8 @@
-import { Clock, Database, Gauge, Layers } from "lucide-react"
+import { Clock, Database, Gauge, Layers } from 'lucide-react';
 
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 interface LeonardoUsageProps {
   data: {
@@ -55,7 +55,7 @@ export function LeonardoUsageCardAlt({ data }: LeonardoUsageProps) {
           <div className="text-right">
             <span className="text-2xl font-bold">{userDetails.paidTokens}</span>
             <span className="ml-1 text-sm text-muted-foreground">
-              / {userDetails.subscriptionTokens}
+              / {userDetails.apiSubscriptionTokens}
             </span>
           </div>
         </div>

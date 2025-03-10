@@ -68,11 +68,9 @@ export const TaskDescriptionEditor: React.FC<TaskDescriptionEditorProps> = ({
       ) : (
         <div
           onClick={handleClick}
-          className="min-h-[100px] cursor-text rounded-md border border-transparent p-2 hover:border-gray-200"
+          className="min-h-[100px] cursor-text rounded-md border border-transparent p-2"
         >
-          {description || (
-            <span className="text-gray-400">Add a description...</span>
-          )}
+          {description || <span className="">Add a description...</span>}
         </div>
       )}
     </div>

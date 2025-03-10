@@ -190,3 +190,26 @@ export const translateToEnglish = async (prompt: string): Promise<string> => {
     return prompt
   }
 }
+
+export async function getOpenAiUsage() {
+  try {
+    const response = await fetch(
+      "https://api.openai.com/v1/dashboard/billing/usage",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error(`Erreur: ${response.status} - ${response.statusText}`)
+    }
+
+    const data = await response.json()
+    console.log("Consommation OpenAI :", data)
+  } catch (error) {
+    console.error("Erreur lors de la récupération des données :", error)
+  }
+}

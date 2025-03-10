@@ -182,7 +182,7 @@ export default function Page() {
       setIsLoading(false)
       setIsStreaming(false)
       setAbortController(null)
-      await reduceCredit(1)
+      await reduceCredit(2)
       mutate("/api/auth/session")
     }
   }

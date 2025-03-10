@@ -13,7 +13,7 @@ const MAX_HISTORY_LENGTH = 10
 // Modèle moins cher pour les vérifications préliminaires
 const CHEAPER_MODEL = "gpt-3.5-turbo"
 // Modèle principal pour les réponses
-const MAIN_MODEL = "gpt-4"
+const MAIN_MODEL = "gpt-3.5-turbo"
 
 export async function POST(req: Request) {
   try {

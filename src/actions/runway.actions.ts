@@ -22,7 +22,10 @@ export async function generateVideoFromImage(
 ) {
   try {
     await trackUserActivity("generateVideoFromImage")
-    const enhancedPrompt = await enhanceVideoPrompt(promptText).catch(() => {})
+    const enhancedPrompt = await enhanceVideoPrompt(promptText)
+      .then((response) => response?.slice(0, 510))
+      .catch(() => {})
+
     const user = await currentUser()
     // Envoyer l’image à RunwayML
     const imageToVideo = await client.imageToVideo.create({

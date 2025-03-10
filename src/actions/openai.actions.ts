@@ -54,7 +54,7 @@ export const enhanceVideoPrompt = async (prompt: string): Promise<string> => {
           role: "system",
           content: `You are a language detection and translation assistant.  
 If the user's input is not in English, translate it to English while preserving meaning.  
-If it's already in English, return it as is.`,
+If it's already in English, return it as is. Max length will be 512 characters`,
         },
         {
           role: "user",
@@ -140,7 +140,7 @@ A glowing ocean at night with bioluminescent creatures underwater. The camera st
 A title screen with dynamic motion. The scene begins on a colorful wall covered in paint. Suddenly, black paint pours over the wall to form the word 'Runway.' The dripping paint is detailed and textured, centered with stunning cinematic lighting.  
 
 ---
-Now, enhance the following video generation prompt based on these guidelines:`,
+Now, enhance the following video generation prompt based on these guidelines and make the Max length of your response to 512 characters:`,
         },
         {
           role: "user",

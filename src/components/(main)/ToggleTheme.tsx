@@ -1,12 +1,12 @@
 "use client"
 
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect } from 'react';
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import { useEffect } from "react"
 
-import { editTheme } from '@/actions/user.ations';
-import { Button } from '@/components/ui/button';
-import { useUser } from '@/hooks/use-user';
+import { editTheme } from "@/actions/user.ations"
+import { Button } from "@/components/ui/button"
+import { useUser } from "@/hooks/use-user"
 
 export const ToggleTheme = () => {
   const { theme, setTheme } = useTheme()
@@ -27,7 +27,7 @@ export const ToggleTheme = () => {
   }
 
   return (
-    <Button onClick={toggleTheme} variant="ghost">
+    <Button onClick={toggleTheme} variant="ghost" className="size-8">
       {theme === "light" ? <Moon /> : <Sun />}
     </Button>
   )

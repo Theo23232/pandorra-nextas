@@ -59,7 +59,7 @@ async function getRevenue(dateRange: DateRange): Promise<number> {
       WHERE "createdAt" >= ${dateRange.start} AND "createdAt" < ${dateRange.end}
     ) as combined
   `
-  return (revenue as any)[0].total
+  return (revenue as any)[0].total / 100
 }
 
 async function calculateRevenueStats(): Promise<RevenueStats> {

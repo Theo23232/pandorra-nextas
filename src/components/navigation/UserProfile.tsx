@@ -1,13 +1,13 @@
 "use client"
 
-import { ChevronsUpDown } from 'lucide-react';
+import { ChevronsUpDown } from "lucide-react"
 
-import { Button } from '@/components/tremor/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUser } from '@/hooks/use-user';
-import { cx, focusRing } from '@/lib/utils';
+import { Button } from "@/components/tremor/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useUser } from "@/hooks/use-user"
+import { cx, focusRing } from "@/lib/utils"
 
-import { DropdownUserProfile } from './DropdownUserProfile';
+import { DropdownUserProfile } from "./DropdownUserProfile"
 
 export const UserProfileDesktop = () => {
   const { user, isError } = useUser()

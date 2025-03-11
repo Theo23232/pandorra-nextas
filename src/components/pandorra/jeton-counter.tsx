@@ -24,7 +24,7 @@ export default function JetonCounter() {
         <AddTokenDialog>
           <div
             id="tour3-step2"
-            className="relative flex h-10 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-bold hover:bg-muted"
+            className="relative flex h-8 items-center justify-center gap-2 rounded-md bg-accent px-4 font-bold hover:bg-muted"
           >
             <span>{formatJeton(user?.jeton || 0)}</span>
             <img src="/coin.png" className="h-6 w-auto" />
@@ -37,7 +37,7 @@ export default function JetonCounter() {
           id="tour3-step3"
         >
           <UpgradePlanDialog>
-            <img src="/assets/upgrade.png" className="h-10 w-auto" />
+            <img src="/assets/upgrade.png" className="h-8 w-auto rounded-md" />
           </UpgradePlanDialog>
         </Tooltip>
       )}

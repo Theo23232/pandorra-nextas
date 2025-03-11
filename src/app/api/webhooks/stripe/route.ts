@@ -25,29 +25,29 @@ export const POST = async (req: NextRequest) => {
       const totalAmount = session.amount_total
       let jetonsToAdd = 0
 
-      tokenPricesList.forEach((t) => {
+      tokenPricesList.forEach(async (t) => {
         if (t.priceStripe == totalAmount) {
           jetonsToAdd = t.creditsCount
+          await prisma.user.update({
+            where: {
+              id: user?.id,
+            },
+            data: {
+              jeton: {
+                increment: jetonsToAdd,
+              },
+            },
+          })
+          await prisma.buyToken.create({
+            data: {
+              userId: user.id,
+              amount: jetonsToAdd,
+              price: totalAmount || 0,
+            },
+          })
         }
       })
 
-      await prisma.user.update({
-        where: {
-          id: user?.id,
-        },
-        data: {
-          jeton: {
-            increment: jetonsToAdd,
-          },
-        },
-      })
-      await prisma.buyToken.create({
-        data: {
-          userId: user.id,
-          amount: jetonsToAdd,
-          price: totalAmount || 0,
-        },
-      })
       console.log("Checkout session completed", session)
       break
     }

@@ -252,7 +252,7 @@ export const Usage = async () => {
                   <div className="font-medium">{transaction.username}</div>
 
                   <div className="font-semibold">
-                    ${transaction.price.toFixed(2)}
+                    ${(transaction.price / 100).toFixed(2)}
                   </div>
                 </div>
 

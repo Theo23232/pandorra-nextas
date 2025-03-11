@@ -1,3 +1,7 @@
+import { formatDistanceToNow } from "date-fns"
+import { CreditCard, Tag } from "lucide-react"
+
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -6,10 +10,26 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { prisma } from "@/prisma"
+
+type CombinedTransaction = {
+  id: string
+  type: "BuyToken" | "Subscribe"
+  userId: string
+  username: string
+  email: string
+  image: string
+  amount?: number
+  plan?: string
+  price: number
+  createdAt: Date
+}
 
 export const Usage = async () => {
   let elevenlabsUsage
   let leonardoUsage
+  let userTransactionStat
 
   try {
     const response = await fetch(
@@ -53,6 +73,72 @@ export const Usage = async () => {
     console.error("Erreur lors de la récupération des données :", error)
   }
 
+  try {
+    // Récupération des BuyToken avec les infos utilisateur
+    const buyTokens = await prisma.buyToken.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+            email: true,
+            image: true,
+          },
+        },
+      },
+    })
+
+    // Récupération des Subscribe avec les infos utilisateur
+    const subscriptions = await prisma.subscribe.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+            email: true,
+            image: true,
+          },
+        },
+      },
+    })
+
+    // Transformation des BuyToken en format unifié
+    const formattedBuyTokens: CombinedTransaction[] = buyTokens.map(
+      (token) => ({
+        id: token.id,
+        type: "BuyToken" as const,
+        userId: token.userId,
+        username: token.user.username,
+        email: token.user.email,
+        image: token.user.image,
+        amount: token.amount,
+        price: token.price,
+        createdAt: token.createdAt,
+      }),
+    )
+
+    // Transformation des Subscribe en format unifié
+    const formattedSubscriptions: CombinedTransaction[] = subscriptions.map(
+      (sub) => ({
+        id: sub.id,
+        type: "Subscribe" as const,
+        userId: sub.userId,
+        username: sub.user.username,
+        email: sub.user.email,
+        image: sub.user.image,
+        plan: sub.plan,
+        price: sub.price,
+        createdAt: sub.createdAt,
+      }),
+    )
+
+    // Combinaison des deux listes
+    const combinedList = [...formattedBuyTokens, ...formattedSubscriptions]
+
+    // Tri par date de création (du plus récent au plus ancien)
+    combinedList.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+
+    userTransactionStat = combinedList
+  } catch (error) {}
+
   // Calculate percentage for ElevenLabs
   const characterPercentage = elevenlabsUsage
     ? Math.round(
@@ -78,7 +164,7 @@ export const Usage = async () => {
     : ""
 
   return (
-    <div className="grid gap-6 pb-6 md:grid-cols-2">
+    <div className="grid gap-6 pb-6 md:grid-cols-3">
       {/* ElevenLabs Card */}
       <Card className="border-border">
         <CardHeader>
@@ -152,6 +238,57 @@ export const Usage = async () => {
             <p className="text-sm">{apiRenewalDate}</p>
           </div>
         </CardContent>
+      </Card>
+
+      <Card className="max-h-[300px] space-y-4 overflow-y-auto border-border">
+        <ScrollArea>
+          {userTransactionStat.map((transaction) => (
+            <Card key={transaction.id} className="overflow-hidden">
+              <CardContent className="p-4">
+                <div className="mb-2 flex items-center justify-between">
+                  <div className="font-medium">{transaction.username}</div>
+                  <Badge
+                    variant={
+                      transaction.type === "BuyToken" ? "secondary" : "outline"
+                    }
+                    className={
+                      transaction.type === "Subscribe" ? "bg-primary/10" : ""
+                    }
+                  >
+                    {transaction.type === "BuyToken" ? (
+                      <div className="flex items-center gap-1">
+                        <Tag className="h-3 w-3" />
+                        <span>Token</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <CreditCard className="h-3 w-3" />
+                        <span>Subscription</span>
+                      </div>
+                    )}
+                  </Badge>
+                </div>
+
+                <div className="mb-2 text-sm text-muted-foreground">
+                  {transaction.type === "BuyToken"
+                    ? `${transaction.amount} tokens`
+                    : `${transaction.plan} plan`}
+                </div>
+
+                <div className="mt-2 flex items-center justify-between">
+                  <div className="font-semibold">
+                    ${transaction.price.toFixed(2)}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {formatDistanceToNow(transaction.createdAt, {
+                      addSuffix: true,
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </ScrollArea>
       </Card>
     </div>
   )

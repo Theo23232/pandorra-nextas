@@ -43,7 +43,7 @@ export type GenerationWithImages = Omit<
 
 export const Main = (props: MainProps) => {
   const { imageLoading, setImageNumber } = useImageLoading()
-  const { user } = useUser()
+  const { user, mutate: mutateUser } = useUser()
   const { t } = useTranslation()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
@@ -145,6 +145,7 @@ export const Main = (props: MainProps) => {
     setIsEnhancing(true)
     try {
       const promptEnhanced = await enhanceImagePrompt(prompt)
+      mutateUser()
       handlePromptChange(promptEnhanced)
     } catch (error) {
       toast({

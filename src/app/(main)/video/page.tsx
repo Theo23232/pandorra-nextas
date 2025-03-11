@@ -56,7 +56,7 @@ export default function VideoGenerator() {
   const [isLoading, setIsLoading] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const { toast } = useToast()
-  const { user } = useUser()
+  const { user, mutate: mutateUser } = useUser()
   const { startOnborda } = useOnborda()
   const [isEnhancing, setIsEnhancing] = useState(false)
 
@@ -179,6 +179,7 @@ export default function VideoGenerator() {
     setIsEnhancing(true)
     try {
       const promptEnhanced = await enhanceVideoPrompt(promptText)
+      mutateUser()
       setPromptText(promptEnhanced)
     } catch (error) {
       toast({

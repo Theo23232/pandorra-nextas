@@ -1,11 +1,14 @@
 "use server"
 import OpenAI from "openai"
 
+import { reduceCredit } from "@/actions/credits.actions"
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
 export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
+  await reduceCredit(1)
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -46,9 +49,10 @@ export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
 
 export const enhanceVideoPrompt = async (prompt: string): Promise<string> => {
   try {
+    await reduceCredit(1)
     // Détection et traduction automatique en anglais si nécessaire
     const translationResponse = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
@@ -67,7 +71,7 @@ If it's already in English, return it as is. Max length will be 512 characters`,
 
     // Amélioration du prompt pour la génération de vidéo
     const enhancementResponse = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",

@@ -243,16 +243,31 @@ export const Usage = async () => {
       <Card className="max-h-[300px] space-y-4 overflow-y-auto border-border">
         <ScrollArea>
           {userTransactionStat.map((transaction) => (
-            <Card key={transaction.id} className="overflow-hidden">
+            <Card
+              key={transaction.id}
+              className="overflow-hidden border-border"
+            >
               <CardContent className="p-4">
                 <div className="mb-2 flex items-center justify-between">
                   <div className="font-medium">{transaction.username}</div>
+
+                  <div className="font-semibold">
+                    ${transaction.price.toFixed(2)}
+                  </div>
+                </div>
+
+                <div className="mb-2 text-sm text-muted-foreground">
+                  {transaction.type === "BuyToken"
+                    ? `${transaction.amount} tokens`
+                    : `${transaction.plan} plan`}
+                </div>
+
+                <div className="mt-2 flex items-center justify-between">
                   <Badge
                     variant={
-                      transaction.type === "BuyToken" ? "secondary" : "outline"
-                    }
-                    className={
-                      transaction.type === "Subscribe" ? "bg-primary/10" : ""
+                      transaction.type === "BuyToken"
+                        ? "default"
+                        : "destructive"
                     }
                   >
                     {transaction.type === "BuyToken" ? (
@@ -267,18 +282,6 @@ export const Usage = async () => {
                       </div>
                     )}
                   </Badge>
-                </div>
-
-                <div className="mb-2 text-sm text-muted-foreground">
-                  {transaction.type === "BuyToken"
-                    ? `${transaction.amount} tokens`
-                    : `${transaction.plan} plan`}
-                </div>
-
-                <div className="mt-2 flex items-center justify-between">
-                  <div className="font-semibold">
-                    ${transaction.price.toFixed(2)}
-                  </div>
                   <div className="text-xs text-muted-foreground">
                     {formatDistanceToNow(transaction.createdAt, {
                       addSuffix: true,

@@ -8,7 +8,7 @@ import {
 } from "@/actions/stripe.actions"
 import { subsList, tokenPricesList } from "@/lib/prices"
 import { prisma } from "@/prisma"
-import { Plan } from "@prisma/client"
+import { Plan, User } from "@prisma/client"
 
 export const POST = async (req: NextRequest) => {
   const body = (await req.json()) as Stripe.Event
@@ -66,7 +66,7 @@ export const POST = async (req: NextRequest) => {
       let referrerGain = 0
 
       if (invoice.subscription) {
-        subsList.forEach((t) => {
+        subsList.forEach(async (t) => {
           if (
             t.priceStripe == totalAmount ||
             Math.abs(t.priceStripe * 0.9 - totalAmount) < threshold
@@ -74,6 +74,13 @@ export const POST = async (req: NextRequest) => {
             jetonsToAdd = t.creditsCount
             newPlan = t.productName as Plan
             referrerGain = parseFloat(((t.price * 30) / 100).toFixed(2))
+            await validateSubscribe(
+              user,
+              referrerGain,
+              newPlan,
+              totalAmount,
+              jetonsToAdd,
+            )
           } else if (
             t.priceStripe * 11 == totalAmount ||
             Math.abs(t.priceStripe * 11 * 0.9 - totalAmount) < threshold
@@ -81,6 +88,13 @@ export const POST = async (req: NextRequest) => {
             jetonsToAdd = t.creditsCount * 12
             newPlan = `${t.productName}Year` as Plan
             referrerGain = parseFloat(((t.price * 30 * 11) / 100).toFixed(2))
+            await validateSubscribe(
+              user,
+              referrerGain,
+              newPlan,
+              totalAmount,
+              jetonsToAdd,
+            )
           }
         })
       }
@@ -89,48 +103,15 @@ export const POST = async (req: NextRequest) => {
         jetonsToAdd = 350
         newPlan = Plan.Hebdomadaire
         referrerGain = parseFloat(((5.8 * 30) / 100).toFixed(2))
+        await validateSubscribe(
+          user,
+          referrerGain,
+          newPlan,
+          totalAmount,
+          jetonsToAdd,
+        )
       }
 
-      if (user.referreId) {
-        await increaseReferrerBalance(user.referreId, referrerGain)
-
-        await prisma.affiliation.create({
-          data: {
-            userId: user.id,
-            parentId: user.referreId,
-            plan: newPlan,
-            price: totalAmount,
-          },
-        })
-
-        await prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            referreId: "",
-          },
-        })
-      }
-
-      await prisma.user.update({
-        where: {
-          id: user?.id,
-        },
-        data: {
-          jeton: {
-            increment: jetonsToAdd,
-          },
-          plan: newPlan,
-        },
-      })
-      await prisma.subscribe.create({
-        data: {
-          userId: user.id,
-          plan: newPlan,
-          price: totalAmount,
-        },
-      })
       console.log("Checkout invoice completed", invoice)
       break
     }
@@ -186,6 +167,7 @@ export const POST = async (req: NextRequest) => {
             userId: user.id,
             plan: newPlan,
             price: lastSub[0].price,
+            isRenewal: true,
           },
         })
       }
@@ -265,5 +247,53 @@ export const POST = async (req: NextRequest) => {
   console.log("Stripe request ==> ", body.data)
   return NextResponse.json({
     ok: true,
+  })
+}
+
+const validateSubscribe = async (
+  user: User,
+  referrerGain: number,
+  newPlan: Plan,
+  totalAmount: number,
+  jetonsToAdd: number,
+) => {
+  if (user.referreId) {
+    await increaseReferrerBalance(user.referreId, referrerGain)
+
+    await prisma.affiliation.create({
+      data: {
+        userId: user.id,
+        parentId: user.referreId,
+        plan: newPlan,
+        price: totalAmount,
+      },
+    })
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        referreId: "",
+      },
+    })
+  }
+  await prisma.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+      jeton: {
+        increment: jetonsToAdd,
+      },
+      plan: newPlan,
+    },
+  })
+  await prisma.subscribe.create({
+    data: {
+      userId: user.id,
+      plan: newPlan,
+      price: totalAmount,
+    },
   })
 }

@@ -25,6 +25,7 @@ model Subscribe {
   plan      String
   price     Int
   createdAt DateTime @default(now())
+  isRenewal Boolean? @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -268,7 +268,7 @@ export const Usage = async () => {
           {userTransactionStat?.map((transaction) => (
             <Card
               key={transaction.id}
-              className="overflow-hidden border-border"
+              className="overflow-hidden rounded-none border-b-border"
             >
               <CardContent className="p-4">
                 <div className="mb-2 flex items-center justify-between">

@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from "date-fns"
 import { CreditCard, Tag } from "lucide-react"
+import { unstable_noStore as noStore } from "next/cache"
 
 import { Badge } from "@/components/ui/badge"
 import {
@@ -26,7 +27,41 @@ type CombinedTransaction = {
   createdAt: Date
 }
 
+// Create non-cached database access functions
+async function getBuyTokens() {
+  noStore()
+  return prisma.buyToken.findMany({
+    include: {
+      user: {
+        select: {
+          username: true,
+          email: true,
+          image: true,
+        },
+      },
+    },
+  })
+}
+
+async function getSubscriptions() {
+  noStore()
+  return prisma.subscribe.findMany({
+    include: {
+      user: {
+        select: {
+          username: true,
+          email: true,
+          image: true,
+        },
+      },
+    },
+  })
+}
+
 export const Usage = async () => {
+  // Prevent caching for the entire component
+  noStore()
+
   let elevenlabsUsage
   let leonardoUsage
   let userTransactionStat
@@ -40,6 +75,9 @@ export const Usage = async () => {
           "xi-api-key": "sk_df497f9499812106f628cbb88038bc9061db664acab03e70",
           "Content-Type": "application/json",
         },
+        // Prevent cache for this fetch request
+        cache: "no-store",
+        next: { revalidate: 0 },
       },
     )
 
@@ -61,6 +99,9 @@ export const Usage = async () => {
         "Content-Type": "application/json",
         accept: "application/json",
       },
+      // Prevent cache for this fetch request
+      cache: "no-store",
+      next: { revalidate: 0 },
     })
 
     if (!response.ok) {
@@ -74,31 +115,11 @@ export const Usage = async () => {
   }
 
   try {
-    // Récupération des BuyToken avec les infos utilisateur
-    const buyTokens = await prisma.buyToken.findMany({
-      include: {
-        user: {
-          select: {
-            username: true,
-            email: true,
-            image: true,
-          },
-        },
-      },
-    })
-
-    // Récupération des Subscribe avec les infos utilisateur
-    const subscriptions = await prisma.subscribe.findMany({
-      include: {
-        user: {
-          select: {
-            username: true,
-            email: true,
-            image: true,
-          },
-        },
-      },
-    })
+    // Use the non-cached functions to get fresh data each time
+    const [buyTokens, subscriptions] = await Promise.all([
+      getBuyTokens(),
+      getSubscriptions(),
+    ])
 
     // Transformation des BuyToken en format unifié
     const formattedBuyTokens: CombinedTransaction[] = buyTokens.map(
@@ -137,7 +158,9 @@ export const Usage = async () => {
     combinedList.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
 
     userTransactionStat = combinedList
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error fetching transaction data:", error)
+  }
 
   // Calculate percentage for ElevenLabs
   const characterPercentage = elevenlabsUsage
@@ -242,7 +265,7 @@ export const Usage = async () => {
 
       <Card className="max-h-[300px] space-y-4 overflow-y-auto border-border">
         <ScrollArea>
-          {userTransactionStat.map((transaction) => (
+          {userTransactionStat?.map((transaction) => (
             <Card
               key={transaction.id}
               className="overflow-hidden border-border"

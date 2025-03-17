@@ -1,10 +1,10 @@
 "use client"
 
-import Link from "next/link"
-import { useTranslation } from "react-i18next"
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import { Badge } from "@/components/tremor/ui/badge"
-import { Card } from "@/components/tremor/ui/card"
+import { Badge } from '@/components/tremor/ui/badge';
+import { Card } from '@/components/tremor/ui/card';
 
 export default function RankingsPage() {
   const { t } = useTranslation()
@@ -21,10 +21,13 @@ export default function RankingsPage() {
         <p className="mb-8 text-center font-[inter] text-[16px] font-semibold leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
           {t(`Be in the top 3 per month and earn up to $3,000!`)}
         </p>
-        <p className="mb-8 text-center font-[inter] text-[16px] leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
+        <p className="mb-4 text-center font-[inter] text-[16px] leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
           {t(
-            `We know you're excited to see the ranking feature, but it will be available starting early March. We're working hard to bring you an amazing experience and we appreciate your patience!`,
+            `We know you're excited to see the ranking feature, but it will be available starting early Mai. We're working hard to bring you an amazing experience and we appreciate your patience!`,
           )}
+        </p>
+        <p className="mb-8 text-center font-[inter] text-[16px] leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
+          {t(`Only for subscribed users`)}
         </p>
         <Badge>
           🚀 {t(`Stay tuned for the launch`)}{" "}

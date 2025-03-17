@@ -45,10 +45,8 @@ export const UnlockPower = () => {
             loop
             muted
             playsInline
-          >
-            <source src={"https://blob.teratany.org/videos/features.webm"} />
-            {t(`Your browser does not support the video tag.`)}
-          </video>
+            src="https://ykadn150o6.ufs.sh/f/jYyQ3PNyM6nSkTG3PgRcjeMQRA4YsmbUSGd5WqlIT9DXCP3B"
+          ></video>
         </Bounce>
       </div>
 

@@ -1,14 +1,15 @@
 "use server"
-import fetch from "node-fetch" // Add this line to import fetch
+import fetch from 'node-fetch'; // Add this line to import fetch
 
-import { reduceCredit } from "@/actions/credits.actions"
-import { enhanceVideoPrompt } from "@/actions/openai.actions"
-import { trackUserActivity } from "@/actions/user.ations"
-import { currentUser } from "@/lib/current-user"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
-import { Video } from "@prisma/client"
-import RunwayML from "@runwayml/sdk"
+import { reduceCredit } from '@/actions/credits.actions';
+import { enhanceVideoPrompt } from '@/actions/openai.actions';
+import { trackUserActivity } from '@/actions/user.ations';
+import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { pusherServer } from '@/pusher';
+import { Video } from '@prisma/client';
+import RunwayML from '@runwayml/sdk';
 
 const client = new RunwayML({
   apiKey: process.env.RUNWAYML_API_SECRET, // Récupère la clé depuis l'env
@@ -65,7 +66,28 @@ export async function generateVideoFromImage(
       },
     })
 
-    return null
+    for (let i = 0; i < 100; i++) {
+      const res = await videoVerifyTask(taskId)
+
+      if (res.status == "Failed") {
+        await pusherServer.trigger(`private-user-${user.id}`, "new-message", {
+          message: "Video generation failed!",
+          status: "error",
+          timestamp: new Date().toISOString(),
+        })
+        return
+      } else if (res.status == "Generated") {
+        await pusherServer.trigger(`private-user-${user.id}`, "new-message", {
+          message: "Video generation finished!",
+          status: "success",
+          timestamp: new Date().toISOString(),
+        })
+        return
+      }
+
+      console.log("waiting 5s")
+      await new Promise((resolve) => setTimeout(resolve, 5000)) // Attend réellement 5s avant de continuer
+    }
   } catch (error) {
     console.error("RunwayML error:", error)
     throw new Error("Erreur lors de la génération de la vidéo.")

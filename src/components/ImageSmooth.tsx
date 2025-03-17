@@ -1,5 +1,5 @@
-import Image, { ImageProps } from "next/image"
-import { useState } from "react"
+import Image, { ImageProps } from 'next/image';
+import { useState } from 'react';
 
 interface SmoothImageProps extends ImageProps {
   imageUrl?: string
@@ -25,6 +25,7 @@ export default function ImageSmooth({
           height={2}
           className="absolute inset-0 h-full w-full object-cover opacity-50 blur-md"
           alt="Blurred background"
+          onContextMenu={(e) => e.preventDefault()}
         />
       )}
 
@@ -40,6 +41,7 @@ export default function ImageSmooth({
         onLoadingComplete={() => setIsLoaded(true)}
         alt={props.alt || `Random stock image ${index ? index + 1 : ""}`}
         loading="lazy"
+        onContextMenu={(e) => e.preventDefault()}
       />
     </div>
   )

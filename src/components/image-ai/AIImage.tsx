@@ -18,9 +18,11 @@ import {
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useSelectImage } from '@/hooks/use-select-image';
 import { useToast } from '@/hooks/use-toast';
-import { GeneratedImage } from '@prisma/client';
+import { useUser } from '@/hooks/use-user';
 
 import { DirectionAwareHover } from './GeneratedHover';
+
+import type { GeneratedImage } from "@prisma/client"
 
 interface AllImageProps {
   prompt: string
@@ -45,6 +47,7 @@ export const AIImage = ({
   const plugin = useRef(Autoplay({ delay: 9000, stopOnInteraction: true }))
   const { t } = useTranslation()
   const { toast } = useToast()
+  const { user } = useUser()
   const [isOpen, setIsOpen] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -92,27 +95,110 @@ export const AIImage = ({
   }
 
   const handleDownload = async () => {
-    setIsDownloading(true)
-    try {
-      const proxyUrl = `/api/proxy?url=${encodeURIComponent(image.url)}`
-      const response = await fetch(proxyUrl)
-      const blob = await response.blob()
-      const originalFileName = image.url.split("/").pop() || "image.png"
-      const fileName = originalFileName
-        .replace("Leonardo", "Pandorra.ai")
-        .replace("leonardo", "Pandorra.ai")
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement("a")
-      link.href = url
-      link.download = fileName
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
-    } catch (error) {
-      console.error("Erreur lors du téléchargement de l'image :", error)
-    } finally {
-      setIsDownloading(false)
+    if (user?.plan == "Free") {
+      setIsDownloading(true)
+      try {
+        // Fetch the original image
+        const proxyUrl = `/api/proxy?url=${encodeURIComponent(image.url)}`
+        const response = await fetch(proxyUrl)
+        const blob = await response.blob()
+
+        // Create an image element for the original image
+        const img = new Image()
+        img.crossOrigin = "anonymous"
+        img.src = URL.createObjectURL(blob)
+
+        await new Promise((resolve) => {
+          img.onload = resolve
+        })
+
+        // Create an image element for the watermark
+        const watermark = new Image()
+        watermark.crossOrigin = "anonymous"
+        watermark.src = "/logo/logo-full-white.png"
+
+        await new Promise((resolve) => {
+          watermark.onload = resolve
+        })
+
+        // Create a canvas to combine the images
+        const canvas = document.createElement("canvas")
+        canvas.width = img.width
+        canvas.height = img.height
+        const ctx = canvas.getContext("2d")
+        if (!ctx) {
+          throw new Error("Could not get canvas context")
+        }
+        // Draw the original image
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+        // Calculate watermark size (20% of the image width, maintaining aspect ratio)
+        const watermarkWidth = canvas.width * 0.2
+        const watermarkHeight =
+          (watermark.height / watermark.width) * watermarkWidth
+
+        // Draw the watermark in the bottom left corner with padding
+        const padding = 20
+        ctx.drawImage(
+          watermark,
+          canvas.width - watermarkWidth - padding,
+          canvas.height - watermarkHeight - padding,
+          watermarkWidth,
+          watermarkHeight,
+        )
+
+        // Convert canvas to blob and download
+        const watermarkedBlob = await new Promise<Blob>((resolve) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              resolve(blob)
+            } else {
+              throw new Error("Could not create blob from canvas")
+            }
+          }, "image/png")
+        })
+
+        const originalFileName = image.url.split("/").pop() || "image.png"
+        const fileName = originalFileName
+          .replace("Leonardo", "Pandorra.ai")
+          .replace("leonardo", "Pandorra.ai")
+
+        const url = URL.createObjectURL(watermarkedBlob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = fileName
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      } catch (error) {
+        console.error("Erreur lors du téléchargement de l'image :", error)
+      } finally {
+        setIsDownloading(false)
+      }
+    } else {
+      setIsDownloading(true)
+      try {
+        const proxyUrl = `/api/proxy?url=${encodeURIComponent(image.url)}`
+        const response = await fetch(proxyUrl)
+        const blob = await response.blob()
+        const originalFileName = image.url.split("/").pop() || "image.png"
+        const fileName = originalFileName
+          .replace("Leonardo", "Pandorra.ai")
+          .replace("leonardo", "Pandorra.ai")
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = fileName
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      } catch (error) {
+        console.error("Erreur lors du téléchargement de l'image :", error)
+      } finally {
+        setIsDownloading(false)
+      }
     }
   }
   const handleDelete = async (url: string) => {
@@ -232,7 +318,7 @@ export const AIImage = ({
                     loading="lazy"
                     alt=""
                     className="max-h-[80vh] w-auto overflow-hidden rounded-lg object-contain shadow"
-                    src={image}
+                    src={image || "/placeholder.svg"}
                     width="600"
                     height="800"
                   />

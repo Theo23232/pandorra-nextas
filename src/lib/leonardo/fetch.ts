@@ -8,6 +8,7 @@ import { reduceCredit } from '@/actions/credits.actions';
 import { myCache } from '@/cache';
 import { currentUser } from '@/lib/current-user';
 import { prisma } from '@/prisma';
+import { pusherServer } from '@/pusher';
 import { GenerationWithImages } from '@/types/pandorra';
 import { GeneratedImage } from '@prisma/client';
 
@@ -726,6 +727,11 @@ export async function leonardoGenerateImage<T>(options: FetchOptions) {
     console.log(
       `🎉 Génération terminée avec succès: ${allGeneratedImages.length} images`,
     )
+    await pusherServer.trigger(`private-user-${user.id}`, "new-message", {
+      message: "Image generation finished!",
+      status: "success",
+      timestamp: new Date().toISOString(),
+    })
     return allGeneratedImages
   } catch (error) {
     console.error("❌ Erreur fatale dans leonardoGenerateImage:", error)

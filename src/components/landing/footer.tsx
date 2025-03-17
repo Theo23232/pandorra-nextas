@@ -1,10 +1,10 @@
 "use client"
-import Image from "next/image"
-import Link from "next/link"
-import { useTranslation } from "react-i18next"
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import Ripple from "@/components/nyxb/ripple"
+import Bounce from '@/components/animated/uibeats/bounce';
+import Ripple from '@/components/nyxb/ripple';
 
 export function Footer() {
   const { t } = useTranslation()
@@ -31,12 +31,12 @@ export function Footer() {
             { href: "/audio", text: "FX Generation" },
             { href: "/audio/text-to-speech", text: "Text to speech" },
             { href: "/audio/voice-changer", text: "Voice changer" },
-            { href: "/audio/dubbing", text: "Dubbing" },
+            // { href: "/audio/dubbing", text: "Dubbing" },
             { href: "/image/generation", text: "Text to image" },
             { href: "/video", text: "Text to video" },
             { href: "/assistant", text: "AI assistant" },
-            { href: "/ai-talk", text: "Talk to AI" },
-            { href: "/ai-talk", text: "Code generation" },
+            { href: "/chat", text: "Talk to AI" },
+            { href: "/chat", text: "Code generation" },
           ].map((item, index) => (
             <Link
               key={index}
@@ -57,7 +57,7 @@ export function Footer() {
             // { href: "/", text: "Contact Us" },
             { href: "/pricing", text: "Pricing" },
             { href: "/explore", text: "Community" },
-            { href: "/affiliate", text: "Affiliate Program" },
+            { href: "/affiliation", text: "Affiliate Program" },
             { href: "/refund-policy", text: "Refund Policy" },
             { href: "/privacy", text: "Privacy Policy" },
             { href: "/terms", text: "Terms and Conditions" },

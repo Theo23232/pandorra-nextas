@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Footer } from "@/components/landing/footer"
-import LandingNavbar from "@/components/landing/navbar"
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Footer } from '@/components/landing/footer';
+import LandingNavbar from '@/components/landing/navbar';
 
 export function AboutContent() {
   const { t } = useTranslation()

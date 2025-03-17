@@ -2,44 +2,32 @@
 "use client"
 
 import {
-  Download,
-  Eraser,
-  Expand,
-  Fullscreen,
-  Loader,
-  SendHorizontal,
-  Trash,
-  X,
-  Zap,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import React, { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { toast } from "sonner"
-import useSWR from "swr"
+    Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, Trash, X, Zap
+} from 'lucide-react';
+import ImageDisplay from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import useSWR from 'swr';
 
-import { createComment, deletePublication } from "@/actions/publication.action"
-import CommentCard from "@/components/(main)/explore/CommentCard"
-import { Input } from "@/components/tremor/inputs/input"
-import { Button } from "@/components/tremor/ui/button"
-import { Card, CardDescription, CardTitle } from "@/components/tremor/ui/card"
+import { createComment, deletePublication } from '@/actions/publication.action';
+import CommentCard from '@/components/(main)/explore/CommentCard';
+import { Input } from '@/components/tremor/inputs/input';
+import { Button } from '@/components/tremor/ui/button';
+import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-import { useUser } from "@/hooks/use-user"
-import { formatDate } from "@/lib/formatDate"
-import { removeBg, unzoom, upscale } from "@/lib/leonardo/fetch"
-import { models } from "@/lib/leonardo/presets"
-import { fetcher } from "@/lib/utils"
+    Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger
+} from '@/components/tremor/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import { useUser } from '@/hooks/use-user';
+import { formatDate } from '@/lib/formatDate';
+import { removeBg, unzoom, upscale } from '@/lib/leonardo/fetch';
+import { models } from '@/lib/leonardo/presets';
+import { fetcher } from '@/lib/utils';
 
-import RelatedPublications from "./RelatedPublications"
+import RelatedPublications from './RelatedPublications';
 
 interface PublicationDialogProps {
   children: React.ReactNode
@@ -108,28 +96,112 @@ export default function PublicationDialog({
   }
 
   const handleDownload = async () => {
-    setIsDownloading(true)
-    try {
-      const proxyUrl = `/api/proxy?url=${encodeURIComponent(publication.image)}`
-      const response = await fetch(proxyUrl)
-      const blob = await response.blob()
-      const originalFileName = publication.image.split("/").pop() || "image.png"
+    if (user?.plan == "Free") {
+      setIsDownloading(true)
+      try {
+        // Fetch the original image
+        const proxyUrl = `/api/proxy?url=${encodeURIComponent(publication.image)}`
+        const response = await fetch(proxyUrl)
+        const blob = await response.blob()
 
-      const fileName = originalFileName
-        .replace("Leonardo", "Pandorra.ai")
-        .replace("leonardo", "Pandorra.ai")
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement("a")
-      link.href = url
-      link.download = fileName
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
-    } catch (error) {
-      toast.error("Error downloading image")
-    } finally {
-      setIsDownloading(false)
+        // Create an image element for the original image
+        const img = new Image()
+        img.crossOrigin = "anonymous"
+        img.src = URL.createObjectURL(blob)
+
+        await new Promise((resolve) => {
+          img.onload = resolve
+        })
+
+        // Create an image element for the watermark
+        const watermark = new Image()
+        watermark.crossOrigin = "anonymous"
+        watermark.src = "/logo/logo-full-white.png"
+
+        await new Promise((resolve) => {
+          watermark.onload = resolve
+        })
+
+        // Create a canvas to combine the images
+        const canvas = document.createElement("canvas")
+        canvas.width = img.width
+        canvas.height = img.height
+        const ctx = canvas.getContext("2d")
+        if (!ctx) {
+          throw new Error("Could not get canvas context")
+        }
+        // Draw the original image
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+        // Calculate watermark size (20% of the image width, maintaining aspect ratio)
+        const watermarkWidth = canvas.width * 0.2
+        const watermarkHeight =
+          (watermark.height / watermark.width) * watermarkWidth
+
+        // Draw the watermark in the bottom left corner with padding
+        const padding = 20
+        ctx.drawImage(
+          watermark,
+          canvas.width - watermarkWidth - padding,
+          canvas.height - watermarkHeight - padding,
+          watermarkWidth,
+          watermarkHeight,
+        )
+
+        // Convert canvas to blob and download
+        const watermarkedBlob = await new Promise<Blob>((resolve) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              resolve(blob)
+            } else {
+              throw new Error("Could not create blob from canvas")
+            }
+          }, "image/png")
+        })
+
+        const originalFileName =
+          publication.image.split("/").pop() || "image.png"
+        const fileName = originalFileName
+          .replace("Leonardo", "Pandorra.ai")
+          .replace("leonardo", "Pandorra.ai")
+
+        const url = URL.createObjectURL(watermarkedBlob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = fileName
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      } catch (error) {
+        console.error("Erreur lors du téléchargement de l'image :", error)
+      } finally {
+        setIsDownloading(false)
+      }
+    } else {
+      setIsDownloading(true)
+      try {
+        const proxyUrl = `/api/proxy?url=${encodeURIComponent(publication.image)}`
+        const response = await fetch(proxyUrl)
+        const blob = await response.blob()
+        const originalFileName =
+          publication.image.split("/").pop() || "image.png"
+        const fileName = originalFileName
+          .replace("Leonardo", "Pandorra.ai")
+          .replace("leonardo", "Pandorra.ai")
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = fileName
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      } catch (error) {
+        console.error("Erreur lors du téléchargement de l'image :", error)
+      } finally {
+        setIsDownloading(false)
+      }
     }
   }
 
@@ -152,12 +224,13 @@ export default function PublicationDialog({
         <div className="relative h-full w-full">
           <div className="flex w-full gap-4 max-lg:flex-col">
             <div className="max-w-3/4 relative h-[calc(100vh-8rem)] w-full rounded bg-muted/60 p-4 max-lg:h-fit max-lg:max-w-full max-lg:p-0">
-              <Image
+              <ImageDisplay
                 src={publication.image}
                 alt={publication.description.prompt}
                 className="h-full w-full overflow-hidden rounded-lg object-contain"
                 width={500}
                 height={800}
+                onContextMenu={(e) => e.preventDefault()}
               />
             </div>
 
@@ -327,12 +400,13 @@ function PublicationActions({
       <div className="mt-4 flex items-center gap-4 text-xs">
         <div className="flex items-center gap-2">
           {model?.generated_image?.url && (
-            <Image
+            <ImageDisplay
               src={model.generated_image.url}
               width={16}
               height={16}
               alt={model.name}
               className="size-4 object-cover"
+              onContextMenu={(e) => e.preventDefault()}
             />
           )}
           {model?.name}

@@ -1,22 +1,22 @@
 "use client"
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { mutate } from "swr"
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
 
-import { reduceCredit } from "@/actions/credits.actions"
-import { ImageGenerationDialog } from "@/app/(main)/image/generation/ImageGenerationDialog"
-import { ImageGenerationSidebar } from "@/app/(main)/image/generation/sidebar"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useImageLoading } from "@/hooks/use-image-loading"
-import { useSelectImage } from "@/hooks/use-select-image"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { leonardoGenerateImage } from "@/lib/leonardo/fetch"
-import { Model, models } from "@/lib/leonardo/presets"
+import { reduceCredit } from '@/actions/credits.actions';
+import { ImageGenerationDialog } from '@/app/(main)/image/generation/ImageGenerationDialog';
+import { ImageGenerationSidebar } from '@/app/(main)/image/generation/sidebar';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useImageLoading } from '@/hooks/use-image-loading';
+import { useSelectImage } from '@/hooks/use-select-image';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { leonardoGenerateImage } from '@/lib/leonardo/fetch';
+import { Model, models } from '@/lib/leonardo/presets';
 
-import { Main } from "./Main"
+import { Main } from './Main';
 
 export default function RoutePage() {
   const { t } = useTranslation()

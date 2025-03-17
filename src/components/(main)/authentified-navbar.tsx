@@ -1,13 +1,14 @@
 "use client"
 
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
-import Link from "next/link"
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import Link from 'next/link';
 
-import { ToggleTheme } from "@/components/(main)/ToggleTheme"
-import { Logo } from "@/components/logo"
-import { UserProfileMobile } from "@/components/navigation/UserProfile"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
+import { ToggleTheme } from '@/components/(main)/ToggleTheme';
+import { Logo } from '@/components/logo';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import { NotificationListener } from '@/components/notification-listener';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
 
 export function Navbar() {
   return (
@@ -19,6 +20,7 @@ export function Navbar() {
         <FloatingButton />
       </div>
       <div className="flex items-center gap-1 sm:gap-2">
+        <NotificationListener />
         <ToggleTheme />
         <JetonCounter />
         <UserProfileMobile />

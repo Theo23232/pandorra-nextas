@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
@@ -92,7 +94,30 @@ export function Footer() {
           <p className="font-inter mb-3 text-[18px] font-medium text-white">
             {t(`Social`)}
           </p>
-          {/* Add social media links here */}
+          <div className="flex gap-2">
+            <a
+              target="_blank"
+              href={"https://www.facebook.com/share/1Bfh6FhfNQ"}
+              className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
+            >
+              <img src="/logo/facebook.svg" className="h-5 w-auto" />
+            </a>
+            <a
+              target="_blank"
+              href={"https://www.instagram.com/pandorraai"}
+              className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
+            >
+              <img src="/logo/instagram.svg" className="h-5 w-auto" />
+            </a>
+
+            <a
+              target="_blank"
+              href={"https://www.tiktok.com/@pandorra_ai"}
+              className="font-inter mb-2 text-[14px] font-semibold leading-[30px] text-white hover:underline"
+            >
+              <img src="/logo/tiktok.svg" className="h-5 w-auto" />
+            </a>
+          </div>
         </div>
       </Bounce>
     </div>

@@ -1,12 +1,13 @@
 // api/conversations/route.ts
-import { NextResponse } from "next/server"
-import { OpenAI } from "openai"
+import { NextResponse } from 'next/server';
+import { OpenAI } from 'openai';
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+  baseURL: "https://api.deepseek.com",
+  apiKey: process.env.DEEPSEEK_API_KEY!,
 })
 
 export async function GET() {
@@ -43,7 +44,7 @@ export async function POST(req: Request) {
       )
 
     const titleGenerate = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "deepseek-chat",
       messages: [
         {
           role: "system",

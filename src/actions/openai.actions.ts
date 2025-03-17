@@ -1,17 +1,18 @@
 "use server"
-import OpenAI from "openai"
+import OpenAI from 'openai';
 
-import { reduceCredit } from "@/actions/credits.actions"
+import { reduceCredit } from '@/actions/credits.actions';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: "https://api.deepseek.com",
+  apiKey: process.env.DEEPSEEK_API_KEY!,
 })
 
 export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
   await reduceCredit(1)
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "deepseek-chat",
       messages: [
         {
           role: "system",
@@ -27,6 +28,10 @@ export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
           role: "system",
           content:
             "Always choose a realistic style or leave the style unspecified if the prompt does not mention one.",
+        },
+        {
+          role: "system",
+          content: "Just give the enhanced prompt without any artefacts",
         },
         {
           role: "user",
@@ -52,13 +57,17 @@ export const enhanceVideoPrompt = async (prompt: string): Promise<string> => {
     await reduceCredit(1)
     // Détection et traduction automatique en anglais si nécessaire
     const translationResponse = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "deepseek-chat",
       messages: [
         {
           role: "system",
           content: `You are a language detection and translation assistant.  
 If the user's input is not in English, translate it to English while preserving meaning.  
 If it's already in English, return it as is. Max length will be 512 characters`,
+        },
+        {
+          role: "system",
+          content: "Just give the translated prompt without any artefacts",
         },
         {
           role: "user",
@@ -71,7 +80,7 @@ If it's already in English, return it as is. Max length will be 512 characters`,
 
     // Amélioration du prompt pour la génération de vidéo
     const enhancementResponse = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "deepseek-chat",
       messages: [
         {
           role: "system",
@@ -147,6 +156,10 @@ A title screen with dynamic motion. The scene begins on a colorful wall covered 
 Now, enhance the following video generation prompt based on these guidelines and make the Max length of your response to 512 characters:`,
         },
         {
+          role: "system",
+          content: "Just give the enhanced prompt without any artefacts",
+        },
+        {
           role: "user",
           content: translatedPrompt || "",
         },
@@ -169,12 +182,16 @@ Now, enhance the following video generation prompt based on these guidelines and
 export const translateToEnglish = async (prompt: string): Promise<string> => {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "deepseek-chat",
       messages: [
         {
           role: "system",
           content:
             "You will translate everything in english. If the text is already in english the correct the text. Jest send the translated text or the corrected text. Do not add quotes or double quotes",
+        },
+        {
+          role: "system",
+          content: "Just give the translated prompt without any artefacts",
         },
         {
           role: "user",

@@ -1,13 +1,14 @@
 "use server"
 
-import { OpenAI } from "openai"
+import { OpenAI } from 'openai';
 
-import { trackUserActivity } from "@/actions/user.ations"
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { trackUserActivity } from '@/actions/user.ations';
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+  baseURL: "https://api.deepseek.com",
+  apiKey: process.env.DEEPSEEK_API_KEY!,
 })
 
 export async function postMessage(gptConversationId: string, content: string) {
@@ -42,7 +43,7 @@ export async function postMessage(gptConversationId: string, content: string) {
   try {
     // Appel à l'API OpenAI avec streaming
     const stream = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "deepseek-chat",
       messages,
       stream: true, // Activer le streaming
     })

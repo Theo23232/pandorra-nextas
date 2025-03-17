@@ -1,19 +1,19 @@
-import { NextResponse } from "next/server"
-import { OpenAI } from "openai"
+import { NextResponse } from 'next/server';
+import { OpenAI } from 'openai';
 
-import { searchWeb } from "@/lib/search"
-import { prisma } from "@/prisma"
+import { searchWeb } from '@/lib/search';
+import { prisma } from '@/prisma';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+  baseURL: "https://api.deepseek.com",
+  apiKey: process.env.DEEPSEEK_API_KEY!,
 })
-
 // Nombre maximum de messages à conserver dans l'historique
 const MAX_HISTORY_LENGTH = 10
 // Modèle moins cher pour les vérifications préliminaires
-const CHEAPER_MODEL = "gpt-3.5-turbo"
+const CHEAPER_MODEL = "deepseek-chat"
 // Modèle principal pour les réponses
-const MAIN_MODEL = "gpt-3.5-turbo"
+const MAIN_MODEL = "deepseek-chat"
 
 export async function POST(req: Request) {
   try {

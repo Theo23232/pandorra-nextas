@@ -1,12 +1,16 @@
 "use client"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next"
 
-import { editLangange } from '@/actions/user.ations';
+import { editLangange } from "@/actions/user.ations"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/tremor/inputs/select';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/tremor/inputs/select"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
 
 export function EditLangage() {
   const { t } = useTranslation()
@@ -22,12 +26,8 @@ export function EditLangage() {
       label: "Français",
     },
     {
-      value: "es",
-      label: "Español",
-    },
-    {
-      value: "it",
-      label: "Italiano",
+      value: "pt",
+      label: "Português",
     },
   ]
 

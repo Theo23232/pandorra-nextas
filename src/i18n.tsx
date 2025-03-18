@@ -1,15 +1,16 @@
 "use client"
-import i18next from 'i18next';
-import { useEffect } from 'react';
-import { initReactI18next } from 'react-i18next';
+import i18next from "i18next"
+import { useEffect } from "react"
+import { initReactI18next } from "react-i18next"
 
-import { editLangange } from '@/actions/user.ations';
-import { useUser } from '@/hooks/use-user';
+import { editLangange } from "@/actions/user.ations"
+import { useUser } from "@/hooks/use-user"
 
-import translationEnglish from './translation/en.json';
-import translationEspania from './translation/es.json';
-import translationFrench from './translation/fr.json';
-import translationItalian from './translation/ita.json';
+import translationEnglish from "./translation/en.json"
+import translationEspania from "./translation/es.json"
+import translationFrench from "./translation/fr.json"
+import translationItalian from "./translation/ita.json"
+import translationPortuguese from "./translation/pt.json"
 
 const resources = {
   en: {
@@ -24,6 +25,9 @@ const resources = {
   es: {
     translation: translationEspania,
   },
+  pt: {
+    translation: translationPortuguese,
+  },
 }
 const edit = async (lang: string) => {
   await editLangange(lang)
@@ -34,7 +38,7 @@ const detectBrowserLanguage = (): string => {
   if (typeof window !== "undefined" && typeof navigator !== "undefined") {
     const localLang = localStorage.getItem("lang")
     const browserLang = navigator.language.substring(0, 2).toLowerCase()
-    const lang = ["fr", "en", "it", "es"].includes(browserLang)
+    const lang = ["fr", "en", "it", "es", "pt"].includes(browserLang)
       ? browserLang
       : "en"
     if (localLang) {

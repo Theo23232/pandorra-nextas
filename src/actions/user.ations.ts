@@ -181,6 +181,22 @@ export const addReferreId = SA(
         referreId: referreId,
       },
     })
+
+    const referrer = await prisma.user.findUnique({
+      where: {
+        id: referreId,
+      },
+    })
+    if (referrer) {
+      await prisma.user.update({
+        where: {
+          id: referreId,
+        },
+        data: {
+          jeton: referrer.jeton + 10,
+        },
+      })
+    }
     return null
   },
 )

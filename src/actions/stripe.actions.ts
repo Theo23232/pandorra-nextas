@@ -162,6 +162,21 @@ export const increaseReferrerBalance = async (
           currentAmount: currentTotal.toString(),
         },
       })
+      const referrer = await prisma.user.findUnique({
+        where: {
+          id: referrerId,
+        },
+      })
+      if (referrer) {
+        await prisma.user.update({
+          where: {
+            id: referrerId,
+          },
+          data: {
+            jeton: referrer.jeton + 50,
+          },
+        })
+      }
     }
   } catch (error) {
     console.error(error)

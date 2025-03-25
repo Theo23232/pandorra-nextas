@@ -35,10 +35,10 @@ export function InviteFriendDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="border-none bg-transparent sm:max-w-md">
+      <DialogContent className="border-none bg-muted/50 dark sm:max-w-md">
         <Image
-          width={1000}
-          height={1000}
+          width={500}
+          height={800}
           alt=""
           src={"/assets/invite-bg.png"}
           className="absolute h-full w-full"
@@ -53,7 +53,7 @@ export function InviteFriendDialog() {
               `Invite your friends to join Pandorra.ai and collect free credits at every step. The more you share, the more you earn!`,
             )}
           </p>
-          <div className="mt-8 flex h-60 w-full items-center justify-center gap-8 rounded border border-border bg-[#1E1B29] py-6 text-sm">
+          <div className="mt-8 flex h-60 w-full items-center justify-center gap-8 rounded border border-border bg-[#1E1B29] py-6 text-sm text-white">
             <div className="flex h-full flex-col items-center justify-end">
               <div className="flex h-36 flex-col items-center justify-center">
                 <Image

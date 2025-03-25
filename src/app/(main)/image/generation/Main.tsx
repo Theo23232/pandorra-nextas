@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/nyxb/skeleton"
 import { Button } from "@/components/tremor/ui/button"
 import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Textarea } from "@/components/ui/textarea"
+import { useImageCost } from "@/hooks/use-image-cost"
 import { useImageLoading } from "@/hooks/use-image-loading"
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from "@/hooks/use-user"
@@ -44,6 +45,7 @@ export type GenerationWithImages = Omit<
 export const Main = (props: MainProps) => {
   const { imageLoading, setImageNumber } = useImageLoading()
   const { user, mutate: mutateUser } = useUser()
+  const { imageCost } = useImageCost()
   const { t } = useTranslation()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const searchParams = useSearchParams()
@@ -124,7 +126,7 @@ export const Main = (props: MainProps) => {
 
   const generate = async () => {
     if (user) {
-      if (user.jeton < props.count * 4) {
+      if (user.jeton < props.count * imageCost) {
         toast({
           title: t(`Error`),
           description: t(`You do not have enought token for this generation`),
@@ -193,7 +195,7 @@ export const Main = (props: MainProps) => {
           >
             {t(`Generate`)}
             <span className="ml-1 flex items-center justify-center">
-              {props.count * 4}{" "}
+              {props.count * imageCost}{" "}
               <img src="/coin.png" className="ml-0.5 h-5 w-auto" />
             </span>
           </Button>

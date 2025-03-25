@@ -41,6 +41,7 @@ export const LikePublication = (props: LikePubProps) => {
       onClick={handleReaction}
       className={`flex cursor-pointer items-center justify-center gap-1 rounded-full bg-slate-400/40 p-2 transition-all duration-300 hover:bg-slate-400/60`}
     >
+      <p>{likeCount}</p>
       <Heart
         strokeWidth={2.25}
         className={`size-6 transition-colors ${isLiked ? "fill-primary text-primary" : "text-white"}`}

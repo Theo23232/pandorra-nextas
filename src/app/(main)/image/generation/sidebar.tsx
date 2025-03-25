@@ -18,6 +18,7 @@ import {
   SelectGroup,
   SelectItem,
 } from "@/components/ui/select"
+import { useImageCost } from "@/hooks/use-image-cost"
 import { useUser } from "@/hooks/use-user"
 import {
   findModelById,
@@ -52,6 +53,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
   const [activeModel, setActiveModel] = React.useState<Model>(
     props.defaultmodel,
   )
+  const { setImageCost } = useImageCost()
 
   const [presetStyle, setPresetStyle] = React.useState(props.defaultpresetstyle)
   const [contrast, setContrast] = React.useState(props.defaultcontrast)
@@ -68,6 +70,9 @@ export function ImageGenerationSidebar(props: SidebarProps) {
     if (queryModelId) {
       const queryModel = findModelById(queryModelId)
       setActiveModel(queryModel ?? models[0])
+      setImageCost(
+        queryModelId == "de7d3faf-762f-48e0-b3b7-9d0ac3a3fcf3" ? 5 : 4,
+      )
     }
   }, [queryPresetStyle, queryModelId])
 

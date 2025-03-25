@@ -1,9 +1,9 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { pusherClient } from '@/lib/pusher';
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { pusherClient } from "@/lib/pusher"
 
 export function usePusher() {
   const { user } = useUser()
@@ -35,7 +35,7 @@ export function usePusher() {
     // Gérer les erreurs d'abonnement
     channel.bind("pusher:subscription_error", (error: any) => {
       console.error(`Subscription error for ${channelName}:`, error)
-      alert("Connection error")
+      // alert("Connection error")
     })
 
     // Écouter les nouveaux messages

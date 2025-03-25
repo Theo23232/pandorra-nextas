@@ -35,9 +35,13 @@ export default function JetonCounter() {
         <Tooltip
           content={t(`You are in free plan. Click to upgrade`)}
           id="tour3-step3"
+          className=""
         >
           <UpgradePlanDialog>
-            <img src="/assets/upgrade.png" className="h-8 w-auto rounded-md" />
+            <img
+              src="/assets/upgrade.png"
+              className="-mb-2 h-8 w-auto rounded-md"
+            />
           </UpgradePlanDialog>
         </Tooltip>
       )}

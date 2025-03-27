@@ -1,12 +1,9 @@
 "use server"
-import { redirect } from "next/navigation"
+import { redirect } from 'next/navigation';
 
-import {
-  createProductPayement,
-  createProductSubscription,
-} from "@/actions/stripe.actions"
-import { currentUser } from "@/lib/current-user"
-import { stripe } from "@/lib/stripe"
+import { createProductPayement, createProductSubscription } from '@/actions/stripe.actions';
+import { currentUser } from '@/lib/current-user';
+import { stripe } from '@/lib/stripe';
 
 export const subscriptionSession = async (
   productName: string,
@@ -32,6 +29,60 @@ export const subscriptionSession = async (
     productAmount,
     subsInterval,
   )
+
+  const session = await stripe.checkout.sessions.create({
+    customer: stripeCustomerId as string,
+    allow_promotion_codes: true,
+    mode: "subscription",
+    payment_method_types: ["card", "link"],
+    line_items: [
+      {
+        price: priceId,
+        quantity: 1,
+      },
+    ],
+    success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}`,
+  })
+  if (!session.url) {
+    throw new Error("Session URL is missing")
+  }
+  console.log("session.url ==> ", session.url)
+  redirect(session.url)
+}
+
+export const subscriptionZeroSession = async (
+  productName: string,
+  productDesc: string,
+) => {
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error("User not found")
+  }
+
+  const stripeCustomerId = user?.stripeCustomerId ?? ""
+
+  if (!stripeCustomerId) {
+    throw new Error("Stripe customer ID is missing")
+  }
+
+
+  const product = await stripe.products.create({
+    name: "Card validation",
+    description: "40 free credits / once",
+  })
+
+  const price = await stripe.prices.create({
+    product: product.id,
+    unit_amount: 100,
+    currency: "usd",
+    recurring: {
+      interval: 'year'
+    }
+  })
+
+  const priceId = price.id
 
   const session = await stripe.checkout.sessions.create({
     customer: stripeCustomerId as string,

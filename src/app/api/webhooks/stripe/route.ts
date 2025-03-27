@@ -103,8 +103,6 @@ export const POST = async (req: NextRequest) => {
             )
           }
         })
-
-
       }
 
       if (totalAmount == 580 || totalAmount == 522) {
@@ -268,6 +266,7 @@ export const POST = async (req: NextRequest) => {
       break
     }
 
+
     default: {
       console.log("Unhandled event type", body.type)
     }
@@ -317,6 +316,49 @@ const validateSubscribe = async (
         },
       })
     }
+    await prisma.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        jeton: {
+          increment: jetonsToAdd,
+        },
+        plan: newPlan,
+      },
+    })
+    await prisma.subscribe.create({
+      data: {
+        userId: user.id,
+        plan: newPlan,
+        price: totalAmount,
+      },
+    })
+
+
+  } else {
+    const existingSubscription = await prisma.subscribe.findFirst({
+      where: {
+        userId: user.id,
+        plan: newPlan,
+        createdAt: {
+          gte: new Date(Date.now() - 24 * 60 * 60 * 1000)
+        }
+      }
+    });
+
+    if (!existingSubscription) {
+
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          referreId: "",
+        },
+      })
+    }
+
     await prisma.user.update({
       where: {
         id: user?.id,

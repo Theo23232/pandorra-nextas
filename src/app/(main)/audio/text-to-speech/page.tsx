@@ -1,42 +1,35 @@
 // Page.tsx
 "use client"
-import * as Flags from "country-flag-icons/react/3x2"
-import { ElevenLabsClient } from "elevenlabs"
-import { Megaphone } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useOnborda } from "onborda"
-import React, { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR, { mutate } from "swr"
+import * as Flags from 'country-flag-icons/react/3x2';
+import { ElevenLabsClient } from 'elevenlabs';
+import { Megaphone } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { reduceCredit, verifyCredit } from "@/actions/credits.actions"
-import { generateTTS } from "@/actions/elevenlabs.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { NothingYet } from "@/components/NothingYet"
-import { Button } from "@/components/tremor/ui/button"
-import { CardTitle } from "@/components/tremor/ui/card"
-import { Divider } from "@/components/tremor/ui/divider"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { reduceCredit, verifyCredit } from '@/actions/credits.actions';
+import { generateTTS } from '@/actions/elevenlabs.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { NothingYet } from '@/components/NothingYet';
+import { Button } from '@/components/tremor/ui/button';
+import { CardTitle } from '@/components/tremor/ui/card';
+import { Divider } from '@/components/tremor/ui/divider';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { languageOptions } from "@/lib/elevenlabs/langList"
-import {
-  getVoiceNameById,
-  voicesList as vlist,
-  VoiceDetails,
-} from "@/lib/elevenlabs/voiceList"
-import { fetcher } from "@/lib/utils"
-import { TTS } from "@prisma/client"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { languageOptions } from '@/lib/elevenlabs/langList';
+import { getVoiceNameById, VoiceDetails, voicesList as vlist } from '@/lib/elevenlabs/voiceList';
+import { fetcher } from '@/lib/utils';
+import { TTS } from '@prisma/client';
 
-import { AudioPlayer } from "../audio-player" // Assurez-vous du bon chemin d'importation
+import { AudioPlayer } from '../audio-player'; // Assurez-vous du bon chemin d'importation
 
 const languageToCountry: { [key: string]: keyof typeof Flags } = {
   en: "GB",
@@ -149,6 +142,15 @@ export default function Page() {
   const { user } = useUser()
   const { startOnborda } = useOnborda()
 
+  const { show } = useShowZeroPayement()
+
+  useEffect(() => {
+    if (user && user.plan == "Free") {
+      show()
+      return
+    }
+  }, [])
+
   const [voicesList, setVoicesList] = useState<VoiceDetails[]>(vlist)
   const [voiceId, setVoiceId] = useState(vlist[0].id)
   const [lang, setLang] = useState("en")
@@ -201,6 +203,10 @@ export default function Page() {
 
   const handleGenerate = async () => {
     try {
+      if (user && user.plan == "Free") {
+        show()
+        return
+      }
       setIsLoading(true)
       await handleToken(credit)
       const client = new ElevenLabsClient({
@@ -237,6 +243,10 @@ export default function Page() {
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (user && user.plan == "Free") {
+      show()
+      return
+    }
     setPrompt(e.target.value)
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto" // Réinitialiser pour recalculer

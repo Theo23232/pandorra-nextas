@@ -1,11 +1,12 @@
 "use client"
 
-import "../i18n"
+import '../i18n';
 
-import { ThemeProvider } from "next-themes"
-import { PropsWithChildren, useEffect, useState } from "react"
+import { ThemeProvider } from 'next-themes';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
-import { Toaster } from "@/components/tremor/ui/toaster"
+import { Toaster } from '@/components/tremor/ui/toaster';
+import ZeroDollarVerificationDialog from '@/components/ZeroPayement';
 
 export type ProvidersProps = PropsWithChildren
 
@@ -23,6 +24,7 @@ export const Providers = (props: ProvidersProps) => {
   return (
     <ThemeProvider defaultTheme="system" attribute="class">
       <Toaster />
+      <ZeroDollarVerificationDialog />
       {props.children}
     </ThemeProvider>
   )

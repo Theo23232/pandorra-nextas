@@ -2,44 +2,40 @@
 
 import type React from "react"
 
-import axios from "axios"
+import axios from 'axios';
 import {
-  Globe,
-  Loader,
-  Megaphone,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Plus,
-  Search,
-  Send,
-  StopCircle,
-} from "lucide-react"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR, { mutate } from "swr"
+    Globe, Loader, Megaphone, PanelLeftClose, PanelLeftOpen, Plus, Search, Send, StopCircle
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { reduceCredit } from "@/actions/credits.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Button } from "@/components/tremor/ui/button"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Textarea } from "@/components/ui/textarea"
-import { Toggle } from "@/components/ui/toggle"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { cn, fetcher } from "@/lib/utils"
+import { reduceCredit } from '@/actions/credits.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Button } from '@/components/tremor/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Textarea } from '@/components/ui/textarea';
+import { Toggle } from '@/components/ui/toggle';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { cn, fetcher } from '@/lib/utils';
 
-import { Message } from "./message"
+import { Message } from './message';
 
 export default function Page() {
+  const { show } = useShowZeroPayement()
+
+  useEffect(() => {
+    if (user && user.plan == "Free") {
+      show()
+      return
+    }
+  }, [])
   const [conversationId, setConversationId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
@@ -108,6 +104,10 @@ export default function Page() {
   }, [conversationId])
 
   const sendMessage = async (newMess: string, convId: string) => {
+    if (user && user.plan == "Free") {
+      show()
+      return
+    }
     setNewMessage("")
     setIsLoading(true)
     setIsStreaming(true)
@@ -196,6 +196,10 @@ export default function Page() {
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (user && user.plan == "Free") {
+      show()
+      return
+    }
     setNewMessage(e.target.value)
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"

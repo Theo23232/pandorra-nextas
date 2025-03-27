@@ -946,10 +946,18 @@
   "Suisse": "Suisse",
   "Only for subscribed users": "Uniquement pour les utilisateurs abonnés",
   "Refer a Friend & Earn": "Parrainez un ami et gagnez",
-  "Free Credits": "Crédits gratuits",
+  "Free Credits": "des crédits gratuits",
   "Invite your friends to join Pandorra.ai and collect free credits at every step. The more you share, the more you earn!": "Invitez vos amis à rejoindre Pandorra.ai et gagnez des crédits gratuits à chaque étape. Plus vous partagez, plus vous gagnez !",
   "Earn 10 credits": "Gagnez 10 crédits",
   "Subscribe to a Plan": "Souscrivez à un plan",
   "Earn 50 credits": "Gagnez 50 crédits",
-  "Refer now": "Parrainez maintenant"
+  "Refer now": "Parrainez maintenant",
+  "Vérification de Sécurité": "Vérification de Sécurité",
+  "Pas de frais aujourd'hui – Juste une vérification": "Pas de frais aujourd'hui – Juste une vérification",
+  "Vous ne serez pas débité, c'est simplement pour vérifier votre carte et activer vos 40 crédits gratuits. Aucun prélèvement automatique – Vous choisissez si vous passez à un abonnement plus tard.": "Vous ne serez pas débité, c'est simplement pour vérifier votre carte et activer vos 40 crédits gratuits. Aucun prélèvement automatique – Vous choisissez si vous passez à un abonnement plus tard.",
+  "Aucun frais – Aucun engagement": "Aucun frais – Aucun engagement",
+  "100% sécurisé avec Stripe": "100% sécurisé avec Stripe",
+  "Zéro engagement": "Zéro engagement",
+  "Vérification en cours..": "Vérification en cours..",
+  "Vérifier ma Carte": "Vérifier ma Carte"
 }

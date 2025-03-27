@@ -1,12 +1,12 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Separator } from "@/components/ui/separator"
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
 
 export function InviteFriendDialog() {
   const { t } = useTranslation()
@@ -35,7 +35,7 @@ export function InviteFriendDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="border-none bg-muted/50 dark sm:max-w-md">
+      <DialogContent className="max-w-lg border-none bg-muted/50 dark">
         <Image
           width={500}
           height={800}
@@ -44,16 +44,16 @@ export function InviteFriendDialog() {
           className="absolute h-full w-full"
         />
         <div className="relative flex w-full flex-col items-center justify-center py-4">
-          <p className="font-inter mt-12 w-full max-w-80 text-center text-[40px] font-semibold leading-none tracking-[-1.5px] text-white">
+          <p className="font-inter mt-12 w-full max-w-2xl text-center text-[35px] font-semibold leading-none tracking-[-1.5px] text-white">
             {t(`Refer a Friend & Earn`)}{" "}
             <span className="gdt">{t(`Free Credits`)}</span>
           </p>
-          <p className="font-inter mt-6 max-w-80 text-center text-base font-normal leading-normal text-white">
+          <p className="font-inter max-w-100 mt-6 text-center text-base font-normal leading-normal text-white">
             {t(
               `Invite your friends to join Pandorra.ai and collect free credits at every step. The more you share, the more you earn!`,
             )}
           </p>
-          <div className="mt-8 flex h-60 w-full items-center justify-center gap-8 rounded border border-border bg-[#1E1B29] py-6 text-sm text-white">
+          <div className="mt-8 flex h-52 w-full items-center justify-center gap-8 rounded border border-border bg-[#1E1B29] py-6 text-sm text-white">
             <div className="flex h-full flex-col items-center justify-end">
               <div className="flex h-36 flex-col items-center justify-center">
                 <Image

@@ -1,32 +1,23 @@
 "use client"
-import { Paperclip } from "lucide-react"
-import { ReactNode, useState } from "react"
-import { Controller, useForm } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { mutate } from "swr"
+import { Paperclip } from 'lucide-react';
+import { ReactNode, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
 
-import { createTask } from "@/actions/task.actions"
-import { Tabs, TabsList, TabsTrigger } from "@/components/nyxb/tabs"
-import { Button } from "@/components/ui/button"
+import { createTask } from '@/actions/task.actions';
+import { Tabs, TabsList, TabsTrigger } from '@/components/nyxb/tabs';
+import { Button } from '@/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
+    Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { TaskPriority, TaskType } from "@prisma/client"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { TaskPriority, TaskType } from '@prisma/client';
 
 import type React from "react"
 
@@ -66,7 +57,6 @@ export function AdminTaskForm(props: TaskFormProps) {
       // Handle file uploads if applicable
       if (files.length > 0) {
         // Implement file upload logic here
-        console.log("Files to upload:", files)
       }
 
       toast({

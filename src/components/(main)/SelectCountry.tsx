@@ -1,12 +1,8 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
 
 type Country = {
   name: string
@@ -69,7 +65,6 @@ export function SelectCountry({
   return (
     <Select
       onValueChange={(value: string) => {
-        console.log("value ==> ", value)
         onChange(value)
       }}
     >

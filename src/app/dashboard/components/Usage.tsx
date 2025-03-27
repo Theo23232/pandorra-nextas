@@ -1,18 +1,12 @@
-import { formatDistanceToNow } from "date-fns"
-import { CreditCard, Tag } from "lucide-react"
-import { unstable_noStore as noStore } from "next/cache"
+import { formatDistanceToNow } from 'date-fns';
+import { CreditCard, Tag } from 'lucide-react';
+import { unstable_noStore as noStore } from 'next/cache';
 
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { prisma } from "@/prisma"
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { prisma } from '@/prisma';
 
 type CombinedTransaction = {
   id: string
@@ -86,7 +80,6 @@ export const Usage = async () => {
     }
 
     elevenlabsUsage = await response.json()
-    console.log("Consommation ElevenLabs :", elevenlabsUsage)
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error)
   }
@@ -109,7 +102,6 @@ export const Usage = async () => {
     }
 
     leonardoUsage = await response.json()
-    console.log("Consommation leonardo :", leonardoUsage)
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error)
   }

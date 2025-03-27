@@ -106,7 +106,6 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
       mutate("/api/video")
       window.location.href = "/video"
     } catch (error) {
-      console.log("error ==> ", error)
       toast({
         title: t(`Error`),
         description: t(`Failed to generate video`),

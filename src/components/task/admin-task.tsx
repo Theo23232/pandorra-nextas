@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
     ArrowUpDown, ChevronDown, Clock, Eye, Filter, MessageSquare, Paperclip, Search, X
 } from 'lucide-react';
@@ -40,100 +40,100 @@ import { TaskPriority, TaskType } from '@prisma/client';
 
 // Define the response type for the paginated API
 interface TaskResponse {
-  tasks: TaskWithRelations[];
+  tasks: TaskWithRelations[]
   pagination: {
-    page: number;
-    limit: number;
-    totalCount: number;
-    totalPages: number;
-  };
+    page: number
+    limit: number
+    totalCount: number
+    totalPages: number
+  }
 }
 
 export function AdminTaskDashboard() {
   const { data: TaskStatus = [] } = useSWR<string[]>(
     "/api/admin/task/status/list",
-    fetcher
-  );
+    fetcher,
+  )
   // Pagination states
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const { toast } = useToast();
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
+  const { toast } = useToast()
   // Filter states
-  const [searchQuery, setSearchQuery] = useState("");
-  const [typeFilter, setTypeFilter] = useState<string[]>([]);
-  const [priorityFilter, setPriorityFilter] = useState<string[]>([]);
-  const [statusFilter, setStatusFilter] = useState<string[]>([]);
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
-  const [isHiddenFilter, setIsHiddenFilter] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("")
+  const [typeFilter, setTypeFilter] = useState<string[]>([])
+  const [priorityFilter, setPriorityFilter] = useState<string[]>([])
+  const [statusFilter, setStatusFilter] = useState<string[]>([])
+  const [startDate, setStartDate] = useState<string>("")
+  const [endDate, setEndDate] = useState<string>("")
+  const [isHiddenFilter, setIsHiddenFilter] = useState<string | null>(null)
 
   // Sort state
-  const [sortBy, setSortBy] = useState<string>("createdAt");
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  const [sortBy, setSortBy] = useState<string>("createdAt")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
 
   // Detail view states
   const [selectedTask, setSelectedTask] = useState<TaskWithRelations | null>(
-    null
-  );
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    null,
+  )
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
   // Moderation states
-  const [isModerateOpen, setIsModerateOpen] = useState(false);
-  const [moderationReason, setModerationReason] = useState("");
-  const [isHidden, setIsHidden] = useState(false);
+  const [isModerateOpen, setIsModerateOpen] = useState(false)
+  const [moderationReason, setModerationReason] = useState("")
+  const [isHidden, setIsHidden] = useState(false)
 
   // Comment state
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
-  const [commentContent, setCommentContent] = useState("");
+  const [isCommentOpen, setIsCommentOpen] = useState(false)
+  const [commentContent, setCommentContent] = useState("")
 
   // Status update state
-  const [isStatusUpdateOpen, setIsStatusUpdateOpen] = useState(false);
-  const [newStatus, setNewStatus] = useState<string>("");
-  const [assignTo, setAssignTo] = useState<string>("");
+  const [isStatusUpdateOpen, setIsStatusUpdateOpen] = useState(false)
+  const [newStatus, setNewStatus] = useState<string>("")
+  const [assignTo, setAssignTo] = useState<string>("")
 
   // To track if filter changed and we need to reset to page 1
-  const [filterChanged, setFilterChanged] = useState(false);
+  const [filterChanged, setFilterChanged] = useState(false)
 
   // Build query parameters for API call
   const buildQueryString = () => {
-    const params = new URLSearchParams();
-    params.append("page", page.toString());
-    params.append("limit", limit.toString());
+    const params = new URLSearchParams()
+    params.append("page", page.toString())
+    params.append("limit", limit.toString())
 
-    if (searchQuery) params.append("search", searchQuery);
+    if (searchQuery) params.append("search", searchQuery)
 
-    typeFilter.forEach((type) => params.append("type", type));
-    priorityFilter.forEach((priority) => params.append("priority", priority));
-    statusFilter.forEach((status) => params.append("status", status));
+    typeFilter.forEach((type) => params.append("type", type))
+    priorityFilter.forEach((priority) => params.append("priority", priority))
+    statusFilter.forEach((status) => params.append("status", status))
 
-    if (startDate) params.append("startDate", startDate);
-    if (endDate) params.append("endDate", endDate);
-    if (isHiddenFilter !== null) params.append("isHidden", isHiddenFilter);
+    if (startDate) params.append("startDate", startDate)
+    if (endDate) params.append("endDate", endDate)
+    if (isHiddenFilter !== null) params.append("isHidden", isHiddenFilter)
 
-    params.append("sortBy", sortBy);
-    params.append("sortDirection", sortDirection);
+    params.append("sortBy", sortBy)
+    params.append("sortDirection", sortDirection)
 
-    return params.toString();
-  };
+    return params.toString()
+  }
 
   // Fetch data with all params
   const { data, error, isLoading, mutate } = useSWR<TaskResponse>(
     `/api/admin/task?${buildQueryString()}`,
-    fetcher
-  );
+    fetcher,
+  )
 
   // Reset to page 1 when filters change
   useEffect(() => {
     if (filterChanged) {
-      setPage(1);
-      setFilterChanged(false);
+      setPage(1)
+      setFilterChanged(false)
     }
-  }, [filterChanged]);
+  }, [filterChanged])
 
   // Handle filter changes
   const handleFilterChange = () => {
-    setFilterChanged(true);
-  };
+    setFilterChanged(true)
+  }
 
   // Format date helper
   const formatDate = (date: Date | string) => {
@@ -143,41 +143,41 @@ export function AdminTaskDashboard() {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    });
-  };
+    })
+  }
 
   // Get badge variants
   const getPriorityVariant = (priority: string) => {
     switch (priority) {
       case "CRITICAL":
-        return "destructive";
+        return "destructive"
       case "HIGH":
-        return "destructive";
+        return "destructive"
       case "MEDIUM":
-        return "secondary";
+        return "secondary"
       default:
-        return "secondary";
+        return "secondary"
     }
-  };
+  }
 
   const getStatusVariant = (status: string) => {
     switch (status) {
       case "RESOLVED":
-        return "default";
+        return "default"
       case "CLOSED":
-        return "secondary";
+        return "secondary"
       case "IN_PROGRESS":
-        return "secondary";
+        return "secondary"
       case "UNDER_REVIEW":
-        return "outline";
+        return "outline"
       default:
-        return "outline";
+        return "outline"
     }
-  };
+  }
 
   // Handle moderation submission
   const handleModerate = async () => {
-    if (!selectedTask) return;
+    if (!selectedTask) return
 
     try {
       const response = await fetch("/api/admin/task", {
@@ -190,31 +190,31 @@ export function AdminTaskDashboard() {
           isHidden,
           moderationReason,
         }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error("Failed to moderate task");
+        throw new Error("Failed to moderate task")
       }
 
       toast({
         title: "Task moderated",
         description: `Task ${isHidden ? "hidden" : "unhidden"} successfully`,
-      });
+      })
 
-      mutate();
-      setIsModerateOpen(false);
+      mutate()
+      setIsModerateOpen(false)
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to moderate task",
         variant: "error",
-      });
+      })
     }
-  };
+  }
 
   // Handle status update
   const handleStatusUpdate = async () => {
-    if (!selectedTask || !newStatus) return;
+    if (!selectedTask || !newStatus) return
 
     try {
       const response = await fetch("/api/admin/task", {
@@ -227,59 +227,58 @@ export function AdminTaskDashboard() {
           status: newStatus,
           assignedTo: assignTo || null,
         }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error("Failed to update status");
+        throw new Error("Failed to update status")
       }
 
       toast({
         title: "Status updated",
         description: `Task status updated to ${newStatus}`,
-      });
+      })
 
-      mutate();
-      setIsStatusUpdateOpen(false);
+      mutate()
+      setIsStatusUpdateOpen(false)
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to update status",
         variant: "error",
-      });
+      })
     }
-  };
+  }
 
   // Handle adding comment
   const handleAddComment = async () => {
-    if (!selectedTask || !commentContent.trim()) return;
+    if (!selectedTask || !commentContent.trim()) return
 
     await commentTask(selectedTask.id, commentContent)
       .then(() => {
         toast({
           title: "Comment added",
           description: "Your comment has been added successfully",
-        });
-        mutate();
-        setCommentContent("");
-        setIsCommentOpen(false);
+        })
+        mutate()
+        setCommentContent("")
+        setIsCommentOpen(false)
       })
       .catch((error) => {
-        console.log("error ==> ", error);
         toast({
           title: "Error",
           description: "Failed to add comment",
           variant: "error",
-        });
-        throw new Error("Failed to add comment");
-      });
-  };
+        })
+        throw new Error("Failed to add comment")
+      })
+  }
 
   if (error) {
     return (
       <div className="p-4 text-center text-red-500">
         Failed to load task: {error.message}
       </div>
-    );
+    )
   }
 
   return (
@@ -292,8 +291,8 @@ export function AdminTaskDashboard() {
             placeholder="Search task..."
             value={searchQuery}
             onChange={(e) => {
-              setSearchQuery(e.target.value);
-              handleFilterChange();
+              setSearchQuery(e.target.value)
+              handleFilterChange()
             }}
             className="w-64"
           />
@@ -329,11 +328,11 @@ export function AdminTaskDashboard() {
                 checked={typeFilter.includes(type)}
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setTypeFilter([...typeFilter, type]);
+                    setTypeFilter([...typeFilter, type])
                   } else {
-                    setTypeFilter(typeFilter.filter((t) => t !== type));
+                    setTypeFilter(typeFilter.filter((t) => t !== type))
                   }
-                  handleFilterChange();
+                  handleFilterChange()
                 }}
               >
                 {type}
@@ -364,13 +363,13 @@ export function AdminTaskDashboard() {
                 checked={priorityFilter.includes(priority)}
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setPriorityFilter([...priorityFilter, priority]);
+                    setPriorityFilter([...priorityFilter, priority])
                   } else {
                     setPriorityFilter(
-                      priorityFilter.filter((p) => p !== priority)
-                    );
+                      priorityFilter.filter((p) => p !== priority),
+                    )
                   }
-                  handleFilterChange();
+                  handleFilterChange()
                 }}
               >
                 {priority}
@@ -401,11 +400,11 @@ export function AdminTaskDashboard() {
                 checked={statusFilter.includes(status)}
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setStatusFilter([...statusFilter, status]);
+                    setStatusFilter([...statusFilter, status])
                   } else {
-                    setStatusFilter(statusFilter.filter((s) => s !== status));
+                    setStatusFilter(statusFilter.filter((s) => s !== status))
                   }
-                  handleFilterChange();
+                  handleFilterChange()
                 }}
               >
                 {status.replace("_", " ")}
@@ -418,8 +417,8 @@ export function AdminTaskDashboard() {
         <Select
           value={isHiddenFilter ?? "all"}
           onValueChange={(value) => {
-            setIsHiddenFilter(value === "all" ? null : value);
-            handleFilterChange();
+            setIsHiddenFilter(value === "all" ? null : value)
+            handleFilterChange()
           }}
         >
           <SelectTrigger className="w-[130px]">
@@ -438,8 +437,8 @@ export function AdminTaskDashboard() {
             type="date"
             value={startDate}
             onChange={(e) => {
-              setStartDate(e.target.value);
-              handleFilterChange();
+              setStartDate(e.target.value)
+              handleFilterChange()
             }}
             className="w-auto"
             placeholder="Start date"
@@ -449,8 +448,8 @@ export function AdminTaskDashboard() {
             type="date"
             value={endDate}
             onChange={(e) => {
-              setEndDate(e.target.value);
-              handleFilterChange();
+              setEndDate(e.target.value)
+              handleFilterChange()
             }}
             className="w-auto"
             placeholder="End date"
@@ -461,8 +460,8 @@ export function AdminTaskDashboard() {
         <Select
           value={sortBy}
           onValueChange={(value) => {
-            setSortBy(value);
-            handleFilterChange();
+            setSortBy(value)
+            handleFilterChange()
           }}
         >
           <SelectTrigger className="w-[130px]">
@@ -481,8 +480,8 @@ export function AdminTaskDashboard() {
           variant="ghost"
           size="icon"
           onClick={() => {
-            setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-            handleFilterChange();
+            setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+            handleFilterChange()
           }}
           title={`Sort ${sortDirection === "asc" ? "descending" : "ascending"}`}
         >
@@ -494,20 +493,20 @@ export function AdminTaskDashboard() {
           variant="outline"
           size="sm"
           onClick={() => {
-            setSearchQuery("");
-            setTypeFilter([]);
-            setPriorityFilter([]);
-            setStatusFilter([]);
-            setStartDate("");
-            setEndDate("");
-            setIsHiddenFilter(null);
-            setSortBy("createdAt");
-            setSortDirection("desc");
-            handleFilterChange();
+            setSearchQuery("")
+            setTypeFilter([])
+            setPriorityFilter([])
+            setStatusFilter([])
+            setStartDate("")
+            setEndDate("")
+            setIsHiddenFilter(null)
+            setSortBy("createdAt")
+            setSortDirection("desc")
+            handleFilterChange()
           }}
           className="ml-auto"
         >
-          <X className="h-3.5 w-3.5 mr-1" />
+          <X className="mr-1 h-3.5 w-3.5" />
           Clear Filters
         </Button>
       </div>
@@ -518,24 +517,24 @@ export function AdminTaskDashboard() {
           <div className="py-4 text-center">Loading task data...</div>
         ) : (
           <>
-            <div className="grid xl:grid-cols-2 gap-4 ">
+            <div className="grid gap-4 xl:grid-cols-2">
               {data?.tasks.map((task) => (
                 <Card key={task.id}>
                   <CardHeader className="pb-2">
-                    <div className="flex justify-between items-start">
+                    <div className="flex items-start justify-between">
                       <div>
                         <CardTitle className="flex items-center gap-2">
                           {task.title}
                           {task.isHidden && (
                             <Badge
                               variant="outline"
-                              className="text-red-500 border-red-500"
+                              className="border-red-500 text-red-500"
                             >
                               Hidden
                             </Badge>
                           )}
                         </CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
+                        <CardDescription className="mt-1 flex items-center gap-2">
                           <span>ID: {task.id}</span>
                           <span>•</span>
                           <span className="flex items-center gap-1.5">
@@ -554,8 +553,8 @@ export function AdminTaskDashboard() {
                         size="sm"
                         variant="ghost"
                         onClick={() => {
-                          setSelectedTask(task);
-                          setIsDetailsOpen(true);
+                          setSelectedTask(task)
+                          setIsDetailsOpen(true)
                         }}
                         className="p-2"
                       >
@@ -564,7 +563,7 @@ export function AdminTaskDashboard() {
                     </div>
                   </CardHeader>
                   <CardContent className="pb-2">
-                    <div className="flex flex-wrap gap-2 items-center">
+                    <div className="flex flex-wrap items-center gap-2">
                       <Badge>{task.type}</Badge>
                       <Badge variant={getPriorityVariant(task.priority)}>
                         {task.priority}
@@ -597,7 +596,7 @@ export function AdminTaskDashboard() {
                       {task.description}
                     </p>
                   </CardContent>
-                  <CardFooter className="text-xs text-muted-foreground flex justify-between pt-0">
+                  <CardFooter className="flex justify-between pt-0 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Clock size={12} />
                       {formatDate(task.createdAt)}
@@ -608,10 +607,10 @@ export function AdminTaskDashboard() {
                         size="sm"
                         variant="outline"
                         onClick={() => {
-                          setSelectedTask(task);
-                          setNewStatus(task.status);
-                          setAssignTo(task.assignedToId || "");
-                          setIsStatusUpdateOpen(true);
+                          setSelectedTask(task)
+                          setNewStatus(task.status)
+                          setAssignTo(task.assignedToId || "")
+                          setIsStatusUpdateOpen(true)
                         }}
                       >
                         Update Status
@@ -621,10 +620,10 @@ export function AdminTaskDashboard() {
                         size="sm"
                         variant="outline"
                         onClick={() => {
-                          setSelectedTask(task);
-                          setIsHidden(task.isHidden);
-                          setModerationReason(task.moderationReason || "");
-                          setIsModerateOpen(true);
+                          setSelectedTask(task)
+                          setIsHidden(task.isHidden)
+                          setModerationReason(task.moderationReason || "")
+                          setIsModerateOpen(true)
                         }}
                       >
                         Moderate
@@ -634,9 +633,9 @@ export function AdminTaskDashboard() {
                         size="sm"
                         variant="outline"
                         onClick={() => {
-                          setSelectedTask(task);
-                          setCommentContent("");
-                          setIsCommentOpen(true);
+                          setSelectedTask(task)
+                          setCommentContent("")
+                          setIsCommentOpen(true)
                         }}
                       >
                         Comment
@@ -649,7 +648,7 @@ export function AdminTaskDashboard() {
 
             {/* Empty state */}
             {data?.tasks.length === 0 && (
-              <div className="py-8 text-center border rounded-md">
+              <div className="rounded-md border py-8 text-center">
                 <p className="text-muted-foreground">
                   No task found matching your filters.
                 </p>
@@ -664,8 +663,8 @@ export function AdminTaskDashboard() {
                   <Select
                     value={limit.toString()}
                     onValueChange={(value) => {
-                      setLimit(Number.parseInt(value));
-                      setPage(1);
+                      setLimit(Number.parseInt(value))
+                      setPage(1)
                     }}
                   >
                     <SelectTrigger className="w-16">
@@ -698,15 +697,15 @@ export function AdminTaskDashboard() {
                     {Array.from(
                       { length: Math.min(5, data.pagination.totalPages) },
                       (_, i) => {
-                        let pageNumber;
+                        let pageNumber
                         if (data.pagination.totalPages <= 5) {
-                          pageNumber = i + 1;
+                          pageNumber = i + 1
                         } else if (page <= 3) {
-                          pageNumber = i + 1;
+                          pageNumber = i + 1
                         } else if (page >= data.pagination.totalPages - 2) {
-                          pageNumber = data.pagination.totalPages - 4 + i;
+                          pageNumber = data.pagination.totalPages - 4 + i
                         } else {
-                          pageNumber = page - 2 + i;
+                          pageNumber = page - 2 + i
                         }
 
                         if (
@@ -722,16 +721,16 @@ export function AdminTaskDashboard() {
                                 {pageNumber}
                               </PaginationLink>
                             </PaginationItem>
-                          );
+                          )
                         }
-                      }
+                      },
                     )}
 
                     <PaginationItem>
                       <PaginationNext
                         onClick={() =>
                           setPage(
-                            Math.min(data.pagination.totalPages, page + 1)
+                            Math.min(data.pagination.totalPages, page + 1),
                           )
                         }
                         // disabled={page === data.pagination.totalPages}
@@ -750,7 +749,7 @@ export function AdminTaskDashboard() {
         <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
           <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
             <DialogHeader>
-              <DialogTitle className="flex justify-between items-center">
+              <DialogTitle className="flex items-center justify-between">
                 <span>{selectedTask.title}</span>
               </DialogTitle>
               <DialogDescription>Task ID: {selectedTask.id}</DialogDescription>
@@ -777,7 +776,7 @@ export function AdminTaskDashboard() {
               {/* User Information */}
               <div>
                 <Label>Submitted by</Label>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="mt-1 flex items-center gap-2">
                   <Avatar className="h-6 w-6">
                     <AvatarImage src={selectedTask.user.image} />
                     <AvatarFallback>
@@ -806,10 +805,10 @@ export function AdminTaskDashboard() {
                             href={attachment.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 p-2 bg-secondary rounded-md hover:bg-secondary/80 transition-colors"
+                            className="flex items-center gap-2 rounded-md bg-secondary p-2 transition-colors hover:bg-secondary/80"
                           >
                             <Paperclip className="h-4 w-4" />
-                            <span className="text-sm truncate">
+                            <span className="truncate text-sm">
                               {attachment.filename}
                             </span>
                           </a>
@@ -824,13 +823,13 @@ export function AdminTaskDashboard() {
               {selectedTask.comments.length > 0 && (
                 <div>
                   <Label>Comments</Label>
-                  <div className="space-y-2 mt-1 max-h-60 overflow-y-auto">
+                  <div className="mt-1 max-h-60 space-y-2 overflow-y-auto">
                     {selectedTask.comments.map((comment) => (
                       <div
                         key={comment.id}
-                        className="bg-secondary p-2 rounded-md"
+                        className="rounded-md bg-secondary p-2"
                       >
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="mb-1 flex items-center gap-2">
                           <Avatar className="h-6 w-6">
                             <AvatarImage src={comment.user.image} />
                             <AvatarFallback>
@@ -854,7 +853,7 @@ export function AdminTaskDashboard() {
 
               {/* Moderation Information */}
               {selectedTask.moderator && (
-                <div className="bg-muted p-3 rounded-md">
+                <div className="rounded-md bg-muted p-3">
                   <Label>Moderation Information</Label>
                   <div className="mt-1 space-y-1">
                     <p className="text-sm">
@@ -883,7 +882,7 @@ export function AdminTaskDashboard() {
               )}
 
               {/* Timestamps */}
-              <div className="text-xs text-muted-foreground grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
                 <div>Created: {formatDate(selectedTask.createdAt)}</div>
                 <div>Last updated: {formatDate(selectedTask.updatedAt)}</div>
               </div>
@@ -1014,5 +1013,5 @@ export function AdminTaskDashboard() {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }

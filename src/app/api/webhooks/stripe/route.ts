@@ -272,7 +272,6 @@ export const POST = async (req: NextRequest) => {
       console.log("Unhandled event type", body.type)
     }
   }
-  console.log("Stripe request ==> ", body.data)
   return NextResponse.json({
     ok: true,
   })

@@ -95,7 +95,7 @@ export const POST = async (req: NextRequest) => {
           }
         })
 
-        if (totalAmount < 20) {
+        if (totalAmount < 10) {
           jetonsToAdd = 40
           await validateSubscribe(
             user,

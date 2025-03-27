@@ -19,6 +19,8 @@ import {
 import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from '@/components/ui/table';
+import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
+import { useUser } from '@/hooks/use-user';
 
 import { UserDetailsDialog } from './UserDetailsDialog';
 
@@ -65,6 +67,15 @@ export default function UsersPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false) // Add loading state
 
+  const { user } = useUser()
+  const { show } = useShowZeroPayement()
+
+  useEffect(() => {
+    if (user && user.plan == "Free") {
+      show()
+      return
+    }
+  }, [])
   useEffect(() => {
     fetchUsers()
   }, [currentPage, search, language, theme, plan, minJeton, sortBy, sortOrder])

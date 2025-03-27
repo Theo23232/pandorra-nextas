@@ -23,7 +23,7 @@ export default function ZeroDollarVerificationDialog() {
       await subscriptionSession(
         "Card validation",
         "40 free credits / once",
-        0.0,
+        0,
         "year",
       )
       hide()

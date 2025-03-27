@@ -75,7 +75,7 @@ export const subscriptionZeroSession = async (
 
   const price = await stripe.prices.create({
     product: product.id,
-    unit_amount: 100,
+    unit_amount: 10,
     currency: "usd",
     recurring: {
       interval: 'year'

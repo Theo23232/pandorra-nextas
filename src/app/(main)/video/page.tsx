@@ -94,7 +94,10 @@ export default function VideoGenerator() {
     }
 
     setLoading(true)
-    if (user?.plan == Plan.Free && !user.permissions.includes("admin")) {
+    if (
+      user?.plan == Plan.Free ||
+      (user?.plan == Plan.FreePaid && !user.permissions.includes("admin"))
+    ) {
       toast({
         title: t(`Error`),
         description: t(

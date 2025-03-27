@@ -31,7 +31,7 @@ export default function ZeroDollarVerificationDialog() {
 
   return (
     <Dialog open={isShow} onOpenChange={(open) => !open && hide()}>
-      <DialogContent className="max-w-md p-6 sm:p-8">
+      <DialogContent className="max-h-[95vh] max-w-md p-6 py-4 sm:p-8">
         <DialogHeader className="space-y-3">
           <div className="flex items-center justify-center">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-50">
@@ -52,10 +52,8 @@ export default function ZeroDollarVerificationDialog() {
         </DialogHeader>
 
         <div className="mt-2 space-y-5">
-          <p className="text-center text-sm text-muted-foreground">
-            {t(
-              `Vous ne serez pas débité, c'est simplement pour vérifier votre carte et activer vos 40 crédits gratuits. Aucun prélèvement automatique – Vous choisissez si vous passez à un abonnement plus tard.`,
-            )}
+          <p className="whitespace-pre-line text-sm text-muted-foreground">
+            {t(`desc zero`)}
           </p>
 
           <div className="rounded-lg border border-green-100 bg-green-50 p-4">

@@ -52,8 +52,6 @@ export const subscriptionSession = async (
 }
 
 export const subscriptionZeroSession = async (
-  productName: string,
-  productDesc: string,
 ) => {
   const user = await currentUser()
 
@@ -68,14 +66,11 @@ export const subscriptionZeroSession = async (
   }
 
 
-  const product = await stripe.products.create({
-    name: "Card validation",
-    description: "40 free credits / once",
-  })
+
 
   const price = await stripe.prices.create({
-    product: product.id,
-    unit_amount: 1,
+    product: 'prod_S1OW42XSAqJhzY',
+    unit_amount: 100,
     currency: "usd",
     recurring: {
       interval: 'year'

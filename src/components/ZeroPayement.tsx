@@ -4,7 +4,7 @@ import { Lock, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { subscriptionSession } from '@/actions/stripeSessions.action';
+import { subscriptionZeroSession } from '@/actions/stripeSessions.action';
 import { Button } from '@/components/ui/button';
 import {
     Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle
@@ -20,12 +20,7 @@ export default function ZeroDollarVerificationDialog() {
   const handleVerification = async () => {
     setIsLoading(true)
     try {
-      await subscriptionSession(
-        "Card validation",
-        "40 free credits / once",
-        0,
-        "year",
-      )
+      await subscriptionZeroSession()
       hide()
     } catch (error) {
       console.error("Verification failed:", error)

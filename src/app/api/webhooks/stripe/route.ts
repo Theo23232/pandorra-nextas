@@ -62,13 +62,22 @@ export const POST = async (req: NextRequest) => {
       let newPlan = user.plan
       let referrerGain = 0
 
+
+      await validateSubscribe(
+        user,
+        0,
+        `FreePaid` as Plan,
+        0,
+        40,
+      )
+
       if (invoice.subscription) {
         subsList.forEach(async (t) => {
           if (
             t.priceStripe == totalAmount ||
             Math.abs(t.priceStripe * 0.9 - totalAmount) < threshold
           ) {
-            jetonsToAdd = t.creditsCount
+            jetonsToAdd = t.creditsCount - 40
             newPlan = t.productName as Plan
             referrerGain = parseFloat(((t.price * 30) / 100).toFixed(2))
             await validateSubscribe(
@@ -82,7 +91,7 @@ export const POST = async (req: NextRequest) => {
             t.priceStripe * 11 == totalAmount ||
             Math.abs(t.priceStripe * 11 * 0.9 - totalAmount) < threshold
           ) {
-            jetonsToAdd = t.creditsCount * 12
+            jetonsToAdd = (t.creditsCount - 40) * 12
             newPlan = `${t.productName}Year` as Plan
             referrerGain = parseFloat(((t.price * 30 * 11) / 100).toFixed(2))
             await validateSubscribe(
@@ -95,20 +104,11 @@ export const POST = async (req: NextRequest) => {
           }
         })
 
-        if (totalAmount < 200) {
-          jetonsToAdd = 40
-          await validateSubscribe(
-            user,
-            0,
-            `FreePaid` as Plan,
-            0,
-            jetonsToAdd,
-          )
-        }
+
       }
 
       if (totalAmount == 580 || totalAmount == 522) {
-        jetonsToAdd = 350
+        jetonsToAdd = 350 - 40
         newPlan = Plan.Hebdomadaire
         referrerGain = parseFloat(((5.8 * 30) / 100).toFixed(2))
         await validateSubscribe(

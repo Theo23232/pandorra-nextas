@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { ExportUsersEmailsButton } from '@/app/dashboard/profile/ExportUsersEmail';
+import { ResetToken } from '@/app/dashboard/profile/ResetToken';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
@@ -167,7 +168,10 @@ export default function UsersPage() {
     <div className="container mx-auto py-10">
       <div className="mb-6 flex w-full items-start justify-between">
         <h1 className="text-2xl font-bold">User Management</h1>
-        <ExportUsersEmailsButton />
+        <div className="flex gap-2">
+          <ResetToken />
+          <ExportUsersEmailsButton />
+        </div>
       </div>
       <div className="mb-4 flex space-x-4">
         <Input

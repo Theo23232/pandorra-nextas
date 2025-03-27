@@ -1,34 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader, Loader2, Sparkles } from "lucide-react"
-import { useOnborda } from "onborda"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import useSWR, { mutate } from "swr"
+import { Loader, Loader2, Sparkles } from 'lucide-react';
+import { useOnborda } from 'onborda';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useSWR, { mutate } from 'swr';
 
-import { verifyCredit } from "@/actions/credits.actions"
-import { enhanceVideoPrompt } from "@/actions/openai.actions"
-import { generateVideoFromImage } from "@/actions/runway.actions"
-import PromptGuide from "@/app/(main)/video/prompt-guide"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import Bounce from "@/components/animated/uibeats/bounce"
-import ImageSmooth from "@/components/ImageSmooth"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
+import { verifyCredit } from '@/actions/credits.actions';
+import { enhanceVideoPrompt } from '@/actions/openai.actions';
+import { generateVideoFromImage } from '@/actions/runway.actions';
+import PromptGuide from '@/app/(main)/video/prompt-guide';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import Bounce from '@/components/animated/uibeats/bounce';
+import ImageSmooth from '@/components/ImageSmooth';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { fetcher } from "@/lib/utils"
-import { Plan, Video } from "@prisma/client"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { fetcher } from '@/lib/utils';
+import { Plan, Video } from '@prisma/client';
 
 import type React from "react"
 const SkeletonLoader = () => (
@@ -67,7 +63,10 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
     }
 
     setLoading(true)
-    if (user?.plan == Plan.Free && !user.permissions.includes("admin")) {
+    if (
+      (user?.plan == Plan.Free || user?.plan == Plan.FreePaid) &&
+      !user.permissions.includes("admin")
+    ) {
       toast({
         title: t(`Error`),
         description: t(

@@ -1,49 +1,34 @@
 "use client"
 import {
-  BoomBox,
-  BotMessageSquare,
-  Coins,
-  Crown,
-  Gift,
-  Image,
-  MessageSquare,
-  Send,
-  Sparkles,
-  User2,
-  Video,
-} from "lucide-react"
-import ImageDisplay from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useOnborda } from "onborda"
-import { useEffect } from "react"
-import { useTranslation } from "react-i18next"
+    BoomBox, BotMessageSquare, Coins, Crown, Gift, Image, MessageSquare, Send, Sparkles, User2,
+    Video
+} from 'lucide-react';
+import ImageDisplay from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { siteConfig } from "@/app/siteConfig"
-import { Navbar } from "@/components/(main)/authentified-navbar"
-import { ToggleTheme } from "@/components/(main)/ToggleTheme"
-import { AddTokenDialog } from "@/components/billing/addToken"
-import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
-import { UserProfileMobile } from "@/components/navigation/UserProfile"
-import JetonCounter from "@/components/pandorra/jeton-counter"
-import { TaskForm } from "@/components/task/task-dialog"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import { useIsSidebar } from "@/hooks/use-is-sidebar"
-import { useUser } from "@/hooks/use-user"
-import { cn, cx, focusRing } from "@/lib/utils"
-import { RiHome2Line } from "@remixicon/react"
+import { siteConfig } from '@/app/siteConfig';
+import { Navbar } from '@/components/(main)/authentified-navbar';
+import { ToggleTheme } from '@/components/(main)/ToggleTheme';
+import { AddTokenDialog } from '@/components/billing/addToken';
+import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
+import { UserProfileMobile } from '@/components/navigation/UserProfile';
+import JetonCounter from '@/components/pandorra/jeton-counter';
+import { TaskForm } from '@/components/task/task-dialog';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { useIsSidebar } from '@/hooks/use-is-sidebar';
+import { useUser } from '@/hooks/use-user';
+import { cn, cx, focusRing } from '@/lib/utils';
+import { RiHome2Line } from '@remixicon/react';
 
-import MobileSidebar from "./MobileSidebar"
+import MobileSidebar from './MobileSidebar';
 
 const navigation = [
   { name: "Explore", href: "/explore", icon: RiHome2Line, id: "tour1-step1" },
@@ -288,7 +273,7 @@ export function Sidebar() {
             <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
               <CardHeader className="space-y-1">
                 <CardTitle className="text-center text-2xl font-bold">
-                  {user?.plan === "Free"
+                  {user?.plan === "Free" || user?.plan === "FreePaid"
                     ? t("Free")
                     : user?.plan === "Hebdomadaire"
                       ? t("Weekly")
@@ -313,7 +298,7 @@ export function Sidebar() {
                 </p>
               </CardContent>
               <CardFooter>
-                {user?.plan === "Free" ? (
+                {user?.plan === "Free" || user?.plan === "FreePaid" ? (
                   <UpgradePlanDialog>
                     <Button className="w-full">{t(`Upgrade Now`)}</Button>
                   </UpgradePlanDialog>

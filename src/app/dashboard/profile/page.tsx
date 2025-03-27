@@ -2,35 +2,24 @@
 
 import type React from "react"
 
-import { ChevronLeft, ChevronRight, Eye, MoreHorizontal } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { ChevronLeft, ChevronRight, Eye, MoreHorizontal } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import { Button } from "@/components/ui/button"
+import { ExportUsersEmailsButton } from '@/app/dashboard/profile/ExportUsersEmail';
+import { Button } from '@/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+    Table, TableBody, TableCell, TableHead, TableHeader, TableRow
+} from '@/components/ui/table';
 
-import { UserDetailsDialog } from "./UserDetailsDialog"
+import { UserDetailsDialog } from './UserDetailsDialog';
 
 type User = {
   id: string
@@ -176,7 +165,10 @@ export default function UsersPage() {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="mb-5 text-2xl font-bold">User Management</h1>
+      <div className="mb-6 flex w-full items-start justify-between">
+        <h1 className="text-2xl font-bold">User Management</h1>
+        <ExportUsersEmailsButton />
+      </div>
       <div className="mb-4 flex space-x-4">
         <Input
           placeholder="Search users..."
@@ -213,6 +205,7 @@ export default function UsersPage() {
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
             <SelectItem value="Free">Free</SelectItem>
+            <SelectItem value="FreePaid">Free avec carte</SelectItem>
             <SelectItem value="Hebdomadaire">Hebdomadaire</SelectItem>
             <SelectItem value="CreatorPack">Creator Pack</SelectItem>
             <SelectItem value="VisionPro">Vision Pro</SelectItem>

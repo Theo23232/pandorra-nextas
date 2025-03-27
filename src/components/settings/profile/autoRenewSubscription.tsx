@@ -100,7 +100,9 @@ export const EditRenewSubscription = () => {
             id="renew"
             checked={isSwitchOn}
             onCheckedChange={() => handleButtonClick(isSwitchOn)}
-            disabled={isLoading || user?.plan === "Free"}
+            disabled={
+              isLoading || user?.plan === "Free" || user?.plan === "FreePaid"
+            }
           />
         </div>
 

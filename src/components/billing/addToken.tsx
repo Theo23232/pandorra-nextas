@@ -1,22 +1,17 @@
 "use client"
 
-import { Loader, X } from "lucide-react"
-import { ReactNode, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Loader, X } from 'lucide-react';
+import { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { payementSession } from "@/actions/stripeSessions.action"
-import Bounce from "@/components/animated/uibeats/bounce"
-import { Check } from "@/components/icons/check"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tremor/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { tokenPricesList } from "@/lib/prices"
+import { payementSession } from '@/actions/stripeSessions.action';
+import Bounce from '@/components/animated/uibeats/bounce';
+import { Check } from '@/components/icons/check';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/tremor/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { tokenPricesList } from '@/lib/prices';
 
 export type addTokenProps = {
   children: ReactNode
@@ -85,7 +80,7 @@ const Pricing = (props: PricingProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const handleButtonClick = async () => {
     setIsLoading(true)
-    if (user?.plan === "Free") {
+    if (user?.plan === "Free" || user?.plan === "FreePaid") {
       setIsLoading(false)
       toast({
         title: t("Purchase not allowed"),

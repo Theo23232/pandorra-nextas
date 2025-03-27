@@ -220,7 +220,7 @@ export default function MobileSidebar() {
                 <Card className="w-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900">
                   <CardHeader className="space-y-1">
                     <CardTitle className="text-center text-2xl font-bold">
-                      {user?.plan === "Free"
+                      {user?.plan === "Free" || user?.plan === "FreePaid"
                         ? t("Free")
                         : user?.plan === "Hebdomadaire"
                           ? t("Weekly")
@@ -245,7 +245,7 @@ export default function MobileSidebar() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    {user?.plan === "Free" ? (
+                    {user?.plan === "Free" || user?.plan === "FreePaid" ? (
                       <UpgradePlanDialog>
                         <Button className="w-full">{t(`Upgrade Now`)}</Button>
                       </UpgradePlanDialog>

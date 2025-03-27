@@ -78,6 +78,7 @@
     "compression": "^1.8.0",
     "country-flag-icons": "^1.5.14",
     "country-region-data": "^3.1.0",
+    "csv-stringify": "^6.5.2",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "elevenlabs": "^1.50.4",

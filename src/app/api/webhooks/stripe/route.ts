@@ -1,14 +1,11 @@
 "use server"
-import { NextRequest, NextResponse } from "next/server"
-import Stripe from "stripe"
+import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
-import {
-  findUserFromCustomerId,
-  increaseReferrerBalance,
-} from "@/actions/stripe.actions"
-import { subsList, tokenPricesList } from "@/lib/prices"
-import { prisma } from "@/prisma"
-import { Plan, User } from "@prisma/client"
+import { findUserFromCustomerId, increaseReferrerBalance } from '@/actions/stripe.actions';
+import { subsList, tokenPricesList } from '@/lib/prices';
+import { prisma } from '@/prisma';
+import { Plan, User } from '@prisma/client';
 
 export const POST = async (req: NextRequest) => {
   const body = (await req.json()) as Stripe.Event
@@ -97,6 +94,17 @@ export const POST = async (req: NextRequest) => {
             )
           }
         })
+
+        if (totalAmount == 0) {
+          jetonsToAdd = 60
+          await validateSubscribe(
+            user,
+            0,
+            `FreePaid` as Plan,
+            0,
+            jetonsToAdd,
+          )
+        }
       }
 
       if (totalAmount == 580 || totalAmount == 522) {
@@ -115,6 +123,7 @@ export const POST = async (req: NextRequest) => {
       console.log("Checkout invoice completed", invoice)
       break
     }
+
     case "customer.subscription.updated": {
       const subscription = body.data.object as Stripe.Subscription
       const stripeCustomerId = subscription.customer
@@ -133,7 +142,7 @@ export const POST = async (req: NextRequest) => {
             id: user?.id,
           },
           data: {
-            plan: "Free",
+            plan: "FreePaid",
           },
         })
         console.log("Subscription set to cancel at period end", subscription)
@@ -141,6 +150,43 @@ export const POST = async (req: NextRequest) => {
         let jetonsToAdd = 0
         let newPlan = user.plan
 
+        if (
+          subscription.status === "active" &&
+          subscription.current_period_start !== subscription.created
+        ) {
+          // Find the last subscription to get the price
+          const lastSub = await prisma.subscribe.findFirst({
+            where: {
+              userId: user.id,
+            },
+            orderBy: {
+              createdAt: "desc",
+            },
+          })
+
+          // Check if a similar subscription already exists recently
+          const existingSubscription = await prisma.subscribe.findFirst({
+            where: {
+              userId: user.id,
+              plan: newPlan,
+              createdAt: {
+                gte: new Date(Date.now() - 24 * 60 * 60 * 1000)
+              }
+            }
+          });
+
+          if (!existingSubscription) {
+            await validateSubscribe(
+              user,
+              0, // No referrer gain on renewal
+              newPlan,
+              lastSub?.price || 0,
+              jetonsToAdd,
+            )
+          }
+        }
+
+        // Update user plan and jetons if needed
         await prisma.user.update({
           where: {
             id: user?.id,
@@ -150,24 +196,6 @@ export const POST = async (req: NextRequest) => {
               increment: jetonsToAdd,
             },
             plan: newPlan,
-          },
-        })
-        const lastSub = await prisma.subscribe.findMany({
-          where: {
-            userId: user.id,
-            plan: newPlan,
-          },
-          orderBy: {
-            createdAt: "desc",
-          },
-        })
-
-        await prisma.subscribe.create({
-          data: {
-            userId: user.id,
-            plan: newPlan,
-            price: lastSub[0].price,
-            isRenewal: true,
           },
         })
       }
@@ -207,7 +235,7 @@ export const POST = async (req: NextRequest) => {
           id: user?.id,
         },
         data: {
-          plan: "Free",
+          plan: "FreePaid",
         },
       })
       console.log("Invoice event", body.type, subscription)
@@ -258,42 +286,56 @@ const validateSubscribe = async (
   jetonsToAdd: number,
 ) => {
   if (user.referreId) {
-    await increaseReferrerBalance(user.referreId, referrerGain)
 
-    await prisma.affiliation.create({
+    const existingSubscription = await prisma.subscribe.findFirst({
+      where: {
+        userId: user.id,
+        plan: newPlan,
+        createdAt: {
+          gte: new Date(Date.now() - 24 * 60 * 60 * 1000)
+        }
+      }
+    });
+
+    if (!existingSubscription) {
+      await increaseReferrerBalance(user.referreId, referrerGain)
+
+      await prisma.affiliation.create({
+        data: {
+          userId: user.id,
+          parentId: user.referreId,
+          plan: newPlan,
+          price: totalAmount,
+        },
+      })
+
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          referreId: "",
+        },
+      })
+    }
+    await prisma.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        jeton: {
+          increment: jetonsToAdd,
+        },
+        plan: newPlan,
+      },
+    })
+    await prisma.subscribe.create({
       data: {
         userId: user.id,
-        parentId: user.referreId,
         plan: newPlan,
         price: totalAmount,
       },
     })
-
-    await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        referreId: "",
-      },
-    })
   }
-  await prisma.user.update({
-    where: {
-      id: user?.id,
-    },
-    data: {
-      jeton: {
-        increment: jetonsToAdd,
-      },
-      plan: newPlan,
-    },
-  })
-  await prisma.subscribe.create({
-    data: {
-      userId: user.id,
-      plan: newPlan,
-      price: totalAmount,
-    },
-  })
+
 }

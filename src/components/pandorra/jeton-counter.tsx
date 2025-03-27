@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
-import { AddTokenDialog } from "@/components/billing/addToken"
-import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
-import { Tooltip } from "@/components/tremor/ui/tooltip"
-import { useUser } from "@/hooks/use-user"
-import { Plan } from "@prisma/client"
+import { AddTokenDialog } from '@/components/billing/addToken';
+import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
+import { Tooltip } from '@/components/tremor/ui/tooltip';
+import { useUser } from '@/hooks/use-user';
+import { Plan } from '@prisma/client';
 
 export default function JetonCounter() {
   const { t } = useTranslation()
@@ -31,7 +31,7 @@ export default function JetonCounter() {
           </div>
         </AddTokenDialog>
       </Tooltip>
-      {user && user?.plan === Plan.Free && (
+      {user && (user?.plan === Plan.Free || user?.plan === Plan.FreePaid) && (
         <Tooltip
           content={t(`You are in free plan. Click to upgrade`)}
           id="tour3-step3"

@@ -96,7 +96,7 @@ export default function PublicationDialog({
   }
 
   const handleDownload = async () => {
-    if (user?.plan == "Free") {
+    if (user?.plan == "Free" || user?.plan == "FreePaid") {
       setIsDownloading(true)
       try {
         // Fetch the original image
@@ -133,8 +133,8 @@ export default function PublicationDialog({
         // Draw the original image
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
 
-        // Calculate watermark size (20% of the image width, maintaining aspect ratio)
-        const watermarkWidth = canvas.width * 0.2
+        // Calculate watermark size (50% of the image width, maintaining aspect ratio)
+        const watermarkWidth = canvas.width * 0.5
         const watermarkHeight =
           (watermark.height / watermark.width) * watermarkWidth
 

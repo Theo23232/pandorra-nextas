@@ -1,32 +1,22 @@
 "use client"
-import { ChevronDown, ChevronsUpDown, SunMedium, Zap } from "lucide-react"
-import Image from "next/image"
-import { useSearchParams } from "next/navigation"
-import { useOnborda } from "onborda"
-import * as React from "react"
-import { useTranslation } from "react-i18next"
+import { ChevronDown, ChevronsUpDown, SunMedium, Zap } from 'lucide-react';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useOnborda } from 'onborda';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { ImageNumberInput } from "@/components/image-ai/ImageNumberInput"
-import { ImageSizeInput } from "@/components/image-ai/ImageSizeInput"
-import { ModelSelectDialog } from "@/components/image-ai/ModelSelectDialog"
-import { Card, CardContent } from "@/components/tremor/ui/card"
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { ImageNumberInput } from '@/components/image-ai/ImageNumberInput';
+import { ImageSizeInput } from '@/components/image-ai/ImageSizeInput';
+import { ModelSelectDialog } from '@/components/image-ai/ModelSelectDialog';
+import { Card, CardContent } from '@/components/tremor/ui/card';
 import {
-  Select,
-  SelectContent,
-  SelectCustomTrigger,
-  SelectGroup,
-  SelectItem,
-} from "@/components/ui/select"
-import { useImageCost } from "@/hooks/use-image-cost"
-import { useUser } from "@/hooks/use-user"
-import {
-  findModelById,
-  Model,
-  models,
-  presetStyles,
-} from "@/lib/leonardo/presets"
-import { cn } from "@/lib/utils"
+    Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
+} from '@/components/ui/select';
+import { useUser } from '@/hooks/use-user';
+import { findModelById, Model, models, presetStyles } from '@/lib/leonardo/presets';
+import { cn } from '@/lib/utils';
 
 export type SidebarProps = {
   onModelChange: (model: Model) => void
@@ -53,7 +43,6 @@ export function ImageGenerationSidebar(props: SidebarProps) {
   const [activeModel, setActiveModel] = React.useState<Model>(
     props.defaultmodel,
   )
-  const { setImageCost } = useImageCost()
 
   const [presetStyle, setPresetStyle] = React.useState(props.defaultpresetstyle)
   const [contrast, setContrast] = React.useState(props.defaultcontrast)
@@ -70,9 +59,6 @@ export function ImageGenerationSidebar(props: SidebarProps) {
     if (queryModelId) {
       const queryModel = findModelById(queryModelId)
       setActiveModel(queryModel ?? models[0])
-      setImageCost(
-        queryModelId == "de7d3faf-762f-48e0-b3b7-9d0ac3a3fcf3" ? 5 : 4,
-      )
     }
   }, [queryPresetStyle, queryModelId])
 
@@ -144,7 +130,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
           <SelectCustomTrigger>
             <div
               className={cn(
-                "relative inline-flex h-10 w-full cursor-pointer items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
+                "relative inline-flex h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-md border px-4 text-center font-medium shadow-sm transition-all duration-100 ease-in-out",
                 "relative flex h-[56px] w-full items-center justify-between border border-input bg-background text-primary shadow-sm hover:bg-accent/40",
               )}
               id="tour5-step2"
@@ -171,7 +157,6 @@ export function ImageGenerationSidebar(props: SidebarProps) {
             </SelectGroup>
           </SelectContent>
         </Select>
-
         <Select value={contrast} onValueChange={handleContrastChange}>
           <SelectCustomTrigger>
             <div

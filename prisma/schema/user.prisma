@@ -19,7 +19,7 @@ model User {
   referreId         String?
   emailNotification Boolean  @default(true)
   pushNotification  Boolean  @default(true)
-  jeton             Int      @default(0)
+  jeton             Int      @default(10)
   stripeCustomerId  String?
   connectStripeId   String?
   amountAccumulated String   @default("0")

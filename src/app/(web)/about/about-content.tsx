@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Footer } from '@/components/landing/footer';
-import LandingNavbar from '@/components/landing/navbar';
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Footer } from "@/components/landing/footer"
+import LandingNavbar from "@/components/landing/navbar"
 
 export function AboutContent() {
   const { t } = useTranslation()
@@ -33,7 +33,7 @@ export function AboutContent() {
       <LandingNavbar />
       <div className="mx-auto max-w-5xl">
         <header className="my-12 md:my-16">
-          <Bounce className="mb-6 text-center text-5xl font-bold text-white md:text-7xl">
+          <Bounce className="mb-6 mt-8 text-center text-5xl font-bold text-white md:text-7xl">
             {t(`À Propos de Pandorra`)}
           </Bounce>
           <Bounce className="mx-auto h-1 w-24 bg-purple-600 text-transparent">

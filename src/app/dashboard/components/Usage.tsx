@@ -1,12 +1,18 @@
-import { formatDistanceToNow } from 'date-fns';
-import { CreditCard, Tag } from 'lucide-react';
-import { unstable_noStore as noStore } from 'next/cache';
+import { formatDistanceToNow } from "date-fns"
+import { CreditCard, Tag } from "lucide-react"
+import { unstable_noStore as noStore } from "next/cache"
 
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { prisma } from '@/prisma';
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { prisma } from "@/prisma"
 
 type CombinedTransaction = {
   id: string
@@ -40,6 +46,11 @@ async function getBuyTokens() {
 async function getSubscriptions() {
   noStore()
   return prisma.subscribe.findMany({
+    where: {
+      price: {
+        gt: 1,
+      },
+    },
     include: {
       user: {
         select: {

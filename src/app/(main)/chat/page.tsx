@@ -2,33 +2,51 @@
 
 import type React from "react"
 
-import axios from 'axios';
+import axios from "axios"
 import {
-    Globe, Loader, Megaphone, PanelLeftClose, PanelLeftOpen, Plus, Search, Send, StopCircle
-} from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+  Globe,
+  Loader,
+  Megaphone,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Plus,
+  Search,
+  Send,
+  StopCircle,
+} from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { reduceCredit } from '@/actions/credits.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { Button } from '@/components/tremor/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Textarea } from '@/components/ui/textarea';
-import { Toggle } from '@/components/ui/toggle';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { cn, fetcher } from '@/lib/utils';
+import { editMessage, reactMessage } from "@/actions/chat.actions"
+import { reduceCredit } from "@/actions/credits.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Textarea } from "@/components/ui/textarea"
+import { Toggle } from "@/components/ui/toggle"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { cn, fetcher } from "@/lib/utils"
+import { Message as MessageType, ReactionMessage } from "@prisma/client"
 
-import { Message } from './message';
+import { Message } from "./message"
 
 export default function Page() {
   const { show } = useShowZeroPayement()
+  const { t } = useTranslation()
+  const { toast } = useToast()
+  const { user } = useUser()
 
   useEffect(() => {
     if (user && user.plan == "Free") {
@@ -36,20 +54,23 @@ export default function Page() {
       return
     }
   }, [])
+
   const [conversationId, setConversationId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const { user } = useUser()
-  const [messages, setMessages] = useState<any[]>([])
+  const [messages, setMessages] = useState<MessageType[]>([])
   const [newMessage, setNewMessage] = useState("")
+  const [editingMessage, setEditingMessage] = useState<string | null>(null)
+  const [editingContent, setEditingContent] = useState("")
   const [isStreaming, setIsStreaming] = useState(false)
   const [abortController, setAbortController] =
     useState<AbortController | null>(null)
   const [sheetIsOpen, setSheetIsOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState<boolean>(false)
   const [useWebSearch, setUseWebSearch] = useState(false)
+
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { toast } = useToast()
+
   const { data: conversations, error } = useSWR<any[]>(
     "/api/conversations",
     fetcher,
@@ -80,14 +101,12 @@ export default function Page() {
     } else {
       toast({
         title: t(`Error`),
-        description: t(`You do not have enought token for this message`),
+        description: t(`You do not have enough token for this message`),
         variant: "error",
       })
       return
     }
   }
-
-  const { t } = useTranslation()
 
   useEffect(() => {
     if (!conversationId) return
@@ -122,10 +141,13 @@ export default function Page() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     try {
       // Envoyer le message utilisateur
-      const userMessage = {
+      const userMessage: MessageType = {
         id: Date.now().toString(),
         content: newMess,
         role: "user",
+        gptConversationId: conversationId,
+        createdAt: new Date(),
+        reaction: null,
       }
       setMessages((prev) => [...prev, userMessage])
 
@@ -171,6 +193,9 @@ export default function Page() {
                 id: Date.now().toString(),
                 content: assistantMessageContent,
                 role: "assistant",
+                gptConversationId: conversationId,
+                createdAt: new Date(),
+                reaction: null,
               },
             ]
           }
@@ -204,6 +229,102 @@ export default function Page() {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }
+
+  // Message action handlers
+  const handleCopyMessage = (content: string) => {
+    navigator.clipboard.writeText(content)
+    toast({
+      title: t("Copied"),
+      description: t("Message copied to clipboard"),
+      variant: "success",
+    })
+  }
+
+  const handleEditMessage = (id: string, content: string) => {
+    setEditingMessage(id)
+    setEditingContent(content)
+  }
+
+  const handleSaveEdit = async (id: string) => {
+    try {
+      // Update the message in the UI
+      setMessages(
+        messages.map((msg) =>
+          msg.id === id ? { ...msg, content: editingContent } : msg,
+        ),
+      )
+
+      // Update in the database
+      await editMessage(id, editingContent)
+      // Reset editing state
+      setEditingMessage(null)
+      setEditingContent("")
+
+      // Regenerate the AI response
+      const messageIndex = messages.findIndex((msg) => msg.id === id)
+      if (messageIndex >= 0 && messageIndex < messages.length - 1) {
+        const nextMessage = messages[messageIndex + 1]
+        if (nextMessage.role === "assistant") {
+          // Remove the AI message and regenerate
+          setMessages(messages.filter((msg) => msg.id !== nextMessage.id))
+          sendMessage(editingContent, conversationId)
+        }
+      }
+    } catch (error) {
+      console.error("Error updating message:", error)
+      toast({
+        title: t("Error"),
+        description: t("Failed to update message"),
+        variant: "error",
+      })
+    }
+  }
+
+  const handleRegenerateResponse = async (messageIndex: number) => {
+    if (messageIndex <= 0 || messageIndex >= messages.length) return
+
+    const userMessage = messages[messageIndex - 1]
+    if (userMessage.role !== "user") return
+
+    // Remove the current AI message
+    setMessages(messages.filter((_, i) => i !== messageIndex))
+
+    // Regenerate response
+    sendMessage(userMessage.content, conversationId)
+  }
+
+  const handleReaction = async (id: string, reactionType: ReactionMessage) => {
+    try {
+      // Update UI optimistically
+      setMessages(
+        messages.map((msg) =>
+          msg.id === id
+            ? {
+                ...msg,
+                reaction: msg.reaction === reactionType ? null : reactionType,
+              }
+            : msg,
+        ),
+      )
+
+      await reactMessage(id, reactionType)
+
+      // Refresh messages to get updated state
+      if (conversationId) {
+        const { data } = await axios.get(
+          `/api/conversations/one?id=${conversationId}`,
+        )
+        setMessages(data.messages)
+      }
+    } catch (error) {
+      console.error("Error setting reaction:", error)
+      toast({
+        title: t("Error"),
+        description: t("Failed to record your reaction"),
+        variant: "error",
+      })
     }
   }
 
@@ -300,22 +421,74 @@ export default function Page() {
             {conversationId ? (
               <>
                 <div className="min-h-[calc(100vh-204px)] flex-1 p-4">
-                  {messages.map((message) => (
+                  {messages.map((message, index) => (
                     <div key={message.id} className="mb-4">
-                      <Message
-                        content={message.content}
-                        role={message.role}
-                        isStreaming={
-                          isStreaming &&
-                          message.role === "assistant" &&
-                          message === messages[messages.length - 1]
-                        }
-                        isLoading={
-                          isStreaming &&
-                          message.role === "assistant" &&
-                          message === messages[messages.length - 1]
-                        }
-                      />
+                      {editingMessage === message.id ? (
+                        <div className="ml-auto w-fit max-w-xl rounded-3xl bg-muted p-2">
+                          <Textarea
+                            value={editingContent}
+                            onChange={(e) => setEditingContent(e.target.value)}
+                            className="min-h-[100px] resize-none border-0 bg-transparent p-2"
+                          />
+                          <div className="flex justify-end gap-2 p-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setEditingMessage(null)
+                                setEditingContent("")
+                              }}
+                            >
+                              {t("Cancel")}
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => handleSaveEdit(message.id)}
+                            >
+                              {t("Save")}
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <Message
+                          content={message.content}
+                          id={message.id}
+                          role={message.role}
+                          reaction={message.reaction}
+                          isStreaming={
+                            isStreaming &&
+                            message.role === "assistant" &&
+                            message === messages[messages.length - 1]
+                          }
+                          isLoading={
+                            isStreaming &&
+                            message.role === "assistant" &&
+                            message === messages[messages.length - 1]
+                          }
+                          onCopy={() => handleCopyMessage(message.content)}
+                          onEdit={
+                            message.role === "user"
+                              ? () =>
+                                  handleEditMessage(message.id, message.content)
+                              : undefined
+                          }
+                          onRegenerate={
+                            message.role === "assistant"
+                              ? () => handleRegenerateResponse(index)
+                              : undefined
+                          }
+                          onLike={
+                            message.role === "assistant"
+                              ? () => handleReaction(message.id, "like")
+                              : undefined
+                          }
+                          onDislike={
+                            message.role === "assistant"
+                              ? () => handleReaction(message.id, "dislike")
+                              : undefined
+                          }
+                        />
+                      )}
                     </div>
                   ))}
                   <div ref={messagesEndRef} className="pb-12" />

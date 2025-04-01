@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
             where: {
                 plan: "Free"
             }, data: {
-                jeton: 0
+                jeton: 10
             }
         });
 

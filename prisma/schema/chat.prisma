@@ -9,10 +9,16 @@ model GptConversation {
 }
 
 model Message {
-  id                String          @id @default(cuid())
+  id                String           @id @default(cuid())
   content           String
   gptConversationId String
+  reaction          ReactionMessage?
   role              String
-  createdAt         DateTime        @default(now())
-  GptConversation   GptConversation @relation(fields: [gptConversationId], references: [id])
+  createdAt         DateTime         @default(now())
+  GptConversation   GptConversation  @relation(fields: [gptConversationId], references: [id])
+}
+
+enum ReactionMessage {
+  like
+  dislike
 }

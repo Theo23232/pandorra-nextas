@@ -1,26 +1,9 @@
-Agent est utilisé pour permettre a l'utilisateur de facilement reutiliser une voix et une langue sans avoir a le selectionner tout le temps
-Une conversation est utilisé pour stocker chaque fois que l'utilisateur discute avec un agent et les transcript sont la conversation en text car l'agent est un agent elevenlabs qui parle en voix directement
-Blog ne marche pas encore, igmnore juste
+- mahazo 10 credits
+- popup inciter achat
+- 
 
-GptConversation est une conversation avec l'IA de openAI GPT4 et message sont les message de la conversation
+Mettre questionnaire avant desabonnement
 
-Feedback est des retours des utilisateurs
-Generation est une generation fait avec leonardo ai
-
-GeneratedImage est une liste d'image genere avec leonardo ai, une generation peut contenir 4 GeneratedImage
-publication est la publication d'une image par l'utilisateur
-PublicationVideo est la publication d'une video par l'utilisateur
-Comment est le commentaire sur une pub image
-CommentVideo est le commentaire sur une pub video
-video est une generation video par IA fait par l'user avec runway
-
-FX est un audio d effet speciau fait ave elevenlabs
-TTS est un text to speech fait avec elevenlabs
-VoiceChange est la transformation de voix fait avec elevenlabs
-
-
-Genere moi un dashboard qui va faire les statistiques sur tout ce qui a ete dit au par avant, il faut des statistique global,une statistique sur les sessions des utilisateurs, statistique sur le parainage les parents vont avoir 30 pourcents du premier abonnement de de filleul  des stats utilisateurs , des stats sur les models leonardo les plus utilisé, stat chronologique sur les utilisateurs, statistique sur les abonnements, statistique sur les publications, les commentaires. Tout les stats qui sont important, une page pour voir les feedback etc
-
-Tout ca avec next 15, typescript, dossier app, n'utilise pas de params du type [id] utilise a chaque fois des search query, utilise aussi useSWR, il n'y a pas d'authentification.
-
-e916452b182bd89e2c347e190af11546bb87154642fbea8620125686a7d245d9
+email
+1. welcome
+2. 

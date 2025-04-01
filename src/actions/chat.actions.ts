@@ -4,7 +4,9 @@ import { OpenAI } from 'openai';
 
 import { trackUserActivity } from '@/actions/user.ations';
 import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
 import { prisma } from '@/prisma';
+import { Message, ReactionMessage } from '@prisma/client';
 
 const openai = new OpenAI({
   baseURL: "https://api.deepseek.com",
@@ -82,3 +84,50 @@ export async function postMessage(gptConversationId: string, content: string) {
     throw new Error("Error contacting OpenAI")
   }
 }
+
+
+export const editMessage = SA(async (user, messageId: string, content: string): Promise<Message> => {
+  const message = await prisma.message.findUnique({
+    where: { id: messageId },
+    include: { GptConversation: true },
+  })
+
+  if (!message || message.GptConversation.userId !== user.id) {
+    throw new Error("Message not found or not authorized")
+  }
+
+  if (message.role !== "user") {
+    throw new Error("Only user messages can be edited")
+  }
+
+  const updatedMessage = await prisma.message.update({
+    where: { id: messageId },
+    data: { content },
+  })
+  return updatedMessage
+})
+
+export const reactMessage = SA(async (user, messageId: string, reaction: ReactionMessage) => {
+
+  const message = await prisma.message.findUnique({
+    where: { id: messageId },
+    include: { GptConversation: true },
+  })
+
+  // Check if message exists and belongs to the user
+  if (!message || message.GptConversation.userId !== user.id) {
+    throw new Error("Message not found or not authorized")
+  }
+
+  // Only allow reactions on assistant messages
+  if (message.role !== "assistant") {
+    throw new Error("Only assistant messages can receive reactions")
+  }
+
+  await prisma.message.update({
+    where: { id: messageId },
+    data: {
+      reaction
+    }
+  })
+})

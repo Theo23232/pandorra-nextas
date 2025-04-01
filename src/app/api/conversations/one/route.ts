@@ -1,8 +1,8 @@
 // /api/conversations/one/route.ts
-import { NextResponse } from "next/server"
+import { NextResponse } from 'next/server';
 
-import { currentUser } from "@/lib/current-user"
-import { prisma } from "@/prisma"
+import { currentUser } from '@/lib/current-user';
+import { prisma } from '@/prisma';
 
 export async function GET(request: Request) {
   try {
@@ -21,7 +21,13 @@ export async function GET(request: Request) {
       )
     const conversation = await prisma.gptConversation.findUnique({
       where: { id },
-      include: { messages: true },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: 'asc'
+          }
+        }
+      },
     })
 
     if (conversation?.userId !== user.id) {

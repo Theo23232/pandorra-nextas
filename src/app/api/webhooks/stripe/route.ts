@@ -46,6 +46,8 @@ export const POST = async (req: NextRequest) => {
       })
 
       console.log("Checkout session completed", session)
+      await increase(user.id)
+
       break
     }
     case "invoice.paid": {
@@ -118,7 +120,6 @@ export const POST = async (req: NextRequest) => {
         )
       }
 
-      await increase(user.id)
       break
     }
 

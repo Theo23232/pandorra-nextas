@@ -1,94 +1,107 @@
-import type { Metadata } from "next"
-import { notFound, redirect } from 'next/navigation';
+"use client"
+
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
 
 import { getPublicationById } from '@/actions/publication.action';
 
 import SharePageClient from './sharePageClient';
 
-interface SharePageProps {
-  searchParams: { id?: string; referrer?: string }
+interface Publication {
+  id: string
+  prompt: string
+  imageUrl: string
+  user: {
+    username: string
+  }
 }
 
-export async function generateMetadata({
-  searchParams,
-}: SharePageProps): Promise<Metadata> {
-  const id = searchParams.id
+// Loader component
+function LoadingSpinner() {
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-primary"></div>
+    </div>
+  )
+}
 
-  if (!id) {
-    return {
-      title: "Share AI Creation - Pandorra.ai",
-      description: "Share your AI-generated images with the world",
-    }
-  }
+// Main content component that uses useSearchParams
+function SharePageContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
-  try {
-    const publication = await getPublicationById(id)
+  const id = searchParams?.get("id")
+  const reffererId = searchParams?.get("referrer")
 
-    if (!publication) {
-      return {
-        title: "Publication Not Found - Pandorra.ai",
-        description: "The requested publication could not be found",
+  const [publication, setPublication] = useState<Publication | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    const fetchPublication = async () => {
+      if (!id) {
+        router.push("/")
+        return
+      }
+
+      try {
+        setLoading(true)
+        const data = await getPublicationById(id)
+
+        if (!data) {
+          setError(true)
+          return
+        }
+
+        setPublication(data)
+      } catch (error) {
+        console.error("Error fetching publication:", error)
+        setError(true)
+      } finally {
+        setLoading(false)
       }
     }
 
-    // Truncate prompt if it's too long
-    const description =
-      publication.prompt.length > 160
-        ? `${publication.prompt.substring(0, 157)}...`
-        : publication.prompt
+    fetchPublication()
+  }, [id, router])
 
-    return {
-      title: `AI Creation by ${publication.user.username || "Pandorra User"} - Pandorra.ai`,
-      description,
-      openGraph: {
-        title: `AI Creation by ${publication.user.username || "Pandorra User"} - Pandorra.ai`,
-        description,
-        images: [
-          {
-            url: publication.imageUrl,
-            width: 1200,
-            height: 630,
-            alt: publication.prompt,
-          },
-        ],
-        type: "website",
-        siteName: "Pandorra.ai",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: `AI Creation by ${publication.user.username || "Pandorra User"} - Pandorra.ai`,
-        description,
-        images: [publication.imageUrl],
-        creator: "@pandorra_ai",
-      },
-    }
-  } catch (error) {
-    console.error("Error fetching publication metadata:", error)
-    return {
-      title: "Share AI Creation - Pandorra.ai",
-      description: "Share your AI-generated images with the world",
-    }
+  // Handle loading state
+  if (loading) {
+    return <LoadingSpinner />
   }
+
+  // Handle error state
+  if (error || !publication) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center px-4 text-center">
+        <h1 className="mb-4 text-2xl font-bold">Publication Not Found</h1>
+        <p className="mb-6">
+          The requested publication could not be found or has been removed.
+        </p>
+        <button
+          onClick={() => router.push("/")}
+          className="rounded-lg bg-primary px-4 py-2 text-white transition-colors hover:bg-primary/80"
+        >
+          Return to Home
+        </button>
+      </div>
+    )
+  }
+
+  // Render content if publication exists
+  return (
+    <SharePageClient
+      publication={publication}
+      reffererId={reffererId || undefined}
+    />
+  )
 }
 
-export default async function SharePage({ searchParams }: SharePageProps) {
-  const id = searchParams.id
-  const reffererId = searchParams.referrer
-
-  if (!id) {
-    redirect("/")
-  }
-
-  try {
-    const publication = await getPublicationById(id)
-
-    if (!publication) {
-      notFound()
-    }
-
-    return <SharePageClient publication={publication} reffererId={reffererId} />
-  } catch (error) {
-    console.error("Error fetching publication:", error)
-    notFound()
-  }
+// Wrapper component with Suspense
+export default function SharePage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <SharePageContent />
+    </Suspense>
+  )
 }

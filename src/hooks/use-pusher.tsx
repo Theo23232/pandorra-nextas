@@ -1,16 +1,14 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
-import { useShareDialog } from "@/hooks/use-shareDialog"
-import { useToast } from "@/hooks/use-toast"
-import { useUser } from "@/hooks/use-user"
-import { pusherClient } from "@/lib/pusher"
+import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
+import { pusherClient } from '@/lib/pusher';
 
 export function usePusher() {
   const { user } = useUser()
   const { toast } = useToast()
   const [isConnected, setIsConnected] = useState(false)
-  const { show } = useShareDialog()
   function subscribeToChannel() {
     if (!user) return
 
@@ -42,7 +40,6 @@ export function usePusher() {
     // Écouter les nouveaux messages
     channel.bind("new-message", (data: any) => {
       console.log("Received new message:", data)
-      show()
     })
 
     return () => {

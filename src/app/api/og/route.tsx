@@ -4,8 +4,6 @@ import { getPublicationById } from '@/actions/publication.action';
 
 import type { NextRequest } from "next/server"
 
-export const runtime = "edge"
-
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
@@ -77,9 +75,11 @@ export async function GET(req: NextRequest) {
     }
 
     // Fetch the image
-    const imageData = await fetch(publication.imageUrl).then((res) =>
-      res.arrayBuffer(),
-    )
+    const imageResponse = await fetch(publication.imageUrl)
+
+    // Get the image as a buffer and convert to base64 for use in img src
+    const imageBuffer = await imageResponse.arrayBuffer()
+    const base64Image = `data:${imageResponse.headers.get("content-type") || "image/png"};base64,${Buffer.from(imageBuffer).toString("base64")}`
 
     return new ImageResponse(
       (
@@ -110,7 +110,7 @@ export async function GET(req: NextRequest) {
             }}
           >
             <img
-              src={(imageData as unknown as string) || "/placeholder.svg"}
+              src={base64Image || "/placeholder.svg"}
               style={{
                 width: "100%",
                 height: "100%",

@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from 'next/server';
 
-import { generateToken, hashPassword } from "@/lib/auth"
-import { getDeviceInfo } from "@/lib/device"
-import { stripe } from "@/lib/stripe"
-import { prisma } from "@/prisma"
+import { generateToken, hashPassword } from '@/lib/auth';
+import { getDeviceInfo } from '@/lib/device';
+import { stripe } from '@/lib/stripe';
+import { prisma } from '@/prisma';
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password, username } = await req.json()
+    const { email, password, username, refId } = await req.json()
 
     if (!email || !password || !username) {
       return NextResponse.json(
@@ -68,6 +68,23 @@ export async function POST(req: NextRequest) {
         stripeCustomerId: stripeCustomer.id,
       },
     })
+
+    if (refId) {
+      try {
+        await prisma.user.update({
+          where: {
+            id: refId
+          },
+          data: {
+            jeton: {
+              increment: 10
+            }
+          }
+        })
+      } catch (error) {
+
+      }
+    }
 
     const userAgent = req.headers.get("user-agent") || ""
     const ip =

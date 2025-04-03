@@ -31,7 +31,7 @@ export function AboutContent() {
         }}
       />
       <LandingNavbar />
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto mt-36 max-w-5xl">
         <header className="my-12 md:my-16">
           <Bounce className="mb-6 mt-8 text-center text-5xl font-bold text-white md:text-7xl">
             {t(`À Propos de Pandorra`)}

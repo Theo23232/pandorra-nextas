@@ -15,7 +15,12 @@ export async function POST(req: Request) {
       new URLSearchParams(data),
     )
 
-    const authResponse = pusherServer.authorizeChannel(socket_id, channel_name)
+    const authResponse = pusherServer.authorizeChannel(socket_id, channel_name, {
+      user_id: user.id,
+      user_info: {
+        name: user.email,
+      }
+    })
 
     return NextResponse.json(authResponse)
   } catch (error) {

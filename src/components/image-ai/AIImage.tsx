@@ -10,6 +10,7 @@ import { deleteImage } from '@/actions/generation.action';
 import { createPublication } from '@/actions/publication.action';
 import { ImageToVideo } from '@/components/image-ai/ImageToVideo';
 import ImageSmooth from '@/components/ImageSmooth';
+import { PublicationDialog } from '@/components/publication-dialog';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,10 +20,9 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/
 import { useSelectImage } from '@/hooks/use-select-image';
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@/hooks/use-user';
+import { GeneratedImage, Publication } from '@prisma/client';
 
 import { DirectionAwareHover } from './GeneratedHover';
-
-import type { GeneratedImage } from "@prisma/client"
 
 interface AllImageProps {
   prompt: string
@@ -54,6 +54,9 @@ export const AIImage = ({
   const router = useRouter()
   const { selectImage } = useSelectImage()
 
+  const [isPublicationDialogOpen, setIsPublicationDialogOpen] = useState(false)
+  const [currentPublication, setCurrentPublication] = useState<Publication>()
+
   const handlePublication = async (
     imageUrl: string,
     prompt: string,
@@ -68,25 +71,33 @@ export const AIImage = ({
         variant: "loading",
         disableDismiss: true, // Désactive la fermeture automatique
       })
-      await createPublication(imageUrl, prompt, model, preset, generationType)
-        .then(() => {
-          toast({
-            title: t(`Success`),
-            description: t(`Your image has been published`),
-            variant: "success",
-            duration: 3000,
-          })
+      try {
+        const publication = await createPublication(
+          imageUrl,
+          prompt,
+          model,
+          preset,
+          generationType,
+        )
+
+        toast({
+          title: t(`Success`),
+          description: t(`Your image has been published`),
+          variant: "success",
+          duration: 3000,
         })
-        .catch(() => {
-          toast({
-            title: t(`An image cannot be published twice`),
-            description: t(`You have already posted this image`),
-            variant: "error",
-          })
+
+        setCurrentPublication(publication)
+        setIsPublicationDialogOpen(true)
+      } catch (error) {
+        toast({
+          title: t(`An image cannot be published twice`),
+          description: t(`You have already posted this image`),
+          variant: "error",
         })
-        .finally(() => {
-          loadingToast.dismiss()
-        })
+      }
+
+      loadingToast.dismiss()
 
       //et le cacher ici
     } catch (error) {
@@ -336,6 +347,13 @@ export const AIImage = ({
           <ImageToVideo imageUrl={image.url} />
         </DialogContent>
       </Dialog>
+      {currentPublication && (
+        <PublicationDialog
+          publication={currentPublication}
+          isOpen={isPublicationDialogOpen}
+          onClose={() => setIsPublicationDialogOpen(false)}
+        />
+      )}
     </>
   )
 }

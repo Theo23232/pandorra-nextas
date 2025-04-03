@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { Copy, Edit, RefreshCw, ThumbsDown, ThumbsUp } from "lucide-react"
+import { Copy, Edit, ThumbsDown, ThumbsUp } from "lucide-react"
 import Image from "next/image"
 import { useTranslation } from "react-i18next"
 import ReactMarkdown from "react-markdown"
@@ -121,7 +121,7 @@ export const Message: React.FC<MessageProps> = ({
         <div
           className={`absolute -bottom-2 left-2 flex justify-end gap-1 transition-opacity`}
         >
-          {onRegenerate && (
+          {/* {onRegenerate && (
             <Button
               variant="ghost"
               size="icon"
@@ -131,7 +131,7 @@ export const Message: React.FC<MessageProps> = ({
             >
               <RefreshCw className="h-3.5 w-3.5" />
             </Button>
-          )}
+          )} */}
           {onLike && (
             <Button
               variant={reaction === "like" ? "default" : "ghost"}

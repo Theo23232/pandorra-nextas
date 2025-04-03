@@ -266,6 +266,45 @@ export const POST = async (req: NextRequest) => {
       break
     }
 
+    case "setup_intent.succeeded": {
+      const setupIntent = body.data.object as Stripe.SetupIntent;
+
+      // Vérifier que c'est bien pour notre vérification de plan gratuit
+      if (setupIntent.metadata?.purpose === "free_plan_verification") {
+        const stripeCustomerId = setupIntent.customer as string;
+        const user = await findUserFromCustomerId(stripeCustomerId);
+
+        if (!user?.id) {
+          break;
+        }
+
+        // Mettre à jour l'utilisateur avec le plan FreePaid et les jetons gratuits
+        await prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            plan: Plan.FreePaid,
+            jeton: {
+              increment: 30, // Ajouter les 30 jetons gratuits
+            },
+          },
+        });
+
+        // Enregistrer cette attribution de jetons
+        await prisma.subscribe.create({
+          data: {
+            userId: user.id,
+            plan: Plan.FreePaid,
+            price: 0, // Prix à 0 car c'est gratuit
+          },
+        });
+
+        console.log("Card verified for free plan:", setupIntent.id);
+      }
+      break;
+    }
+
 
     default: {
       console.log("Unhandled event type", body.type)

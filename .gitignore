@@ -45,3 +45,4 @@ ssh
 public/*.mp3
 
 anim_logo.mp4
+.vscode/claudesync.json

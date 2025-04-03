@@ -17,7 +17,9 @@ export const Content = () => {
       const pathname = window.location.href
       const url = new URL(pathname)
       const refId = url.searchParams.get("referrer") || ""
-      localStorage.setItem("referrerId", refId)
+      if (refId) {
+        localStorage.setItem("referrerId", refId)
+      }
       setReferrerId(refId)
     }
 

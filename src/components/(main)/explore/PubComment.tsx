@@ -1,9 +1,7 @@
 // PublicationDialog.tsx
 "use client"
 
-import {
-    Download, Eraser, Expand, Fullscreen, Loader, SendHorizontal, Trash, X, Zap
-} from 'lucide-react';
+import { Download, Loader, SendHorizontal, Share, Trash, X, Zap } from 'lucide-react';
 import ImageDisplay from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -13,6 +11,7 @@ import useSWR from 'swr';
 
 import { createComment, deletePublication } from '@/actions/publication.action';
 import CommentCard from '@/components/(main)/explore/CommentCard';
+import { PublicationDialog as PublicationDialogShare } from '@/components/publication-dialog';
 import { Input } from '@/components/tremor/inputs/input';
 import { Button } from '@/components/tremor/ui/button';
 import { Card, CardDescription, CardTitle } from '@/components/tremor/ui/card';
@@ -250,6 +249,7 @@ export default function PublicationDialog({
                 model={model}
                 onDownload={handleDownload}
                 onImageAction={handleImageAction}
+                publication={publication}
               />
 
               <Separator orientation="horizontal" className="my-6" />
@@ -338,8 +338,10 @@ function PublicationActions({
   model,
   onDownload,
   onImageAction,
+  publication,
 }) {
   const { t } = useTranslation()
+  const [isPublicationDialogOpen, setIsPublicationDialogOpen] = useState(false)
   if (isLoading) {
     return (
       <Card>
@@ -352,10 +354,17 @@ function PublicationActions({
 
   return (
     <Card>
+      {publication && (
+        <PublicationDialogShare
+          publication={publication}
+          isOpen={isPublicationDialogOpen}
+          onClose={() => setIsPublicationDialogOpen(false)}
+        />
+      )}
       <CardTitle>{t(`Prompt details`)}</CardTitle>
       <CardDescription>{description.prompt}</CardDescription>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 flex gap-2">
         <Button
           className="flex h-8 w-full items-center justify-center gap-2"
           onClick={onDownload}
@@ -371,30 +380,13 @@ function PublicationActions({
             </>
           )}
         </Button>
-
-        <div className="hidden items-center justify-center gap-2">
-          <Button
-            variant="secondary"
-            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
-            onClick={() => onImageAction("unzoom")}
-          >
-            <Fullscreen size={20} /> {t(`Unzoom`)}
-          </Button>
-          <Button
-            variant="secondary"
-            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
-            onClick={() => onImageAction("upscale")}
-          >
-            <Expand size={20} /> {t(`Upscale`)}
-          </Button>
-          <Button
-            variant="secondary"
-            className="flex h-8 w-full flex-1 items-center justify-center gap-2"
-            onClick={() => onImageAction("removeBg")}
-          >
-            <Eraser size={20} /> {t(`BG Remove`)}
-          </Button>
-        </div>
+        <Button
+          className="mt-0 flex h-8 items-center justify-center gap-2"
+          onClick={() => setIsPublicationDialogOpen(true)}
+          variant="outline"
+        >
+          <Share size={20} />
+        </Button>
       </div>
 
       <div className="mt-4 flex items-center gap-4 text-xs">

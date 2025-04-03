@@ -2,6 +2,7 @@
 import { ArrowDown, ArrowUp } from "lucide-react"
 import { useEffect, useState } from "react"
 
+import { AdminUserCounter } from "@/components/admin/user-counter"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 
 interface Stats {
@@ -151,30 +152,8 @@ export default function UserStat() {
                 Active Users
               </p>
               <div className="flex items-center gap-2">
-                <h3 className="text-xl font-medium sm:text-2xl">
-                  +{stats.activeUsers.value}
-                </h3>
-                <span
-                  className={`flex items-center gap-0.5 ${
-                    stats.activeUsers.trend === "up"
-                      ? "text-green-700 dark:text-green-400"
-                      : "text-red-700 dark:text-red-400"
-                  }`}
-                >
-                  {stats.activeUsers.trend === "up" ? (
-                    <ArrowUp className="h-4 w-4" />
-                  ) : (
-                    <ArrowDown className="h-4 w-4" />
-                  )}
-                  <span className="text-sm">
-                    {Math.abs(stats.activeUsers.change)}%
-                  </span>
-                </span>
+                <AdminUserCounter />
               </div>
-              <p className="text-sm text-muted-foreground">
-                {stats.activeUsers.change >= 0 ? "+" : ""}
-                {stats.activeUsers.change}% from last week
-              </p>
             </div>
           </div>
         </MagicCard>

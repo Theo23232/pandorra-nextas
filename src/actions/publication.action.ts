@@ -1,9 +1,10 @@
 "use server"
 
-import { trackUserActivity } from "@/actions/user.ations"
-import { currentUser } from "@/lib/current-user"
-import { SA } from "@/lib/safe-ation"
-import { prisma } from "@/prisma"
+import { trackUserActivity } from '@/actions/user.ations';
+import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
+import { prisma } from '@/prisma';
+import { Publication } from '@prisma/client';
 
 export const createPublication = async (
   imageUrl: string,
@@ -11,7 +12,7 @@ export const createPublication = async (
   model: string,
   preset: string,
   generationType: string,
-) => {
+): Promise<Publication> => {
   const user = await currentUser()
   await trackUserActivity("createPublication")
 
@@ -22,7 +23,7 @@ export const createPublication = async (
   })
   if (publication) throw new Error("An image cannot be published twice")
   if (user) {
-    await prisma.publication.create({
+    return await prisma.publication.create({
       data: {
         userId: user.id,
         imageUrl: imageUrl,
@@ -196,3 +197,22 @@ export const deletePublication = SA(
     return null
   },
 )
+
+export async function getPublicationById(id: string) {
+  const publication = await prisma.publication.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          image: true,
+        },
+      },
+    },
+  })
+
+  return publication
+}

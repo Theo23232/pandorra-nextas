@@ -6,6 +6,7 @@ import { ReactNode } from "react"
 
 import { RegisterAffiliate } from "@/app/(main)/register-affiliate"
 import { Sidebar } from "@/components/(main)/navigation/sidebar"
+import UserTracker from "@/components/admin/user-tracker"
 import { OnboardaCard } from "@/components/onboarda/OnboardaCard"
 import { useIsSidebar } from "@/hooks/use-is-sidebar"
 import { useUser } from "@/hooks/use-user"
@@ -45,6 +46,8 @@ export default function RouteLayout({ children }: RouteLayoutProps) {
         }}
       >
         <RegisterAffiliate />
+        <UserTracker />
+
         <Sidebar />
         <main
           className={`px-2 pt-0 lg:pr-4 ${isSidebar ? "lg:pl-64" : "lg:pl-[4.5rem]"}`}

@@ -41,9 +41,7 @@ export const UpgradePlanDialog = (props: upgradePlanProps) => {
           <div className="absolute bottom-32 right-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(0,153,255,0.6)] blur-[112px]"></div>
           <div className="absolute bottom-32 left-0 h-[577.161px] w-[1756.387px] flex-shrink-0 rounded-[1756.387px] bg-[rgba(204,0,255,0.4)] blur-[112px]"></div>
           <Bounce className="font-inter text-center text-[64px] font-semibold leading-[68px] text-[#FDFDFD]">
-            <span className="bg-gradient-to-r from-[#CC00FF] to-[#0099FF] bg-clip-text px-8 text-transparent">
-              {t(`Upgrade plan`)}
-            </span>
+            <span className="text-white">{t(`Upgrade plan`)}</span>
           </Bounce>
           <Bounce className="my-6 flex max-w-4xl flex-col items-center text-center font-medium leading-normal text-neutral-400">
             {t(

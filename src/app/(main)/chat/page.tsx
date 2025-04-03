@@ -18,7 +18,7 @@ import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import useSWR, { mutate } from "swr"
 
-import { editMessage, reactMessage } from "@/actions/chat.actions"
+import { editMessage } from "@/actions/chat.actions"
 import { reduceCredit } from "@/actions/credits.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import Bounce from "@/components/animated/uibeats/bounce"
@@ -207,7 +207,7 @@ export default function Page() {
       setIsLoading(false)
       setIsStreaming(false)
       setAbortController(null)
-      await reduceCredit(2)
+      await reduceCredit(1)
       mutate("/api/auth/session")
     }
   }
@@ -298,26 +298,13 @@ export default function Page() {
   const handleReaction = async (id: string, reactionType: ReactionMessage) => {
     try {
       // Update UI optimistically
-      setMessages(
-        messages.map((msg) =>
-          msg.id === id
-            ? {
-                ...msg,
-                reaction: msg.reaction === reactionType ? null : reactionType,
-              }
-            : msg,
-        ),
-      )
 
-      await reactMessage(id, reactionType)
-
-      // Refresh messages to get updated state
-      if (conversationId) {
-        const { data } = await axios.get(
-          `/api/conversations/one?id=${conversationId}`,
-        )
-        setMessages(data.messages)
-      }
+      toast({
+        title: "",
+        description: "Feedback sent!",
+        variant: "success",
+        duration: 3000,
+      })
     } catch (error) {
       console.error("Error setting reaction:", error)
       toast({

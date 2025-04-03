@@ -1,4 +1,4 @@
-import { heroui } from "@heroui/theme"
+import { heroui } from '@heroui/theme';
 
 import type { Config } from "tailwindcss"
 const {
@@ -321,6 +321,14 @@ const config: Config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        pandora: {
+          darkBlue: "#030014",
+          purple: "#cc00ff",
+          blue: "#0099ff",
+          darkPurple: "#1e1b29",
+          lightGray: "#d9d9d9",
+          lightPurple: "#f8f4ff",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { createProductPayement, createProductSubscription } from '@/actions/stripe.actions';
 import { currentUser } from '@/lib/current-user';
 import { stripe } from '@/lib/stripe';
+import { prisma } from '@/prisma';
 
 export const subscriptionSession = async (
   productName: string,
@@ -215,3 +216,62 @@ export const getSubscriptionState = async () => {
     console.log(error)
   }
 }
+
+
+export const verifyCardForFreePlan = async () => {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Créer ou récupérer un customer Stripe
+  let stripeCustomerId = user.stripeCustomerId;
+
+  if (!stripeCustomerId) {
+    // Créer un nouveau customer Stripe si nécessaire
+    const customer = await stripe.customers.create({
+      email: user.email,
+      name: user.username || undefined,
+      metadata: {
+        userId: user.id,
+      },
+    });
+
+    stripeCustomerId = customer.id;
+
+    // Sauvegarder l'ID du customer
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { stripeCustomerId: customer.id },
+    });
+  }
+  const setupIntent = await stripe.setupIntents.create({
+    customer: stripeCustomerId,
+    payment_method_types: ["card"],
+    usage: "off_session", // Pour utilisation future
+    metadata: {
+      userId: user.id,
+      purpose: "free_plan_verification",
+    },
+  });
+  const session = await stripe.checkout.sessions.create({
+    customer: stripeCustomerId,
+    mode: "setup",
+    payment_method_types: ["card"],
+    setup_intent_data: {
+      metadata: {
+        userId: user.id,
+        purpose: "free_plan_verification",
+      },
+    },
+    success_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}?success=verification`,
+    cancel_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT}?canceled=true`,
+  });
+
+  if (!session.url) {
+    throw new Error("Session URL is missing");
+  }
+
+  redirect(session.url);
+};

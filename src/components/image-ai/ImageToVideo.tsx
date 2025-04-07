@@ -10,7 +10,7 @@ import useSWR, { mutate } from 'swr';
 import { verifyCredit } from '@/actions/credits.actions';
 import { enhanceVideoPrompt } from '@/actions/openai.actions';
 import { generateVideoFromImage } from '@/actions/runway.actions';
-import PromptGuide from '@/app/(main)/video/prompt-guide';
+import PromptGuide from '@/app/(main)/video/legacy/prompt-guide';
 import { MagicCard } from '@/components/animated/magic-ui/magic-card';
 import Bounce from '@/components/animated/uibeats/bounce';
 import ImageSmooth from '@/components/ImageSmooth';

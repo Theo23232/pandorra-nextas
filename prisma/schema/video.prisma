@@ -12,3 +12,21 @@ model Video {
   failedMessage String?
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model VideoGeneration {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  prompt         String   @db.Text
+  negativePrompt String?  @default("") @db.Text
+  imageUrl       String?
+  videoUrl       String?
+  duration       String   @default("5")
+  aspectRatio    String   @default("16:9")
+  cfgScale       Float    @default(0.5)
+  requestId      String?
+  status         String   @default("pending") // pending, processing, completed, failed
+  type           String   @default("image-to-video") // image-to-video, text-to-video
+  userId         String?
+  User           User?    @relation(fields: [userId], references: [id])
+}

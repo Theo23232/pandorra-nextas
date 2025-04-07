@@ -53,10 +53,11 @@ model User {
   UserActivity         UserActivity[]
 
   TaskComment     TaskComment[]
-  Tasks           Task[]        @relation(name: "TaskUser")
-  TasksModerated  Task[]        @relation(name: "TaskModerator")
-  TasksAssignated Task[]        @relation(name: "TaskUserAssignation")
+  Tasks           Task[]            @relation(name: "TaskUser")
+  TasksModerated  Task[]            @relation(name: "TaskModerator")
+  TasksAssignated Task[]            @relation(name: "TaskUserAssignation")
   TaskHistory     TaskHistory[]
+  VideoGeneration VideoGeneration[]
 }
 
 model UserActivity {

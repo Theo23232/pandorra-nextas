@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
-import { pollRequestStatus } from "@/actions/kling.actions"
-import { MagicCard } from "@/components/animated/magic-ui/magic-card"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { pollRequestStatus } from '@/actions/kling.actions';
+import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 
 import type { VideoGeneration } from "@prisma/client"
 interface VideoGenerationsListProps {
@@ -109,6 +109,10 @@ export function VideoGenerationsList({
                   <Badge variant="outline">{generation.type}</Badge>
                 </div>
                 <p className="mb-2 line-clamp-2 text-sm">{generation.prompt}</p>
+                <p className="mb-2 line-clamp-2 text-sm text-red-500">
+                  {generation.errorMessage}
+                </p>
+
                 <p className="text-xs text-muted-foreground">
                   {new Date(generation.createdAt).toLocaleString()}
                 </p>

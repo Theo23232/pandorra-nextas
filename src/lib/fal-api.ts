@@ -1,6 +1,5 @@
 "use server"
 
-
 import { prisma } from '@/prisma';
 
 interface FalResponse {
@@ -9,9 +8,14 @@ interface FalResponse {
   output?: {
     video: {
       url: string
+      content_type: string
+      file_name: string
+      file_size: number
     }
   }
 }
+
+export type EffectScene = "hug" | "kiss" | "heart_gesture" | "squish" | "expansion"
 
 export async function submitImageToVideoRequest(data: {
   prompt: string
@@ -126,6 +130,76 @@ export async function submitTextToVideoRequest(data: {
   }
 }
 
+export async function submitVideoEffectsRequest(data: {
+  inputImageUrls?: string[]
+  imageUrl?: string
+  effectScene: EffectScene
+  duration: string
+}) {
+  try {
+    // Create a record in the database
+    const videoGeneration = await prisma.videoGeneration.create({
+      data: {
+        prompt: `Effect: ${data.effectScene}`,
+        imageUrl:
+          data.imageUrl || (data.inputImageUrls && data.inputImageUrls.length > 0 ? data.inputImageUrls[0] : undefined),
+        duration: data.duration || "5",
+        type: "video-effects",
+        status: "pending",
+      },
+    })
+
+    // Prepare the request body based on the effect type
+    const requestBody: any = {
+      effect_scene: data.effectScene,
+      duration: data.duration,
+    }
+
+    // For hug, kiss, heart_gesture effects, we need both input_image_urls AND image_url
+    if (["hug", "kiss", "heart_gesture"].includes(data.effectScene) && data.inputImageUrls) {
+      requestBody.input_image_urls = data.inputImageUrls
+      // The API seems to require image_url even for effects that use input_image_urls
+      // Use the first image as the image_url
+      requestBody.image_url = data.inputImageUrls[0]
+    } else if (["squish", "expansion"].includes(data.effectScene) && data.imageUrl) {
+      requestBody.image_url = data.imageUrl
+    }
+
+    console.log("Effects API request body:", JSON.stringify(requestBody, null, 2))
+
+    // Submit the request to Fal AI
+    const response = await fetch("https://queue.fal.run/fal-ai/kling-video/v1.6/pro/effects", {
+      method: "POST",
+      headers: {
+        Authorization: `Key ${process.env.FAL_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+
+    const result = await response.json()
+
+    if (result.detail) {
+      console.error("API Error:", result)
+      return { success: false, error: `API Error: ${JSON.stringify(result.detail)}` }
+    }
+
+    // Update the database record with the request ID
+    await prisma.videoGeneration.update({
+      where: { id: videoGeneration.id },
+      data: {
+        requestId: result.request_id,
+        status: "processing",
+      },
+    })
+
+    return { success: true, videoGeneration: { ...videoGeneration, requestId: result.request_id } }
+  } catch (error) {
+    console.error("Error submitting video effects request:", error)
+    return { success: false, error: "Failed to submit request" }
+  }
+}
+
 export async function checkRequestStatus(requestId: string) {
   try {
     const response = await fetch(`https://queue.fal.run/fal-ai/kling-video/requests/${requestId}/status`, {
@@ -151,8 +225,10 @@ export async function getRequestResult(requestId: string, videoGenerationId: str
       },
     })
 
-    const result = (await response.json()) as { video: { url: string, content_type: string, file_name: string, file_size: number } }
-    console.log('result ==> ', result)
+    const result = (await response.json()) as {
+      video: { url: string; content_type: string; file_name: string; file_size: number }
+    }
+    console.log("result ==> ", result)
     if (result?.video?.url) {
       // Update the database record with the video URL
       await prisma.videoGeneration.update({

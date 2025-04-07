@@ -27,6 +27,7 @@ model VideoGeneration {
   requestId      String?
   status         String   @default("pending") // pending, processing, completed, failed
   type           String   @default("image-to-video") // image-to-video, text-to-video
+  errorMessage   String?
   userId         String?
   User           User?    @relation(fields: [userId], references: [id])
 }

@@ -83,7 +83,12 @@ export const VoiceLibrarySearch = ({
       .flat()
       .flatMap((response) => response.voices)
 
-    setAllVoices(combinedVoices)
+    setAllVoices(
+      combinedVoices.map((voice) => ({
+        ...voice,
+        description: voice.description || "",
+      })),
+    )
     setLoading(false)
   }
 

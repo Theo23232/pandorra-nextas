@@ -1,5 +1,6 @@
 "use server"
 
+import { currentUser } from '@/lib/current-user';
 import { prisma } from '@/prisma';
 
 interface FalResponse {
@@ -26,9 +27,14 @@ export async function submitImageToVideoRequest(data: {
   cfgScale?: number
 }) {
   try {
+    const user = await currentUser()
+    if (!user) {
+      throw new Error("User not authenticated")
+    }
     // Create a record in the database
     const videoGeneration = await prisma.videoGeneration.create({
       data: {
+        userId: user.id,
         prompt: data.prompt,
         imageUrl: data.imageUrl,
         duration: data.duration || "5",
@@ -41,7 +47,7 @@ export async function submitImageToVideoRequest(data: {
     })
 
     // Submit the request to Fal AI
-    const response = await fetch("https://queue.fal.run/fal-ai/kling-video/v1.6/pro/image-to-video", {
+    const response = await fetch("https://queue.fal.run/fal-ai/kling-video/v2/master/image-to-video", {
       method: "POST",
       headers: {
         Authorization: `Key ${process.env.FAL_KEY}`,
@@ -83,9 +89,14 @@ export async function submitTextToVideoRequest(data: {
   cfgScale?: number
 }) {
   try {
+    const user = await currentUser()
+    if (!user) {
+      throw new Error("User not authenticated")
+    }
     // Create a record in the database
     const videoGeneration = await prisma.videoGeneration.create({
       data: {
+        userId: user.id,
         prompt: data.prompt,
         duration: data.duration || "5",
         aspectRatio: data.aspectRatio || "16:9",
@@ -97,7 +108,7 @@ export async function submitTextToVideoRequest(data: {
     })
 
     // Submit the request to Fal AI
-    const response = await fetch("https://queue.fal.run/fal-ai/kling-video/v1.6/pro/text-to-video", {
+    const response = await fetch("https://queue.fal.run/fal-ai/kling-video/v2/master/text-to-video", {
       method: "POST",
       headers: {
         Authorization: `Key ${process.env.FAL_KEY}`,
@@ -137,9 +148,14 @@ export async function submitVideoEffectsRequest(data: {
   duration: string
 }) {
   try {
+    const user = await currentUser()
+    if (!user) {
+      throw new Error("User not authenticated")
+    }
     // Create a record in the database
     const videoGeneration = await prisma.videoGeneration.create({
       data: {
+        userId: user.id,
         prompt: `Effect: ${data.effectScene}`,
         imageUrl:
           data.imageUrl || (data.inputImageUrls && data.inputImageUrls.length > 0 ? data.inputImageUrls[0] : undefined),
@@ -228,7 +244,16 @@ export async function getRequestResult(requestId: string, videoGenerationId: str
     const result = (await response.json()) as {
       video: { url: string; content_type: string; file_name: string; file_size: number }
     }
-    console.log("result ==> ", result)
+    if ((result as any)?.detail) {
+      await prisma.videoGeneration.update({
+        where: { id: videoGenerationId },
+        data: {
+          status: "error",
+          errorMessage: JSON.stringify((result as any).detail[0].msg),
+        },
+      })
+      return { success: false, error: (result as any).detail }
+    }
     if (result?.video?.url) {
       // Update the database record with the video URL
       await prisma.videoGeneration.update({

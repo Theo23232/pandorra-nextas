@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from 'react';
+import Image from "next/image"
+import { useState } from "react"
 
-import { LikePublication } from '@/components/(main)/explore/LikePublication';
-import Bounce from '@/components/animated/uibeats/bounce';
-import ImageSmooth from '@/components/ImageSmooth';
+import { LikePublication } from "@/components/(main)/explore/LikePublication"
+import Bounce from "@/components/animated/uibeats/bounce"
+import ImageSmooth from "@/components/ImageSmooth"
 
-import PubComment from './PubComment';
+import PubComment from "./PubComment"
 
 interface PubCardProps {
   imageUrl: string
@@ -38,7 +39,7 @@ export default function PubCard(props: PubCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`absolute right-2 top-2 z-10 flex items-center gap-3 transition-all duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+        className={`absolute right-2 top-2 z-10 flex items-center gap-3 opacity-100 transition-all duration-500`}
       >
         <LikePublication
           pubIsLiked={props.isLiked}
@@ -68,12 +69,23 @@ export default function PubCard(props: PubCardProps) {
       </PubComment>
 
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2 transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2 opacity-100 transition-opacity duration-500`}
       >
-        <p className="text-md font-semibold text-white">{props.pubOwner}</p>
-        <p className="truncate-2-lines line-clamp-2 text-xs text-white/80">
-          {props.pubDescription.prompt}
-        </p>
+        <div className="flex items-center">
+          <Image
+            width={128}
+            height={128}
+            className="mr-2 size-8 rounded-full"
+            alt=""
+            src={props.pubOwnerImage}
+          />
+          <div className="">
+            <p className="text-md font-semibold text-white">{props.pubOwner}</p>
+            <p className="truncate-2-lines line-clamp-1 text-xs text-white/80">
+              {props.pubDescription.prompt}
+            </p>
+          </div>
+        </div>
       </div>
     </Bounce>
   )

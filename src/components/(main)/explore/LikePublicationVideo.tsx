@@ -39,11 +39,14 @@ export const LikePublicationVideo = (props: LikePubProps) => {
   return (
     <div
       onClick={handleReaction}
-      className={`flex cursor-pointer items-center justify-center gap-1 rounded-full bg-slate-400/40 p-2 transition-all duration-300 hover:bg-slate-400/60`}
+      className={`flex cursor-pointer items-center justify-center gap-1 rounded-full bg-slate-400/40 px-2.5 py-1 text-sm transition-all duration-300 hover:bg-slate-400/60`}
     >
+      <p className={`${isLiked ? "text-primary" : "text-white"}`}>
+        {likeCount}
+      </p>
       <Heart
-        strokeWidth={2.25}
-        className={`size-6 transition-colors ${isLiked ? "fill-primary text-primary" : "text-white"}`}
+        strokeWidth={2}
+        className={`size-4 transition-colors ${isLiked ? "fill-primary text-primary" : "text-white"}`}
       />
     </div>
   )

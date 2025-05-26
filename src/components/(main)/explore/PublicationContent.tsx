@@ -102,9 +102,9 @@ export const PublicationContent = () => {
 
   return (
     <div className="mt-8">
-      <div className="mb-8 flex gap-2 max-lg:flex-col">
+      <div className="mb-8 flex-col gap-2">
         <Tabs defaultValue="image" className="" onValueChange={handleChange}>
-          <TabsList className="w-[300px]">
+          <TabsList className="mb-4 w-[300px]">
             <TabsTrigger
               value="image"
               className="flex w-full items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"

@@ -1,22 +1,29 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
+import useSWR from "swr"
 
-import { pollRequestStatus } from '@/actions/kling.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { pollRequestStatus } from "@/actions/kling.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { fetcher } from "@/lib/utils"
 
 import type { VideoGeneration } from "@prisma/client"
-interface VideoGenerationsListProps {
-  initialGenerations: VideoGeneration[]
-}
 
-export function VideoGenerationsList({
-  initialGenerations,
-}: VideoGenerationsListProps) {
-  const [generations, setGenerations] =
-    useState<VideoGeneration[]>(initialGenerations)
+export function VideoGenerationsList() {
+  const { data: initialGenerations } = useSWR<VideoGeneration[]>(
+    "/api/video/kling",
+    fetcher,
+  )
+  const [generations, setGenerations] = useState<VideoGeneration[]>([])
+
+  // Synchroniser le state local avec les données SWR
+  useEffect(() => {
+    if (initialGenerations) {
+      setGenerations(initialGenerations)
+    }
+  }, [initialGenerations])
 
   useEffect(() => {
     // Poll for updates on processing generations

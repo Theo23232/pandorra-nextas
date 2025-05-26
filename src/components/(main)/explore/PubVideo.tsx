@@ -1,10 +1,11 @@
 "use client"
 
-import { useRef, useState } from 'react';
+import Image from "next/image"
+import { useRef, useState } from "react"
 
-import { LikePublicationVideo } from '@/components/(main)/explore/LikePublicationVideo';
-import PubVideoComment from '@/components/(main)/explore/PubVideoComment';
-import Bounce from '@/components/animated/uibeats/bounce';
+import { LikePublicationVideo } from "@/components/(main)/explore/LikePublicationVideo"
+import PubVideoComment from "@/components/(main)/explore/PubVideoComment"
+import Bounce from "@/components/animated/uibeats/bounce"
 
 interface PubVideoProps {
   status: string
@@ -49,9 +50,7 @@ export const PubVideo = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`absolute left-0 right-0 top-0 z-40 flex gap-3 p-5 transition-opacity duration-300 ${
-          isHovered ? "opacity-100" : "z-40 opacity-0"
-        }`}
+        className={`absolute left-0 right-0 top-0 z-40 flex gap-3 p-5 opacity-100 transition-opacity duration-300`}
       >
         <div className="absolute right-2 top-2">
           <LikePublicationVideo
@@ -87,14 +86,23 @@ export const PubVideo = ({
         )}
       </PubVideoComment>
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300 ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2 opacity-100 transition-opacity duration-500`}
       >
-        <p className="text-md font-semibold text-white">{pubOwner}</p>
-        <p className="truncate-2-lines line-clamp-2 text-xs text-white/80">
-          {videoPrompt}
-        </p>
+        <div className="flex items-center">
+          <Image
+            width={128}
+            height={128}
+            className="mr-2 size-8 rounded-full"
+            alt=""
+            src={pubOwnerImage}
+          />
+          <div className="">
+            <p className="text-md font-semibold text-white">{pubOwner}</p>
+            <p className="truncate-2-lines line-clamp-1 text-xs text-white/80">
+              {videoPrompt}
+            </p>
+          </div>
+        </div>
       </div>
     </Bounce>
   )

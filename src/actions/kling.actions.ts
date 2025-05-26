@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
+import { currentUser } from '@/lib/current-user';
 import {
     checkRequestStatus, EffectScene, getRequestResult, submitImageToVideoRequest,
     submitTextToVideoRequest, submitVideoEffectsRequest
@@ -124,7 +125,16 @@ export async function pollRequestStatus(requestId: string, videoGenerationId: st
 }
 
 export async function getVideoGenerations() {
+    const user = await currentUser()
+    console.log(user);
+
+    if (!user) {
+        return []
+    }
     const generations = await prisma.videoGeneration.findMany({
+        where: {
+            userId: user.id
+        },
         orderBy: {
             createdAt: "desc",
         },

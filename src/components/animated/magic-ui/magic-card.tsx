@@ -79,7 +79,7 @@ export function MagicCard({
       ref={cardRef}
       onClick={onClick}
       className={cn(
-        "group relative flex size-full overflow-hidden rounded-xl border-1 border-gray-200 shadow-lg dark:border-none dark:shadow-none",
+        "group relative flex h-fit w-full overflow-hidden rounded-xl border-1 border-gray-200 shadow-lg dark:border-none dark:shadow-none",
         className,
       )}
     >

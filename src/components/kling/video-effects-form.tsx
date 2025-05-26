@@ -2,26 +2,36 @@
 
 import type React from "react"
 
-import { Loader2, RefreshCw, Upload } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { Loader2, RefreshCw, Upload } from "lucide-react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
-import { createVideoEffectsGeneration } from '@/actions/kling.actions';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { createVideoEffectsGeneration } from "@/actions/kling.actions"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import {
-    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Progress } from '@/components/ui/progress';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Progress } from "@/components/ui/progress"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { useMediaUpload } from '@/hooks/use-media-upload';
-import { useToast } from '@/hooks/use-toast';
-import { zodResolver } from '@hookform/resolvers/zod';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useMediaUpload } from "@/hooks/use-media-upload"
+import { useToast } from "@/hooks/use-toast"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({
   effectScene: z.enum([
@@ -37,7 +47,11 @@ const formSchema = z.object({
   imageUrl: z.string().optional(),
 })
 
-export function VideoEffectsForm() {
+export type VideoEFfectsFormProps = {
+  genType: "hug" | "kiss" | "heart_gesture" | "squish" | "expansion" | undefined
+}
+
+export function VideoEffectsForm(props: VideoEFfectsFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [previewUrl1, setPreviewUrl1] = useState<string | null>(null)
   const [previewUrl2, setPreviewUrl2] = useState<string | null>(null)
@@ -48,7 +62,7 @@ export function VideoEffectsForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      effectScene: "hug",
+      effectScene: props.genType ?? "hug",
       duration: "5",
     },
   })

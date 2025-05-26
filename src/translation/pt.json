@@ -162,7 +162,7 @@
   "Publications": "Publicações",
   "Ranking Coming Soon!": "Classificação em Breve!",
   "Be in the top 3 per month and earn up to $3,000!": "Esteja entre os 3 primeiros por mês e ganhe até $3.000!",
-  "We know you're excited to see the ranking feature, but it will be available starting early Mai. We're working hard to bring you an amazing experience and we appreciate your patience!": "Sabemos que você está animado para ver o recurso de classificação, mas ele estará disponível a partir do início de maio. Estamos trabalhando duro para trazer uma experiência incrível e agradecemos sua paciência!",
+  "We know you're excited to see the ranking feature, but it will be available starting early September. We're working hard to bring you an amazing experience and we appreciate your patience!": "Sabemos que você está animado para ver o recurso de classificação, mas ele estará disponível a partir do início de setembro. Estamos trabalhando duro para trazer uma experiência incrível e agradecemos sua paciência!",
   "Stay tuned for the launch": "Fique atento ao lançamento",
   "Personal info": "Informações pessoais",
   "Security": "Segurança",
@@ -959,5 +959,15 @@
   "100% sécurisé avec Stripe": "100% Seguro com Stripe",
   "Zéro engagement": "Zero Compromisso",
   "Vérification en cours..": "Verificação em Andamento..",
-  "Vérifier ma Carte": "Verificar Meu Cartão"
+  "Vérifier ma Carte": "Verificar Meu Cartão",
+  "Upgrade to a higher plan": "Atualize para um plano superior",
+  "Unlock more generations": "Desbloqueie mais gerações",
+  "You have reached the generation limit of the free plan. Upgrade to a higher plan to unlock more generations and access all features.": "Você atingiu o limite de gerações do plano gratuito. Atualize para um plano superior para desbloquear mais gerações e acessar todos os recursos.",
+  "Recharge your tokens to continue": "Recarregue seus tokens para continuar",
+  "Your tokens are insufficient to perform this generation. Recharge your account to continue using our services.": "Seus tokens são insuficientes para realizar essa geração. Recarregue sua conta para continuar utilizando nossos serviços.",
+  "More generations with a paid plan": "Mais gerações com um plano pago",
+  "Quickly recharge your tokens": "Recarregue seus tokens rapidamente",
+  "100% secure with Stripe": "100% seguro com Stripe",
+  "Secure payment": "Pagamento seguro",
+  "Insufficient tokens": "Tokens insuficientes"
 }

@@ -1,14 +1,14 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useState } from "react"
 
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useUser } from '@/hooks/use-user';
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useUser } from "@/hooks/use-user"
 
-import { ConversationDetails } from './conversation-details';
-import { Conversation } from './mainConversation';
-import { Sidebar, SidebarDialog } from './sidebar';
+import { ConversationDetails } from "./conversation-details"
+import { Conversation } from "./mainConversation"
+import { Sidebar, SidebarDialog } from "./sidebar"
 
 export default function Home() {
   const [selectedConversation, setSelectedConversation] = useState<
@@ -23,18 +23,7 @@ export default function Home() {
   const { user } = useUser()
   const { show } = useShowZeroPayement()
 
-  useEffect(() => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
-  }, [])
-
   const handleSelectAgent = (id: string, voiceId: string, lang: string) => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setSelectedAgent({ id, voiceId, lang })
   }
 

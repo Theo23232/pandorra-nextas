@@ -1,35 +1,39 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Loader, Loader2, Sparkles, Upload, X } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Masonry from 'react-masonry-css';
-import useSWR, { mutate } from 'swr';
+import { Loader, Loader2, Sparkles, Upload, X } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import Masonry from "react-masonry-css"
+import useSWR, { mutate } from "swr"
 
-import { verifyCredit } from '@/actions/credits.actions';
-import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import Bounce from '@/components/animated/uibeats/bounce';
-import { NothingYet } from '@/components/NothingYet';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { verifyCredit } from "@/actions/credits.actions"
+import { enhanceVideoPrompt } from "@/actions/openai.actions"
+import { generateVideoFromImage } from "@/actions/runway.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import Bounce from "@/components/animated/uibeats/bounce"
+import { NothingYet } from "@/components/NothingYet"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Textarea } from '@/components/ui/textarea';
-import { VideoDisplayCard } from '@/components/video/VideoDisplayCard';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
-import { Plan, Video } from '@prisma/client';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Textarea } from "@/components/ui/textarea"
+import { VideoDisplayCard } from "@/components/video/VideoDisplayCard"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
+import { Plan, Video } from "@prisma/client"
 
-import PromptGuide from './prompt-guide';
+import PromptGuide from "./prompt-guide"
 
 import type React from "react"
 const SkeletonLoader = () => (
@@ -59,12 +63,6 @@ export default function VideoGenerator() {
   const [isEnhancing, setIsEnhancing] = useState(false)
   const { show } = useShowZeroPayement()
 
-  useEffect(() => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
-  }, [])
   const handleImageChange = (file: File | null) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file)
@@ -79,10 +77,6 @@ export default function VideoGenerator() {
   }
 
   const handleSubmit = async () => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setIsLoading(true)
     if (!image && !promptText) {
       toast({
@@ -157,10 +151,6 @@ export default function VideoGenerator() {
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setPromptText(e.target.value)
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"
@@ -176,10 +166,6 @@ export default function VideoGenerator() {
   }, [promptText])
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     if (e.target.files && e.target.files[0]) {
       handleImageChange(e.target.files[0])
     }
@@ -198,10 +184,6 @@ export default function VideoGenerator() {
   }, [user, startOnborda])
 
   const enhancePrompt = async () => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setIsEnhancing(true)
     try {
       const promptEnhanced = await enhanceVideoPrompt(promptText)

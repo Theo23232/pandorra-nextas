@@ -1,12 +1,12 @@
 "use client"
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import Image from "next/image"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Separator } from "@/components/ui/separator"
 
 export function InviteFriendDialog() {
   const { t } = useTranslation()
@@ -35,7 +35,7 @@ export function InviteFriendDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-lg border-none bg-muted/50 dark">
+      <DialogContent className="max-w-lg overflow-hidden border-none bg-muted/50 dark">
         <Image
           width={500}
           height={800}

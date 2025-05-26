@@ -1,10 +1,10 @@
 "use client"
 
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import Link from "next/link"
+import { useTranslation } from "react-i18next"
 
-import { Badge } from '@/components/tremor/ui/badge';
-import { Card } from '@/components/tremor/ui/card';
+import { Badge } from "@/components/tremor/ui/badge"
+import { Card } from "@/components/tremor/ui/card"
 
 export default function RankingsPage() {
   const { t } = useTranslation()
@@ -23,7 +23,7 @@ export default function RankingsPage() {
         </p>
         <p className="mb-4 text-center font-[inter] text-[16px] leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">
           {t(
-            `We know you're excited to see the ranking feature, but it will be available starting early Mai. We're working hard to bring you an amazing experience and we appreciate your patience!`,
+            `We know you're excited to see the ranking feature, but it will be available starting early September. We're working hard to bring you an amazing experience and we appreciate your patience!`,
           )}
         </p>
         <p className="mb-8 text-center font-[inter] text-[16px] leading-normal [font-feature-settings:'liga'_off,_'clig'_off]">

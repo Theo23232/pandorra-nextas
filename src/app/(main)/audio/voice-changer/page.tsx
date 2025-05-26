@@ -1,29 +1,33 @@
 "use client"
-import { AlertCircle, Megaphone, Mic, Upload } from 'lucide-react';
-import { useOnborda } from 'onborda';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSWR, { mutate } from 'swr';
+import { AlertCircle, Megaphone, Mic, Upload } from "lucide-react"
+import { useOnborda } from "onborda"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR, { mutate } from "swr"
 
-import { reduceCredit, verifyCredit } from '@/actions/credits.actions';
-import { generateVoiceChange } from '@/actions/elevenlabs.actions';
-import { AudioPlayer } from '@/app/(main)/audio/audio-player';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { NothingYet } from '@/components/NothingYet';
-import { Divider } from '@/components/tremor/ui/divider';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { reduceCredit, verifyCredit } from "@/actions/credits.actions"
+import { generateVoiceChange } from "@/actions/elevenlabs.actions"
+import { AudioPlayer } from "@/app/(main)/audio/audio-player"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { NothingYet } from "@/components/NothingYet"
+import { Divider } from "@/components/tremor/ui/divider"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { useAudioRecorder } from '@/hooks/use-audio-recorder';
-import { useAudioUploader } from '@/hooks/use-audio-uploader';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { voicesList } from '@/lib/elevenlabs/voiceList';
-import { fetcher, formatTimePassed } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useAudioRecorder } from "@/hooks/use-audio-recorder"
+import { useAudioUploader } from "@/hooks/use-audio-uploader"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { fetcher, formatTimePassed } from "@/lib/utils"
 
 import type { VoiceChange } from "@prisma/client"
 import type React from "react"
@@ -41,13 +45,6 @@ const SpeechToSpeechConverter: React.FC = () => {
   const { toast } = useToast()
 
   const { show } = useShowZeroPayement()
-
-  useEffect(() => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
-  }, [])
 
   const { isRecording, startRecording, stopRecording } = useAudioRecorder({
     onRecordingComplete: handleAudioConversion,
@@ -90,10 +87,6 @@ const SpeechToSpeechConverter: React.FC = () => {
   }
 
   async function handleAudioConversion(audioFile: Blob) {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setIsLoading(true)
     await handleToken(audioFile)
     setError(null)

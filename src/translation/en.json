@@ -162,7 +162,7 @@
   "Publications": "Publications",
   "Ranking Coming Soon!": "Ranking Coming Soon!",
   "Be in the top 3 per month and earn up to $3,000!": "Be in the top 3 per month and earn up to $3,000!",
-  "We know you're excited to see the ranking feature, but it will be available starting early Mai. We're working hard to bring you an amazing experience and we appreciate your patience!": "We know you're excited to see the ranking feature, but it will be available starting early Mai. We're working hard to bring you an amazing experience and we appreciate your patience!",
+  "We know you're excited to see the ranking feature, but it will be available starting early September. We're working hard to bring you an amazing experience and we appreciate your patience!": "We know you're excited to see the ranking feature, but it will be available starting early September. We're working hard to bring you an amazing experience and we appreciate your patience!",
   "Stay tuned for the launch": "Stay tuned for the launch",
   "Personal info": "Personal info",
   "Security": "Security",
@@ -959,5 +959,15 @@
   "100% sécurisé avec Stripe": "100% Secure with Stripe",
   "Zéro engagement": "Zero Commitment",
   "Vérification en cours..": "Verification in Progress..",
-  "Vérifier ma Carte": "Verify My Card"
+  "Vérifier ma Carte": "Verify My Card",
+  "Upgrade to a higher plan": "Upgrade to a higher plan",
+  "Unlock more generations": "Unlock more generations",
+  "You have reached the generation limit of the free plan. Upgrade to a higher plan to unlock more generations and access all features.": "You have reached the generation limit of the free plan. Upgrade to a higher plan to unlock more generations and access all features.",
+  "Recharge your tokens to continue": "Recharge your tokens to continue",
+  "Your tokens are insufficient to perform this generation. Recharge your account to continue using our services.": "Your tokens are insufficient to perform this generation. Recharge your account to continue using our services.",
+  "More generations with a paid plan": "More generations with a paid plan",
+  "Quickly recharge your tokens": "Quickly recharge your tokens",
+  "100% secure with Stripe": "100% secure with Stripe",
+  "Secure payment": "Secure payment",
+  "Insufficient tokens": "Insufficient tokens"
 }

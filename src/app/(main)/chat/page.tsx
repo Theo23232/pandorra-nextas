@@ -48,13 +48,6 @@ export default function Page() {
   const { toast } = useToast()
   const { user } = useUser()
 
-  useEffect(() => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
-  }, [])
-
   const [conversationId, setConversationId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [messages, setMessages] = useState<MessageType[]>([])
@@ -123,7 +116,7 @@ export default function Page() {
   }, [conversationId])
 
   const sendMessage = async (newMess: string, convId: string) => {
-    if (user && user.plan == "Free") {
+    if (user?.jeton == 0) {
       show()
       return
     }
@@ -221,10 +214,6 @@ export default function Page() {
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setNewMessage(e.target.value)
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"

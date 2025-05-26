@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { currentUser } from '@/lib/current-user';
-import { pusherServer } from '@/pusher';
+
+// import { pusherServer } from '@/pusher';
 
 // Map pour stocker les dernières activités des utilisateurs
 // En production, vous voudriez utiliser Redis ou une autre solution persistante
@@ -21,9 +22,9 @@ export async function POST(req: Request) {
         userLastActive.set(user.id, Date.now());
 
         // Diffuser l'événement d'activité à tous les clients
-        await pusherServer.trigger('presence-app', 'user-activity-update', {
-            activeUserCount: getActiveUserCount()
-        });
+        // await pusherServer.trigger('presence-app', 'user-activity-update', {
+        //     activeUserCount: getActiveUserCount()
+        // });
 
         return NextResponse.json({ success: true });
     } catch (error) {

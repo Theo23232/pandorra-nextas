@@ -1,26 +1,26 @@
 "use client"
-import { Loader2, Sparkles } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useInView } from 'react-intersection-observer';
-import useSWRInfinite from 'swr/infinite';
+import { Loader2, Sparkles } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useInView } from "react-intersection-observer"
+import useSWRInfinite from "swr/infinite"
 
-import { enhanceImagePrompt } from '@/actions/openai.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
-import { GenerationResult } from '@/components/image-ai/GenerationResult';
-import { NothingYet } from '@/components/NothingYet';
-import { Skeleton } from '@/components/nyxb/skeleton';
-import { Button } from '@/components/tremor/ui/button';
-import { Tooltip } from '@/components/tremor/ui/tooltip';
-import { Textarea } from '@/components/ui/textarea';
-import { useImageCost } from '@/hooks/use-image-cost';
-import { useImageLoading } from '@/hooks/use-image-loading';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@/hooks/use-user';
-import { fetcher } from '@/lib/utils';
-import { GeneratedImage, Prisma } from '@prisma/client';
+import { enhanceImagePrompt } from "@/actions/openai.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
+import { GenerationResult } from "@/components/image-ai/GenerationResult"
+import { NothingYet } from "@/components/NothingYet"
+import { Skeleton } from "@/components/nyxb/skeleton"
+import { Button } from "@/components/tremor/ui/button"
+import { Tooltip } from "@/components/tremor/ui/tooltip"
+import { Textarea } from "@/components/ui/textarea"
+import { useImageCost } from "@/hooks/use-image-cost"
+import { useImageLoading } from "@/hooks/use-image-loading"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useToast } from "@/hooks/use-toast"
+import { useUser } from "@/hooks/use-user"
+import { fetcher } from "@/lib/utils"
+import { GeneratedImage, Prisma } from "@prisma/client"
 
 const PAGE_SIZE = 8 // Nombre d'éléments par page
 
@@ -89,12 +89,6 @@ export const Main = (props: MainProps) => {
     isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE)
   const { show } = useShowZeroPayement()
 
-  useEffect(() => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
-  }, [])
   // Charger plus de données quand l'utilisateur atteint le bas de la page
   useEffect(() => {
     if (inView && !isReachingEnd && !isLoadingMore && !imageLoading) {
@@ -117,10 +111,6 @@ export const Main = (props: MainProps) => {
   }, [queryPrompt])
 
   const handlePromptChange = (p: string) => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setPrompt(p)
     props.onPromptChange(p)
     if (textareaRef.current) {
@@ -138,16 +128,8 @@ export const Main = (props: MainProps) => {
 
   const generate = async () => {
     if (user) {
-      if (user.plan == "Free") {
-        show()
-        return
-      }
       if (user.jeton < props.count * imageCost) {
-        toast({
-          title: t(`Error`),
-          description: t(`You do not have enought token for this generation`),
-          variant: "error",
-        })
+        show()
         return
       }
       props.onGenerate()
@@ -160,10 +142,6 @@ export const Main = (props: MainProps) => {
   }, [imageLoading])
 
   const enhancePrompt = async () => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
     setIsEnhancing(true)
     try {
       const promptEnhanced = await enhanceImagePrompt(prompt)

@@ -2,27 +2,39 @@
 
 import type React from "react"
 
-import { ChevronLeft, ChevronRight, Eye, MoreHorizontal } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight, Eye, MoreHorizontal } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
-import { ExportUsersEmailsButton } from '@/app/dashboard/profile/ExportUsersEmail';
-import { ResetToken } from '@/app/dashboard/profile/ResetToken';
-import { Button } from '@/components/ui/button';
+import { ExportUsersEmailsButton } from "@/app/dashboard/profile/ExportUsersEmail"
+import { ResetToken } from "@/app/dashboard/profile/ResetToken"
+import { Button } from "@/components/ui/button"
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
-    Table, TableBody, TableCell, TableHead, TableHeader, TableRow
-} from '@/components/ui/table';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useUser } from '@/hooks/use-user';
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useUser } from "@/hooks/use-user"
 
-import { UserDetailsDialog } from './UserDetailsDialog';
+import { UserDetailsDialog } from "./UserDetailsDialog"
 
 type User = {
   id: string
@@ -70,12 +82,6 @@ export default function UsersPage() {
   const { user } = useUser()
   const { show } = useShowZeroPayement()
 
-  useEffect(() => {
-    if (user && user.plan == "Free") {
-      show()
-      return
-    }
-  }, [])
   useEffect(() => {
     fetchUsers()
   }, [currentPage, search, language, theme, plan, minJeton, sortBy, sortOrder])

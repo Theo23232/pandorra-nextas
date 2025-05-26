@@ -1,23 +1,27 @@
 "use client"
 
-import { motion } from 'framer-motion';
-import { Mic, MicOff, StopCircle } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { mutate } from 'swr';
+import { motion } from "framer-motion"
+import { Mic, MicOff, StopCircle } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { mutate } from "swr"
 
-import { createAgent, saveConversation } from '@/actions/assistant.actions';
-import { MagicCard } from '@/components/animated/magic-ui/magic-card';
+import { createAgent, saveConversation } from "@/actions/assistant.actions"
+import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/tremor/inputs/select';
-import { Button } from '@/components/tremor/ui/button';
-import { CardTitle } from '@/components/tremor/ui/card';
-import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
-import { useUser } from '@/hooks/use-user';
-import { languageOptions } from '@/lib/elevenlabs/langList';
-import { voicesList } from '@/lib/elevenlabs/voiceList';
-import { useConversation } from '@11labs/react';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/tremor/inputs/select"
+import { Button } from "@/components/tremor/ui/button"
+import { CardTitle } from "@/components/tremor/ui/card"
+import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
+import { useUser } from "@/hooks/use-user"
+import { languageOptions } from "@/lib/elevenlabs/langList"
+import { voicesList } from "@/lib/elevenlabs/voiceList"
+import { useConversation } from "@11labs/react"
 
 interface ConversationProps {
   selectedAgent: { id: string; voiceId: string; lang: string }
@@ -40,7 +44,7 @@ export function Conversation({ selectedAgent }: ConversationProps) {
   })
 
   const startConversation = useCallback(async () => {
-    if (user && user.plan == "Free") {
+    if (user && user.jeton == 0) {
       show()
       return
     }

@@ -1,34 +1,24 @@
 "use client"
 
-import { X } from "lucide-react"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { X } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { createTextToVideoGeneration } from "@/actions/kling.actions"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { createTextToVideoGeneration } from '@/actions/kling.actions';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+  Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const formSchema = z.object({
   prompt: z.string().min(1, "Prompt is required"),
@@ -38,7 +28,6 @@ const formSchema = z.object({
   cfgScale: z.number().min(0).max(1).default(0.5),
 })
 
-const promptHints = ["Girl with Cat", "Neon Car", "Mouse on the Sea"]
 
 export function TextToVideoForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -154,16 +143,7 @@ export function TextToVideoForm() {
                     <span className="text-sm text-muted-foreground">
                       Hints:
                     </span>
-                    {promptHints.map((hint, index) => (
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className="cursor-pointer"
-                        onClick={() => addPromptTag(hint)}
-                      >
-                        {hint}
-                      </Badge>
-                    ))}
+                    
                   </div>
                   <FormMessage />
                 </FormItem>

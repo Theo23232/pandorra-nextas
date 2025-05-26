@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { VoiceCard } from '@/components/audio/VoiceCard';
 import { Input } from '@/components/nyxb/input';
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
@@ -83,12 +83,13 @@ export const VoiceLibrarySearch = ({
       .flat()
       .flatMap((response) => response.voices)
 
-    setAllVoices(
-      combinedVoices.map((voice) => ({
-        ...voice,
-        description: voice.description || "",
-      })),
-    )
+      // TODO : fix this
+    // setAllVoices(
+    //   combinedVoices.map((voice) => ({
+    //     ...voice,
+    //     description: voice.description || "",
+    //   })),
+    // )
     setLoading(false)
   }
 

@@ -179,10 +179,10 @@ export const PublicationContent = () => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
-            1440: 3,
-            1200: 2,
-            700: 1,
+            default: 6,
+            1440: 5,
+            1200: 4,
+            700: 3,
           }}
         >
           {publications.map((pub, id) => (
@@ -212,10 +212,10 @@ export const PublicationContent = () => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
-            1440: 3,
-            1200: 2,
-            700: 1,
+            default: 6,
+            1440: 5,
+            1200: 4,
+            700: 3,
           }}
         >
           {publicationVideos?.map((pub, id) => (

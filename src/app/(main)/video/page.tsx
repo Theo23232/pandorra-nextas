@@ -18,7 +18,7 @@ import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
@@ -31,7 +31,7 @@ import { Plan, Video } from '@prisma/client';
 
 import PromptGuide from './prompt-guide';
 
-import type React from "react"
+import type React from "react";
 const SkeletonLoader = () => (
   <div className="flex animate-pulse space-x-4">
     <div className="h-64 w-full rounded-lg bg-gray-300"></div>
@@ -323,10 +323,10 @@ export default function VideoGenerator() {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
           breakpointCols={{
-            default: 5,
-            1440: 2,
-            1200: 2,
-            700: 1,
+            default: 6,
+            1440: 5,
+            1200: 4,
+            700: 3,
           }}
         >
           {histories.map((video) => (

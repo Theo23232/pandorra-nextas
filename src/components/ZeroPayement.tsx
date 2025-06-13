@@ -1,22 +1,17 @@
 "use client"
 
-import { CreditCard, Lock, ShieldCheck, Zap } from "lucide-react"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { CreditCard, Lock, ShieldCheck, Zap } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { AddTokenDialog } from "@/components/billing/addToken"
-import { UpgradePlanDialog } from "@/components/billing/upgradePlan"
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Separator } from "@/components/ui/separator"
-import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
-import { useUser } from "@/hooks/use-user"
+    Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle
+} from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
+import { useShowZeroPayement } from '@/hooks/use-show-zero-payement';
+import { useUser } from '@/hooks/use-user';
 
 export default function SubscriptionDialog() {
   const { t } = useTranslation()
@@ -118,23 +113,23 @@ export default function SubscriptionDialog() {
           </div>
 
           {isFreeUser ? (
-            <UpgradePlanDialog>
+            <Link href={"/upgrade"}>
               <Button
                 className="w-full py-6 text-sm font-medium"
                 disabled={isLoading}
               >
                 {t(`Upgrade plan`)}
               </Button>
-            </UpgradePlanDialog>
+            </Link>
           ) : (
-            <AddTokenDialog>
+            <Link href={"/add-token"}>
               <Button
                 className="w-full py-6 text-sm font-medium"
                 disabled={isLoading}
               >
                 {t(`Add more tokens`)}
               </Button>
-            </AddTokenDialog>
+            </Link>
           )}
         </div>
       </DialogContent>

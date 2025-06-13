@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 
-import { AddTokenDialog } from '@/components/billing/addToken';
-import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
 import { Tooltip } from '@/components/tremor/ui/tooltip';
 import { useUser } from '@/hooks/use-user';
 import { Plan } from '@prisma/client';
@@ -21,7 +20,7 @@ export default function JetonCounter() {
       <Tooltip
         content={`${t("You have")} ${formatJeton(user?.jeton || 0)} ${t(`tokens. Click to get more`)}`}
       >
-        <AddTokenDialog>
+        <Link href={"/add-token"}>
           <div
             id="tour3-step2"
             className="relative flex h-8 items-center justify-center gap-2 rounded-md bg-accent px-4 font-bold hover:bg-muted"
@@ -29,7 +28,7 @@ export default function JetonCounter() {
             <span>{formatJeton(user?.jeton || 0)}</span>
             <img src="/coin.png" className="h-6 w-auto" />
           </div>
-        </AddTokenDialog>
+        </Link>
       </Tooltip>
       {user && (user?.plan === Plan.Free || user?.plan === Plan.FreePaid) && (
         <Tooltip
@@ -37,12 +36,12 @@ export default function JetonCounter() {
           id="tour3-step3"
           className=""
         >
-          <UpgradePlanDialog>
+          <Link href={"/upgrade"}>
             <img
               src="/assets/upgrade.png"
               className="-mb-2 h-8 w-auto rounded-md"
             />
-          </UpgradePlanDialog>
+          </Link>
         </Tooltip>
       )}
     </div>

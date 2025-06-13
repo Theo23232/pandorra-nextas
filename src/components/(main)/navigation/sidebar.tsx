@@ -13,8 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { siteConfig } from '@/app/siteConfig';
 import { Navbar } from '@/components/(main)/authentified-navbar';
 import { ToggleTheme } from '@/components/(main)/ToggleTheme';
-import { AddTokenDialog } from '@/components/billing/addToken';
-import { UpgradePlanDialog } from '@/components/billing/upgradePlan';
 import { UserProfileMobile } from '@/components/navigation/UserProfile';
 import JetonCounter from '@/components/pandorra/jeton-counter';
 import { TaskForm } from '@/components/task/task-dialog';
@@ -149,7 +147,7 @@ export function Sidebar() {
                   </Link>
                 </li>
               ))}
-              <UpgradePlanDialog>
+              <Link href={"/upgrade"}>
                 <li id="tour1-step5" className="w-full cursor-pointer">
                   <div
                     className={cx(
@@ -171,8 +169,8 @@ export function Sidebar() {
                     )}
                   </div>
                 </li>
-              </UpgradePlanDialog>
-              <AddTokenDialog>
+              </Link>
+              <Link href={"/add-token"}>
                 <li id="tour1-step6" className="w-full cursor-pointer">
                   <div
                     className={cx(
@@ -195,7 +193,7 @@ export function Sidebar() {
                     )}
                   </div>
                 </li>
-              </AddTokenDialog>
+              </Link>
               <TaskForm>
                 <li className="w-full cursor-pointer">
                   <div
@@ -299,13 +297,13 @@ export function Sidebar() {
               </CardContent>
               <CardFooter>
                 {user?.plan === "Free" || user?.plan === "FreePaid" ? (
-                  <UpgradePlanDialog>
+                  <Link href={"/upgrade"}>
                     <Button className="w-full">{t(`Upgrade Now`)}</Button>
-                  </UpgradePlanDialog>
+                  </Link>
                 ) : (
-                  <AddTokenDialog>
+                  <Link href={"/add-token"}>
                     <Button className="w-full">{t(`Add credits`)}</Button>
-                  </AddTokenDialog>
+                  </Link>
                 )}
               </CardFooter>
             </Card>

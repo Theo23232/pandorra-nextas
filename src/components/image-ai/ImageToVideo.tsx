@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import useSWR, { mutate } from 'swr';
 
 import { verifyCredit } from '@/actions/credits.actions';
+import { createImageToVideoGeneration } from '@/actions/kling.actions';
 import { enhanceVideoPrompt } from '@/actions/openai.actions';
-import { generateVideoFromImage } from '@/actions/runway.actions';
 import PromptGuide from '@/app/(main)/video/prompt-guide';
 import { MagicCard } from '@/components/animated/magic-ui/magic-card';
 import Bounce from '@/components/animated/uibeats/bounce';
@@ -40,7 +40,7 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
   const [loading, setLoading] = useState(false)
   const [promptText, setPromptText] = useState("")
   const [duration, setDuration] = useState("5")
-  const [ratio, setRatio] = useState("768:1280")
+  const [ratio, setRatio] = useState("16:9")
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -95,14 +95,16 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
 
     try {
       const videoDuration = duration === "5" ? 5 : 10
-      const videoRatio = ratio === "768:1280" ? "768:1280" : "1280:768"
+      const videoRatio = ratio === "16:9" ? "16:9" : "9:16"
 
-      await generateVideoFromImage(
-        base64Image,
-        promptText,
-        videoDuration,
-        videoRatio,
-      )
+      const formData = new FormData()
+      formData.append("prompt", promptText)
+      formData.append("imageUrl", imageUrl)
+      formData.append("duration", videoDuration.toString())
+      formData.append("aspectRatio", videoRatio)
+      formData.append("negativePrompt", "")
+      formData.append("cfgScale", "0.5")
+      await createImageToVideoGeneration(formData)
       mutate("/api/video")
       window.location.href = "/video"
     } catch (error) {
@@ -189,8 +191,8 @@ export function ImageToVideo({ imageUrl }: { imageUrl: string }) {
                 <SelectValue placeholder="Aspect Ratio" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1280:768">{t(`Landscape`)}</SelectItem>
-                <SelectItem value="768:1280">{t(`Portrait`)}</SelectItem>
+                <SelectItem value="9:16">{t(`Landscape`)}</SelectItem>
+                <SelectItem value="16:9">{t(`Portrait`)}</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -969,5 +969,17 @@
   "Quickly recharge your tokens": "Quickly recharge your tokens",
   "100% secure with Stripe": "100% secure with Stripe",
   "Secure payment": "Secure payment",
-  "Insufficient tokens": "Insufficient tokens"
+  "Insufficient tokens": "Insufficient tokens",
+  "too_expensive": "It's too expensive",
+  "missing_features": "Missing features I need",
+  "found_alternative": "Found a better alternative",
+  "not_using_enough": "Not using it enough",
+  "technical_issues": "Technical issues",
+  "other": "Other reason",
+  "Please provide more details": "Please provide more details",
+  "Tell us more about why you're canceling...": "Tell us more about why you're canceling...",
+  "Cancel": "Cancel",
+  "Submit": "Submit",
+  "Why are you canceling?": "Why are you canceling?",
+  "Your feedback helps us improve our service.": "Your feedback helps us improve our service."
 }

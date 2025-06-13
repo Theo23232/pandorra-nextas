@@ -969,5 +969,17 @@
   "Quickly recharge your tokens": "Rechargez rapidement vos jetons",
   "100% secure with Stripe": "100 % sécurisé avec Stripe",
   "Secure payment": "Paiement sécurisé",
-  "Insufficient tokens": "Jetons insuffisants"
+  "Insufficient tokens": "Jetons insuffisants",
+  "too_expensive": "C'est trop cher",
+  "missing_features": "Il manque des fonctionnalités dont j'ai besoin",
+  "found_alternative": "J'ai trouvé une meilleure alternative",
+  "not_using_enough": "Je ne l'utilise pas assez",
+  "technical_issues": "Problèmes techniques",
+  "other": "Autre raison",
+  "Please provide more details": "Veuillez fournir plus de détails",
+  "Tell us more about why you're canceling...": "Dites-nous en plus sur la raison de votre annulation...",
+  "Cancel": "Annuler",
+  "Submit": "Valider",
+  "Why are you canceling?": "Pourquoi annulez-vous ?",
+  "Your feedback helps us improve our service.": "Vos retours nous aident à améliorer notre service."
 }

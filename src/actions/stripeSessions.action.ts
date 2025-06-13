@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 
 import { createProductPayement, createProductSubscription } from '@/actions/stripe.actions';
 import { currentUser } from '@/lib/current-user';
+import { SA } from '@/lib/safe-ation';
 import { stripe } from '@/lib/stripe';
 import { prisma } from '@/prisma';
 
@@ -275,3 +276,19 @@ export const verifyCardForFreePlan = async () => {
 
   redirect(session.url);
 };
+
+// Add this function to your existing actions file
+
+
+export const saveCancellationReason = SA(async (user, reason: string, details?: string): Promise<null> => {
+  await prisma.feedback.create({
+    data: {
+      userId: user.id,
+      feedbackType: "subscription_cancellation",
+      message: reason + (details ? `: ${details}` : ""),
+      createdAt: new Date(),
+      rating: 0,
+    }
+  });
+  return null
+})

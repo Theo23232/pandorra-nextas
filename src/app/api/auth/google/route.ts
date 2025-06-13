@@ -1,9 +1,9 @@
-import { OAuth2Client } from "google-auth-library"
-import { NextResponse } from "next/server"
+import { OAuth2Client } from 'google-auth-library';
+import { NextResponse } from 'next/server';
 
-import { generateToken } from "@/lib/auth"
-import { getDeviceInfo } from "@/lib/device"
-import { prisma } from "@/prisma"
+import { generateToken } from '@/lib/auth';
+import { getDeviceInfo } from '@/lib/device';
+import { prisma } from '@/prisma';
 
 const client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
@@ -17,7 +17,6 @@ export async function POST(req: Request) {
     // Verify Google token
     const ticket = await client.verifyIdToken({
       idToken: credential,
-      audience: process.env.GOOGLE_CLIENT_ID,
     })
 
     const payload = ticket.getPayload()

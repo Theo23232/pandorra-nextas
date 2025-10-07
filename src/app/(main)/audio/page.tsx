@@ -111,7 +111,7 @@ export default function Page() {
         chunks.push(chunk)
       }
 
-      const blob = new Blob(chunks, { type: "audio/mpeg" })
+      const blob = new Blob(chunks as BlobPart[], { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       setAudioUrl(url)
       await generateFX(prompt, url)

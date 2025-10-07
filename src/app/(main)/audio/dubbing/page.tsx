@@ -110,7 +110,7 @@ export default function RouterPage() {
         throw new Error("Dubbing conversion failed")
       }
 
-      const chunks: Uint8Array[] = []
+      const chunks: Uint8Array[] = [];
       const reader = response.body?.getReader()
 
       while (reader) {
@@ -119,7 +119,7 @@ export default function RouterPage() {
         if (value) chunks.push(value)
       }
 
-      const blob = new Blob(chunks, { type: "audio/mpeg" })
+      const blob = new Blob(chunks as BlobPart[], { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       // Assuming these functions exist in your application
       // await generateVoiceChange(url, targetLang)

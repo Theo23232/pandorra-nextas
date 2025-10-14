@@ -23,7 +23,7 @@ function ResetPasswordFormContent() {
     try {
       const res = await fetch("/api/reset-password", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "services/json" },
         body: JSON.stringify({ token, password }),
       })
 

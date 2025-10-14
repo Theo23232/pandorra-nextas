@@ -15,7 +15,7 @@ export const editUser = SA(
     username: string,
     description: string,
   ) => {
-    // Check if the new username is different from the current one
+    // Check if the new username is different from the current [id]
     if (username !== user.username) {
       // Check if the new username is already taken
       const existingUser = await prisma.user.findUnique({

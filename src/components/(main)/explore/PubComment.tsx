@@ -301,7 +301,7 @@ export default function PublicationDialog({
   )
 }
 
-// Additional components are split out for clarity
+// Additional _components are split out for clarity
 function PublicationHeader({
   ownerId,
   owner,

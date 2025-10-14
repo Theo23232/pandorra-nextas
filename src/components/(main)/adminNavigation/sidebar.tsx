@@ -29,7 +29,7 @@ const navigation = [
 const shortcuts = [
   {
     name: "Pandorra Chat",
-    href: "/chat",
+    href: "/old_chat",
     icon: MessageSquare,
     id: "tour1-step7",
   },

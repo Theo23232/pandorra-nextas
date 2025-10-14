@@ -100,7 +100,7 @@ export const downloadVideo = async (videoUrl: string) => {
     const response = await fetch(`${API_BASE_URL}/videos/download-from-url`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "services/json",
       },
       body: JSON.stringify({ videoUrl }),
     })

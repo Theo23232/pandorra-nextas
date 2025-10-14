@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
  * It selects the top heading by default, and the last item when reached the bottom of page.
  *
  * @param watch - An array of element ids to watch
- * @param single - only one active item at most
+ * @param single - only [id] active item at most
  * @returns Active anchor
  */
 export function useAnchorObserver(watch: string[], single: boolean): string[] {

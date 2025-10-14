@@ -185,7 +185,7 @@ export default function PubVideoComment({
   )
 }
 
-// Additional components are split out for clarity
+// Additional _components are split out for clarity
 function PublicationHeader({
   ownerId,
   owner,

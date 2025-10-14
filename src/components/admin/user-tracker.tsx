@@ -11,7 +11,7 @@ export default function UserTracker() {
       await fetch("/api/user-activity", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "services/json",
         },
       })
     } catch (error) {

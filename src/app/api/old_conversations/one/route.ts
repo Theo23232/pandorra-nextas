@@ -1,4 +1,4 @@
-// /api/conversations/one/route.ts
+// /api/old_conversations/[id]/route.ts
 import { NextResponse } from 'next/server';
 
 import { currentUser } from '@/lib/current-user';

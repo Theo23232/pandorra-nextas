@@ -78,7 +78,7 @@ export const Usage = async () => {
         method: "GET",
         headers: {
           "xi-api-key": "sk_df497f9499812106f628cbb88038bc9061db664acab03e70",
-          "Content-Type": "application/json",
+          "Content-Type": "services/json",
         },
         // Prevent cache for this fetch request
         cache: "no-store",
@@ -100,8 +100,8 @@ export const Usage = async () => {
       method: "GET",
       headers: {
         authorization: "Bearer c730433c-957b-429a-b2d3-d0ac5f128ba8",
-        "Content-Type": "application/json",
-        accept: "application/json",
+        "Content-Type": "services/json",
+        accept: "services/json",
       },
       // Prevent cache for this fetch request
       cache: "no-store",

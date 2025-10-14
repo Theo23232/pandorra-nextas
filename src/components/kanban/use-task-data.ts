@@ -45,7 +45,7 @@ export const useTaskData = () => {
       const response = await fetch("/api/admin/task", {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "services/json",
         },
         body: JSON.stringify({
           id,

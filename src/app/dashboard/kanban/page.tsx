@@ -89,7 +89,7 @@ export default function RoutePage() {
       const response = await fetch("/api/admin/task/status/sort", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "services/json",
         },
         body: JSON.stringify({ status, newOrder }),
       })

@@ -27,7 +27,7 @@ export async function shareOnSocialMedia(
     const response = await fetch("/api/social-media/share", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "services/json",
       },
       body: JSON.stringify({
         imageUrl,

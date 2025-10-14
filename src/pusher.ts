@@ -1,14 +1,13 @@
 import Pusher from 'pusher';
 
+
 const pusherClientSingleton = () => {
   return new Pusher({
-    appId: "hFU46XsprTQnP",
-    key: "hFU46XsprTQnP",
-    secret: "hFU46XsprTQnP",
-    cluster: "",
+    appId: process.env.PUSHER_APP_ID!,
+    key: process.env.PUSHER_KEY!,
+    secret: process.env.PUSHER_SECRET!,
+    cluster: process.env.PUSHER_CLUSTER!,
     useTLS: true,
-    host: "ws.teratany.org",
-    port: "443",
   })
 }
 

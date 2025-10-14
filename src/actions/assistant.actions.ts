@@ -132,7 +132,7 @@ export const createAgent = SA(
         method: "POST",
         headers: {
           "xi-api-key": process.env.XI_API_KEY || "",
-          "Content-Type": "application/json",
+          "Content-Type": "services/json",
         },
         body: JSON.stringify(configBody),
       },

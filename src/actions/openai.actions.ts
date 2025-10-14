@@ -12,12 +12,12 @@ export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
   await reduceCredit(1)
   try {
     const response = await openai.chat.completions.create({
-      model: "deepseek-chat",
+      model: "deepseek-old_chat",
       messages: [
         {
           role: "system",
           content:
-            "You are a prompt enhancement assistant. If there is no prompt just generate a random one.",
+            "You are a prompt enhancement assistant. If there is no prompt just generate a random [id].",
         },
         {
           role: "system",
@@ -27,7 +27,7 @@ export const enhanceImagePrompt = async (prompt: string): Promise<string> => {
         {
           role: "system",
           content:
-            "Always choose a realistic style or leave the style unspecified if the prompt does not mention one.",
+            "Always choose a realistic style or leave the style unspecified if the prompt does not mention [id].",
         },
         {
           role: "system",
@@ -57,7 +57,7 @@ export const enhanceVideoPrompt = async (prompt: string): Promise<string> => {
     await reduceCredit(1)
     // Détection et traduction automatique en anglais si nécessaire
     const translationResponse = await openai.chat.completions.create({
-      model: "deepseek-chat",
+      model: "deepseek-old_chat",
       messages: [
         {
           role: "system",
@@ -80,7 +80,7 @@ If it's already in English, return it as is. Max length will be 512 characters`,
 
     // Amélioration du prompt pour la génération de vidéo
     const enhancementResponse = await openai.chat.completions.create({
-      model: "deepseek-chat",
+      model: "deepseek-old_chat",
       messages: [
         {
           role: "system",
@@ -182,7 +182,7 @@ Now, enhance the following video generation prompt based on these guidelines and
 export const translateToEnglish = async (prompt: string): Promise<string> => {
   try {
     const response = await openai.chat.completions.create({
-      model: "deepseek-chat",
+      model: "deepseek-old_chat",
       messages: [
         {
           role: "system",
@@ -219,7 +219,7 @@ export async function getOpenAiUsage() {
       {
         headers: {
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
+          "Content-Type": "services/json",
         },
       },
     )

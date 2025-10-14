@@ -408,7 +408,7 @@ export const tours: Tour[] = [
       },
       {
         icon: <>🗂️</>,
-        title: "Liste des conversations",
+        title: "Liste des old_conversations",
         content: (
           <>{`Ici s'affiche la liste des conversations effectuées avec des agents.`}</>
         ),

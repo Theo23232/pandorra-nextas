@@ -45,7 +45,7 @@ export async function postMessage(gptConversationId: string, content: string) {
   try {
     // Appel à l'API OpenAI avec streaming
     const stream = await openai.chat.completions.create({
-      model: "deepseek-chat",
+      model: "deepseek-old_chat",
       messages,
       stream: true, // Activer le streaming
     })

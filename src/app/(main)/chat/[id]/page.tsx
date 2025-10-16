@@ -18,8 +18,6 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
         setUseWebSearch,
         editingMessageId,
         setEditingMessageId,
-        editingContent,
-        setEditingContent,
         messagesEndRef,
         isStreaming,
         isLoading,
@@ -28,8 +26,6 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
         saveEdit,
         handleReaction,
         copyMessage,
-        removeMessage,
-        updateAssistantMessage,
     } = useChat(conversationId)
 
     return (

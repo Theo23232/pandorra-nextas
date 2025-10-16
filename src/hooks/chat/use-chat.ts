@@ -10,7 +10,7 @@ import { useUser } from '@/hooks/use-user'
 import { useShowZeroPayement } from '@/hooks/use-show-zero-payement'
 import { useMessageActions } from '@/hooks/chat/use-message-actions'
 import { useMessages } from '@/hooks/chat/use-messages'
-import { MessageType } from '@/features/chat/types/chat.types'
+import {Conversation , MessageType} from '@/features/chat/types/chat.types'
 
 export function useChat(conversationId?: string) {
     const { toast } = useToast()
@@ -25,7 +25,6 @@ export function useChat(conversationId?: string) {
     )
     const messages = data ?? []
 
-    console.log(messages)
 
     const { removeMessage, updateAssistantMessage, addUserMessage, updateMessage } = useMessages()
     const { isStreaming, isLoading, streamMessage, stopStream } = useChatStream()
@@ -59,7 +58,6 @@ export function useChat(conversationId?: string) {
             createdAt: new Date(),
             reaction: null,
         }
-
         addUserMessage(content, conversationId)
 
         await mutate(
@@ -90,7 +88,20 @@ export function useChat(conversationId?: string) {
                 variant: 'error',
             })
         } finally {
-            setNewMessage('')
+            await mutate(
+                '/api/conversations',
+                (prev?: Conversation[]) => {
+                    if (!prev) return []
+                    const index = prev.findIndex(c => c.id === conversationId)
+                    if (index === -1) return prev
+                    const updated = [...prev]
+                    const [active] = updated.splice(index, 1)
+                    updated.unshift(active)
+                    return updated
+                },
+                false
+            )
+
         }
     }
 

@@ -4,58 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c4e1150-9c52-4885-8b81-61e4c5d9b053" name="Changes" comment="Refactor(chat): Refactor chat open ai assistant">
-      <change afterPath="$PROJECT_DIR$/src/actions/chat/conversation.actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(main)/chat/[id]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(main)/chat/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/api/conversations/[id]/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/ChatInput.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/ConversationList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/ConversationSidebar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/EmptyState.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/NewConversation.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/message/MessageActions.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/message/MessageContent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/message/MessageEditor.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/chat/message/MessageItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/chat.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/repositories/message.repository.prisma.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/repositories/message.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/services/chat.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/services/openai.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/services/web-search.search.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/chat/types/chat.types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/injection.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/chat/use-chat-stream.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/chat/use-chat.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/chat/use-conversation.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/chat/use-message-actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/chat/use-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/use-textarea-resize.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/ntoast.code-snippets" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/ntoast.code-snippets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nyxbui.json" beforeDir="false" afterPath="$PROJECT_DIR$/nyxbui.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema/chat.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema/chat.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/chat.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/chat.actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/assistant/conversationSmall.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/assistant/conversationSmall.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/assistant/mainConversation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/assistant/mainConversation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/audio/dubbing/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/audio/dubbing/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/audio/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/audio/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/audio/text-to-speech/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/audio/text-to-speech/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/chat/message.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/chat/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/chat/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(main)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(main)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/chat/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/chat/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/conversations/one/route.ts" beforeDir="false" />
+    <list default="true" id="4c4e1150-9c52-4885-8b81-61e4c5d9b053" name="Changes" comment="Refactor(chat): remove unused method">
       <change beforePath="$PROJECT_DIR$/src/app/api/conversations/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/conversations/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/user-activity/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/user-activity/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/google-auth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/google-auth.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/nyxb/multi-select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/nyxb/multi-select.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pandorra/sidebar/nav-feedback.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pandorra/sidebar/nav-feedback.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/stripe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/stripe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/ChatInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ChatInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/ConversationList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ConversationList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/ConversationSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ConversationSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chat/NewConversation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/NewConversation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/chat/services/chat.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/services/chat.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/chat/services/openai.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/services/openai.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/chat/use-chat.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/chat/use-chat.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +36,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="refactor/chat" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -97,22 +55,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;refactor/chat&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/mnt/mydata/Archive/WebstormProjects/pandorra-nextas/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "fix/chat",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "/mnt/mydata/Archive/WebstormProjects/pandorra-nextas/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/chat/message/buttons" />
@@ -149,7 +107,7 @@
       <workItem from="1760516314588" duration="15827000" />
       <workItem from="1760540125596" duration="1696000" />
       <workItem from="1760601125673" duration="11637000" />
-      <workItem from="1760618859504" duration="10382000" />
+      <workItem from="1760618859504" duration="14463000" />
     </task>
     <task id="LOCAL-00001" summary="setup api keys and google login">
       <option name="closed" value="true" />
@@ -191,7 +149,23 @@
       <option name="project" value="LOCAL" />
       <updated>1760450633691</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactor(chat): Refactor chat">
+      <option name="closed" value="true" />
+      <created>1760633742952</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760633742952</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Refactor(chat): remove unused method">
+      <option name="closed" value="true" />
+      <created>1760633967488</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1760633967488</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +176,9 @@
     <MESSAGE value="fix type errors" />
     <MESSAGE value="remove name" />
     <MESSAGE value="Refactor(chat): Refactor chat open ai assistant" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor(chat): Refactor chat open ai assistant" />
+    <MESSAGE value="Refactor(chat): Refactor chat" />
+    <MESSAGE value="Refactor(chat): remove unused method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor(chat): remove unused method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -212,6 +188,12 @@
           <line>13</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts</url>
+          <line>24</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

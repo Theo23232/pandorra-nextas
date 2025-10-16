@@ -1,14 +1,10 @@
 import {NextRequest , NextResponse} from 'next/server';
-import { OpenAI } from 'openai';
+
 
 import { currentUser } from '@/lib/current-user';
-import { prisma } from '@/prisma';
 import {chatService} from "@/features/injection";
 
-const openai = new OpenAI({
-  baseURL: "https://api.deepseek.com",
-  apiKey: process.env.DEEPSEEK_API_KEY!,
-})
+
 
 export async  function GET() {
   try{

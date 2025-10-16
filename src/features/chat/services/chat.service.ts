@@ -151,6 +151,7 @@ export class ChatService {
             userContent,
             assistantContent
         )
+        await this.conversationRepo.updateTimestamp({conversationId})
     }
 
     async getUserConversations(userId: string) {

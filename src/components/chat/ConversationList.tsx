@@ -28,7 +28,7 @@ export function ConversationList({
 
     return (
         <div className="p-4 pb-0">
-            <NewConversation />
+            <NewConversation mutateConversation={onNew} />
             <ScrollArea className="h-[calc(100vh-168px)]">
                 {conversations.length > 0 && (
                         <Bounce once className="mt-4 pr-4">

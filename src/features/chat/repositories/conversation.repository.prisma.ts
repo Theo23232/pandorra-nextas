@@ -11,7 +11,7 @@ export class  PrismaConversationRepository implements IConversationRepository{
     async getAllByUserId(userId: string): Promise<Conversation[]> {
         return  this.prisma.gptConversation.findMany({
             where: {userId},
-            orderBy: { createdAt: "desc"}
+            orderBy: { updatedAt: "desc"}
         })
     }
 
@@ -20,6 +20,15 @@ export class  PrismaConversationRepository implements IConversationRepository{
         return this.prisma.gptConversation.update({
             where: {id: conversationId}, data: {
                 title
+            }
+        })
+    }
+
+    updateTimestamp(data: { conversationId: string}): Promise<Conversation> {
+        const { conversationId } = data
+        return this.prisma.gptConversation.update({
+            where: {id: conversationId}, data: {
+                updatedAt: new Date()
             }
         })
     }

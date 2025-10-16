@@ -56,7 +56,7 @@ export class OpenAIService {
         return this.client.chat.completions.create({
             model: ChatConfig.MAIN_MODEL,
             messages,
-            stream: true,
+            stream: true
         })
     }
 }

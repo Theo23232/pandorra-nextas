@@ -93,7 +93,7 @@ export const editMessage = SA(async (user, messageId: string, content: string): 
   })
 
   if (!message || message.GptConversation.userId !== user.id) {
-    throw new Error("Message not found or not authorized")
+    throw new Error("MessageType not found or not authorized")
   }
 
   if (message.role !== "user") {
@@ -116,7 +116,7 @@ export const reactMessage = SA(async (user, messageId: string, reaction: Reactio
 
   // Check if message exists and belongs to the user
   if (!message || message.GptConversation.userId !== user.id) {
-    throw new Error("Message not found or not authorized")
+    throw new Error("MessageType not found or not authorized")
   }
 
   // Only allow reactions on assistant messages

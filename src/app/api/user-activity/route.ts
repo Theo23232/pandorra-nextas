@@ -11,7 +11,7 @@ const userLastActive = new Map<string, number>();
 // Délai après lequel un utilisateur est considéré comme inactif (15 minutes)
 const INACTIVE_THRESHOLD = 15 * 60 * 1000;
 
-export async function POST(req: Request) {
+/*export async function POST(req: Request) {
     try {
         const user = await currentUser();
         if (!user) {
@@ -61,4 +61,4 @@ function getActiveUserCount() {
     }
 
     return userLastActive.size;
-}
+}*/

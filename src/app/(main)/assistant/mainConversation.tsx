@@ -39,7 +39,7 @@ export function Conversation({ selectedAgent }: ConversationProps) {
   const conversation = useConversation({
     onConnect: () => console.log("Connected"),
     onDisconnect: () => console.log("Disconnected"),
-    onMessage: (message) => console.log("Message:", message),
+    onMessage: (message) => console.log("MessageType:", message),
     onError: (error) => console.error("Error:", error),
   })
 

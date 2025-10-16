@@ -41,7 +41,7 @@ export default function RouterPage() {
       }
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: "audio/wav" })
+        const blob = new Blob(chunksRef.current as BlobPart[], { type: "audio/wav" })
         const url = URL.createObjectURL(blob)
         setAudioURL(url)
         setMediaFile(
@@ -119,7 +119,7 @@ export default function RouterPage() {
         if (value) chunks.push(value)
       }
 
-      const blob = new Blob(chunks, { type: "audio/mpeg" })
+      const blob = new Blob(chunks as BlobPart[], { type: "audio/mpeg" })
       const url = URL.createObjectURL(blob)
       // Assuming these functions exist in your application
       // await generateVoiceChange(url, targetLang)

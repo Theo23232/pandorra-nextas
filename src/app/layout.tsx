@@ -7,6 +7,7 @@ import NextTopLoader from "nextjs-toploader"
 import { Providers } from "@/context/providers"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Pandorra ai",

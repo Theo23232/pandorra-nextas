@@ -20,8 +20,6 @@ interface GoogleAuthProps {
   variant?: "default" | "outline" | "ghost"
 }
 
-const client_id = process.env.GOOGLE_CLIENT_ID || "120144927381-l47uljfs7up432f60p7ihqhock88ge0m.apps.googleusercontent.com"
-
 declare global {
   interface Window {
     google: any
@@ -41,9 +39,10 @@ export const GoogleAuth = ({
 
   const initializeGoogle = () => {
     if (typeof window !== "undefined" && window.google) {
+      console.log("here",process.env.GOOGLE_CLIENT_ID);
       try {
         window.google.accounts.id.initialize({
-          client_id: client_id,
+          client_id:"120144927381-l47uljfs7up432f60p7ihqhock88ge0m.apps.googleusercontent.com",
           callback: handleGoogleSuccess,
           auto_select: false,
           use_fedcm_for_prompt: true, // Active FedCM

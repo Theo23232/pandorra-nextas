@@ -110,7 +110,7 @@ export default function RouterPage() {
         throw new Error("Dubbing conversion failed")
       }
 
-      const chunks: Uint8Array[] = []
+      const chunks: Uint8Array[] = [];
       const reader = response.body?.getReader()
 
       while (reader) {

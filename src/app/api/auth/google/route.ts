@@ -10,6 +10,7 @@ const client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_SECRET,
 )
 
+console.log(process.env.GOOGLE_CLIENT_ID);
 export async function POST(req: Request) {
   try {
     const { credential } = await req.json()

@@ -44,7 +44,7 @@ export function AboutContent() {
         <main className="space-y-8">
           <Bounce className="text-xl leading-relaxed text-gray-200 md:text-2xl">
             {t(
-              `Chez Pandorra, nous repoussons les limites de la création numérique. Fondée en 2024 par Théo Lacour, originaire de la Guadeloupe, et Carine Léal, de Saint-Barthélemy, notre entreprise est née d'une passion commune pour l'innovation et la technologie. Le 6 mars 2025, nous avons lancé notre logiciel révolutionnaire qui transforme la manière dont les contenus visuels et audio sont conçus.`,
+              `Chez Pandorra, nous repoussons les limites de la création numérique. Fondée en 2024, notre entreprise est née d'une passion commune pour l'innovation et la technologie. Le 6 mars 2025, nous avons lancé notre logiciel révolutionnaire qui transforme la manière dont les contenus visuels et audio sont conçus.`,
             )}
           </Bounce>
 

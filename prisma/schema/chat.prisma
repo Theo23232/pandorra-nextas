@@ -8,7 +8,7 @@ model GptConversation {
   messages  Message[]
 }
 
-model Message {
+model MessageType {
   id                String           @id @default(cuid())
   content           String
   gptConversationId String

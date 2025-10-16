@@ -25,7 +25,7 @@ const feedbackSchema = z.object({
   }),
   message: z
     .string()
-    .min(10, { message: "Message must be at least 10 characters." }),
+    .min(10, { message: "MessageType must be at least 10 characters." }),
   rating: z.number().min(1).max(5),
 })
 

@@ -7,7 +7,7 @@
     "body": [
       "toast({",
       "title: ' ${1:toastTitle}',",
-      "description: 'Message',",
+      "description: 'MessageType',",
       "variant: 'success',",
       "duration: 3000",
       "})",

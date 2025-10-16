@@ -46,7 +46,7 @@ export default function RouteLayout({ children }: RouteLayoutProps) {
         }}
       >
         <RegisterAffiliate />
-        <UserTracker />
+          {/*<UserTracker />*/}
 
         <Sidebar />
         <main

@@ -41,7 +41,7 @@ export default function RouterPage() {
       }
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: "audio/wav" })
+        const blob = new Blob(chunksRef.current as BlobPart[], { type: "audio/wav" })
         const url = URL.createObjectURL(blob)
         setAudioURL(url)
         setMediaFile(

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef , use} from 'react'
+import {useRef , use , useEffect} from 'react'
 import { MagicCard } from '@/components/animated/magic-ui/magic-card'
 import { MessageEditor } from '@/components/chat/message/MessageEditor'
 import { MessageItem } from '@/components/chat/message/MessageItem'
@@ -27,6 +27,16 @@ export default function ChatPage({ params }: { params: Promise<{ id: string }> }
         handleReaction,
         copyMessage,
     } = useChat(conversationId)
+
+    useEffect(() => {
+        const pending = sessionStorage.getItem('pendingMessage')
+        if (pending) {
+            const { content, useWebSearch: shouldUseWebSearch } = JSON.parse(pending)
+            sessionStorage.removeItem('pendingMessage')
+            setUseWebSearch(shouldUseWebSearch)
+            sendMessage(content).then(r => {} )
+        }
+    }, [])
 
     return (
         <div className="h-full max-h-[calc(100vh-80px)] w-full overflow-y-scroll py-[4px]">

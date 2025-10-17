@@ -51,7 +51,7 @@ type GeneratedImageVariation = {
   }[]
 }
 
-const API_KEY = process.env.NEXT_PUBLIC_LEONARDO_API_KEY
+const API_KEY = process.env.LEONARDO_API_KEY
 export async function uploadImage(imageFilePath: string): Promise<string> {
   const user = await currentUser()
   if (!user) throw new Error("You are not authenticated")

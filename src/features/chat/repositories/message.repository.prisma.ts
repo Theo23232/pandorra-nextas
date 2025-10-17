@@ -8,7 +8,7 @@ export class MessageRepositoryPrisma implements IMessageRepository{
         const messages = await this.prisma.message.findMany({
             where: { gptConversationId: conversationId },
             orderBy: { createdAt: 'desc' },
-            take: limit * 2,
+            take: limit * 3,
         })
         return messages.reverse()
     }
@@ -32,9 +32,10 @@ export class MessageRepositoryPrisma implements IMessageRepository{
         userContent: string,
         assistantContent: string
     ) {
-        return Promise.all([
-            this.createMessage(conversationId, userContent, 'user'),
-            this.createMessage(conversationId, assistantContent, 'assistant'),
-        ])
+
+        const userMessage = await this.createMessage(conversationId, userContent, 'user');
+        const assistantMessage = await this.createMessage(conversationId, assistantContent, 'assistant');
+
+        return [userMessage, assistantMessage];
     }
 }

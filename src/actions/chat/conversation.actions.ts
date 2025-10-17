@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache'
 import {prisma} from "@/prisma";
 import {redirect} from "next/navigation";
 import {chatService} from "@/features/injection";
-import {User} from "@prisma/client";
 import { SA } from "@/lib/safe-ation"
+import {User} from "@/types/next";
 
 
 
@@ -39,3 +39,11 @@ export const setReactionAction = SA(
         })
     },
 )
+
+export const createConversationWithFirstMessage = SA(async (user: User,content: string)  => {
+    const conversation = await chatService.createConversationWithGeneratedTitle(user.id, content)
+    revalidatePath('/chat')
+    console.log(`New created conversation: ${conversation}`)
+    return conversation;
+
+})

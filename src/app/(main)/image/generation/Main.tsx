@@ -1,12 +1,4 @@
 "use client"
-import { Loader2, Sparkles } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { useInView } from "react-intersection-observer"
-import useSWRInfinite from "swr/infinite"
-
-import { enhanceImagePrompt } from "@/actions/openai.actions"
 import { MagicCard } from "@/components/animated/magic-ui/magic-card"
 import { GenerationResult } from "@/components/image-ai/GenerationResult"
 import { NothingYet } from "@/components/NothingYet"
@@ -14,13 +6,19 @@ import { Skeleton } from "@/components/nyxb/skeleton"
 import { Button } from "@/components/tremor/ui/button"
 import { Tooltip } from "@/components/tremor/ui/tooltip"
 import { Textarea } from "@/components/ui/textarea"
+import { useImageLoadingStore } from "@/features/image-genaration/store"
+import { useEnhancePrompt } from "@/hooks/image-generation/useEnhancePrompt"
+import { useInfiniteGenerations } from "@/hooks/image-generation/useInfiniteGenerations"
 import { useImageCost } from "@/hooks/use-image-cost"
-import { useImageLoading } from "@/hooks/use-image-loading"
 import { useShowZeroPayement } from "@/hooks/use-show-zero-payement"
 import { useToast } from "@/hooks/use-toast"
 import { useUser } from "@/hooks/use-user"
-import { fetcher } from "@/lib/utils"
 import { GeneratedImage, Prisma } from "@prisma/client"
+import { Loader2, Sparkles } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useInView } from "react-intersection-observer"
 
 const PAGE_SIZE = 8 // Nombre d'éléments par page
 
@@ -44,7 +42,7 @@ export type GenerationWithImages = Omit<
 }
 
 export const Main = (props: MainProps) => {
-  const { imageLoading, setImageNumber } = useImageLoading()
+  const { imageLoadingCount } = useImageLoadingStore()
   const { user, mutate: mutateUser } = useUser()
   const { imageCost } = useImageCost()
   const { t } = useTranslation()
@@ -55,53 +53,26 @@ export const Main = (props: MainProps) => {
   // Ref pour l'intersection observer
   const { ref: loadMoreRef, inView } = useInView()
 
-  const [isEnhancing, setIsEnhancing] = useState(false)
+  // enhancement state handled by hook
   const [prompt, setPrompt] = useState(props.prompt)
   const [history, setHistory] = useState<GenerationWithImages[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
   const { toast } = useToast()
 
-  // Configuration de SWR Infinite pour la pagination
-  const getKey = (
-    pageIndex: number,
-    previousPageData: GenerationWithImages[] | null,
-  ) => {
-    // Si les données précédentes sont vides, nous avons atteint la fin
-    if (previousPageData && !previousPageData.length) return null
-
-    // Première page, pas de données précédentes
-    return `/api/generation?page=${pageIndex}&limit=${PAGE_SIZE}`
-  }
-
-  const { data, error, size, setSize, mutate, isValidating } = useSWRInfinite<
-    GenerationWithImages[]
-  >(getKey, fetcher, {
-    revalidateOnFocus: false,
-    revalidateFirstPage: false,
-  })
-
-  // Combiner toutes les pages de données
-  const allGenerations = data ? data.flat() : []
-  const isLoadingMore =
-    isValidating || (size > 0 && data && typeof data[size - 1] === "undefined")
-  const isEmpty = data?.[0]?.length === 0
-  const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE)
+  const { pages, isLoadingMore, isReachingEnd, isEmpty, setSize, mutate } = useInfiniteGenerations()
   const { show } = useShowZeroPayement()
 
   // Charger plus de données quand l'utilisateur atteint le bas de la page
   useEffect(() => {
-    if (inView && !isReachingEnd && !isLoadingMore && !imageLoading) {
-      setSize(size + 1)
+    if (inView && !isReachingEnd && !isLoadingMore && !imageLoadingCount) {
+      setSize((s: number) => s + 1)
     }
-  }, [inView, isReachingEnd, isLoadingMore, imageLoading])
+  }, [inView, isReachingEnd, isLoadingMore, imageLoadingCount])
 
   useEffect(() => {
-    if (data) {
-      setHistory(allGenerations)
-      setIsLoaded(true)
-    }
-  }, [data, imageLoading])
+    setHistory(pages as unknown as GenerationWithImages[])
+    setIsLoaded(true)
+  }, [pages, imageLoadingCount])
 
   useEffect(() => {
     if (queryPrompt) {
@@ -139,24 +110,13 @@ export const Main = (props: MainProps) => {
   // Rafraîchir toutes les données après une génération
   useEffect(() => {
     mutate()
-  }, [imageLoading])
+  }, [imageLoadingCount])
 
+  const { enhance, isEnhancing } = useEnhancePrompt()
   const enhancePrompt = async () => {
-    setIsEnhancing(true)
-    try {
-      const promptEnhanced = await enhanceImagePrompt(prompt)
-      mutateUser()
-      handlePromptChange(promptEnhanced)
-    } catch (error) {
-      toast({
-        title: t(`Error`),
-        description: t(`Prompt enhancement failed`),
-        variant: "error",
-        duration: 3000,
-      })
-    } finally {
-      setIsEnhancing(false)
-    }
+    const promptEnhanced = await enhance(prompt)
+    mutateUser()
+    handlePromptChange(promptEnhanced)
   }
 
   return (
@@ -187,7 +147,7 @@ export const Main = (props: MainProps) => {
 
           <Button
             onClick={generate}
-            isLoading={imageLoading ? true : false}
+            isLoading={imageLoadingCount ? true : false}
             className="text-md"
             id="tour6-step3"
           >
@@ -200,7 +160,7 @@ export const Main = (props: MainProps) => {
         </div>
       </MagicCard>
 
-      {history.length == 0 && isLoaded == true && !imageLoading && (
+      {history.length == 0 && isLoaded == true && !imageLoadingCount && (
         <NothingYet
           subtitle={t(`Your image generation will be displayed here`)}
           title={t(`There is no image yet`)}
@@ -217,14 +177,14 @@ export const Main = (props: MainProps) => {
         {/* Élément déclencheur pour charger plus d'images */}
         {!isReachingEnd && !isEmpty && history.length > 0 && (
           <div ref={loadMoreRef} className="h-8 w-full">
-            {isLoadingMore && !imageLoading && <GenerationSkeleton />}
+            {isLoadingMore && !imageLoadingCount && <GenerationSkeleton />}
           </div>
         )}
 
-        {imageLoading ? (
+        {imageLoadingCount ? (
           <GenerationResult
-            isLoading={imageLoading ? true : false}
-            count={imageLoading}
+            isLoading={imageLoadingCount ? true : false}
+            count={imageLoadingCount}
           />
         ) : (
           <></>

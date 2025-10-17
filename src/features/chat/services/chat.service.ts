@@ -134,8 +134,10 @@ export class ChatService {
 
         for await (const chunk of stream) {
             const chunkContent = chunk.choices[0]?.delta?.content || ''
-            assistantContent += chunkContent
-            controller.enqueue(encoder.encode(chunkContent))
+            if (chunkContent) {
+                assistantContent += chunkContent
+                controller.enqueue(encoder.encode(`data: ${chunkContent}\n\n`))
+            }
         }
 
         return assistantContent

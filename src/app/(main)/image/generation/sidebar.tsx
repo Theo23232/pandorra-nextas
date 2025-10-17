@@ -12,8 +12,9 @@ import { ImageSizeInput } from '@/components/image-ai/ImageSizeInput';
 import { ModelSelectDialog } from '@/components/image-ai/ModelSelectDialog';
 import { Card, CardContent } from '@/components/tremor/ui/card';
 import {
-    Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
+  Select, SelectContent, SelectCustomTrigger, SelectGroup, SelectItem
 } from '@/components/ui/select';
+import { useImageGenerationStore } from '@/features/image-genaration/store';
 import { useUser } from '@/hooks/use-user';
 import { findModelById, Model, models, presetStyles } from '@/lib/leonardo/presets';
 import { cn } from '@/lib/utils';
@@ -39,6 +40,7 @@ export function ImageGenerationSidebar(props: SidebarProps) {
   const queryModelId = searchParams?.get("modelId")
   const { startOnborda } = useOnborda()
   const { user } = useUser()
+  const store = useImageGenerationStore()
 
   const [activeModel, setActiveModel] = React.useState<Model>(
     props.defaultmodel,
@@ -70,22 +72,11 @@ export function ImageGenerationSidebar(props: SidebarProps) {
     props.onSizeChange(size.width, size.height)
   }, [activeModel, presetStyle, contrast, count, size.width, size.height])
 
-  const handleModelChange = (model: Model) => {
-    setActiveModel(model)
-  }
-  const handlePresetStyleChange = (value: string) => {
-    setPresetStyle(value)
-  }
-  const handleContrastChange = (value: string) => {
-    setContrast(value)
-  }
-  const handleSizeChange = (width: number, height: number) => {
-    setSize({ width, height })
-  }
-
-  const handleCountChange = (value: number) => {
-    setCount(value)
-  }
+  const handleModelChange = (model: Model) => { store.setActiveModel(model) }
+  const handlePresetStyleChange = (value: string) => { store.setPresetStyle(value) }
+  const handleContrastChange = (value: string) => { store.setContrast(value) }
+  const handleSizeChange = (width: number, height: number) => { store.setSize(width, height) }
+  const handleCountChange = (value: number) => { store.setCount(value) }
   React.useEffect(() => {
     if (user) {
       const tourOnboarding = user.tourOnboarding

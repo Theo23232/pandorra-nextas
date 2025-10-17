@@ -1,32 +1,17 @@
 import {Button} from "@/components/ui/button";
-import {createConversationAction} from "@/actions/chat/conversation.actions";
 import {Plus} from "lucide-react";
-import {useToast} from "@/hooks/use-toast";
-import {startTransition} from "react";
+import {useRouter} from "next/navigation";
 
 
 
 
-interface NewConversationProps {
-    mutateConversation: () => void
-}
 
-export function NewConversation({ mutateConversation }: NewConversationProps) {
-    const { toast } = useToast()
 
+export function NewConversation() {
+
+     const router = useRouter();
     const handleNewConversationClick = () => {
-        const promise = createConversationAction()
-
-        startTransition(() => {
-            promise
-                .then(() => {
-                    mutateConversation()
-                    toast({ title: 'Conversation created', variant: 'success' })
-                })
-                .catch(() => {
-                    toast({ title: 'Failed to create conversation', variant: 'error' })
-                })
-        })
+       router.push('/chat')
     }
 
     return (

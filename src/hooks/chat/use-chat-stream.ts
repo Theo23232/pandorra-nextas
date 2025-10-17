@@ -28,23 +28,49 @@ export function useChatStream() {
                 }),
                 signal: controller.signal,
                 headers: {
-                    Accept: 'text/event-stream',
-                    'Cache-Control': 'no-cache',
+                    'Content-Type': 'application/json', // Send JSON
                 },
             })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`)
+            }
 
             if (!response.body) throw new Error('No response body')
 
             const reader = response.body.getReader()
-            let assistantContent = ''
+            const decoder = new TextDecoder()
+            let buffer = ''
+            let fullContent = ''
 
             while (true) {
                 const { done, value } = await reader.read()
                 if (done) break
 
-                const chunk = new TextDecoder().decode(value)
-                assistantContent += chunk
-                onChunk(assistantContent)
+                buffer += decoder.decode(value, { stream: true })
+
+                const lines = buffer.split('\n\n')
+                buffer = lines.pop() || ''
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        const data = line.slice(6)
+
+                        if (data === '[DONE]') {
+                            return
+                        }
+
+                        fullContent += data
+                        onChunk(fullContent)
+                    }
+                }
+            }
+        } catch (error: any) {
+            if (error === 'AbortError') {
+                console.log('Stream aborted')
+            } else {
+                console.error('Streaming error:', error)
+                throw error
             }
         } finally {
             setIsLoading(false)

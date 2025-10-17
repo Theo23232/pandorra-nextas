@@ -24,8 +24,8 @@ export function MagicCard({
   onClick,
 }: MagicCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const mouseX = useMotionValue(-gradientSize)
-  const mouseY = useMotionValue(-gradientSize)
+  const mouseX = useMotionValue(gradientSize)
+  const mouseY = useMotionValue(gradientSize)
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {

@@ -1,29 +1,37 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import {useState , useRef , useEffect} from 'react'
 import useSWR, { mutate } from 'swr'
 import { fetcher } from '@/lib/utils'
 import { useToast } from '@/hooks/use-toast'
 import { useChatStream } from '@/hooks/chat/use-chat-stream'
-import { updateMessageAction, setReactionAction } from '@/actions/chat/conversation.actions'
+import {
+    updateMessageAction ,
+    setReactionAction ,
+    createConversationWithFirstMessage
+} from '@/actions/chat/conversation.actions'
 import { useUser } from '@/hooks/use-user'
 import { useShowZeroPayement } from '@/hooks/use-show-zero-payement'
 import { useMessageActions } from '@/hooks/chat/use-message-actions'
 import { useMessages } from '@/hooks/chat/use-messages'
 import {Conversation , MessageType} from '@/features/chat/types/chat.types'
+import {useRouter} from "next/navigation";
 
 export function useChat(conversationId?: string) {
     const { toast } = useToast()
     const { user } = useUser()
+    const router = useRouter()
     const { show } = useShowZeroPayement()
     const { copyMessage, showError, showSuccess } = useMessageActions()
-    const messagesEndRef = useRef<HTMLDivElement>(null)
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [loadingNewConversation, setLoadingNewConversation] = useState<boolean>(false);
 
     const { data, error } = useSWR<MessageType[]>(
         conversationId ? `/api/conversations/${conversationId}` : null,
         fetcher
     )
     const messages = data ?? []
+
 
 
     const { removeMessage, updateAssistantMessage, addUserMessage, updateMessage } = useMessages()
@@ -34,18 +42,53 @@ export function useChat(conversationId?: string) {
     const [editingContent, setEditingContent] = useState('')
     const [useWebSearch, setUseWebSearch] = useState(false)
 
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+        }
+    }, [messages])
+
+    useEffect(() => {
+        if (isStreaming && messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+        }
+    }, [isStreaming, messages])
+
+
     const sendMessage = async (content: string) => {
-        if (!content.trim() || !conversationId) return
+        if (!content.trim()) return
         if (!user?.jeton) {
             show?.()
             return
+        }
+        if (!conversationId) {
+            setNewMessage('');
+            setLoadingNewConversation(true)
+            try {
+                const newConversation = await createConversationWithFirstMessage(content)
+                sessionStorage.setItem('pendingMessage', JSON.stringify({ content, useWebSearch }))
+                router.push(`/chat/${newConversation.id}`);
+                await mutate('api/conversations', (prevConversations: any[] = []) => {
+                    return [newConversation, ...prevConversations];
+                }, false);
+                return
+            } catch (err) {
+                toast({
+                    title: 'Erreur',
+                    description: 'Impossible de créer la conversation',
+                    variant: 'error',
+                })
+                return
+            }finally {
+                setLoadingNewConversation(false);
+            }
         }
 
         const tempUserMessage: MessageType = {
             id: `user-${Date.now()}`,
             content,
             role: 'user',
-            gptConversationId: conversationId,
+            gptConversationId: conversationId!,
             createdAt: new Date(),
             reaction: null,
         }
@@ -54,11 +97,12 @@ export function useChat(conversationId?: string) {
             id: `assistant-${Date.now()}`,
             content: '',
             role: 'assistant',
-            gptConversationId: conversationId,
+            gptConversationId: conversationId!,
             createdAt: new Date(),
             reaction: null,
         }
-        addUserMessage(content, conversationId)
+        setNewMessage("")
+        addUserMessage(content, conversationId!)
 
         await mutate(
             `/api/conversations/${conversationId}`,
@@ -67,8 +111,8 @@ export function useChat(conversationId?: string) {
         )
 
         try {
-            await streamMessage(conversationId, content, useWebSearch, (streamContent) => {
-                updateAssistantMessage(streamContent, conversationId)
+            await streamMessage(conversationId!, content, useWebSearch, (streamContent) => {
+                updateAssistantMessage(streamContent, conversationId!)
                 mutate(
                     `/api/conversations/${conversationId}`,
                     (prev?: MessageType[]) => {
@@ -151,5 +195,6 @@ export function useChat(conversationId?: string) {
         error,
         addUserMessage,
         updateMessage,
+        loadingNewConversation
     }
 }

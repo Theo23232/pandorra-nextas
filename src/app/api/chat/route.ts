@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "Not authenticated", status: 403} )
     }
+
     let conversationId = body.conversationId
     if (!conversationId) {
       const newConversation = await chatService.createConversationWithGeneratedTitle(
@@ -56,6 +57,8 @@ export async function POST(req: NextRequest) {
               content,
               assistantMessageContent
           )
+
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'))
         } catch (error) {
           console.error('Streaming error:', error)
           controller.error(error)
@@ -69,15 +72,11 @@ export async function POST(req: NextRequest) {
       headers: {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
-        'Transfer-Encoding': 'chunked',
+        'Connection': 'keep-alive',
       },
     })
   } catch (error) {
-    console.error('Error in /api/chat:', error)
-    return NextResponse.json(
-        { error: 'Internal Server Error' },
-        { status: 500 }
-    )
+    console.error('API error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

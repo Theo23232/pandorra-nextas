@@ -1,5 +1,6 @@
 import { currentUser } from '@/lib/current-user';
-import { User } from '@/types/next';
+import {User} from "@/types/next";
+
 
 type ActionFunction<TArgs extends any[], TReturn> = (
   user: User,

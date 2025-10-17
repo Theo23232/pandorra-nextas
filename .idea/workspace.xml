@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c4e1150-9c52-4885-8b81-61e4c5d9b053" name="Changes" comment="Refactor(chat): remove unused method">
-      <change beforePath="$PROJECT_DIR$/src/app/api/conversations/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/conversations/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/chat/ChatInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ChatInput.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/chat/ConversationList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ConversationList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/chat/ConversationSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/ConversationSidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/chat/NewConversation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chat/NewConversation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/chat/services/chat.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/services/chat.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/chat/services/openai.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/services/openai.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/chat/use-chat.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/chat/use-chat.ts" afterDir="false" />
+    <list default="true" id="4c4e1150-9c52-4885-8b81-61e4c5d9b053" name="Changes" comment="fix(chat): fix conversation ordering after new message created">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,22 +47,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "fix/chat",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "/mnt/mydata/Archive/WebstormProjects/pandorra-nextas/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix/chat&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/mnt/mydata/Archive/WebstormProjects/pandorra-nextas/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/chat/message/buttons" />
@@ -107,7 +99,8 @@
       <workItem from="1760516314588" duration="15827000" />
       <workItem from="1760540125596" duration="1696000" />
       <workItem from="1760601125673" duration="11637000" />
-      <workItem from="1760618859504" duration="14463000" />
+      <workItem from="1760618859504" duration="17741000" />
+      <workItem from="1760692197176" duration="485000" />
     </task>
     <task id="LOCAL-00001" summary="setup api keys and google login">
       <option name="closed" value="true" />
@@ -165,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760633967488</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix(chat): fix conversation ordering after new message created">
+      <option name="closed" value="true" />
+      <created>1760638342194</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1760638342194</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -178,7 +179,8 @@
     <MESSAGE value="Refactor(chat): Refactor chat open ai assistant" />
     <MESSAGE value="Refactor(chat): Refactor chat" />
     <MESSAGE value="Refactor(chat): remove unused method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor(chat): remove unused method" />
+    <MESSAGE value="fix(chat): fix conversation ordering after new message created" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(chat): fix conversation ordering after new message created" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -186,13 +188,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/api/user-activity/route.ts</url>
           <line>13</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/features/chat/repositories/conversation.repository.prisma.ts</url>
           <line>24</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
